@@ -1,11 +1,11 @@
 'use server'
 
-import prisma from "../../../../../lib/prisma";
 import { formSchema } from "./validation";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
+import prisma from "../../../../../../lib/prisma";
 
 export interface ActionResult {
   errorTitle: string | null;
