@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import React, { type FC } from "react";
+import React from "react";
 import FormSignIn from "./_components/FormSignIn";
-
-interface SignInPageProps {}
 
 export const metdata: Metadata = {
   title: "Dashboard | Sign In",
 };
 
-const SignInPage: FC<SignInPageProps> = () => {
+const SignInPage = () => {
   return <FormSignIn />;
 };
 

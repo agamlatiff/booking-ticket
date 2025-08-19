@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Button } from "@/components/ui/button";
 import { BookTextIcon, LogOut, Plane, Ticket, User } from "lucide-react";
 import Link from "next/link";
+import ButtonLogout from "./_components/ButtonLogout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -85,16 +86,7 @@ export default function RootLayout({
                   </Link>
                 </Button>
               </div>
-
-              <div className="space-y-2">
-                <Button
-                  className="w-full justify-start"
-                  variant={"destructive"}
-                >
-                  <LogOut className=" mr-2 h-4 w-6"/>
-                  Logout
-                </Button>
-              </div>
+              <ButtonLogout />
             </section>
 
             {/* Main Content */}
