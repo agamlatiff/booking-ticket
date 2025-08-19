@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lucia-auth/adapter-prisma": "^4.0.1",
+    "@node-rs/bcrypt": "^1.10.7",
+    "@prisma/client": "^5.22.0",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lucia": "^3.2.2",
     "lucide-react": "^0.539.0",
     "next": "14.2.31",
+    "prisma": "^5.22.0",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^3.3.1",
