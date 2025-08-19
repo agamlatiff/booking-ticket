@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import '../../globals.css'
 import { Inter } from "next/font/google";
-import { getUser } from "@/lib/auth";
-import { redirect } from "next/navigation";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,12 +16,7 @@ export default async function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
-  const {session, user} = await getUser()
-  
-  if(!session || user.role === 'CUSTOMER') {
-    return redirect('/dashboard/signin');
-  }
+
   
   return (
     <html lang="en">

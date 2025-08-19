@@ -11,7 +11,7 @@ export const metdata: Metadata = {
 const SignInPage = async () => {
   const {session, user} = await getUser()
   
-  if(session || user.role === 'ADMIN') {
+  if(session && user && user.role === 'ADMIN') {
     return redirect('/dashboard');
   }
   

@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { BookTextIcon, Plane, Ticket, User } from "lucide-react";
 import Link from "next/link";
 import ButtonLogout from "./_components/ButtonLogout";
+import { getUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,11 +16,16 @@ export const metadata: Metadata = {
   title: "Dashboard",
 };
 
-export default function RootLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { session, user } = await getUser();
+
+  if (!session || user.role === "CUSTOMER") {
+    return redirect("/dashboard/signin");
+  }
   return (
     <html lang="en">
       <body className={`${inter.className}  antialiased`}>
