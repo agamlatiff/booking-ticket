@@ -3,9 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { handleSignIn, type ActionResult } from "../lib/actions";
 import { useFormState, useFormStatus } from "react-dom";
-import type { FC } from "react";
-
-interface FormSignInProps {}
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();
@@ -22,7 +19,7 @@ const initialFormState: ActionResult = {
   errorDesc: [],
 };
 
-const FormSignIn: FC<FormSignInProps> = () => {
+const FormSignIn = () => {
   const [state, formAction] = useFormState(handleSignIn, initialFormState);
 
   console.log("Form state:", state);

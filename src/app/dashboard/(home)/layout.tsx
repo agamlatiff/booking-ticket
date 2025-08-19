@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "../../globals.css";
 import { Inter } from "next/font/google";
 import { Button } from "@/components/ui/button";
-import { BookTextIcon, LogOut, Plane, Ticket, User } from "lucide-react";
+import { BookTextIcon, Plane, Ticket, User } from "lucide-react";
 import Link from "next/link";
 import ButtonLogout from "./_components/ButtonLogout";
 
