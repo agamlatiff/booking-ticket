@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "../../globals.css";
 import { Inter } from "next/font/google";
 import { Button } from "@/components/ui/button";
-import { BookTextIcon, Plane } from "lucide-react";
+import { BookTextIcon, LogOut, Plane, Ticket, User } from "lucide-react";
 import Link from "next/link";
 
 const inter = Inter({
@@ -21,14 +21,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}  antialiased`}>
-        {children}
         <section>
+          {/* Navigation */}
           <nav className="border-b border-muted p-5">
             <div className="flex flex-row items-center justify-between">
               <span className="font-bold text-primary">Kennedy Dashboard</span>
             </div>
           </nav>
+
+          {/* Content */}
           <section className="flex flex-row gap-5 items-start flex-nowrap">
+            {/* Sidebar */}
             <section className="grow-0 w-[-20%] h-screen shadow p-5 space-y-5">
               <div className="space-y-2">
                 <Button
@@ -46,7 +49,7 @@ export default function RootLayout({
                   className="w-full justify-start"
                   variant={"ghost"}
                 >
-                  <Link href="/">
+                  <Link href="/dashboard/airplanes">
                     <Plane className="mr-2 w-4 h-4" />
                     Airplanes
                   </Link>
@@ -56,12 +59,47 @@ export default function RootLayout({
                   className="w-full justify-start"
                   variant={"ghost"}
                 >
-                  <Link href="/">
+                  <Link href="/dashboard/flights">
                     <BookTextIcon className="mr-2 w-4 h-4" />
                     Flights
                   </Link>
                 </Button>
+                <Button
+                  asChild
+                  className="w-full justify-start"
+                  variant={"ghost"}
+                >
+                  <Link href="/dashboard/tickets">
+                    <Ticket className="mr-2 w-4 h-4" />
+                    Tickets
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  className="w-full justify-start"
+                  variant={"ghost"}
+                >
+                  <Link href="/dashboard/users">
+                    <User className="mr-2 w-4 h-4" />
+                    Users
+                  </Link>
+                </Button>
               </div>
+
+              <div className="space-y-2">
+                <Button
+                  className="w-full justify-start"
+                  variant={"destructive"}
+                >
+                  <LogOut className=" mr-2 h-4 w-6"/>
+                  Logout
+                </Button>
+              </div>
+            </section>
+
+            {/* Main Content */}
+            <section className="grow mr-5 mt-5 h-[87vh] overflow-y auto">
+              {children}
             </section>
           </section>
         </section>
