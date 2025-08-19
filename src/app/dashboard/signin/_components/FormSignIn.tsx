@@ -1,8 +1,7 @@
 'use client'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { ActionResult } from "next/dist/server/app-render/types";
-import { handleSignIn } from "../lib/actions";
+import { handleSignIn, type ActionResult } from "../lib/actions";
 import { useFormState } from "react-dom";
 import type { FC } from "react";
 
