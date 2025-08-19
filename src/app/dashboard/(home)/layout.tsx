@@ -47,7 +47,7 @@ export default async function DashboardLayout({
                   className="w-full justify-start"
                   variant={"ghost"}
                 >
-                  <Link href="/">Dashbiard</Link>
+                  <Link href="/">Dashboard</Link>
                 </Button>
               </div>
               <div className="space-y-2">
