@@ -13,7 +13,7 @@ const AirplanesPage = async () => {
     <div className="flex flex-row items-center justify-between">
       <div className="my-5 text-2xl font-bold">Airplanes</div>
       <Button asChild>
-        <Link href={"/dashboard/create"}>
+        <Link href={"/dashboard/airplanes/create"}>
           <Plus className="mr-2 h-4 w-4" />
           Tambah Data
         </Link>
