@@ -43,7 +43,7 @@ export async function handleSignIn(_: unknown, formData: FormData) : Promise<Act
       errorDesc: ['User not found']
     }
   }
-  const validPassword = bcrypt.compare(values.data.password, existingUser.password);
+  const validPassword = await bcrypt.compare(values.data.password, existingUser.password);
   
   if(!validPassword) {
     return {
@@ -53,7 +53,7 @@ export async function handleSignIn(_: unknown, formData: FormData) : Promise<Act
   }
   
   const session = await lucia.createSession(existingUser.id, {})
-  const sessionCookie = await lucia.createSessionCookie(session.id)
+  const sessionCookie = lucia.createSessionCookie(session.id)
   
   cookies().set(
     sessionCookie.name,

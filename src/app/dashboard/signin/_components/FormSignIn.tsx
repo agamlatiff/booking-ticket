@@ -1,13 +1,21 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { handleSignIn, type ActionResult } from "../lib/actions";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import type { FC } from "react";
 
 interface FormSignInProps {}
 
+const SubmitButton = () => {
+  const { pending } = useFormStatus();
 
+  return (
+    <Button className="w-full" type="submit" disabled={pending}>
+      {pending ? "Submitting..." : "Submit"}
+    </Button>
+  );
+};
 
 const initialFormState: ActionResult = {
   errorTitle: null,
@@ -28,13 +36,22 @@ const FormSignIn: FC<FormSignInProps> = () => {
           </h2>
         </div>
 
+        {state.errorTitle !== null && (
+          <div className="mx-auto my-7 bg-red-500 w-[400px] p-4 rounded-lg text-white">
+            <div className="text-lg  mb-1 font-medium">{state.errorTitle}</div>
+            <ul className="list-disc list-inside">
+              {state.errorDesc?.map((e, index) => (
+                <li key={index}>{e}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form action={formAction} className="space-y-6">
             <Input type="email" placeholder="Email" name="email" />
             <Input type="password" placeholder="Password" name="password" />
-            <Button className="w-full" type="submit">
-              Submit
-            </Button>
+            <SubmitButton />
           </form>
         </div>
       </div>
