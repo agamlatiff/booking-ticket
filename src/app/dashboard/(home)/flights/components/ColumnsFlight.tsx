@@ -9,6 +9,7 @@ import { Pencil } from "lucide-react";
 import Image from "next/image";
 import { getUrlFile } from "@/lib/supabase";
 import ColumnRouteFlight from "./ColumnRouteFlight";
+import ColumnSeatPrice from "./ColumnSeatPrice";
 
 export type FlightColumn = Flight & {
   plane: Airplane;
@@ -45,11 +46,11 @@ export const columns: ColumnDef<FlightColumn>[] = [
   },
   {
     accessorKey: "price",
-    header: "Price",
+    header: "Price / Seat",
     cell: ({ row }) => {
       const price = row.original;
 
-      return "Price";
+      return <ColumnSeatPrice flight={price}/>;
     },
   },
   {
