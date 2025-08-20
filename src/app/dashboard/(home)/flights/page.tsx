@@ -3,12 +3,14 @@ import { Link, Plus } from "lucide-react";
 import type { Metadata } from "next";
 import { columns } from "./components/ColumnsFlight";
 import { DataTable } from "@/components/ui/data-table";
+import { getFlights } from "./lib/data";
 
 export const metadata: Metadata = {
   title: "Dashboard | Flights",
 };
 
-const FlightsPage = () => {
+const FlightPage = async () => {
+  const data = await getFlights()
   return (
     <>
       <div className="flex flex-row items-center justify-between">
@@ -20,9 +22,9 @@ const FlightsPage = () => {
           </Link>
         </Button>
       </div>
-      <DataTable columns={columns} data={[]} />
+      <DataTable columns={columns} data={data} />
     </>
   );
 };
 
-export default FlightsPage;
+export default FlightPage;

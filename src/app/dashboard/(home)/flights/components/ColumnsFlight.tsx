@@ -9,8 +9,9 @@ import { Pencil } from "lucide-react";
 
 export type FlightColumn = Flight & {
   plane: Airplane;
-  seats: FlightSeat;
+  seats: FlightSeat[];
 };
+
 
 export const columns: ColumnDef<FlightColumn>[] = [
   {
