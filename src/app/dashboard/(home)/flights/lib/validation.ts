@@ -15,7 +15,7 @@ export const formFLightSchema = z.object({
       message: "Departure code city must be at least maks 3 characters",
     }),
   destinationCity: z.string().nonempty("Destination city cannot be empty"),
-  destinationDate: z.date(),
+  arrivalDate: z.date(),
   destinationCityCode: z
     .string()
     .nonempty("Destination city code cannot be empty")

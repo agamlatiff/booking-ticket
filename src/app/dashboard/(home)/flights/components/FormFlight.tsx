@@ -31,6 +31,16 @@ const FormFlight = ({ airplane }: FormFlightProps) => {
 
   return (
     <form className="space-y-6" action={formState}>
+      {state?.errorTitle !== null && (
+        <div className="my-7 bg-red-500 p-4 rounded-lg text-white">
+          <div className="text-lg  mb-1 font-medium">{state.errorTitle}</div>
+          <ul className="list-disc list-inside">
+            {state.errorDesc?.map((e, index) => (
+              <li key={index + e}>{e}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="planeId">Choose airplane</Label>
