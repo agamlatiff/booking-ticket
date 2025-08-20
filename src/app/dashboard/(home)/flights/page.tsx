@@ -1,0 +1,28 @@
+import { Button } from "@/components/ui/button";
+import { Link, Plus } from "lucide-react";
+import type { Metadata } from "next";
+import { columns } from "./components/ColumnsFlight";
+import { DataTable } from "@/components/ui/data-table";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Flights",
+};
+
+const FlightsPage = () => {
+  return (
+    <>
+      <div className="flex flex-row items-center justify-between">
+        <div className="my-5 text-2xl font-bold">Airplanes</div>
+        <Button asChild>
+          <Link href={"/dashboard/flights/create"}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add Data
+          </Link>
+        </Button>
+      </div>
+      <DataTable columns={columns} data={[]} />
+    </>
+  );
+};
+
+export default FlightsPage;

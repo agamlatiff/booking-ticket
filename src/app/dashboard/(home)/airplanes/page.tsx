@@ -4,6 +4,11 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import { columns } from "./_components/ColumnsTable";
 import { getAirplanes } from "./lib/data";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Airplanes",
+};
 
 const AirplanesPage = async () => {
   const planes = await getAirplanes();
@@ -15,7 +20,7 @@ const AirplanesPage = async () => {
         <Button asChild>
           <Link href={"/dashboard/airplanes/create"}>
             <Plus className="mr-2 h-4 w-4" />
-            Tambah Data
+            Add Data
           </Link>
         </Button>
       </div>
