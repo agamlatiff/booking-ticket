@@ -7,6 +7,13 @@ import { Label } from "@/components/ui/label";
 import { useFormState, useFormStatus } from "react-dom";
 import { saveAirplane } from "../lib/actions";
 import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
+import type { Airplane } from "@prisma/client";
+import type { FC } from "react";
+
+interface FormAirplaneProps {
+  type?: "ADD" | "EDIT";
+  defaultValues?: Airplane | null
+}
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();
@@ -23,7 +30,7 @@ const initialFormState: ActionResult = {
   errorDesc: [],
 };
 
-const FormAirplane = () => {
+const FormAirplane: FC<FormAirplaneProps> = ({ type, defaultValues }) => {
   const [state, formState] = useFormState(saveAirplane, initialFormState);
 
   return (
@@ -40,11 +47,23 @@ const FormAirplane = () => {
       )}
       <div className="space-y-2">
         <Label htmlFor="code">Airplane Code</Label>
-        <Input placeholder="Airplanes Code..." name="code" id="code" required />
+        <Input
+          placeholder="Airplanes Code..."
+          name="code"
+          id="code"
+          required
+          defaultValue={defaultValues?.code}
+        />
       </div>
       <div className="space-y-2">
         <Label htmlFor="name">Airplane Name</Label>
-        <Input placeholder="Airplanes Name..." name="name" id="name" required />
+        <Input
+          placeholder="Airplanes Name..."
+          name="name"
+          id="name"
+          required
+          defaultValue={defaultValues?.name}
+        />
       </div>
       <div className="space-y-2">
         <Label htmlFor="image">Upload Photo</Label>
