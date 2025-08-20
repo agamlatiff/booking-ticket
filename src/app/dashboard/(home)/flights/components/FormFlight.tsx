@@ -26,7 +26,7 @@ const initialFormState: ActionResult = {
   errorDesc: [],
 };
 
-const FormFlight = ({ airplane }: FormFlightProps) => {
+const FormFlight = ({ airplane, defaultValues }: FormFlightProps) => {
   const [state, formState] = useFormState(saveFlight, initialFormState);
 
   return (
@@ -44,7 +44,7 @@ const FormFlight = ({ airplane }: FormFlightProps) => {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="planeId">Choose airplane</Label>
-          <Select name="planeId">
+          <Select name="planeId" defaultValue={defaultValues?.planeId}>
             <SelectTrigger id="planeId">
               <SelectValue placeholder="Choose airplane" />
             </SelectTrigger>
@@ -66,6 +66,7 @@ const FormFlight = ({ airplane }: FormFlightProps) => {
             type="number"
             min={0}
             required
+            defaultValue={defaultValues?.price}
           />
           <span className="text-xs text-gray-900">
             Price for bussiness class increases Rp 500.000 & First class
@@ -78,6 +79,7 @@ const FormFlight = ({ airplane }: FormFlightProps) => {
         <div className="space-y-2">
           <Label htmlFor="departureCity">Departure City</Label>
           <Input
+            defaultValue={defaultValues?.departureCity}
             placeholder="Departure City..."
             name="departureCity"
             id="departureCity"
@@ -97,6 +99,7 @@ const FormFlight = ({ airplane }: FormFlightProps) => {
         <div className="space-y-2">
           <Label htmlFor="departureCityCode">Departure City Code</Label>
           <Input
+            defaultValue={defaultValues?.departureCityCode}
             placeholder="Departure City Code..."
             name="departureCityCode"
             id="departureCityCode"
@@ -109,6 +112,7 @@ const FormFlight = ({ airplane }: FormFlightProps) => {
         <div className="space-y-2">
           <Label htmlFor="destinationCity">Destination City</Label>
           <Input
+            defaultValue={defaultValues?.destinationCity}
             placeholder="Destination City..."
             name="destinationCity"
             id="destinationCity"
@@ -128,6 +132,7 @@ const FormFlight = ({ airplane }: FormFlightProps) => {
         <div className="space-y-2">
           <Label htmlFor="destinationCityCode">Destination City Code</Label>
           <Input
+            defaultValue={defaultValues?.destinationCityCode}
             placeholder="Destination City Code..."
             name="destinationCityCode"
             id="destinationCityCode"

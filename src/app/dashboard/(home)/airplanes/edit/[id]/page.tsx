@@ -2,12 +2,12 @@ import type { FC } from "react";
 import FormAirplane from "../../_components/FormAirplane";
 import { getAirplanesById } from "../../lib/actions";
 
-type params = {
+type Params = {
   id: string;
 };
 
 interface EditAirplanePageProps {
-  params: params;
+  params: Params;
 }
 
 const EditAirplanePage : FC<EditAirplanePageProps> = async ({ params }) => {
