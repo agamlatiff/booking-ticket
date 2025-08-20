@@ -12,8 +12,9 @@ import {
 import SubmitButtonForm from "../../_components/SubmitFormButton";
 import type { Airplane, Flight } from "@prisma/client";
 import { useFormState } from "react-dom";
-import { saveFlight } from "../lib/actions";
+import { saveFlight, updateFlight } from "../lib/actions";
 import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
+import { dateFormat } from "@/lib/utils";
 
 interface FormFlightProps {
   airplane: Airplane[];
@@ -26,8 +27,14 @@ const initialFormState: ActionResult = {
   errorDesc: [],
 };
 
-const FormFlight = ({ airplane, defaultValues }: FormFlightProps) => {
-  const [state, formState] = useFormState(saveFlight, initialFormState);
+const FormFlight = ({ airplane, defaultValues, type }: FormFlightProps) => {
+  const updateFlightWithId = (_: unknown, formData: FormData) =>
+    updateFlight(null, formData, defaultValues?.id ?? "");
+
+  const [state, formState] = useFormState(
+    type === "ADD" ? saveFlight : updateFlightWithId,
+    initialFormState
+  );
 
   return (
     <form className="space-y-6" action={formState}>
@@ -89,6 +96,10 @@ const FormFlight = ({ airplane, defaultValues }: FormFlightProps) => {
         <div className="space-y-2">
           <Label htmlFor="departureDate">Departure Date</Label>
           <Input
+            defaultValue={dateFormat(
+              defaultValues?.departureDate,
+              "YYYY-MM-DDTHH:MM"
+            )}
             placeholder="Departure Date..."
             name="departureDate"
             id="departureDate"
@@ -122,6 +133,10 @@ const FormFlight = ({ airplane, defaultValues }: FormFlightProps) => {
         <div className="space-y-2">
           <Label htmlFor="arrivalDate">Arrival Date</Label>
           <Input
+            defaultValue={dateFormat(
+              defaultValues?.arrivalDate,
+              "YYYY-MM-DDTHH:MM"
+            )}
             placeholder="Arrival Date..."
             name="arrivalDate"
             id="arrivalDate"

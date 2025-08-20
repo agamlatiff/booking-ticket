@@ -40,13 +40,57 @@ export async function saveFlight(
       price: Number.parseInt(validate.data.price),
     },
   });
-  
-  const seats = generateSeatPerClass(data.id)
-  
-  await prisma.flightSeat.createMany({
-    data: seats
-  })
 
-  revalidatePath('/dashboard/flights')
+  const seats = generateSeatPerClass(data.id);
+
+  await prisma.flightSeat.createMany({
+    data: seats,
+  });
+
+  revalidatePath("/dashboard/flights");
+  redirect("/dashboard/flights");
+}
+
+export async function updateFlight(
+  _: unknown,
+  formData: FormData,
+  id: string
+): Promise<ActionResult> {
+  
+
+  const departureDate = new Date(formData.get("departureDate") as string);
+  const arrivalDate = new Date(formData.get("arrivalDate") as string);
+
+  const validate = formFLightSchema.safeParse({
+    planeId: formData.get("planeId"),
+    price: formData.get("price"),
+    departureCity: formData.get("departureCity"),
+    departureDate: departureDate,
+    departureCityCode: formData.get("departureCityCode"),
+    destinationCity: formData.get("destinationCity"),
+    arrivalDate: arrivalDate,
+    destinationCityCode: formData.get("destinationCityCode"),
+  });
+
+  if (!validate.success) {
+    const errorDesc = validate.error.issues.map((issue) => issue.message);
+
+    return {
+      errorTitle: "Error Validation",
+      errorDesc,
+    };
+  }
+
+  await prisma.flight.update({
+    where: {
+      id,
+    },
+    data: {
+      ...validate.data,
+      price: Number.parseInt(validate.data.price),
+    },
+  });
+
+  revalidatePath("/dashboard/flights");
   redirect("/dashboard/flights");
 }
