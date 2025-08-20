@@ -5,14 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { saveAirplane } from "../lib/actions";
+import { saveAirplane, updateAirplane } from "../lib/actions";
 import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
 import type { Airplane } from "@prisma/client";
 import type { FC } from "react";
 
 interface FormAirplaneProps {
   type?: "ADD" | "EDIT";
-  defaultValues?: Airplane | null
+  defaultValues?: Airplane | null;
 }
 
 const SubmitButton = () => {
@@ -31,7 +31,13 @@ const initialFormState: ActionResult = {
 };
 
 const FormAirplane: FC<FormAirplaneProps> = ({ type, defaultValues }) => {
-  const [state, formState] = useFormState(saveAirplane, initialFormState);
+  const updateAirplaneWithId = (_: unknown, formData: FormData) =>
+    updateAirplane(null, FormData, defaultValues?.id);
+
+  const [state, formState] = useFormState(
+    type === "ADD" ? saveAirplane : updateAirplaneWithId,
+    initialFormState
+  );
 
   return (
     <form className="w-[40%] space-y-4" action={formState}>
