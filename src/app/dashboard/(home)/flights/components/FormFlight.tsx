@@ -10,15 +10,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import SubmitButtonForm from "../../_components/SubmitFormButton";
-import type { Airplane } from "@prisma/client";
+import type { Airplane, Flight } from "@prisma/client";
+import { useFormState } from "react-dom";
+import { saveFlight } from "../lib/actions";
+import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
 
 interface FormFlightProps {
   airplane: Airplane[];
+  type?: "ADD" | "EDIT";
+  defaultValues?: Flight | null;
 }
 
+const initialFormState: ActionResult = {
+  errorTitle: null,
+  errorDesc: [],
+};
+
 const FormFlight = ({ airplane }: FormFlightProps) => {
+  const [state, formState] = useFormState(saveFlight, initialFormState);
+
   return (
-    <form className="space-y-6">
+    <form className="space-y-6" action={formState}>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="planeId">Choose airplane</Label>

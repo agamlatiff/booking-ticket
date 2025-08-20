@@ -6,12 +6,14 @@ import { DataTable } from "@/components/ui/data-table";
 import { getFlights } from "./lib/data";
 import Link from "next/link";
 
+
 export const metadata: Metadata = {
   title: "Dashboard | Flights",
 };
 
 const FlightPage = async () => {
   const data = await getFlights()
+  
   return (
     <>
       <div className="flex flex-row items-center justify-between">
