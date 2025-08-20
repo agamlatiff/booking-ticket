@@ -3,9 +3,10 @@
 import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
 import { redirect } from "next/navigation";
 import { formFLightSchema } from "./validation";
-import prisma from "../../../../../../lib/prisma";
+
 import { generateSeatPerClass } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
+import prisma from "../../../../../../lib/prisma";
 
 export async function saveFlight(
   _: unknown,
@@ -78,10 +79,18 @@ export async function updateFlight(
       errorDesc,
     };
   }
+  
+  if (!id) {
+    return {
+      errorTitle: "Update Error",
+      errorDesc: ["Flight ID is missing."],
+    };
+  }
+
 
   await prisma.flight.update({
     where: {
-      id,
+      id : id,
     },
     data: {
       ...validate.data,
