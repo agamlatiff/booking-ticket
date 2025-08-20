@@ -6,6 +6,8 @@ import DeleteAirplane from "../../airplanes/_components/DeleteAirplane";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Pencil } from "lucide-react";
+import Image from "next/image";
+import { getUrlFile } from "@/lib/supabase";
 
 export type FlightColumn = Flight & {
   plane: Airplane;
@@ -20,7 +22,15 @@ export const columns: ColumnDef<FlightColumn>[] = [
     cell: ({ row }) => {
       const flight = row.original;
 
-      return "Pesawat";
+      const planeImageUrl = getUrlFile(flight.plane.image)
+      return (
+        <div className="inline-flex items-center gap-5">
+          <Image src={planeImageUrl} width={120} height={120} alt="Image Plane" className="rounded-xl" />
+          <div className="font-bold">
+            {flight.plane.name}
+          </div>
+        </div>
+      );
     },
   },
   {
