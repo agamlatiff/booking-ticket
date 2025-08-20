@@ -11,7 +11,7 @@ const CreateFlightPage = () => {
       <div className="flex flex-row items-center justify-between">
         <div className="my-5 text-2xl font-bold"> Add Data Flight</div>
       </div>
-      <FormFlight type="ADD"/>
+      <FormFlight/>
     </div>
   );
 };
