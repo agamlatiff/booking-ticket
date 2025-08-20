@@ -1,6 +1,7 @@
 import type { TypeSeat } from "@prisma/client";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import dayjs from 'dayjs'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -26,3 +27,14 @@ export const generateSeatPerClass = (flightId: string) => {
 
   return seats;
 };
+
+
+export const dateFormat = (date: Date | string, format = 'DD MM YYYY HH:mm')   => {
+  if(!date) {
+    return ''
+  }
+  
+  const dateFormat = dayjs(date).format(format)
+  
+  return dateFormat
+}

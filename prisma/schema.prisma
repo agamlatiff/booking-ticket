@@ -38,7 +38,7 @@ model User {
   passport String?
   role     RoleUser
 
-  tickets Ticket[]
+  tickets  Ticket[]
   Sessions Session[]
 }
 
@@ -67,6 +67,7 @@ model Flight {
   departureCityCode   String
   destinationCity     String
   destinationCityCode String
+  arrivalDate         DateTime
   price               Int
   seats               FlightSeat[]
   tickets             Ticket[]

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Pencil } from "lucide-react";
 import Image from "next/image";
 import { getUrlFile } from "@/lib/supabase";
+import ColumnRouteFlight from "./ColumnRouteFlight";
 
 export type FlightColumn = Flight & {
   plane: Airplane;
@@ -39,7 +40,7 @@ export const columns: ColumnDef<FlightColumn>[] = [
     cell: ({ row }) => {
       const route = row.original;
 
-      return "Route";
+      return <ColumnRouteFlight flight={route}/>;
     },
   },
   {
