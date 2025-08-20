@@ -15,7 +15,7 @@ const FlightPage = async () => {
   return (
     <>
       <div className="flex flex-row items-center justify-between">
-        <div className="my-5 text-2xl font-bold">Fligts</div>
+        <div className="my-5 text-2xl font-bold">Flights</div>
         <Button asChild>
           <Link href={"/dashboard/flights/create"}>
             <Plus className="mr-2 h-4 w-4" />

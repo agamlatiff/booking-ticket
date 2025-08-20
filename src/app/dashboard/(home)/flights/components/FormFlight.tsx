@@ -10,11 +10,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import SubmitButtonForm from "../../_components/SubmitFormButton";
+import type { Airplane } from "@prisma/client";
 
-const FormFlight = () => {
+interface FormFlightProps {
+  airplane: Airplane[];
+}
+
+const FormFlight = ({ airplane }: FormFlightProps) => {
   return (
-    <form  className="space-y-6">
-      
+    <form className="space-y-6">
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="planeId">Choose airplane</Label>
@@ -23,9 +27,11 @@ const FormFlight = () => {
               <SelectValue placeholder="Choose airplane" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
+              {airplane.map((value) => (
+                <SelectItem value={value.id} key={value.id}>
+                  {value.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -76,7 +82,7 @@ const FormFlight = () => {
           />
         </div>
       </div>
-      
+
       <div className="grid grid-cols-3 gap-4">
         <div className="space-y-2">
           <Label htmlFor="destinationCity">Destination City</Label>
@@ -107,8 +113,8 @@ const FormFlight = () => {
           />
         </div>
       </div>
-      
-      <SubmitButtonForm/>
+
+      <SubmitButtonForm />
     </form>
   );
 };
