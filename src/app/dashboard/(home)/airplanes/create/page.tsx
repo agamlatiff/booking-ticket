@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import FormAirplane from "../_components/FormAirplane";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Create data airplanes",
+};
+
 
 const CreateAirplanePage = () => {
   return (
