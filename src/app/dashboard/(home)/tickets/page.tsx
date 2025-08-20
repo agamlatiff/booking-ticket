@@ -4,7 +4,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { getTickets } from "./lib/data";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Ticket",
+  title: "Dashboard | Tickets",
 };
 
 const TicketPage = async () => {
