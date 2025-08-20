@@ -34,5 +34,21 @@ export const getUrlFile = (fileName: string) => {
   const { data } = supabase.storage
     .from("imageUpload")
     .getPublicUrl(`public/airplanes/${fileName}`);
-    return data.publicUrl;
+  return data.publicUrl;
+};
+
+export const deleteFile = async (filename: string) => {
+  try {
+    const { data, error } = await supabase.storage
+      .from("imageUpload")
+      .remove([`public/airplanes/${filename}`]);
+
+    if (error) {
+      throw new Error(error?.message);
+    }
+    return data;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
 };

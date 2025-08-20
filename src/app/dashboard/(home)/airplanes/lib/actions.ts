@@ -3,7 +3,7 @@
 import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
 import { airplaneFormSchema } from "./validation";
 import { redirect } from "next/navigation";
-import { uploadFile } from "@/lib/supabase";
+import { deleteFile, uploadFile } from "@/lib/supabase";
 import prisma from "../../../../../../lib/prisma";
 import { revalidatePath } from "next/cache";
 
@@ -100,7 +100,7 @@ export async function updateAirplane(
     };
   }
 
-  let filename : unknown;
+  let filename: unknown;
 
   if (image.size > 0) {
     const uploadedFile = await uploadFile(image);
@@ -147,4 +147,41 @@ export async function updateAirplane(
 
   revalidatePath("/dashboard/airplanes");
   return redirect("/dashboard/airplanes");
+}
+
+export async function deleteAirplane(id: string): Promise<ActionResult> {
+  const data = await prisma.airplane.findFirst({ where: { id } });
+
+  if (!data) {
+    return {
+      errorTitle: "Data not found",
+      errorDesc: [],
+    };
+  }
+
+  const deletedFile = await deleteFile(data?.id);
+
+  if (deletedFile instanceof Error) {
+    return {
+      errorTitle: "Failed to delete file",
+      errorDesc: ["Connection Error", "Please try again later"],
+    };
+  }
+
+  try {
+    await prisma.airplane.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+
+    return {
+      errorTitle: "Failed to delete file",
+      errorDesc: ["Connection Error", "Please try again later"],
+    };
+  }
+  
+  revalidatePath('/dashboard/airplanes')
 }
