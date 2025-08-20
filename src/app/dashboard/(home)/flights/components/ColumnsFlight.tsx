@@ -2,7 +2,6 @@
 
 import type { Airplane, Flight, FlightSeat } from "@prisma/client";
 import type { ColumnDef } from "@tanstack/react-table";
-import DeleteAirplane from "../../airplanes/_components/DeleteAirplane";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Pencil } from "lucide-react";
@@ -10,6 +9,7 @@ import Image from "next/image";
 import { getUrlFile } from "@/lib/supabase";
 import ColumnRouteFlight from "./ColumnRouteFlight";
 import ColumnSeatPrice from "./ColumnSeatPrice";
+import DeleteFlight from "./DeleteFlight";
 
 export type FlightColumn = Flight & {
   plane: Airplane;
@@ -56,16 +56,16 @@ export const columns: ColumnDef<FlightColumn>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const plane = row.original;
+      const flight = row.original;
       return (
         <div className="inline-flex gap-5 items-center">
           <Button variant={"secondary"} size={"sm"} asChild>
-            <Link href={`/dashboard/flights/edit/${plane.id}`}>
+            <Link href={`/dashboard/flights/edit/${flight.id}`}>
               <Pencil className="mr-2 size-4" />
               Edit
             </Link>
           </Button>
-          <DeleteAirplane id={plane.id} />
+          <DeleteFlight id={flight.id} />
         </div>
       );
     },

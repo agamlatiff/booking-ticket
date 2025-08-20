@@ -56,8 +56,6 @@ export async function updateFlight(
   formData: FormData,
   id: string
 ): Promise<ActionResult> {
-  
-
   const departureDate = new Date(formData.get("departureDate") as string);
   const arrivalDate = new Date(formData.get("arrivalDate") as string);
 
@@ -93,4 +91,24 @@ export async function updateFlight(
 
   revalidatePath("/dashboard/flights");
   redirect("/dashboard/flights");
+}
+
+export async function deleteFlight(id: string) {
+  try {
+    await prisma.flightSeat.deleteMany({
+      where: {
+        flightId: id,
+      },
+    });
+
+    await prisma.flight.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+
+  revalidatePath("/dashboard/flights");
 }
