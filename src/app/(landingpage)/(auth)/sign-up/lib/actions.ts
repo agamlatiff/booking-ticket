@@ -1,3 +1,5 @@
+'use server'
+
 import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
 import { userSchema } from "./validation";
 import bcrypt from "bcrypt";
