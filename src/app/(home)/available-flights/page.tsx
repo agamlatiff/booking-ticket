@@ -3,6 +3,8 @@ import FilterClass from "./_components/FilterClass";
 import FIlterFlight from "./_components/FIlterFlight";
 import FilterAirline from "./_components/FilterAirline";
 import ListFlights from "./_components/ListFlights";
+import { Suspense } from "react";
+import LoadingFilterAirlines from "./_components/LoadingFilterAirlines";
 
 const AvailableFlightsPage = () => {
   return (
@@ -33,9 +35,12 @@ const AvailableFlightsPage = () => {
             <form className="ticket-filter flex flex-col shrink-0 w-[230px] gap-[30px] text-flysha-off-purple">
               <FilterClass />
               <FIlterFlight />
-              <FilterAirline />
+              <Suspense fallback={<LoadingFilterAirlines/>}>
+                {" "}
+                <FilterAirline />
+              </Suspense>
             </form>
-            <ListFlights/>
+            <ListFlights />
           </div>
         </section>
       </>
