@@ -23,3 +23,22 @@ export async function getCityFilter() {
     return [];
   }
 }
+
+export async function getAirplanes() {
+  try {
+    const data = await prisma.airplane.findMany({
+      where: {
+        flight: {
+          every: {
+            id: undefined,
+          },
+        },
+      },
+    });
+
+    return data;
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
+}
