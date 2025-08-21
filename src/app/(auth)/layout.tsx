@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "../../globals.css";
+import "../globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "../_components/Navbar";
 import CompanyLogos from "../_components/CompanyLogos";
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className}  antialiased text-white font-poppins bg-flysha-black`}
+        className={`${inter.className} text-white  antialiased font-poppins `}
       >
         <section
           id="Signup"

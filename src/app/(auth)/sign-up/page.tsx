@@ -1,6 +1,7 @@
-import FormSignIn from "./_components/FormSignIn";
+import FormSignUp from "./_components/FormSignUp";
 
-const SignInPage = () => {
+
+const SignUpPage = () => {
   return (
     <div className="form-section container max-w-[1130px] w-full mx-auto flex flex-col gap-[30px] mt-[53px]">
       <div className="title flex flex-col gap-1">
@@ -9,9 +10,9 @@ const SignInPage = () => {
           Enjoy new experience of flight
         </p>
       </div>
-      <FormSignIn />
+      <FormSignUp />
     </div>
   );
 };
 
-export default SignInPage;
+export default SignUpPage;
