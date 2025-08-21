@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import NavbarAuth from "./NavbarAuth";
 
 const Navbar = () => {
   return (
@@ -41,12 +42,7 @@ const Navbar = () => {
             About
           </Link>
         </li>
-        <Link
-          href="signin.html"
-          className="font-bold text-flysha-black bg-flysha-light-purple rounded-full p-[12px_30px] transition-all duration-300 hover:shadow-[0_10px_20px_0_#B88DFF]"
-        >
-          Sign In
-        </Link>
+      <NavbarAuth/>
       </ul>
     </nav>
   );
