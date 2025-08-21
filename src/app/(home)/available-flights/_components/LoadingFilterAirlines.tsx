@@ -12,7 +12,9 @@ const LoadingFilterAirlines = () => {
           <Skeleton className="w-[25px] bg-white h-[25px] rounded" />
           <Skeleton className="w-[150px] bg-white h-5 rounded" />
         </label>
+        
       ))}
+      
     </div>
   );
 };

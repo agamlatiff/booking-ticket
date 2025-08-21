@@ -1,8 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import FlightItem from "./FlightItem";
+import { useContext } from "react";
+import { flightContext, type FContext } from "../providers/FlightProvider";
 
 const ListFlights = () => {
+  
+  const {flights, isLoading} = useContext(flightContext) as FContext
+  
   return (
     <div className="ticket-container flex flex-col w-full gap-6">
       <div className="ticket-card flex justify-between items-center rounded-[20px] p-5 bg-flysha-bg-purple">
