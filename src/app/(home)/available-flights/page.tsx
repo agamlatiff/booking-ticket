@@ -1,6 +1,9 @@
 import Navbar from "@/app/_components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
+import FilterClass from "./_components/FilterClass";
+import FIlterFlight from "./_components/FIlterFlight";
+import FilterAirline from "./_components/FilterAirline";
 
 const AvailableFlightsPage = () => {
   return (
@@ -29,135 +32,9 @@ const AvailableFlightsPage = () => {
         >
           <div className="flex w-full">
             <form className="ticket-filter flex flex-col shrink-0 w-[230px] gap-[30px] text-flysha-off-purple">
-              <div className="flex flex-col gap-4">
-                <p className="font-semibold">Seat Class</p>
-                <label
-                  htmlFor="economy"
-                  className="font-semibold flex items-center gap-[10px] has-[:checked]:text-white"
-                >
-                  <input
-                    type="radio"
-                    name="seat"
-                    id="economy"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-full checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  Economy
-                </label>
-                <label
-                  htmlFor="business"
-                  className="font-semibold flex items-center gap-[10px] has-[:checked]:text-white"
-                >
-                  <input
-                    type="radio"
-                    name="seat"
-                    id="business"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-full checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  Business
-                </label>
-                <label
-                  htmlFor="first"
-                  className="font-semibold flex items-center gap-[10px] has-[:checked]:text-white"
-                >
-                  <input
-                    type="radio"
-                    name="seat"
-                    id="first"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-full checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  First
-                </label>
-              </div>
-              <div className="flex flex-col gap-4">
-                <p className="font-semibold">Flight</p>
-                <label
-                  htmlFor="direct"
-                  className="font-semibold flex items-center gap-[10px] has-[:checked]:text-white"
-                >
-                  <input
-                    type="radio"
-                    name="flight"
-                    id="direct"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-full checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  Direct
-                </label>
-                <label
-                  htmlFor="transit"
-                  className="font-semibold flex items-center gap-[10px] has-[:checked]:text-white"
-                >
-                  <input
-                    type="radio"
-                    name="flight"
-                    id="transit"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-full checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  Transit
-                </label>
-                <label
-                  htmlFor="transits"
-                  className="font-semibold flex items-center gap-[10px] has-[:checked]:text-white"
-                >
-                  <input
-                    type="radio"
-                    name="flight"
-                    id="transits"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-full checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  Transits ~5
-                </label>
-              </div>
-              <div className="flex flex-col gap-4">
-                <p className="font-semibold">Airlines</p>
-                <label
-                  htmlFor="garda"
-                  className="font-semibold flex items-center gap-[10px] text-white"
-                >
-                  <input
-                    type="checkbox"
-                    name="airlines"
-                    id="garda"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-[6px] checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  Garda Flying
-                </label>
-                <label
-                  htmlFor="angga"
-                  className="font-semibold flex items-center gap-[10px] text-white"
-                >
-                  <input
-                    type="checkbox"
-                    name="airlines"
-                    id="angga"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-[6px] checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  Angga Air
-                </label>
-                <label
-                  htmlFor="singaparna"
-                  className="font-semibold flex items-center gap-[10px] text-white"
-                >
-                  <input
-                    type="checkbox"
-                    name="airlines"
-                    id="singaparna"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-[6px] checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  Singaparna
-                </label>
-                <label
-                  htmlFor="jakafly"
-                  className="font-semibold flex items-center gap-[10px] text-white"
-                >
-                  <input
-                    type="checkbox"
-                    name="airlines"
-                    id="jakafly"
-                    className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-[6px] checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
-                  />
-                  Jakafly
-                </label>
-              </div>
+              <FilterClass />
+              <FIlterFlight />
+              <FilterAirline />
             </form>
             <div className="ticket-container flex flex-col w-full gap-6">
               <div className="ticket-card flex justify-between items-center rounded-[20px] p-5 bg-flysha-bg-purple">
