@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} text-white  antialiased font-poppins `}
+        className={`${inter.className} text-white bg-flysha-black  antialiased font-poppins `}
       >
         <section
           id="Signup"
