@@ -2,7 +2,7 @@ import { getAirplanes } from "../../lib/data";
 
 const FilterAirline = async () => {
   const airplanes = await getAirplanes();
-  // absen
+  // absen 2
   return (
     <div className="flex flex-col gap-4">
       <p className="font-semibold">Airlines</p>
