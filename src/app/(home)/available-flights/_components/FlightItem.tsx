@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { FlightWithPlane } from "../providers/FlightProvider";
+import { getUrlFile } from "@/lib/supabase";
+import { dateFormat, rupiahFormat } from "@/lib/utils";
 
-const FlightItem = () => {
+interface FlightItemProps {
+    data: FlightWithPlane
+}
+
+const FlightItem = ({data} : FlightItemProps) => {
   return (
     <div className="ticket-card flex justify-between items-center rounded-[20px] p-5 bg-flysha-bg-purple">
       <div className="flex gap-[16px] items-center">
@@ -9,20 +16,20 @@ const FlightItem = () => {
           <Image
             width={120}
             height={120}
-            src="/assets/images/background/airplane.png"
+            src={getUrlFile(data.plane.image)}
             className="w-full h-full object-cover"
             alt="thumbnail"
           />
         </div>
         <div className="flex flex-col justify-center-center gap-[2px]">
-          <p className="font-bold text-lg">Angga Fly</p>
+          <p className="font-bold text-lg">{data.plane.name}</p>
           <p className="text-sm text-flysha-off-purple">Business Class</p>
         </div>
       </div>
       <div className="flex items-center gap-[30px]">
         <div className="flex flex-col gap-[2px] text-center">
-          <p className="font-bold text-lg">14:00</p>
-          <p className="text-sm text-flysha-off-purple">CGK</p>
+          <p className="font-bold text-lg">{dateFormat(data.departureDate, 'HH:mm')}</p>
+          <p className="text-sm text-flysha-off-purple">{data.departureCityCode}</p>
         </div>
         <Image
           width={120}
@@ -31,13 +38,13 @@ const FlightItem = () => {
           alt="icon"
         />
         <div className="flex flex-col gap-[2px] text-center">
-          <p className="font-bold text-lg">22:40</p>
-          <p className="text-sm text-flysha-off-purple">PDV</p>
+          <p className="font-bold text-lg">{dateFormat(data.arrivalDate, 'HH:mm')}</p>
+          <p className="text-sm text-flysha-off-purple">{data.destinationCityCode}</p>
         </div>
       </div>
-      <p className="w-fit h-fit font-bold text-lg">Rp 5.392.444</p>
+      <p className="w-fit h-fit font-bold text-lg">{rupiahFormat(data.price)}</p>
       <Link
-        href="choose-seat.html"
+        href="/"
         className="font-bold text-flysha-black bg-flysha-light-purple rounded-full p-[12px_20px] h-[48px] transition-all duration-300 hover:shadow-[0_10px_20px_0_#B88DFF]"
       >
         Book Flight

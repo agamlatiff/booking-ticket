@@ -9,7 +9,7 @@ interface FlightProviderProps {
   children: ReactNode;
 }
 
-type FlightWithPlane = Flight & {
+export type FlightWithPlane = Flight & {
   plane: Airplane;
 };
 
