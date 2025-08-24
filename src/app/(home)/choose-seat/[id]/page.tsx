@@ -1,8 +1,20 @@
 import Image from "next/image";
 import SeatList from "./_components/SeatList";
 import FlightDetail from "./_components/FlightDetail";
+import { getFlightById } from "../../lib/data";
 
-const ChooseSeatPage = () => {
+type Params = {
+  id: string
+}
+
+
+interface ChooseSeatProps {
+  params: Params
+}
+const ChooseSeatPage = async ({params} : ChooseSeatProps ) => {
+  
+  const flight = await getFlightById(params.id)  
+  
   return (
     <section
       id="Chosse-Seat"
