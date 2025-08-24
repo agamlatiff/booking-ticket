@@ -7,12 +7,15 @@ import {
 } from "../providers/FlightProvider";
 import { getUrlFile } from "@/lib/supabase";
 import {
+  CHECKOUT_KEY,
   dateFormat,
   rupiahFormat,
   SEAT_VALUES,
   type SeatValuesType,
 } from "@/lib/utils";
 import { useContext, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 interface FlightItemProps {
   data: FlightWithPlane;
@@ -24,6 +27,15 @@ const FlightItem = ({ data }: FlightItemProps) => {
     return SEAT_VALUES[(state.seat as SeatValuesType) ?? "ECONOMY"];
   }, [state.seat]);
 
+  const router = useRouter()
+  
+  const bookNow = () => {
+    sessionStorage.setItem(CHECKOUT_KEY, JSON.stringify({
+      id: data.id,
+      seat: state.seat ? state.seat : 'ECONOMY'
+    }))
+    router.push(`/choose-seat/${data.id}`)
+  }
   return (
     <div className="ticket-card flex justify-between items-center rounded-[20px] p-5 bg-flysha-bg-purple">
       <div className="flex gap-[16px] items-center">
@@ -68,12 +80,13 @@ const FlightItem = ({ data }: FlightItemProps) => {
       <p className="w-fit h-fit font-bold text-lg">
         {rupiahFormat(data.price + selectedSeat.additionalPrice)}
       </p>
-      <Link
-        href="/"
+      <Button
+        type="button"
+        onClick={bookNow }
         className="font-bold text-flysha-black bg-flysha-light-purple rounded-full p-[12px_20px] h-[48px] transition-all duration-300 hover:shadow-[0_10px_20px_0_#B88DFF]"
       >
         Book Flight
-      </Link>
+      </Button>
     </div>
   );
 };

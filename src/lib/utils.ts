@@ -3,6 +3,8 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import dayjs from "dayjs";
 
+export const CHECKOUT_KEY = 'CHECKOUT_KEY'
+
 export const SEAT_VALUES = {
   ECONOMY: {
     label: "Economy",
