@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import LoadingSeatLists from "./_components/LoadingSeatLists";
+import LoadingFlightDetail from "./_components/LoadingFlightDetail";
 
 const Loading = () => {
   return (
@@ -44,12 +45,11 @@ const Loading = () => {
                 <span className="font-semibold">Available</span>
               </div>
             </div>
-            {/* <SeatList /> */}
-            <LoadingSeatLists/>
+            <LoadingSeatLists />
           </div>
         </div>
       </div>
-      {/* <FlightDetail /> */}
+      <LoadingFlightDetail />
     </section>
   );
 };

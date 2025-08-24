@@ -1,11 +1,10 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 
 const LoadingFlightDetail = () => {
   return (
     <div className="flex flex-col items-center gap-[30px] mt-[61px] pb-[30px]">
-      <h1 className="font-bold text-[32px] leading-[48px] text-center">
-        Jakarta to Shanghai
-      </h1>
+      <Skeleton className="w-[300px] h-8" />
       <div className="flex flex-col items-center gap-[30px] w-[335px]">
         <div className="flex flex-col gap-[10px] w-full">
           <div className="flex justify-center shrink-0">
@@ -16,27 +15,23 @@ const LoadingFlightDetail = () => {
           </div>
           <div className="flex justify-between">
             <div className="flex flex-col gap-[2px] text-center">
-              <p className="font-bold text-lg">14:00</p>
-              <p className="text-sm text-flysha-off-purple">CGK</p>
+              <Skeleton className="w-[60px] h-5" />
+              <Skeleton className="w-[40px] h-4" />
             </div>
             <div className="flex flex-col gap-[2px] text-center">
-              <p className="font-bold text-lg">22:40</p>
-              <p className="text-sm text-flysha-off-purple">PDV</p>
+              <Skeleton className="w-[60px] h-5" />
+              <Skeleton className="w-[40px] h-4" />
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-4 w-full">
           <div className="flex shrink-0 w-full h-[130px] rounded-[14px] overflow-hidden">
-            <Image
-              src="/assets/images/background/airplane.png"
-              className="w-full h-full object-cover"
-              alt="image"
-            />
+            <Skeleton className="size-full rounded-lg" />
           </div>
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-[2px]">
-              <p className="font-bold text-lg">Angga Fly</p>
-              <p className="text-sm text-flysha-grey">AF-293 • First Class</p>
+              <Skeleton className="w-[100px] h-5" />
+              <Skeleton className="w-[150px] h-5" />
             </div>
             <div className="flex h-fit">
               <Image
@@ -70,27 +65,22 @@ const LoadingFlightDetail = () => {
         <div className="flex flex-col gap-[10px] w-full">
           <div className="flex justify-between">
             <span>Date</span>
-            <span className="font-semibold">10 March 2024</span>
+            <Skeleton className="w-[60px] h-5" />
           </div>
           <div className="flex justify-between">
             <span>Seat Choosen</span>
-            <span className="font-semibold">3C</span>
+            <Skeleton className="w-[60px] h-5" />
           </div>
           <div className="flex justify-between">
             <span>Passenger</span>
-            <span className="font-semibold">1 Person</span>
+            <Skeleton className="w-[60px] h-5" />
           </div>
           <div className="flex justify-between">
             <span>Seat Price</span>
-            <span className="font-semibold">Rp 25.590.333</span>
+            <Skeleton className="w-[60px] h-5" />
           </div>
         </div>
-        <a
-          href="checkout.html"
-          className="font-bold text-flysha-black bg-flysha-light-purple rounded-full h-12 w-full transition-all duration-300 hover:shadow-[0_10px_20px_0_#B88DFF] flex justify-center items-center"
-        >
-          Continue to Book
-        </a>
+        <Skeleton className="w-full h-12 rounded-full" />
       </div>
     </div>
   );
