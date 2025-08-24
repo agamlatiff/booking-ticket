@@ -1,8 +1,11 @@
 "use client";
 
+import useCheckoutData from "@/hooks/useCheckoutData";
 import SeatItem from "./SeatItem";
 
 const SeatList = () => {
+  
+  const checkout = useCheckoutData()
   return (
     <form className="flex flex-row  justify-between gap-5">
       <div className="flex gap-5">
