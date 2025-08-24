@@ -1,8 +1,8 @@
 import Image from "next/image";
-import SeatList from "./_components/SeatList";
-import FlightDetail from "./_components/FlightDetail";
+import React from "react";
+import LoadingSeatLists from "./_components/LoadingSeatLists";
 
-const ChooseSeatPage = () => {
+const Loading = () => {
   return (
     <section
       id="Chosse-Seat"
@@ -44,13 +44,14 @@ const ChooseSeatPage = () => {
                 <span className="font-semibold">Available</span>
               </div>
             </div>
-            <SeatList />
+            {/* <SeatList /> */}
+            <LoadingSeatLists/>
           </div>
         </div>
       </div>
-      <FlightDetail />
+      {/* <FlightDetail /> */}
     </section>
   );
 };
 
-export default ChooseSeatPage;
+export default Loading;
