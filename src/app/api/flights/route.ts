@@ -2,34 +2,26 @@ import type { NextRequest } from "next/server";
 import prisma from "../../../../lib/prisma";
 import type { TypeSeat } from "@prisma/client";
 
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-
-  const params = {
-    departure: searchParams.get("departure"),
-    arrival: searchParams.get("arrival"),
-    date: searchParams.get("date"),
-    planeId: searchParams.get("planeId"),
-    seat: searchParams.get("seat"),
-  };
+export async function POST(request: NextRequest) {
+  const body = await request.json()
 
   let departureDate: Date | null = null;
 
-  if (params.date) {
-    departureDate = new Date(params.date);
+  if (body.date) {
+    departureDate = new Date(body.date);
     departureDate.setHours(1);
   }
 
   try {
     const data = await prisma.flight.findMany({
       where: {
-        departureCity: params.departure !== null ? params.departure : {},
-        destinationCity: params.arrival !== null ? params.arrival : {},
+        departureCity: body.departure !== null ? body.departure : {},
+        destinationCity: body.arrival !== null ? body.arrival : {},
         seats:
-          params.seat !== null
+          body.seat !== null
             ? {
                 some: {
-                  type: params.seat as TypeSeat,
+                  type: body.seat as TypeSeat,
                   isBooked: false,
                 },
               }
@@ -40,13 +32,10 @@ export async function GET(request: NextRequest) {
                 gte: departureDate,
               }
             : {},
-        planeId: params.planeId
-          ? params.planeId.split(",").length > 0
-            ? {
-                in: [...params.planeId.split(",")],
-              }
-            : {}
-          : {},
+        planeId: body.planeId.length > 0
+          ? {
+            in: body.planeIds
+          } : {},
       },
       include: {
         plane: true,
