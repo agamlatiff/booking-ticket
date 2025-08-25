@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import useCheckoutData from "@/hooks/useCheckoutData";
-import type useTransaction from "@/hooks/useTransaction";
+import useTransaction from "@/hooks/useTransaction";
 import { rupiahFormat, SEAT_VALUES, type SeatValuesType } from "@/lib/utils";
 import type { User } from "lucia";
 import { useMemo } from "react";
