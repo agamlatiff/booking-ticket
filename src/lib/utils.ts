@@ -56,7 +56,7 @@ export const generateSeatPerClass = (flightId: string) => {
 
 export const dateFormat = (
   date: Date | string,
-  format = "DD MM YYYY HH:mm"
+  format = "DD MMM YYYY HH:mm"
 ) => {
   if (!date) {
     return "";
