@@ -9,6 +9,8 @@ const LoadingFlightDetail = () => {
         <div className="flex flex-col gap-[10px] w-full">
           <div className="flex justify-center shrink-0">
             <Image
+              width={30}
+              height={30}
               src="/assets/images/icons/plane-dotted-curve.svg"
               alt="icon"
             />
@@ -35,26 +37,36 @@ const LoadingFlightDetail = () => {
             </div>
             <div className="flex h-fit">
               <Image
+                width={30}
+                height={30}
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"
               />
               <Image
+                width={30}
+                height={30}
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"
               />
               <Image
+                width={30}
+                height={30}
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"
               />
               <Image
+                width={30}
+                height={30}
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"
               />
               <Image
+                width={30}
+                height={30}
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"

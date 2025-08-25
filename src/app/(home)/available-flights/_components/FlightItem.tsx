@@ -1,5 +1,6 @@
+'use client'
+
 import Image from "next/image";
-import Link from "next/link";
 import {
   flightContext,
   type FContext,
@@ -14,7 +15,7 @@ import {
   type SeatValuesType,
 } from "@/lib/utils";
 import { useContext, useMemo } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
 
 interface FlightItemProps {

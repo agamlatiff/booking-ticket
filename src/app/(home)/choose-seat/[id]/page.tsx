@@ -21,18 +21,18 @@ const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
       <div className="flex h-[calc(100vh-40px)] items-end">
         <div className="flex shrink-0 w-[409px] overflow-visible relative">
           <div className="plane-body absolute overflow-x-hidden sm:overflow-visible bottom-0">
-            <Image
+            <Image width={409} height={409}
               src="/assets/images/background/plane-body.svg"
               className="z-0"
               alt="images"
             />
-            <Image
+            <Image width={409} height={409}
               src="/assets/images/background/plane-windshield.svg"
               className="z-10 absolute transform -translate-x-1/2 left-1/2 top-[18px]"
               alt="images"
             />
             <div className="flex justify-center w-[927px] shrink-0 absolute transform -translate-x-1/2 left-[54%] bottom-0 -z-10 ">
-              <Image
+              <Image width={927} height={500}
                 src="/assets/images/background/plane-wings.svg"
                 className="w-[927px]"
                 alt="images"
@@ -58,7 +58,7 @@ const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
           </div>
         </div>
       </div>
-      <FlightDetail />
+    {flight && <FlightDetail flight={flight}/>}
     </section>
   );
 };

@@ -1,10 +1,34 @@
-import Image from "next/image";
+"use client";
 
-const FlightDetail = () => {
+import useCheckoutData from "@/hooks/useCheckoutData";
+import { getUrlFile } from "@/lib/supabase";
+import {
+  dateFormat,
+  rupiahFormat,
+  SEAT_VALUES,
+  type SeatValuesType,
+} from "@/lib/utils";
+import type { Airplane, Flight, FlightSeat } from "@prisma/client";
+import Image from "next/image";
+import { useMemo } from "react";
+
+type FlightProps = Flight & { seats: FlightSeat[]; plane: Airplane };
+
+interface FlightDetailProps {
+  flight: FlightProps;
+}
+
+const FlightDetail = ({ flight }: FlightDetailProps) => {
+  const data = useCheckoutData();
+
+  const selectedSeat = useMemo(() => {
+    return SEAT_VALUES[(data.data?.seat as SeatValuesType) ?? "ECONOMY"];
+  }, [data.data?.seat]);
+
   return (
     <div className="flex flex-col items-center gap-[30px] mt-[61px] pb-[30px]">
       <h1 className="font-bold text-[32px] leading-[48px] text-center">
-        Jakarta to Shanghai
+        {flight.departureCity} to {flight.destinationCity}
       </h1>
       <div className="flex flex-col items-center gap-[30px] w-[335px]">
         <div className="flex flex-col gap-[10px] w-full">
@@ -16,53 +40,75 @@ const FlightDetail = () => {
           </div>
           <div className="flex justify-between">
             <div className="flex flex-col gap-[2px] text-center">
-              <p className="font-bold text-lg">14:00</p>
-              <p className="text-sm text-flysha-off-purple">CGK</p>
+              <p className="font-bold text-lg">
+                {dateFormat(flight.departureDate, "HH:mm")}
+              </p>
+              <p className="text-sm text-flysha-off-purple">
+                {flight.departureCityCode}
+              </p>
             </div>
             <div className="flex flex-col gap-[2px] text-center">
-              <p className="font-bold text-lg">22:40</p>
-              <p className="text-sm text-flysha-off-purple">PDV</p>
+              <p className="font-bold text-lg">
+                {dateFormat(flight.arrivalDate, "HH:mm")}
+              </p>
+              <p className="text-sm text-flysha-off-purple">
+                {flight.destinationCityCode}
+              </p>
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-4 w-full">
           <div className="flex shrink-0 w-full h-[130px] rounded-[14px] overflow-hidden">
             <Image
-              src="/assets/images/background/airplane.png"
+              src={getUrlFile(flight.plane.name)}
               className="w-full h-full object-cover"
               alt="image"
+              width={120}
+              height={120}
             />
           </div>
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-[2px]">
-              <p className="font-bold text-lg">Angga Fly</p>
-              <p className="text-sm text-flysha-grey">AF-293 • First Class</p>
+              <p className="font-bold text-lg">{flight.plane.name}</p>
+              <p className="text-sm text-flysha-grey">
+                {flight.plane.code} • {selectedSeat.label} Class
+              </p>
             </div>
             <div className="flex h-fit">
               <Image
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"
+                width={30}
+                height={30}
               />
               <Image
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"
+                width={30}
+                height={30}
               />
               <Image
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"
+                width={30}
+                height={30}
               />
               <Image
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"
+                width={30}
+                height={30}
               />
               <Image
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
                 alt="star"
+                width={30}
+                height={30}
               />
             </div>
           </div>
@@ -70,7 +116,9 @@ const FlightDetail = () => {
         <div className="flex flex-col gap-[10px] w-full">
           <div className="flex justify-between">
             <span>Date</span>
-            <span className="font-semibold">10 March 2024</span>
+            <span className="font-semibold">
+              {dateFormat(flight.departureDate)}
+            </span>
           </div>
           <div className="flex justify-between">
             <span>Seat Choosen</span>
@@ -82,7 +130,10 @@ const FlightDetail = () => {
           </div>
           <div className="flex justify-between">
             <span>Seat Price</span>
-            <span className="font-semibold">Rp 25.590.333</span>
+            <span className="font-semibold">
+              {" "}
+              {rupiahFormat(flight.price + selectedSeat.additionalPrice)}3
+            </span>
           </div>
         </div>
         <a

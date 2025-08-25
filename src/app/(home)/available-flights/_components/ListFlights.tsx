@@ -1,4 +1,4 @@
-
+'use client'
 import FlightItem from "./FlightItem";
 import { useContext } from "react";
 import { flightContext, type FContext } from "../providers/FlightProvider";

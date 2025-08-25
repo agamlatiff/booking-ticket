@@ -13,17 +13,23 @@ const Loading = () => {
         <div className="flex shrink-0 w-[409px] overflow-visible relative">
           <div className="plane-body absolute overflow-x-hidden sm:overflow-visible bottom-0">
             <Image
+              width={120}
+              height={120}
               src="/assets/images/background/plane-body.svg"
               className="z-0"
               alt="images"
             />
             <Image
+              width={120}
+              height={120}
               src="/assets/images/background/plane-windshield.svg"
               className="z-10 absolute transform -translate-x-1/2 left-1/2 top-[18px]"
               alt="images"
             />
             <div className="flex justify-center w-[927px] shrink-0 absolute transform -translate-x-1/2 left-[54%] bottom-0 -z-10 ">
               <Image
+                width={120}
+                height={120}
                 src="/assets/images/background/plane-wings.svg"
                 className="w-[927px]"
                 alt="images"

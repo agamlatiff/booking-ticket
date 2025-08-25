@@ -1,4 +1,4 @@
-"use client ";
+"use client";
 
 import type { Airplane } from "@prisma/client";
 import { useContext, type ChangeEvent } from "react";
@@ -25,6 +25,7 @@ const CheckboxAirline = ({ item }: CheckboxAirlineProps) => {
         : FilterActionKind.REMOVE_PLANE,
         payload: {
           planeId: value,
+          planeIds: []
         }
     });
   };
