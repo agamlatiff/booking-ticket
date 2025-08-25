@@ -1,16 +1,20 @@
-'use client'
+"use client";
 
-import React, { type FC, type ReactNode } from 'react'
-import SeatProvider from './providers/SeatProvider'
+import React, { type FC, type ReactNode } from "react";
+import SeatProvider from "./providers/SeatProvider";
+import { Toaster } from "@/components/ui/toaster";
 
-interface LayoutProps{
-  children: ReactNode
+interface LayoutProps {
+  children: ReactNode;
 }
 
-const Layout : FC<LayoutProps> = ({children}) => {
+const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <SeatProvider>{children}</SeatProvider>
-  )
-}
+    <SeatProvider>
+      {children}
+      <Toaster />
+    </SeatProvider>
+  );
+};
 
-export default Layout 
+export default Layout;
