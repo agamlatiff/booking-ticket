@@ -14,7 +14,9 @@ const useCheckoutData = () => {
     }
   }, [])
   
-  return data
+  return {
+    data
+  }
 };
 
 export default useCheckoutData;

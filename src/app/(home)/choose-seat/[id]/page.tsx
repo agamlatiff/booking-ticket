@@ -4,17 +4,15 @@ import FlightDetail from "./_components/FlightDetail";
 import { getFlightById } from "../../lib/data";
 
 type Params = {
-  id: string
-}
-
+  id: string;
+};
 
 interface ChooseSeatProps {
-  params: Params
+  params: Params;
 }
-const ChooseSeatPage = async ({params} : ChooseSeatProps ) => {
-  
-  const flight = await getFlightById(params.id)  
-  
+const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
+  const flight = await getFlightById(params.id);
+
   return (
     <section
       id="Chosse-Seat"
@@ -56,7 +54,7 @@ const ChooseSeatPage = async ({params} : ChooseSeatProps ) => {
                 <span className="font-semibold">Available</span>
               </div>
             </div>
-            <SeatList />
+            {flight?.seats && <SeatList seats={flight.seats} />}
           </div>
         </div>
       </div>
