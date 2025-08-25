@@ -10,7 +10,8 @@ import {
 } from "@/lib/utils";
 import type { Airplane, Flight, FlightSeat } from "@prisma/client";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { seatContext, type SeatContextType } from "../providers/SeatProvider";
 
 type FlightProps = Flight & { seats: FlightSeat[]; plane: Airplane };
 
@@ -20,6 +21,8 @@ interface FlightDetailProps {
 
 const FlightDetail = ({ flight }: FlightDetailProps) => {
   const data = useCheckoutData();
+
+  const { seat } = useContext(seatContext) as SeatContextType;
 
   const selectedSeat = useMemo(() => {
     return SEAT_VALUES[(data.data?.seat as SeatValuesType) ?? "ECONOMY"];
@@ -75,6 +78,7 @@ const FlightDetail = ({ flight }: FlightDetailProps) => {
               </p>
             </div>
             <div className="flex h-fit">
+              409
               <Image
                 src="/assets/images/icons/Star.svg"
                 className="w-5 h-5"
@@ -122,7 +126,7 @@ const FlightDetail = ({ flight }: FlightDetailProps) => {
           </div>
           <div className="flex justify-between">
             <span>Seat Choosen</span>
-            <span className="font-semibold">3C</span>
+            <span className="font-semibold">{seat?.seatNumber}</span>
           </div>
           <div className="flex justify-between">
             <span>Passenger</span>
