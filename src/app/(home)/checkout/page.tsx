@@ -35,7 +35,7 @@ const CheckoutPage = async () => {
           <FlightCard user={user} />
           <div className="flex flex-col mt-[63px] gap-[30px]">
             <Benefits />
-            <PaymentDetail />
+            <PaymentDetail user={user} />
           </div>
         </div>
       </section>

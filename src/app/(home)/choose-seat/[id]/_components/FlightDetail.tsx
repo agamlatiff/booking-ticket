@@ -23,44 +23,44 @@ type FlightProps = Flight & { seats: FlightSeat[]; plane: Airplane };
 
 interface FlightDetailProps {
   flight: FlightProps;
-  session : Session | null
+  session: Session | null;
 }
 
 const FlightDetail = ({ flight, session }: FlightDetailProps) => {
   const data = useCheckoutData();
-  const {toast} = useToast()
-  
+  const { toast } = useToast();
+
   const { seat } = useContext(seatContext) as SeatContextType;
 
   const selectedSeat = useMemo(() => {
     return SEAT_VALUES[(data.data?.seat as SeatValuesType) ?? "ECONOMY"];
   }, [data.data?.seat]);
 
-  const router = useRouter()
-  
+  const router = useRouter();
+
   const continueBook = () => {
-    if(seat === null) {
+    if (seat === null) {
       toast({
-        title: 'Failed to checkout',
-        description: 'Select seat first'
-      })
-      return
+        title: "Failed to checkout",
+        description: "Select seat first",
+      });
+      return;
     }
-    
-    if(session === null) {
-      router.replace('/sign-in')
+
+    if (session === null) {
+      router.replace("/sign-in");
     }
-    
-    const checkoutData : Checkout = {
+
+    const checkoutData: Checkout = {
       id: data.data?.id,
       seat: data.data?.seat,
       flightDetail: flight,
-      seatDetail: seat
-    }
-    
-    sessionStorage.setItem(CHECKOUT_KEY, JSON.stringify(checkoutData))
-    router.push('/checkout')
-  }
+      seatDetail: seat,
+    };
+
+    sessionStorage.setItem(CHECKOUT_KEY, JSON.stringify(checkoutData));
+    router.push("/checkout");
+  };
 
   return (
     <div className="flex flex-col items-center gap-[30px] mt-[61px] pb-[30px]">
