@@ -1,10 +1,11 @@
 "use client";
 import type { User } from "lucia";
-import type useCheckoutData from "./useCheckoutData";
-import { useState } from "react";
+import useCheckoutData from "./useCheckoutData";
+import { useMemo, useState } from "react";
 import { SEAT_VALUES, type SeatValuesType } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 type Props = {
   user: User | null;
@@ -13,6 +14,8 @@ type Props = {
 const useTransaction = ({ user }: Props) => {
   const { data } = useCheckoutData();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const selectedSeat = useMemo(() => {
     return SEAT_VALUES[(data?.seat as SeatValuesType) ?? "ECONOMY"];
@@ -38,23 +41,38 @@ const useTransaction = ({ user }: Props) => {
       flightId: data?.flightDetail?.id,
       seatId: data?.seatDetail?.id,
       departureCityCode: data?.flightDetail?.departureCityCode,
-      destinationCityCode: data?.flightDetail?.destinationCityCode
+      destinationCityCode: data?.flightDetail?.destinationCityCode,
     };
-    
+
     try {
-      setIsLoading(true)
-      const transaction = await transactionMutate.mutateAsync(bodyData)
-      
-      setIsLoading(false)
+      setIsLoading(true);
+      const transaction = await transactionMutate.mutateAsync(bodyData);
+
+      window.snap.pay(transaction.midtrans.token, {
+        onSuccess: function (result: unknown) {
+          router.push("/success-checkout");
+        },
+        onPending: function (result: unknown) {
+          router.push("/success-checkout");
+        },
+        onError: function (result: unknown) {
+          alert("payment failed!");
+        },
+        onClose: function (result: unknown) {
+          alert("you closed the popup without finishing the payment");
+        },
+      });
+      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false)
-      console.log(error)
+      setIsLoading(false);
+      console.log(error);
     }
   };
-  
+
   return {
-    payTransaction,isLoading
-  }
+    payTransaction,
+    isLoading,
+  };
 };
 
-export default useTransaction
+export default useTransaction;
