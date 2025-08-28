@@ -1,6 +1,7 @@
 import Navbar from "@/app/_components/Navbar";
 import React from "react";
-import TicketCard from "./_components/TicketCard";
+
+import LoadingTicketCard from "./_components/LoadingTicketCard";
 
 const Loading = () => {
   return (
@@ -26,9 +27,9 @@ const Loading = () => {
         className="container max-w-[1130px] mx-auto flex justify-end -mt-[60px] pb-[100px] z-10 relative"
       >
         <div className="ticket-container flex flex-col w-[900px] gap-6">
-          <TicketCard />
-          <TicketCard />
-          <TicketCard />
+          <LoadingTicketCard />
+          <LoadingTicketCard />
+          <LoadingTicketCard />
           <p className="text-center text-sm text-[#A0A0AC] h-fit">
             You’ve reached the end of results.
           </p>
