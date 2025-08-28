@@ -2,6 +2,7 @@ import { getUrlFile } from "@/lib/supabase";
 import { dateFormat } from "@/lib/utils";
 import type { Airplane, Flight, FlightSeat, Ticket } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 
 type Data = Pick<Ticket, "id"> & {
   flight: Pick<
@@ -59,12 +60,12 @@ const TicketCard = ({ data }: TicketCardProps) => {
             <p className="text-sm text-flysha-off-purple">{data.flight.destinationCityCode}</p>
           </div>
         </div>
-        <a
-          href="my-ticket-details.html"
+        <Link
+          href={`/my-tickets/detail/${data.id}`}
           className="font-bold text-flysha-black bg-flysha-light-purple rounded-full p-[12px_20px] h-[48px] transition-all duration-300 hover:shadow-[0_10px_20px_0_#B88DFF]"
         >
           Details
-        </a>
+        </Link>
       </div>
     </>
   );
