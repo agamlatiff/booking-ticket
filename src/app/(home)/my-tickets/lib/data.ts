@@ -1,34 +1,57 @@
-import prisma from "../../../../../lib/prisma"
+import prisma from "../../../../../lib/prisma";
 
 export const getMyTicket = async (id: string) => {
   try {
     const data = await prisma.ticket.findMany({
       where: {
-        customerId : id
+        customerId: id,
       },
       select: {
         id: true,
         flight: {
-          select :{
+          select: {
             plane: true,
             departureDate: true,
             departureCityCode: true,
             destinationCityCode: true,
-            arrivalDate: true
-            
-          }
+            arrivalDate: true,
+          },
         },
-        seat :{
+        seat: {
           select: {
-            type: true
-          }
-        }
-      }
-    })
-    
-    return data
+            type: true,
+          },
+        },
+      },
+    });
+
+    return data;
   } catch (error) {
-    console.log(error)
-    return []
+    console.log(error);
+    return [];
   }
-}
+};
+
+export const getDetailTicket = async (id: string) => {
+  try {
+    const data = await prisma.ticket.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        flight: {
+          include: {
+            plane: true,
+          },
+        },
+        customer: true,
+        seat: true,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return null
+  }
+};

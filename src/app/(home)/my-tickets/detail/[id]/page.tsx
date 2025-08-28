@@ -1,11 +1,21 @@
 import Benefits from "@/app/(home)/checkout/_components/Benefits";
 import Navbar from "@/app/_components/Navbar";
-import Image from "next/image";
 import React from "react";
 import TransactionDetail from "./_components/TransactionDetail";
 import FlightDetail from "./_components/FlightDetail";
+import { getDetailTicket } from "../../lib/data";
 
-const DetailTicketPage = () => {
+type Params = {
+  id: string;
+};
+
+interface DetailTicketProps {
+  params: Params;
+}
+
+const DetailTicketPage = async ({ params }: DetailTicketProps) => {
+  const data = await getDetailTicket(params.id);
+
   return (
     <>
       <section
@@ -36,10 +46,10 @@ const DetailTicketPage = () => {
         className="container max-w-[1130px] mx-auto -mt-[33px] z-10 relative"
       >
         <div className="checkout-container flex-col lg:flex-row flex gap-[70px]">
-        <FlightDetail/>
+          {data && <FlightDetail data={data}/>}
           <div className="flex flex-col mt-[63px] gap-[30px]">
             <Benefits />
-            <TransactionDetail/>
+            <TransactionDetail />
           </div>
         </div>
       </section>
