@@ -55,8 +55,16 @@ export async function saveFlight(
 export async function updateFlight(
   _: unknown,
   formData: FormData,
-  id: string
+  id: string | null
 ): Promise<ActionResult> {
+  
+  if(!id) {
+    return {
+      errorTitle : 'Parma ID Missing',
+      errorDesc: []
+    }
+  }
+  
   const departureDate = new Date(formData.get("departureDate") as string);
   const arrivalDate = new Date(formData.get("arrivalDate") as string);
 

@@ -27,7 +27,7 @@ const initialFormState: ActionResult = {
   errorDesc: [],
 };
 
-const FormFlight = ({ airplane, defaultValues, type }: FormFlightProps) => {
+const FormFlight = ({ airplane, defaultValues = null, type }: FormFlightProps) => {
   const updateFlightWithId = (_: unknown, formData: FormData) =>
     updateFlight(null, formData, defaultValues?.id ?? '');
 
@@ -96,10 +96,10 @@ const FormFlight = ({ airplane, defaultValues, type }: FormFlightProps) => {
         <div className="space-y-2">
           <Label htmlFor="departureDate">Departure Date</Label>
           <Input
-            defaultValue={dateFormat(
+            defaultValue={defaultValues?.departureDate ? dateFormat(
               defaultValues?.departureDate,
               "YYYY-MM-DDTHH:MM"
-            )}
+            ) : undefined}
             placeholder="Departure Date..."
             name="departureDate"
             id="departureDate"
@@ -133,10 +133,10 @@ const FormFlight = ({ airplane, defaultValues, type }: FormFlightProps) => {
         <div className="space-y-2">
           <Label htmlFor="arrivalDate">Arrival Date</Label>
           <Input
-            defaultValue={dateFormat(
+            defaultValue={defaultValues?.arrivalDate ? dateFormat(
               defaultValues?.arrivalDate,
               "YYYY-MM-DDTHH:MM"
-            )}
+            ): undefined}
             placeholder="Arrival Date..."
             name="arrivalDate"
             id="arrivalDate"
