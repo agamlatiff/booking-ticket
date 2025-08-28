@@ -1,9 +1,11 @@
 import Navbar from "@/app/_components/Navbar";
+import React from "react";
 import TicketCard from "./_components/TicketCard";
 
-const MyTicketsPage = () => {
+const Loading = () => {
   return (
     <>
+      {" "}
       <section
         id="Header"
         className="bg-[url('/assets/images/background/airplane.png')] bg-no-repeat bg-cover bg-left-top h-[290px] relative"
@@ -19,7 +21,6 @@ const MyTicketsPage = () => {
           <div className="w-full h-[15px] bg-gradient-to-t from-[#080318] to-[rgba(8,3,24,0)] absolute bottom-0" />
         </div>
       </section>
-
       <section
         id="Content"
         className="container max-w-[1130px] mx-auto flex justify-end -mt-[60px] pb-[100px] z-10 relative"
@@ -37,4 +38,4 @@ const MyTicketsPage = () => {
   );
 };
 
-export default MyTicketsPage;
+export default Loading;
