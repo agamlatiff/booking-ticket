@@ -4,6 +4,7 @@ import React from "react";
 import TransactionDetail from "./_components/TransactionDetail";
 import FlightDetail from "./_components/FlightDetail";
 import { getDetailTicket } from "../../lib/data";
+import { dateFormat } from "@/lib/utils";
 
 type Params = {
   id: string;
@@ -30,10 +31,12 @@ const DetailTicketPage = async ({ params }: DetailTicketProps) => {
             </p>
             <div className="flex flex-col gap-1">
               <h1 className="font-bold text-[32px] leading-[48px]">
-                Jakarta to Shanghai
+                {data?.flight.departureCity} to {data?.flight.destinationCity}
               </h1>
               <p className="font-medium text-lg leading-[27px]">
-                10 March 2024
+                {data?.flight.departureDate
+                  ? dateFormat(data?.flight.departureDate)
+                  : undefined}
               </p>
             </div>
           </div>
