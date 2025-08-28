@@ -46,10 +46,10 @@ const DetailTicketPage = async ({ params }: DetailTicketProps) => {
         className="container max-w-[1130px] mx-auto -mt-[33px] z-10 relative"
       >
         <div className="checkout-container flex-col lg:flex-row flex gap-[70px]">
-          {data && <FlightDetail data={data}/>}
+          {data && <FlightDetail data={data} />}
           <div className="flex flex-col mt-[63px] gap-[30px]">
             <Benefits />
-            <TransactionDetail />
+            {data && <TransactionDetail data={data} />}
           </div>
         </div>
       </section>
