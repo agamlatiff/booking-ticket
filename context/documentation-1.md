@@ -196,3 +196,39 @@ All existing functionality (search, filtering, booking) has been preserved while
 - ✅ Payment summary with breakdown
 - ✅ Danger zone for cancellation
 - ✅ Done/Back action buttons
+
+---
+
+## 9. Checkout Page Redesign
+
+### Changes Made
+
+| File                                                     | Description                                                    |
+| -------------------------------------------------------- | -------------------------------------------------------------- |
+| `src/app/(home)/checkout/page.tsx`                       | New light theme layout with step indicator and 3D illustration |
+| `src/app/(home)/checkout/_components/BookingSummary.tsx` | **NEW** - Booking summary card with gradient bar               |
+| `src/app/(home)/checkout/_components/PaymentForm.tsx`    | **NEW** - Payment method tabs and credit card form             |
+
+### Features Implemented
+
+- ✅ Step indicator badge ("Step 3 of 4")
+- ✅ Hero text "Secure Your Favorite Spot!"
+- ✅ Animated 3D plane illustration
+- ✅ Booking Summary card:
+  - Gradient top bar (blue → yellow)
+  - Flight info with plane image
+  - Seat selection with price
+  - Total calculation
+- ✅ Payment Method tabs:
+  - 💳 Card (credit card form)
+  - 👛 E-Wallet (redirect message)
+  - 📱 QRIS (redirect message)
+- ✅ Credit Card form with icons:
+  - Card Number
+  - Cardholder Name
+  - Expiry Date
+  - CVC/CVV
+- ✅ Security badge (SSL encrypted)
+- ✅ Pay button with loading state
+- ✅ Trust badges (Visa, Mastercard, Midtrans)
+- ✅ Existing Midtrans payment integration preserved

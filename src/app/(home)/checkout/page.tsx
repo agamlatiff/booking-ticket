@@ -1,45 +1,61 @@
-import Navbar from "@/app/_components/Navbar";
-
-import React from "react";
-import FlightCard from "./_components/FlightCard";
-import Benefits from "./_components/Benefits";
-import PaymentDetail from "./_components/PaymentDetail";
+import NavbarLight from "@/app/_components/NavbarLight";
 import { getUser } from "@/lib/auth";
+import { Plane } from "lucide-react";
+import BookingSummary from "./_components/BookingSummary";
+import PaymentForm from "./_components/PaymentForm";
 
 const CheckoutPage = async () => {
-  const {user} = await getUser();
+  const { user } = await getUser();
 
   return (
-    <>
-      <section
-        id="Header"
-        className="bg-[url('/assets/images/background/airplane.png')] bg-no-repeat bg-cover bg-left-top h-[290px] relative"
-      >
-        <div className="Header-content bg-gradient-to-r from-[#080318] to-[rgba(8,3,24,0)] h-[290px]">
-          <Navbar />
-          <div className="title container max-w-[1130px] mx-auto flex flex-col gap-1 pt-[50px] pb-[68px]">
-            <h1 className="font-bold text-[32px] leading-[48px]">Checkout</h1>
-            <p className="font-medium text-lg leading-[27px]">
-              Enjoy new experience of flight
-            </p>
-          </div>
-          <div className="w-full h-[15px] bg-gradient-to-t from-[#080318] to-[rgba(8,3,24,0)] absolute bottom-0" />
-        </div>
-      </section>
+    <div className="bg-background-light min-h-screen font-display">
+      {/* Navigation */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <NavbarLight />
+      </header>
 
-      <section
-        id="Content"
-        className="container max-w-[1130px] mx-auto -mt-[33px] z-10 relative"
-      >
-        <div className="checkout-container flex flex-col lg:flex-row gap-[70px]">
-          <FlightCard user={user} />
-          <div className="flex flex-col mt-[63px] gap-[30px]">
-            <Benefits />
-            <PaymentDetail user={user} />
+      {/* Main Content */}
+      <main className="flex-grow flex justify-center py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          {/* Left Column: Visuals & Summary */}
+          <div className="lg:col-span-5 flex flex-col gap-8">
+            {/* Header Text */}
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-100 rounded-full text-yellow-800 text-xs font-bold uppercase tracking-wider">
+                <Plane className="w-4 h-4" />
+                Step 3 of 4
+              </div>
+              <h1 className="text-text-dark text-4xl sm:text-5xl font-black leading-[1.1] tracking-tight">
+                Secure Your
+                <br />
+                Favorite Spot!
+              </h1>
+              <p className="text-gray-500 text-lg font-medium leading-relaxed">
+                You&apos;re just one step away from your flight. Complete
+                payment to confirm your booking.
+              </p>
+            </div>
+
+            {/* 3D Illustration */}
+            <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-sky-primary/5 flex items-center justify-center relative">
+              {/* Decorative background circles */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-sky-primary/20 rounded-full blur-3xl" />
+              <div className="relative z-10 animate-bounce-slow">
+                <Plane className="w-32 h-32 text-sky-primary rotate-45" />
+              </div>
+            </div>
+
+            {/* Booking Summary Card */}
+            <BookingSummary user={user} />
+          </div>
+
+          {/* Right Column: Payment Form */}
+          <div className="lg:col-span-7 w-full">
+            <PaymentForm user={user} />
           </div>
         </div>
-      </section>
-    </>
+      </main>
+    </div>
   );
 };
 
