@@ -14,11 +14,10 @@ import type { Airplane, Flight, FlightSeat } from "@prisma/client";
 import Image from "next/image";
 import { useContext, useMemo } from "react";
 import { seatContext, type SeatContextType } from "../providers/SeatProvider";
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import type { Session } from "lucia";
 import { useRouter } from "next/navigation";
-
+import { Plane, ArrowRight } from "lucide-react";
 
 type FlightProps = Flight & { seats: FlightSeat[]; plane: Airplane };
 
@@ -31,157 +30,149 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
   const data = useCheckoutData();
   const { toast } = useToast();
 
-  const { seat } = useContext(seatContext) as SeatContextType;
+  const { selectedSeat } = useContext(seatContext) as SeatContextType;
 
-  const selectedSeat = useMemo(() => {
+  const seatClass = useMemo(() => {
     return SEAT_VALUES[(data.data?.seat as SeatValuesType) ?? "ECONOMY"];
   }, [data.data?.seat]);
 
   const router = useRouter();
 
   const continueBook = () => {
-    if (seat === null) {
+    if (selectedSeat === null) {
       toast({
         title: "Failed to checkout",
-        description: "Select seat first",
+        description: "Please select a seat first",
       });
       return;
     }
 
     if (session === null) {
       router.replace("/sign-in");
+      return;
     }
 
     const checkoutData: Checkout = {
       id: data.data?.id,
       seat: data.data?.seat,
       flightDetail: flight,
-      seatDetail: seat,
+      seatDetail: selectedSeat,
     };
 
     sessionStorage.setItem(CHECKOUT_KEY, JSON.stringify(checkoutData));
     router.push("/checkout");
   };
 
+  const totalPrice = flight.price + seatClass.additionalPrice;
+
   return (
-    <div className="flex flex-col items-center gap-[30px] mt-[61px] pb-[30px]">
-      <h1 className="font-bold text-[32px] leading-[48px] text-center">
-        {flight.departureCity} to {flight.destinationCity}
-      </h1>
-      <div className="flex flex-col items-center gap-[30px] w-[335px]">
-        <div className="flex flex-col gap-[10px] w-full">
-          <div className="flex justify-center shrink-0">
-            <Image
-              src="/assets/images/icons/plane-dotted-curve.svg"
-              alt="icon"
-            />
+    <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
+      {/* Flight Card */}
+      <div className="bg-white rounded-2xl p-6 shadow-soft border border-gray-200 relative overflow-hidden">
+        <div className="flex justify-between items-start mb-6 z-10 relative">
+          <div>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">
+              Flight
+            </p>
+            <p className="text-xl font-black text-text-dark">
+              {flight.departureCityCode}{" "}
+              <span className="text-gray-300 font-light mx-1">→</span>{" "}
+              {flight.destinationCityCode}
+            </p>
+            <p className="text-sm text-gray-500 mt-1">
+              {dateFormat(flight.departureDate, "MMM dd, HH:mm a")}
+            </p>
           </div>
-          <div className="flex justify-between">
-            <div className="flex flex-col gap-[2px] text-center">
-              <p className="font-bold text-lg">
-                {dateFormat(flight.departureDate, "HH:mm")}
-              </p>
-              <p className="text-sm text-flysha-off-purple">
-                {flight.departureCityCode}
-              </p>
-            </div>
-            <div className="flex flex-col gap-[2px] text-center">
-              <p className="font-bold text-lg">
-                {dateFormat(flight.arrivalDate, "HH:mm")}
-              </p>
-              <p className="text-sm text-flysha-off-purple">
-                {flight.destinationCityCode}
-              </p>
-            </div>
+          <div className="bg-sky-primary/10 text-sky-primary px-3 py-1 rounded-full text-xs font-bold">
+            {flight.plane.code}
           </div>
         </div>
-        <div className="flex flex-col gap-4 w-full">
-          <div className="flex shrink-0 w-full h-[130px] rounded-[14px] overflow-hidden">
+
+        {/* Decorative Map Line */}
+        <div className="relative h-16 w-full mb-4">
+          <div className="absolute inset-x-0 top-1/2 h-0.5 bg-gray-200 border-t border-dashed border-gray-300" />
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-gray-300 border-2 border-white" />
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-sky-primary border-2 border-white shadow-sm ring-2 ring-sky-primary/20" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-1 rounded-full border border-gray-100 shadow-sm">
+            <Plane className="w-5 h-5 text-sky-primary rotate-90" />
+          </div>
+        </div>
+      </div>
+
+      {/* Seat Selection Summary */}
+      <div className="bg-white rounded-2xl p-6 shadow-soft border border-gray-200">
+        <h3 className="text-lg font-bold text-text-dark mb-4 flex items-center gap-2">
+          <Plane className="w-5 h-5 text-sky-primary" />
+          Your Selection
+        </h3>
+
+        <div className="space-y-4">
+          {/* Passenger Selection */}
+          <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
+            <div
+              className={`text-white w-12 h-12 rounded-lg flex flex-col items-center justify-center shadow-lg ${selectedSeat ? "bg-sky-primary shadow-blue-200" : "bg-gray-300"
+                }`}
+            >
+              <span className="text-xs font-medium opacity-80">Seat</span>
+              <span className="text-lg font-bold leading-none">
+                {selectedSeat?.seatNumber || "—"}
+              </span>
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-bold text-text-dark">Passenger 1</p>
+              <p className="text-xs text-gray-500">{seatClass.label}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm font-bold text-text-dark">
+                {rupiahFormat(seatClass.additionalPrice)}
+              </p>
+            </div>
+          </div>
+
+          {/* Airplane Image */}
+          <div className="h-32 w-full rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center relative overflow-hidden group border border-gray-100">
+            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#63a6e9_1px,transparent_1px)] [background-size:16px_16px]" />
             <Image
-              src={getUrlFile(flight.plane.name)}
-              className="w-full h-full object-cover"
-              alt="image"
+              src={getUrlFile(flight.plane.image)}
+              alt={flight.plane.name}
               width={120}
-              height={120}
+              height={80}
+              className="rounded-lg shadow-lg group-hover:scale-105 transition-transform duration-300 object-cover"
             />
           </div>
-          <div className="flex justify-between items-center">
-            <div className="flex flex-col gap-[2px]">
-              <p className="font-bold text-lg">{flight.plane.name}</p>
-              <p className="text-sm text-flysha-grey">
-                {flight.plane.code} • {selectedSeat.label} Class
-              </p>
-            </div>
-            <div className="flex h-fit">
-              409
-              <Image
-                src="/assets/images/icons/Star.svg"
-                className="w-5 h-5"
-                alt="star"
-                width={30}
-                height={30}
-              />
-              <Image
-                src="/assets/images/icons/Star.svg"
-                className="w-5 h-5"
-                alt="star"
-                width={30}
-                height={30}
-              />
-              <Image
-                src="/assets/images/icons/Star.svg"
-                className="w-5 h-5"
-                alt="star"
-                width={30}
-                height={30}
-              />
-              <Image
-                src="/assets/images/icons/Star.svg"
-                className="w-5 h-5"
-                alt="star"
-                width={30}
-                height={30}
-              />
-              <Image
-                src="/assets/images/icons/Star.svg"
-                className="w-5 h-5"
-                alt="star"
-                width={30}
-                height={30}
-              />
-            </div>
-          </div>
         </div>
-        <div className="flex flex-col gap-[10px] w-full">
-          <div className="flex justify-between">
-            <span>Date</span>
-            <span className="font-semibold">
-              {dateFormat(flight.departureDate)}
+
+        {/* Price Breakdown */}
+        <div className="mt-6 pt-6 border-t border-gray-100">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-gray-500 text-sm">Ticket Price</span>
+            <span className="text-text-dark font-medium">
+              {rupiahFormat(flight.price)}
             </span>
           </div>
-          <div className="flex justify-between">
-            <span>Seat Choosen</span>
-            <span className="font-semibold">{seat?.seatNumber}</span>
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-gray-500 text-sm">Seat Upgrade</span>
+            <span className="text-sky-primary font-medium">
+              {rupiahFormat(seatClass.additionalPrice)}
+            </span>
           </div>
-          <div className="flex justify-between">
-            <span>Passenger</span>
-            <span className="font-semibold">1 Person</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Seat Price</span>
-            <span className="font-semibold">
-              {" "}
-              {rupiahFormat(flight.price + selectedSeat.additionalPrice)}3
+          <div className="flex justify-between items-center pt-4 border-t border-dashed border-gray-200">
+            <span className="text-lg font-bold text-text-dark">Total</span>
+            <span className="text-2xl font-black text-sky-primary">
+              {rupiahFormat(totalPrice)}
             </span>
           </div>
         </div>
-        <Button
+
+        {/* CTA Button */}
+        <button
           type="button"
           onClick={continueBook}
-          className="font-bold text-flysha-black bg-flysha-light-purple rounded-full h-12 w-full transition-all duration-300 hover:shadow-[0_10px_20px_0_#B88DFF] flex justify-center items-center"
+          className="w-full mt-6 bg-sky-primary hover:bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
         >
-          Continue to Book
-        </Button>
+          Confirm Seat Selection
+          <ArrowRight className="w-5 h-5" />
+        </button>
       </div>
     </div>
   );

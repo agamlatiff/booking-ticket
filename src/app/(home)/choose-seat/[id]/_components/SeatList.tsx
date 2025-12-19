@@ -11,6 +11,7 @@ interface SeatListProps {
 
 const SeatList = ({ seats }: SeatListProps) => {
   const checkout = useCheckoutData();
+
   const { seatA, seatB, seatC, seatD } = useMemo(() => {
     const rawSeats = seats.filter((seat) => seat.type === checkout?.data?.seat);
 
@@ -22,32 +23,51 @@ const SeatList = ({ seats }: SeatListProps) => {
     return { seatA, seatB, seatC, seatD };
   }, [checkout, seats]);
 
+  // Get row numbers
+  const rowNumbers = useMemo(() => {
+    const allSeats = [...seatA, ...seatB, ...seatC, ...seatD];
+    const rows = new Set(allSeats.map((s) => s.seatNumber.slice(1)));
+    return Array.from(rows).sort((a, b) => parseInt(a) - parseInt(b));
+  }, [seatA, seatB, seatC, seatD]);
+
   return (
-    <form className="flex flex-row  justify-between gap-5">
-      <div className="flex gap-5">
-        <div className="flex flex-col gap-[19px]">
-          {seatA.map((seat) => (
-            <SeatItem key={seat.id} seat={seat} />
-          ))}
-        </div>
-        <div className="flex flex-col gap-[19px]">
-          {seatB.map((seat) => (
-            <SeatItem key={seat.id} seat={seat} />
-          ))}
-        </div>
-      </div>
-      <div className="flex gap-5">
-        <div className="flex flex-col gap-[19px]">
-          {seatC.map((seat) => (
-            <SeatItem key={seat.id} seat={seat} />
-          ))}
-        </div>
-        <div className="flex flex-col gap-[19px]">
-          {seatD.map((seat) => (
-            <SeatItem key={seat.id} seat={seat} />
-          ))}
-        </div>
-      </div>
+    <form className="space-y-3">
+      {rowNumbers.map((rowNum) => {
+        const leftSeats = [
+          ...seatA.filter((s) => s.seatNumber.endsWith(rowNum)),
+          ...seatB.filter((s) => s.seatNumber.endsWith(rowNum)),
+        ];
+        const rightSeats = [
+          ...seatC.filter((s) => s.seatNumber.endsWith(rowNum)),
+          ...seatD.filter((s) => s.seatNumber.endsWith(rowNum)),
+        ];
+
+        return (
+          <div
+            key={rowNum}
+            className="flex items-center justify-between gap-1 sm:gap-3"
+          >
+            {/* Left side seats */}
+            <div className="flex gap-1 sm:gap-2">
+              {leftSeats.map((seat) => (
+                <SeatItem key={seat.id} seat={seat} />
+              ))}
+            </div>
+
+            {/* Row number */}
+            <span className="text-[10px] font-medium text-gray-300 w-3 text-center">
+              {rowNum}
+            </span>
+
+            {/* Right side seats */}
+            <div className="flex gap-1 sm:gap-2">
+              {rightSeats.map((seat) => (
+                <SeatItem key={seat.id} seat={seat} />
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </form>
   );
 };

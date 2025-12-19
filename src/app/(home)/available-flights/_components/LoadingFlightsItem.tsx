@@ -1,37 +1,37 @@
-import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
-
 const LoadingFlightsItem = () => {
   return (
-    <div className="ticket-card flex justify-between items-center rounded-[20px] p-5 bg-flysha-bg-purple">
-      <div className="flex gap-[16px] items-center">
-        <div className="flex shrink-0 w-[90px] h-[70px] rounded-[14px] overflow-hidden">
-          <Skeleton className="w-[90px] h-[70px] rounded-lg bg-white" />
+    <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-gray-200 animate-pulse">
+      <div className="flex flex-col md:flex-row gap-6 items-center">
+        {/* Airline Skeleton */}
+        <div className="flex items-center gap-4 w-full md:w-48">
+          <div className="w-12 h-12 rounded-xl bg-gray-200" />
+          <div className="flex flex-col gap-2">
+            <div className="h-4 w-20 bg-gray-200 rounded" />
+            <div className="h-3 w-16 bg-gray-100 rounded" />
+          </div>
         </div>
-        <div className="flex flex-col justify-center-center gap-[2px]">
-          <Skeleton className="w-[100px] h-5 bg-white" />
-          <Skeleton className="w-[100px] h-4 bg-white" />
-          <Skeleton className="w-[100px] h-5 bg-white" />
+
+        {/* Route Skeleton */}
+        <div className="flex-1 w-full flex items-center justify-between gap-4">
+          <div className="flex flex-col items-center gap-2">
+            <div className="h-6 w-16 bg-gray-200 rounded" />
+            <div className="h-4 w-10 bg-gray-100 rounded" />
+          </div>
+          <div className="flex-1 px-4">
+            <div className="h-[2px] bg-gray-200 rounded-full" />
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <div className="h-6 w-16 bg-gray-200 rounded" />
+            <div className="h-4 w-10 bg-gray-100 rounded" />
+          </div>
+        </div>
+
+        {/* Price Skeleton */}
+        <div className="w-full md:w-auto flex flex-col items-end gap-2 border-l border-gray-100 pl-6">
+          <div className="h-8 w-24 bg-gray-200 rounded" />
+          <div className="h-10 w-full md:w-24 bg-gray-100 rounded-xl" />
         </div>
       </div>
-      <div className="flex items-center gap-[30px]">
-        <div className="flex flex-col gap-[2px] text-center">
-          <Skeleton className="w-[50px] h-5 bg-white" />
-          <Skeleton className="w-[50px] h-5 bg-white" />
-        </div>
-        <Image
-          width={120}
-          height={120}
-          src="/assets/images/icons/plane-dotted.svg"
-          alt="icon"
-        />
-        <div className="flex flex-col gap-[2px] text-center">
-          <Skeleton className="w-[50px] h-5 bg-white" />
-          <Skeleton className="w-[50px] h-5 bg-white" />
-        </div>
-      </div>
-          <Skeleton className="w-[150px] h-6 rounded-lg bg-white" />
-          <Skeleton className="w-[50px] h-[48px] rounded-full bg-white" />
     </div>
   );
 };

@@ -7,6 +7,8 @@ import {
   flightContext,
   type FContext,
 } from "../providers/FlightProvider";
+import Image from "next/image";
+import { getUrlFile } from "@/lib/supabase";
 
 interface CheckboxAirlineProps {
   item: Airplane;
@@ -23,17 +25,17 @@ const CheckboxAirline = ({ item }: CheckboxAirlineProps) => {
       type: isChecked
         ? FilterActionKind.ADD_PLANE
         : FilterActionKind.REMOVE_PLANE,
-        payload: {
-          planeId: value,
-          planeIds: []
-        }
+      payload: {
+        planeId: value,
+        planeIds: [],
+      },
     });
   };
 
   return (
     <label
       htmlFor={item.name}
-      className="font-semibold flex items-center gap-[10px] text-white"
+      className="flex items-center gap-3 cursor-pointer group"
     >
       <input
         type="checkbox"
@@ -41,9 +43,20 @@ const CheckboxAirline = ({ item }: CheckboxAirlineProps) => {
         id={item.name}
         value={item.id}
         onChange={handleChange}
-        className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-[6px] checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
+        className="w-5 h-5 rounded-md border-2 border-gray-300 text-sky-primary focus:ring-sky-primary/20 transition-all"
       />
-      {item.name}
+      <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+        <Image
+          src={getUrlFile(item.image)}
+          alt={item.name}
+          width={24}
+          height={24}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <span className="text-gray-500 text-sm font-medium group-hover:text-sky-primary transition-colors">
+        {item.name}
+      </span>
     </label>
   );
 };

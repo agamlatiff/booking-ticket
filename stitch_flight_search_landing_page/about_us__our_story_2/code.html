@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign In - SkyHop</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#539eea",
+                        "primary-content": "#ffffff", 
+                        "secondary-pastel": "#FFF9C4", // Soft Yellow
+                        "accent-pastel": "#E3F2FD", // Soft Blue
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111921",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2430",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white overflow-x-hidden transition-colors duration-200">
+<div class="relative flex flex-col min-h-screen w-full">
+<header class="sticky top-0 z-50 bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-[#f0f2f4] dark:border-gray-800">
+<div class="px-4 md:px-10 py-3 flex items-center justify-between max-w-[1280px] mx-auto w-full">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold tracking-tight text-[#111418] dark:text-white">SkyHop</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Flights</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Hotels</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">About</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+<div class="flex gap-2">
+<button class="h-10 px-4 rounded-xl bg-primary text-white font-bold text-sm hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30">
+                            Sign Up
+                        </button>
+</div>
+</div>
+<button class="md:hidden text-[#111418] dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center relative overflow-hidden py-12 px-4">
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+<div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-secondary-pastel dark:bg-yellow-900/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-accent-pastel dark:bg-blue-900/20 rounded-full blur-3xl opacity-60"></div>
+<div class="absolute top-[40%] left-[60%] w-32 h-32 bg-primary/20 rounded-full blur-2xl opacity-40"></div>
+</div>
+<div class="w-full max-w-5xl bg-white dark:bg-surface-dark rounded-3xl shadow-2xl shadow-blue-900/5 dark:shadow-none overflow-hidden flex flex-col md:flex-row min-h-[650px] border border-white/50 dark:border-gray-800 backdrop-blur-sm">
+<div class="hidden md:flex md:w-5/12 bg-accent-pastel/50 dark:bg-[#131d27] relative items-center justify-center p-12 overflow-hidden group">
+<div class="absolute top-10 left-10 w-20 h-20 border-4 border-white dark:border-gray-700 rounded-full opacity-20 group-hover:scale-110 transition-transform duration-700"></div>
+<div class="absolute bottom-20 right-10 w-12 h-12 bg-yellow-200 dark:bg-yellow-900/30 rounded-full opacity-40 blur-lg"></div>
+<div class="relative z-10 w-full aspect-[4/5] flex flex-col items-center justify-center">
+<div class="w-full h-full bg-contain bg-center bg-no-repeat transform group-hover:-translate-y-2 transition-transform duration-500 drop-shadow-2xl" data-alt="3D isometric illustration of a secure padlock with wings and clouds" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD78MmQCofg6NfozKqGo5IEHNF2FKrpyIHz3KkfbjdBhNNo3UUNE8IbLNEl717cuXAOwnOOmFPB3jCdK6MFV5Ydo2SdM6OjxogUgvy7w0cAfw8dgfbzhM3OzYAWeaAA7Oqg7IcN1KV1LTz76fUymhdKPVS08RiWkoGqAyBReOHLMnN5WPN4a6OejxOf6frRhOvjKFHjEZq5FmCREeGfx51mBtYQjZAHdWwPFDZQJcrsRdkNARrVVnJTch6DOZ90hR6hGOWwI_P0_-A');">
+</div>
+</div>
+<div class="absolute bottom-10 left-0 w-full text-center px-8 z-20">
+<h3 class="text-2xl font-black text-primary mb-2">Safe Travels Start Here</h3>
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400 leading-relaxed">
+                            Your account is your passport to the world. Secure, simple, and ready for takeoff.
+                        </p>
+</div>
+</div>
+<div class="w-full md:w-7/12 p-8 md:p-16 flex flex-col justify-center relative">
+<div class="md:hidden absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-9xl text-primary">lock</span>
+</div>
+<div class="text-left mb-10">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-primary mb-6">
+<span class="material-symbols-outlined text-2xl">waving_hand</span>
+</div>
+<h1 class="text-3xl md:text-4xl font-black text-[#111418] dark:text-white mb-3">Welcome Back!</h1>
+<p class="text-gray-500 dark:text-gray-400 text-lg">Please enter your details to sign in.</p>
+</div>
+<form class="space-y-6">
+<div class="group">
+<label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 ml-1" for="email">Email or Username</label>
+<div class="relative transition-all duration-300 transform group-focus-within:-translate-y-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors">alternate_email</span>
+<input class="w-full h-14 pl-12 pr-4 rounded-2xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark text-gray-900 dark:text-white focus:ring-0 focus:border-primary/50 focus:bg-white dark:focus:bg-gray-800 transition-all outline-none font-medium placeholder-gray-400" id="email" placeholder="pilot@skyhop.com" type="email"/>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between items-center mb-2 ml-1">
+<label class="block text-sm font-bold text-gray-700 dark:text-gray-300" for="password">Password</label>
+<a class="text-xs md:text-sm font-bold text-primary hover:text-blue-600 transition-colors" href="#">Forgot Password?</a>
+</div>
+<div class="relative transition-all duration-300 transform group-focus-within:-translate-y-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors">lock_open</span>
+<input class="w-full h-14 pl-12 pr-12 rounded-2xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark text-gray-900 dark:text-white focus:ring-0 focus:border-primary/50 focus:bg-white dark:focus:bg-gray-800 transition-all outline-none font-medium placeholder-gray-400" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">visibility_off</span>
+</button>
+</div>
+</div>
+<button class="w-full h-14 mt-4 rounded-2xl bg-primary text-white font-bold text-lg hover:bg-blue-600 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-blue-500/20 flex items-center justify-center gap-2 group" type="button">
+                                Sign In
+                                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">login</span>
+</button>
+</form>
+<div class="mt-8 text-center">
+<p class="text-gray-500 dark:text-gray-400 font-medium">
+                            Don't have an account? 
+                            <a class="text-primary font-bold hover:text-blue-600 hover:underline transition-colors" href="#">Sign Up</a>
+</p>
+</div>
+<div class="relative mt-10 mb-8">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-gray-100 dark:border-gray-700"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="px-4 bg-white dark:bg-surface-dark text-gray-400 font-bold text-xs uppercase tracking-wider">Or continue with</span>
+</div>
+</div>
+<div class="flex gap-4 justify-center">
+<button class="w-14 h-14 rounded-2xl border-2 border-gray-100 dark:border-gray-700 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-600 transition-all hover:-translate-y-1">
+<img alt="Google" class="w-6 h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM8SRrM8lM1S4v05G8YZemp4tWbPZ0VquiKGTKQafdeO2CNSRs--bvPeCG3Sx-qg96yy7-aYTLUj7cyFo9kSN5uFZDvbBtsTQFMEMqHjrpfl6-xXC23-jgietICdg8iJ-tlX1FtJ4LVwOZWi2Rt7QeghdaoQufDAs5yjobbhbkAnEdYDh2p3zwgcyZHIZ4-9khsauZT6SEjOdZLSxUEdSQiH5OyurRKP1YXu4js4Chmn6mT-sWv7qIIOm42BCIH5x1tO_7mQP53aw"/>
+</button>
+<button class="w-14 h-14 rounded-2xl border-2 border-gray-100 dark:border-gray-700 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-600 transition-all hover:-translate-y-1">
+<img alt="Apple" class="w-6 h-6 invert dark:invert-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmJOq_YHkPQulmdkgWptvdYg62pvB5FpQeM0aybVzNROI6-dX47anhVg0NG35eYtP8LskrieG7cvCi3S-BkyjnNHKmZoX3kLXSnadPI_Vx4Y-LlUWqurq8KfzEhjGH3KAe11Rg5mAgRHRFpwx_bf4kzBFIhpaxC7SRv7TTJ6ygUXD_glvANNardOQSInN4v769H5AIG9B9PC2t0NSS0VfVTYeJJ4MCkqUGqo8RHtflXaWhQ9UvJbuByP7lPqqFD6r5N9-qewr-Lls"/>
+</button>
+<button class="w-14 h-14 rounded-2xl border-2 border-gray-100 dark:border-gray-700 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-600 transition-all hover:-translate-y-1">
+<img alt="Facebook" class="w-6 h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDRSRggEzKvz4xGAbdo43bJ-r1novVCOdpULAp4s0oSVpQnss5SYTs_DmQShj168A47_Mix7ts7VFD6_q_lwv0agK_FqgIR5UoziNhXz9DSEeEnpgfUdx2EjIE0Qq7X5JUeS4mERkX_wazok1ESAEX2R_yLNHqI_WkXquw3eBJOy1KsED_E6fd0a1uGlmi_iAgYXeMAKhFh24EoDWEaBMQk9W3llnwZ-r3pF2IbVzMHkXIjVznBjWuZCFWAY454r6hV5UigidG1H8"/>
+</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white dark:bg-surface-dark py-8 border-t border-gray-100 dark:border-gray-800">
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="text-gray-500 text-sm">© 2024 SkyHop Inc. All rights reserved.</div>
+<div class="flex gap-6">
+<a class="text-gray-500 hover:text-primary transition-colors text-sm" href="#">Privacy</a>
+<a class="text-gray-500 hover:text-primary transition-colors text-sm" href="#">Terms</a>
+<a class="text-gray-500 hover:text-primary transition-colors text-sm" href="#">Sitemap</a>
+</div>
+</div>
+</footer>
+</div>
+
+</body></html>

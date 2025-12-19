@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin: Reports Hub</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#368ce2",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111921",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Side Navigation -->
+<aside class="hidden lg:flex flex-col w-72 bg-white dark:bg-[#1a2632] border-r border-slate-200 dark:border-slate-800 h-full flex-shrink-0 transition-colors">
+<div class="flex flex-col h-full p-4 justify-between">
+<div class="flex flex-col gap-6">
+<!-- Branding -->
+<div class="flex items-center gap-3 px-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shadow-sm" data-alt="Abstract blue airline logo showing upward motion" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAzsKJ6gBdslVPIpFj-3vPZRptzIRqoKHOeh3-omfHrE20xHO_xZn-I23mkMLXBoF-FUhHeetVHqsjkodnkzCAtsBKjdlc1npzi1pxLetOeF0srOdPMCoXZXM7mZgzHiT_GhT0H3CUBGdFEqM68i15AGeokWGdGFNeDMUQ_vI0hsgcBN37Xx1qVSqQL6gE5d778ezNiHeK3uofHTK2HAOBaSz4WZzl6EGv2uqzu0966v1qSGIobsoO5mAXlgNEhukT9dcYEHQnZQDg");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-normal">SkyAdmin</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-normal leading-normal">Flight Booking Platform</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors">grid_view</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors">book_online</span>
+<span class="text-sm font-medium">Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors">flight</span>
+<span class="text-sm font-medium">Flights</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-primary font-medium" href="#">
+<span class="material-symbols-outlined text-primary fill-current">bar_chart</span>
+<span class="text-sm font-bold">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors">group</span>
+<span class="text-sm font-medium">Users</span>
+</a>
+</div>
+</div>
+<!-- Bottom User Section -->
+<div class="flex items-center gap-3 px-3 py-3 mt-auto rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden bg-center bg-cover" data-alt="Portrait of an admin user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDV-nDcuQpAxmnMPbSxdxfuL4jjudGeQfeC_n59stvtZ84FMCfgPCNQg6nffsb78JyJ_bO5iES41LIDNPjVuWMrxt_qlqKxG5n-g09vuGtLv8vlwN8JH7xAgV5skrub4mxpShSOfH43iq4iZ9soPD0JazSahQCSUxiJVLMDJEXwNqr7LNk3WYgUuuqurvo46yiQPj_kcKyhtco0405SB9aF5S9RrTnEAZHBBwtL7ejrzI-JwFiF3t1IXTG5p-c_iMz-b0pc5kVLGVw");'></div>
+<div class="flex flex-col flex-1 overflow-hidden">
+<p class="text-sm font-semibold text-slate-900 dark:text-white truncate">Admin User</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate">admin@skyadmin.com</p>
+</div>
+<button class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Scrollable Area -->
+<div class="flex-1 overflow-y-auto p-6 md:p-10 scroll-smooth">
+<div class="max-w-7xl mx-auto flex flex-col gap-8 pb-10">
+<!-- Page Header -->
+<header class="flex flex-wrap items-end justify-between gap-4">
+<div class="flex flex-col gap-1">
+<h1 class="text-slate-900 dark:text-white text-4xl font-black tracking-tight">Reports Hub</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal">Overview of platform performance and analytics</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center h-10 px-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-bold shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px] mr-2">filter_list</span>
+                            Filter
+                        </button>
+<button class="flex items-center justify-center h-10 px-4 rounded-xl bg-primary text-white text-sm font-bold shadow-md shadow-blue-500/20 hover:bg-blue-600 transition-colors">
+<span class="material-symbols-outlined text-[20px] mr-2">download</span>
+                            Export Report
+                        </button>
+</div>
+</header>
+<!-- Filters & Controls -->
+<section class="flex flex-wrap items-center gap-3">
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 pl-3 pr-3 hover:border-primary/50 transition-colors group">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-primary text-[18px]">calendar_today</span>
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Last 30 Days</span>
+<span class="material-symbols-outlined text-slate-400 dark:text-slate-500 text-[18px]">expand_more</span>
+</button>
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 pl-3 pr-3 hover:border-primary/50 transition-colors group">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-primary text-[18px]">public</span>
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Region: Global</span>
+<span class="material-symbols-outlined text-slate-400 dark:text-slate-500 text-[18px]">expand_more</span>
+</button>
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 pl-3 pr-3 hover:border-primary/50 transition-colors group">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-primary text-[18px]">sell</span>
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Class: All</span>
+<span class="material-symbols-outlined text-slate-400 dark:text-slate-500 text-[18px]">expand_more</span>
+</button>
+<div class="ml-auto flex items-center gap-2">
+<span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Auto-refresh</span>
+<div class="w-8 h-4 bg-primary/20 rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 size-3 bg-primary rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- KPI Stats Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Stat 1 -->
+<div class="flex flex-col gap-1 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Revenue</p>
+<div class="p-1.5 bg-green-100 dark:bg-green-900/30 rounded-lg">
+<span class="material-symbols-outlined text-green-600 dark:text-green-400 text-[20px]">trending_up</span>
+</div>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl font-black tracking-tight">$1.2M</p>
+<p class="text-green-600 dark:text-green-400 text-sm font-bold flex items-center gap-1">
+                            +12.5% <span class="text-slate-400 font-normal">vs last month</span>
+</p>
+</div>
+<!-- Stat 2 -->
+<div class="flex flex-col gap-1 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Bookings</p>
+<div class="p-1.5 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-[20px]">confirmation_number</span>
+</div>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl font-black tracking-tight">8,432</p>
+<p class="text-green-600 dark:text-green-400 text-sm font-bold flex items-center gap-1">
+                            +5.2% <span class="text-slate-400 font-normal">vs last month</span>
+</p>
+</div>
+<!-- Stat 3 -->
+<div class="flex flex-col gap-1 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Active Users</p>
+<div class="p-1.5 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+<span class="material-symbols-outlined text-purple-600 dark:text-purple-400 text-[20px]">group</span>
+</div>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl font-black tracking-tight">15.2k</p>
+<p class="text-green-600 dark:text-green-400 text-sm font-bold flex items-center gap-1">
+                            +8.1% <span class="text-slate-400 font-normal">vs last month</span>
+</p>
+</div>
+<!-- Stat 4 -->
+<div class="flex flex-col gap-1 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Flight Occupancy</p>
+<div class="p-1.5 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400 text-[20px]">airline_seat_recline_normal</span>
+</div>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl font-black tracking-tight">84%</p>
+<p class="text-red-500 dark:text-red-400 text-sm font-bold flex items-center gap-1">
+                            -2.4% <span class="text-slate-400 font-normal">vs last month</span>
+</p>
+</div>
+</section>
+<!-- Charts Row 1: Main Trend -->
+<section class="rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm p-6">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Revenue Trends</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">Daily revenue performance over the selected period</p>
+</div>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-slate-400">more_horiz</span>
+</button>
+</div>
+<!-- Simulated Chart Container -->
+<div class="relative h-64 w-full">
+<!-- Y Axis Labels -->
+<div class="absolute left-0 top-0 bottom-6 w-10 flex flex-col justify-between text-xs text-slate-400 text-right pr-2">
+<span>100k</span>
+<span>75k</span>
+<span>50k</span>
+<span>25k</span>
+<span>0</span>
+</div>
+<!-- Chart Area -->
+<div class="absolute left-10 right-0 top-2 bottom-6 flex items-end justify-between gap-1 border-b border-l border-slate-100 dark:border-slate-700/50 pl-1 pb-0">
+<!-- Background Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="w-full h-px bg-slate-100 dark:bg-slate-700/30"></div>
+<div class="w-full h-px bg-slate-100 dark:bg-slate-700/30"></div>
+<div class="w-full h-px bg-slate-100 dark:bg-slate-700/30"></div>
+<div class="w-full h-px bg-slate-100 dark:bg-slate-700/30"></div>
+<div class="w-full h-px bg-transparent"></div>
+</div>
+<!-- SVG Line Chart Simulation -->
+<svg class="absolute inset-0 w-full h-full text-primary drop-shadow-md" preserveaspectratio="none" viewbox="0 0 1000 200">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#368ce2" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#368ce2" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,200 L0,120 L50,140 L100,100 L150,110 L200,80 L250,90 L300,50 L350,70 L400,40 L450,60 L500,30 L550,50 L600,20 L650,40 L700,30 L750,50 L800,20 L850,40 L900,10 L950,30 L1000,10 L1000,200 Z" fill="url(#chartGradient)" stroke="none"></path>
+<path d="M0,120 L50,140 L100,100 L150,110 L200,80 L250,90 L300,50 L350,70 L400,40 L450,60 L500,30 L550,50 L600,20 L650,40 L700,30 L750,50 L800,20 L850,40 L900,10 L950,30 L1000,10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+<!-- Tooltip Simulation (Interactive-like) -->
+<div class="absolute left-[60%] top-[10%] flex flex-col items-center">
+<div class="size-3 bg-white dark:bg-slate-800 border-2 border-primary rounded-full shadow-sm z-10"></div>
+<div class="mt-2 bg-slate-900 text-white text-xs py-1 px-2 rounded-lg shadow-xl whitespace-nowrap z-20">
+                                    Oct 22: $94,230
+                                </div>
+<div class="w-px h-32 bg-slate-300 dark:bg-slate-600 border-dashed absolute top-1.5 -z-0"></div>
+</div>
+</div>
+<!-- X Axis Labels -->
+<div class="absolute left-10 right-0 bottom-0 h-6 flex justify-between text-xs text-slate-400 pt-2">
+<span>Oct 1</span>
+<span>Oct 5</span>
+<span>Oct 10</span>
+<span>Oct 15</span>
+<span>Oct 20</span>
+<span>Oct 25</span>
+<span>Oct 30</span>
+</div>
+</div>
+</section>
+<!-- Charts Row 2: Secondary Widgets -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+<!-- Widget 1: Top Destinations (Bar Chart) -->
+<section class="lg:col-span-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm p-6">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Top Destinations</h3>
+<div class="flex flex-col gap-4">
+<!-- Item 1 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-sm">
+<span class="font-medium text-slate-700 dark:text-slate-300">London (LHR)</span>
+<span class="font-bold text-slate-900 dark:text-white">2,450 Bookings</span>
+</div>
+<div class="w-full h-2.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-sm">
+<span class="font-medium text-slate-700 dark:text-slate-300">New York (JFK)</span>
+<span class="font-bold text-slate-900 dark:text-white">1,920 Bookings</span>
+</div>
+<div class="w-full h-2.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary/80 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-sm">
+<span class="font-medium text-slate-700 dark:text-slate-300">Dubai (DXB)</span>
+<span class="font-bold text-slate-900 dark:text-white">1,540 Bookings</span>
+</div>
+<div class="w-full h-2.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary/60 rounded-full" style="width: 50%"></div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-sm">
+<span class="font-medium text-slate-700 dark:text-slate-300">Singapore (SIN)</span>
+<span class="font-bold text-slate-900 dark:text-white">1,200 Bookings</span>
+</div>
+<div class="w-full h-2.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary/40 rounded-full" style="width: 40%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Widget 2: User Breakdown (Doughnut Simulation) -->
+<section class="rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm p-6 flex flex-col">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">User Class</h3>
+<div class="flex-1 flex items-center justify-center relative my-4">
+<!-- CSS Conic Gradient for Donut Chart -->
+<div class="size-40 rounded-full" style="background: conic-gradient(#368ce2 0% 60%, #93c5fd 60% 85%, #e2e8f0 85% 100%);"></div>
+<!-- Center Hole -->
+<div class="absolute size-28 bg-white dark:bg-slate-800 rounded-full flex flex-col items-center justify-center shadow-inner">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">15.2k</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Total Users</span>
+</div>
+</div>
+<div class="flex justify-center gap-4 mt-2">
+<div class="flex items-center gap-1.5">
+<div class="size-2.5 rounded-full bg-primary"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-300">Economy (60%)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="size-2.5 rounded-full bg-blue-300"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-300">Business (25%)</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Recent Transactions Table -->
+<section class="rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Recent High-Value Bookings</h3>
+<button class="text-sm text-primary font-bold hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+<thead class="bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white font-semibold">
+<tr>
+<th class="px-6 py-4">Booking ID</th>
+<th class="px-6 py-4">User</th>
+<th class="px-6 py-4">Route</th>
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Amount</th>
+<th class="px-6 py-4">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+<td class="px-6 py-4 font-mono text-xs">#BK-7829</td>
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 bg-cover" data-alt="User avatar 1" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJxXySGYtHg4-N3lZXsiPyjGPwyfrNvbs7dx3FziTWOGsSGJpDDnC_HzSJl9FDqzJP7Zh3KEOBqngmEYyNLHo9GYIgNm3btWJcEECg_5bxQ3-jQlAJvdqg4Rn6RCTD8s_88ZqGaenJFhPZ3Uq8qA6U3cbs98tIXHz_KOpETYVWI9pqSD6W1xJQJYbEgclvMItWecuDaeoKcmoTtNFZAik2ao06adsLpe8YmRiD68qI_7Szr-EFhA7y5ulBSM2OdXztPGXVoAH-cac")'></div>
+<span class="font-medium text-slate-900 dark:text-white">John Doe</span>
+</td>
+<td class="px-6 py-4">LHR <span class="text-slate-400 mx-1">→</span> JFK</td>
+<td class="px-6 py-4">Oct 24, 2023</td>
+<td class="px-6 py-4 font-bold text-slate-900 dark:text-white">$1,240</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300">
+                                            Confirmed
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+<td class="px-6 py-4 font-mono text-xs">#BK-7830</td>
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 bg-cover" data-alt="User avatar 2" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCIFUvibCJHWJWK16AJnqnjOz_VaJdrVg5UK5e6uINwrxm9sjY35pgVjkn5Tip-vDXOAjPeYlp5mT1aqzWEVHQiQ848fjEMHU2dhl7GoNah1b7y-Oyy8Jnb5FeGSH3Gw7ROz4wkMxV52ksuDzxa6ql0VqM_U-dwVag4G9j7jroeov9kUKXjwACJ6IQ7KTjNR3LXKQ1ANeCj9Ug9Hue2HRxdlcnnCG1sTeah0K3n4yG49rWOyqZDUBzv4yBLcZvSnZ4GEDFlNSDQuY8")'></div>
+<span class="font-medium text-slate-900 dark:text-white">Sarah Smith</span>
+</td>
+<td class="px-6 py-4">DXB <span class="text-slate-400 mx-1">→</span> SIN</td>
+<td class="px-6 py-4">Oct 23, 2023</td>
+<td class="px-6 py-4 font-bold text-slate-900 dark:text-white">$890</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300">
+                                            Pending
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+<td class="px-6 py-4 font-mono text-xs">#BK-7831</td>
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 bg-cover" data-alt="User avatar 3" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCZWh8xpA6uRkhj6NZ4uDp_BHYFC6hEVk9_yoFGv39lQSxQe8_ViMGQTLNXZa2n3_tTzWXGN0lxrv1zJz1OVUMVYQiFKytuHghCNuwp33FgaNRCYhnm5mP8QnEpyuryKALXb09deiPpoh-QvF0Rv3Mkeh8Ut2LGK0gasvOOUwLsM2UbwhquwbPLWqLhgtIYRDv7OS8Zx2vVeqXEG9O4Akcd9aTWMaJVocvmLtT49bojI8RZzWUKoibF1Xz9MyndShZuOf7M9e9NH7w")'></div>
+<span class="font-medium text-slate-900 dark:text-white">Michael Brown</span>
+</td>
+<td class="px-6 py-4">SFO <span class="text-slate-400 mx-1">→</span> NRT</td>
+<td class="px-6 py-4">Oct 23, 2023</td>
+<td class="px-6 py-4 font-bold text-slate-900 dark:text-white">$2,100</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300">
+                                            Confirmed
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>

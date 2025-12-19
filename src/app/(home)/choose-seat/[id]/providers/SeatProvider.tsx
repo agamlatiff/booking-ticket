@@ -10,6 +10,7 @@ interface SeatProviderProps {
 
 export type SeatContextType = {
   seat: FlightSeat | null;
+  selectedSeat: FlightSeat | null;
   setSelectedSeat: (seat: FlightSeat) => void;
 };
 
@@ -23,10 +24,11 @@ const SeatProvider: FC<SeatProviderProps> = ({ children }) => {
   };
 
   return (
-    <seatContext.Provider value={{ seat, setSelectedSeat }}>
+    <seatContext.Provider value={{ seat, selectedSeat: seat, setSelectedSeat }}>
       {children}
     </seatContext.Provider>
   );
 };
 
 export default SeatProvider;
+

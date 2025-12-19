@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Seat Selection Payment - SkyHigh Airlines</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#63a6e9",
+              "background-light": "#f6f7f8",
+              "background-dark": "#111921",
+              "accent-yellow": "#fef08a", // Soft yellow
+            },
+            fontFamily: {
+              "display": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "1rem", 
+              "lg": "2rem", 
+              "xl": "3rem", 
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        /* Custom scrollbar for a cleaner look if needed */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        
+        .isometric-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111417]">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-5 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4 text-[#111417]">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111417] text-2xl font-bold leading-tight tracking-[-0.015em]">SkyHigh</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 hidden md:flex">
+<div class="flex items-center gap-9">
+<a class="text-[#111417] text-sm font-bold hover:text-primary transition-colors" href="#">Flights</a>
+<a class="text-[#111417] text-sm font-bold hover:text-primary transition-colors" href="#">Hotels</a>
+<a class="text-[#111417] text-sm font-bold hover:text-primary transition-colors" href="#">Car Rentals</a>
+<a class="text-[#111417] text-sm font-bold hover:text-primary transition-colors" href="#">My Bookings</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-white shadow-sm" data-alt="User profile avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCjzYOYNdvtTqkSDtBiRpTSx9Rpj7U9KvzNbXFvEf4JrpKCGovTGtitsldb0y6GB7epWCzIk2qVjvvcO2-jdtlH4J3bkvAeNHhJtqPYQuJcc4Ua0NcFd82RLAfaySKrtocUpbevcPMlwip0mBIcCQSvkgIFdHwIbtyc13bSoXidtnJ58Ia8RH_0pYoBRNfAezqro2_LmLAlwYovWE_i49g6CdrzBzNm4lfehmgmwOIw-SiwdP3XTeLjqbPAg2t66KqA5qiuOA2cGs");'></div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow flex justify-center py-8 px-4 sm:px-6 lg:px-8">
+<div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+<!-- Left Column: Visuals & Summary -->
+<div class="lg:col-span-5 flex flex-col gap-8">
+<!-- Header Text -->
+<div class="space-y-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-accent-yellow/50 rounded-full text-yellow-800 text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">flight_takeoff</span>
+                            Step 3 of 4
+                        </div>
+<h1 class="text-[#111417] text-4xl sm:text-5xl font-black leading-[1.1] tracking-tight">
+                            Secure Your<br/>Favorite Spot!
+                        </h1>
+<p class="text-[#647587] text-lg font-medium leading-relaxed">
+                            You’re just one step away from sitting comfortably in Seat 12A. Complete payment to lock it in.
+                        </p>
+</div>
+<!-- 3D Illustration -->
+<div class="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-primary/5 flex items-center justify-center relative isometric-float">
+<!-- Decorative background circles -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
+<div class="relative z-10 w-full h-full bg-center bg-contain bg-no-repeat" data-alt="3D isometric illustration of a blue wallet with plane tickets and coins floating nearby" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQIcNkxOq4HhjPocpa685uVHOsEOqP34UHFBHgkxQ8pAbN0YbzhH7t-06Cy1S53EKbuX0Uc8rVqaqdma7QsBmyq8UX9SaLykk0_aUYHSYbbGFLcht5Visbt9szLnVPsngb4JoDIl5aTNpSsWPgP1ZBUf1_YYDXiFaGy02Wrrj3H6dC48_hSRIuqnXJQTAxh35yhqdqOHbrIwAhNfSn-1U1ncgNZkk9htCPil4nEP0EtZpMezRjdHsptcywAVwmjYwLlb9r2rjjDaM");'>
+</div>
+</div>
+<!-- Order Summary Ticket -->
+<div class="bg-white rounded-[2rem] p-6 shadow-xl shadow-primary/5 border border-slate-100 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-blue-300 to-accent-yellow"></div>
+<div class="flex items-center gap-3 mb-6 pb-4 border-b border-dashed border-slate-200">
+<div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<h3 class="text-lg font-bold text-[#111417]">Booking Summary</h3>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Items -->
+<div class="flex justify-between items-center group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">chair</span>
+<div>
+<p class="text-[#111417] text-sm font-bold">Seat 12A (Window)</p>
+<p class="text-[#647587] text-xs">Passenger 1</p>
+</div>
+</div>
+<p class="text-[#111417] text-base font-bold">$25.00</p>
+</div>
+<div class="flex justify-between items-center group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">chair</span>
+<div>
+<p class="text-[#111417] text-sm font-bold">Seat 12B (Middle)</p>
+<p class="text-[#647587] text-xs">Passenger 2</p>
+</div>
+</div>
+<p class="text-[#111417] text-base font-bold">$15.00</p>
+</div>
+</div>
+<!-- Total -->
+<div class="mt-6 pt-4 border-t border-slate-100 flex justify-between items-end">
+<p class="text-[#647587] text-sm font-medium">Total due today</p>
+<h2 class="text-primary text-3xl font-black tracking-tight">$40.00</h2>
+</div>
+</div>
+</div>
+<!-- Right Column: Payment Form -->
+<div class="lg:col-span-7 w-full">
+<div class="bg-white rounded-[2.5rem] p-8 sm:p-10 shadow-2xl shadow-slate-200/50 border border-white">
+<!-- Tabs -->
+<div class="mb-8">
+<label class="block text-sm font-bold text-[#111417] mb-3 ml-2">Select Payment Method</label>
+<div class="flex p-1.5 bg-background-light rounded-full gap-2 overflow-x-auto no-scrollbar">
+<button class="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-white shadow-sm rounded-full text-primary border border-slate-100 min-w-[140px] transition-all transform active:scale-95">
+<span class="material-symbols-outlined fill-current">credit_card</span>
+<span class="text-sm font-bold">Card</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 px-6 py-3 text-[#647587] hover:bg-white/50 rounded-full min-w-[140px] transition-all">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-sm font-bold">PayPal</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 px-6 py-3 text-[#647587] hover:bg-white/50 rounded-full min-w-[140px] transition-all">
+<span class="material-symbols-outlined">contactless</span>
+<span class="text-sm font-bold">Apple Pay</span>
+</button>
+</div>
+</div>
+<!-- Form -->
+<form class="flex flex-col gap-6" onsubmit="event.preventDefault();">
+<!-- Card Number -->
+<div class="space-y-2">
+<label class="text-sm font-bold text-[#111417] ml-2">Card Number</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400">credit_card</span>
+</div>
+<input class="w-full bg-background-light text-[#111417] placeholder:text-slate-400 font-medium rounded-full py-4 pl-12 pr-4 border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-primary focus:bg-white transition-all duration-300" placeholder="0000 0000 0000 0000" type="text"/>
+<div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+<div class="h-6 w-10 bg-contain bg-no-repeat bg-center opacity-50" data-alt="Mastercard logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBIdJlRKFKaVOIc8rfZWtYnOYxsNWlODs87w4BZiHN-QxM3EB09PatFKrG_9Kqho834jiY4auJ0XgusB7ik63StwduRF4oWNA1Ar13PzDzL_8te2RNPffeXf_7CC0bpCmYADil6l5fMo8G2mnbvuyo6erP_ul5R8yDRrwL-1B-6eLq0ByUNm5uwYYV6dYwpLhH1nE5Pxz0UzGpffC5syqwcUe8d-mNmd-fg22Z3IKJ6_e_vJDh6YUTQFaCNKuLHy_PtMAqoLKVISDw');"></div>
+</div>
+</div>
+</div>
+<!-- Cardholder Name -->
+<div class="space-y-2">
+<label class="text-sm font-bold text-[#111417] ml-2">Cardholder Name</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400">person</span>
+</div>
+<input class="w-full bg-background-light text-[#111417] placeholder:text-slate-400 font-medium rounded-full py-4 pl-12 pr-4 border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-primary focus:bg-white transition-all duration-300" placeholder="e.g. John Doe" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- Expiry Date -->
+<div class="space-y-2">
+<label class="text-sm font-bold text-[#111417] ml-2">Expiry Date</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400">calendar_month</span>
+</div>
+<input class="w-full bg-background-light text-[#111417] placeholder:text-slate-400 font-medium rounded-full py-4 pl-12 pr-4 border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-primary focus:bg-white transition-all duration-300" placeholder="MM/YY" type="text"/>
+</div>
+</div>
+<!-- CVC -->
+<div class="space-y-2">
+<div class="flex justify-between items-center ml-2">
+<label class="text-sm font-bold text-[#111417]">CVC / CVV</label>
+<div class="group relative flex items-center">
+<span class="material-symbols-outlined text-xs text-slate-400 cursor-help">help</span>
+<div class="absolute bottom-full right-0 mb-2 hidden group-hover:block w-32 bg-[#111417] text-white text-xs rounded-lg p-2 text-center">
+                                                3 digits on back
+                                            </div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400">lock</span>
+</div>
+<input class="w-full bg-background-light text-[#111417] placeholder:text-slate-400 font-medium rounded-full py-4 pl-12 pr-4 border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-primary focus:bg-white transition-all duration-300" placeholder="123" type="text"/>
+</div>
+</div>
+</div>
+<!-- Security Badge -->
+<div class="flex items-center justify-center gap-2 py-2">
+<span class="material-symbols-outlined text-green-500 text-lg">verified_user</span>
+<span class="text-xs text-slate-500 font-medium">Payments are SSL encrypted and 100% secure</span>
+</div>
+<!-- Action Button -->
+<button class="group relative w-full h-14 bg-primary hover:bg-blue-400 text-[#111417] rounded-full font-bold text-lg shadow-[0_8px_30px_rgb(99,166,233,0.4)] hover:shadow-[0_8px_35px_rgb(99,166,233,0.6)] transition-all transform hover:-translate-y-1 active:translate-y-0 overflow-hidden" type="button">
+<span class="relative z-10 flex items-center justify-center gap-3">
+                                    Pay $40.00 Now
+                                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</span>
+<!-- Shine effect -->
+<div class="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0"></div>
+</button>
+</form>
+</div>
+<!-- Bottom Trust Logos -->
+<div class="flex justify-center gap-6 mt-8 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+<div class="h-8 w-12 bg-contain bg-center bg-no-repeat" data-alt="Visa Logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCyOxnrRoXxgd0rucKobkxkrwIrr6eAyjoy_eaquOn3a44E-BawV0u2ohAMRIkmtl55cq2B8HporYYgs2dn4y3ldbquhS1V_byy8MCePL83DWA03e_Wmou6duZmjV_AtLYIjd1gfNmhJDboUoMKU8ZVDnI_zzmucesAkErsG6OKcQ8NSGsg8RrK4GhhJS4qTmdBVAHZBzDams1zESAWBEMZP6Hqhg-eCf6pc44pqj0GNWyf6kt2YC52xeopuD0WyYGdtyd1xKpyTTI')"></div>
+<div class="h-8 w-12 bg-contain bg-center bg-no-repeat" data-alt="Mastercard Logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBjWz6WqeSwOfkhaoxGyJKghQ3DHRp0ETTU-HkeZX8qmcRfsRzn0V3sn3yqsKkdWtct2geRGEQE04Y29T_aj6-tL8JWM3bne2hopYBFc8s5WHgaok-tL48JScw8jdR7CECdYTCUclyXIi_nNCMTDElOhnsjitQiX7li2Cb8yMuV_axsEmcRVBfD102vjWy9Jt-jCrLnTRK8DD8mRJKfxNeSkDhmzggpr1Rkij7ZGCV8_3bR-v9K_rjJ9fB4d1_ZFjNMk_igVo3Xbl8')"></div>
+<div class="h-8 w-12 bg-contain bg-center bg-no-repeat" data-alt="Paypal Logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB_4vCW3vp2ibn5bhIsLkfmWHmQVWq_RDbBNIBsQx_KkT6rCt0ne2VdXI0gqt9P3ON-Xan7GU5kpbB9YRbi_bXXVp9bA-4jDRbPOuv7ESzs5Ub5adsFyQI3eG3s0PbfZVg27xGRcOTwcdxsPUKrpXC6BiH9mMgPQY_2nGORoxgdXqvAuKGeYgL-w2POXwbysW2YKkPx90EIr3UHPA2frW4EuwtdDexeYbdfrjTxJHTX4GyEN-YT0tctzp8O0cIDRn7KhJE69C4rUVs')"></div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Animation Keyframes needed for the button shimmer -->
+<style>
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</body></html>

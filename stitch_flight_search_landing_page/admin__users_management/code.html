@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlightAdmin - User Management</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#63a6e9",
+              "background-light": "#f6f7f8",
+              "background-dark": "#111921",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1a242d",
+              "text-main": "#111417",
+              "text-secondary": "#647587",
+              "border-color": "#dce0e5",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.5rem",
+              "lg": "1rem", 
+              "xl": "1.5rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main antialiased overflow-x-hidden">
+<div class="flex h-screen w-full flex-row overflow-hidden">
+<!-- Sidebar -->
+<aside class="hidden w-72 flex-col border-r border-border-color bg-surface-light dark:bg-surface-dark lg:flex">
+<div class="flex h-full flex-col justify-between p-6">
+<div class="flex flex-col gap-8">
+<!-- Logo -->
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-2xl">flight_takeoff</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-text-main text-lg font-bold leading-tight">FlightAdmin</h1>
+<p class="text-text-secondary text-xs font-normal">Admin Dashboard</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 rounded-xl px-3 py-3 text-text-main hover:bg-background-light dark:hover:bg-background-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 rounded-xl px-3 py-3 text-text-main hover:bg-background-light dark:hover:bg-background-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">flight</span>
+<span class="text-sm font-medium">Flights</span>
+</a>
+<a class="flex items-center gap-3 rounded-xl px-3 py-3 text-text-main hover:bg-background-light dark:hover:bg-background-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">book_online</span>
+<span class="text-sm font-medium">Bookings</span>
+</a>
+<a class="flex items-center gap-3 rounded-xl bg-primary/10 px-3 py-3 text-text-main" href="#">
+<span class="material-symbols-outlined text-[24px] fill-1">group</span>
+<span class="text-sm font-bold">Users</span>
+</a>
+<a class="flex items-center gap-3 rounded-xl px-3 py-3 text-text-main hover:bg-background-light dark:hover:bg-background-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Actions -->
+<div class="flex flex-col gap-4">
+<div class="rounded-xl bg-background-light dark:bg-background-dark p-4">
+<p class="text-sm font-bold mb-1">Need Help?</p>
+<p class="text-xs text-text-secondary mb-3">Check our docs for flight management rules.</p>
+<button class="text-primary text-xs font-bold hover:underline">Read Documentation</button>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 cursor-pointer text-text-secondary hover:text-text-main">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Log Out</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex flex-1 flex-col h-full overflow-hidden relative">
+<!-- Top Navbar -->
+<header class="flex h-16 w-full items-center justify-between border-b border-border-color bg-surface-light dark:bg-surface-dark px-6 lg:px-10 shrink-0 z-20">
+<div class="flex items-center gap-4 lg:hidden">
+<button class="text-text-main">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-lg font-bold">FlightAdmin</h2>
+</div>
+<!-- Spacer for desktop layout alignment -->
+<div class="hidden lg:block"></div>
+<div class="flex items-center gap-6">
+<button class="relative text-text-main hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-[#111921]"></span>
+</button>
+<div class="flex items-center gap-3 pl-6 border-l border-border-color">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold text-text-main">Alex Morgan</p>
+<p class="text-xs text-text-secondary">Super Admin</p>
+</div>
+<div class="h-10 w-10 rounded-full bg-cover bg-center border border-border-color" data-alt="Profile picture of administrator Alex Morgan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBXcu9CdOp-5mAk7Yb9-GMuC-jATNtx-HJLihsNxX5DeQn5z2DWtQxm93rDsVlJPBvlv7a4ibrbIEepnwA7FljZYW0IjE0cfmbUKBVsK2kdEQ-w-vfc_c0J5o6bQ-HgVZ_FWu-jZQVSBTiQOyk6xyNIfqHkuwaKy1MGUD9uKvAFlhsyUTtcjQoHXJ-crbnR6BKo-zTg5cstY9X1vJGIBWNdVOFcSk5XWtnHdEGuCNBWzDlfLI2p319LoaDp9FRHMOSyf6Ii9ZZBs7o");'>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-4 md:p-8 lg:p-10 scroll-smooth">
+<div class="mx-auto flex max-w-[1200px] flex-col gap-8">
+<!-- Breadcrumbs -->
+<nav class="flex items-center text-sm font-medium text-text-secondary">
+<a class="hover:text-primary transition-colors" href="#">Dashboard</a>
+<span class="mx-2 material-symbols-outlined text-base">chevron_right</span>
+<span class="text-text-main">Users</span>
+</nav>
+<!-- Page Header -->
+<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+<div class="flex flex-col gap-1">
+<h1 class="text-3xl font-black tracking-tight text-text-main md:text-4xl">User Management</h1>
+<p class="text-text-secondary">Oversee and manage all registered traveler accounts.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex h-10 items-center justify-center gap-2 rounded-xl border border-border-color bg-surface-light px-4 text-sm font-bold text-text-main shadow-sm hover:bg-gray-50 transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="hidden sm:inline">Export</span>
+</button>
+<button class="flex h-10 items-center justify-center gap-2 rounded-xl bg-primary px-4 text-sm font-bold text-text-main shadow-sm hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>Add New User</span>
+</button>
+</div>
+</div>
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+<div class="flex flex-col gap-1 rounded-xl border border-border-color bg-surface-light p-5 shadow-sm">
+<div class="mb-2 flex items-center justify-between">
+<p class="text-text-secondary text-sm font-medium">Total Users</p>
+<span class="material-symbols-outlined text-primary">group</span>
+</div>
+<p class="text-2xl font-bold text-text-main">12,450</p>
+<div class="flex items-center gap-1 text-sm font-medium text-[#078838]">
+<span class="material-symbols-outlined text-base">trending_up</span>
+<span>+1.2%</span>
+<span class="ml-1 text-text-secondary font-normal">vs last month</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 rounded-xl border border-border-color bg-surface-light p-5 shadow-sm">
+<div class="mb-2 flex items-center justify-between">
+<p class="text-text-secondary text-sm font-medium">New This Month</p>
+<span class="material-symbols-outlined text-primary">person_add</span>
+</div>
+<p class="text-2xl font-bold text-text-main">145</p>
+<div class="flex items-center gap-1 text-sm font-medium text-[#078838]">
+<span class="material-symbols-outlined text-base">trending_up</span>
+<span>+5.4%</span>
+<span class="ml-1 text-text-secondary font-normal">vs last month</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 rounded-xl border border-border-color bg-surface-light p-5 shadow-sm">
+<div class="mb-2 flex items-center justify-between">
+<p class="text-text-secondary text-sm font-medium">Suspended Accounts</p>
+<span class="material-symbols-outlined text-red-500">block</span>
+</div>
+<p class="text-2xl font-bold text-text-main">23</p>
+<div class="flex items-center gap-1 text-sm font-medium text-[#e73908]">
+<span class="material-symbols-outlined text-base">trending_down</span>
+<span>-2.1%</span>
+<span class="ml-1 text-text-secondary font-normal">vs last month</span>
+</div>
+</div>
+</div>
+<!-- Filters & Toolbar -->
+<div class="flex flex-col gap-4 rounded-xl bg-surface-light p-4 shadow-sm border border-border-color lg:flex-row lg:items-center lg:justify-between">
+<div class="flex flex-1 items-center gap-4">
+<div class="relative w-full max-w-sm">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary material-symbols-outlined text-[20px]">search</span>
+<input class="h-10 w-full rounded-xl border-border-color bg-background-light py-2 pl-10 pr-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary dark:bg-background-dark dark:text-white transition-all" placeholder="Search by name, email or ID..." type="text"/>
+</div>
+<div class="hidden h-8 w-[1px] bg-border-color lg:block"></div>
+<div class="flex gap-2 overflow-x-auto pb-2 lg:pb-0">
+<select class="h-10 cursor-pointer rounded-xl border-border-color bg-background-light px-3 py-2 text-sm font-medium text-text-main focus:border-primary focus:ring-primary dark:bg-background-dark">
+<option>Status: All</option>
+<option>Active</option>
+<option>Suspended</option>
+<option>Inactive</option>
+</select>
+<select class="h-10 cursor-pointer rounded-xl border-border-color bg-background-light px-3 py-2 text-sm font-medium text-text-main focus:border-primary focus:ring-primary dark:bg-background-dark">
+<option>Joined: Any Time</option>
+<option>This Month</option>
+<option>Last 3 Months</option>
+<option>This Year</option>
+</select>
+</div>
+</div>
+<div class="flex items-center justify-end gap-2">
+<span class="text-sm text-text-secondary">Showing 1-10 of 12,450</span>
+</div>
+</div>
+<!-- Users Table -->
+<div class="overflow-hidden rounded-xl border border-border-color bg-surface-light shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full min-w-[800px] border-collapse text-left">
+<thead>
+<tr class="border-b border-border-color bg-background-light/50">
+<th class="p-4 text-xs font-medium uppercase tracking-wider text-text-secondary">User</th>
+<th class="p-4 text-xs font-medium uppercase tracking-wider text-text-secondary">User ID</th>
+<th class="p-4 text-xs font-medium uppercase tracking-wider text-text-secondary">Joined</th>
+<th class="p-4 text-xs font-medium uppercase tracking-wider text-text-secondary">Total Bookings</th>
+<th class="p-4 text-xs font-medium uppercase tracking-wider text-text-secondary">Status</th>
+<th class="p-4 text-xs font-medium uppercase tracking-wider text-text-secondary text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-color">
+<!-- Row 1 -->
+<tr class="group hover:bg-background-light/50 transition-colors">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="Profile photo of Sarah Jenkins" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBB-_YgBBMnbzhZiI8215Jfc175f2qBN94Lm6dNUMfzqBs3JVi8TVX03w8FyCwrNAnyLu7hz3rq8PEvSEKEgoLM0UtayY1ylzAZH5IpdMCoFyqwpGOJKq-ubW1zLhdGUbwQnCx04jTmNUYbtLOybn-TPwyTWWh2K0q7GpsJ2ZnK3wmqIIyW0rB-ZI4-NoVnYKM6vV3U826WfMqTm4jltZFpArBgFFkW1dMB8jF4KhvEYrseiO_Bx9Lf21_lRZi3sxjMK1w-Fb1DdOw");'></div>
+<div class="flex flex-col">
+<span class="font-bold text-text-main">Sarah Jenkins</span>
+<span class="text-sm text-text-secondary">sarah.j@example.com</span>
+</div>
+</div>
+</td>
+<td class="p-4 text-sm font-medium text-text-secondary">#USR-9921</td>
+<td class="p-4 text-sm text-text-main">Oct 24, 2023</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">airplane_ticket</span>
+<span class="text-sm font-bold text-text-main">12</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                                            Active
+                                        </span>
+</td>
+<td class="p-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="rounded-lg p-2 text-text-secondary hover:bg-background-light hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="rounded-lg p-2 text-text-secondary hover:bg-red-50 hover:text-red-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-background-light/50 transition-colors">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="Profile photo of Michael Chen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWIwA1T-W7Wm4hao_du6kwkr3Be3rnz4ibqa_pVvJyYV4Vd5bdt44WGNNEQmuaPTOAk_tMmUZyd99E4-8VqmriucVcklnA0ONJwaEYp6pogm3nKf_pFeIsdCeGK7n20VcysB6gAlmUmzloOUZ_pq5MhH3iIcZxFpDRbKAixIX-gy2EjgxTCdy1hlN9TZXBmg29HlvO7j3a0oyL0ixbLM8LEYQ6mObuiCiNH_LY3OKNUq_p5V-LCL7NvfbdZkZz2khnUttXtplqq-M");'></div>
+<div class="flex flex-col">
+<span class="font-bold text-text-main">Michael Chen</span>
+<span class="text-sm text-text-secondary">m.chen88@example.com</span>
+</div>
+</div>
+</td>
+<td class="p-4 text-sm font-medium text-text-secondary">#USR-8842</td>
+<td class="p-4 text-sm text-text-main">Oct 22, 2023</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">airplane_ticket</span>
+<span class="text-sm font-bold text-text-main">3</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                                            Active
+                                        </span>
+</td>
+<td class="p-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="rounded-lg p-2 text-text-secondary hover:bg-background-light hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="rounded-lg p-2 text-text-secondary hover:bg-red-50 hover:text-red-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-background-light/50 transition-colors">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100 text-purple-600">
+<span class="font-bold">ED</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-text-main">Emma Davis</span>
+<span class="text-sm text-text-secondary">emma.d@example.com</span>
+</div>
+</div>
+</td>
+<td class="p-4 text-sm font-medium text-text-secondary">#USR-7731</td>
+<td class="p-4 text-sm text-text-main">Sep 15, 2023</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-secondary text-[18px]">airplane_ticket</span>
+<span class="text-sm font-bold text-text-secondary">0</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                                            Inactive
+                                        </span>
+</td>
+<td class="p-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="rounded-lg p-2 text-text-secondary hover:bg-background-light hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="rounded-lg p-2 text-text-secondary hover:bg-red-50 hover:text-red-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-background-light/50 transition-colors">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="Profile photo of James Wilson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBqKlEEd1Q_jYn7NOFD4N6csl3goVsAoETLkP3G-3eISDK0DXHV9Zghb30xbGqMinqRUcQ1eUTKfQ9QbrYKyotsJt1HSVW691KudWYkhXmRy3zheRiHkMOx1NVSsAciYj-sOVkyC28_wjhiMPNGAUuQQ6insf5odvXaZNA6-9inhCU-qhdAU3xYnjMpIZHyCeiOObFjU58m27ZtocP7zo7rMhm_tw1vzwdFvW517Df3eHz22E6nWO4Mrw6KRv9yt8N1tQy77F__9Ts");'></div>
+<div class="flex flex-col">
+<span class="font-bold text-text-main">James Wilson</span>
+<span class="text-sm text-text-secondary">j.wilson@example.com</span>
+</div>
+</div>
+</td>
+<td class="p-4 text-sm font-medium text-text-secondary">#USR-6650</td>
+<td class="p-4 text-sm text-text-main">Aug 02, 2023</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">airplane_ticket</span>
+<span class="text-sm font-bold text-text-main">8</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-300">
+                                            Suspended
+                                        </span>
+</td>
+<td class="p-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="rounded-lg p-2 text-text-secondary hover:bg-background-light hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="rounded-lg p-2 text-text-secondary hover:bg-red-50 hover:text-red-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="group hover:bg-background-light/50 transition-colors">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="Profile photo of Linda Garcia" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKXhiQHSMCuLUPLsDUsGzQ9huTLmwlNfSJkiHYMvfdiycjCgptRdMi-hW9tZUjfS6k22s3Vf4dDeBS_Nhf37HjPO58XTtnvx1Uc3eli276AvAInbUB_gjkHOL_7BUUCUse7p0TOykXWErBJM9jQdS-o8rPwJKCExgV9v3F5iL5x2pJxJM73XkA4m2v7E1at-vs3KdxSJe5esUSO1BYwUhFWKjrniekOgLEpzVjQK1hs_PA-s9lO063Na8OSZLwbstW2xXckbofB4Y");'></div>
+<div class="flex flex-col">
+<span class="font-bold text-text-main">Linda Garcia</span>
+<span class="text-sm text-text-secondary">linda.g@example.com</span>
+</div>
+</div>
+</td>
+<td class="p-4 text-sm font-medium text-text-secondary">#USR-5529</td>
+<td class="p-4 text-sm text-text-main">Jul 20, 2023</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">airplane_ticket</span>
+<span class="text-sm font-bold text-text-main">24</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                                            Active
+                                        </span>
+</td>
+<td class="p-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="rounded-lg p-2 text-text-secondary hover:bg-background-light hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="rounded-lg p-2 text-text-secondary hover:bg-red-50 hover:text-red-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]">block</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between border-t border-border-color bg-surface-light px-4 py-3 sm:px-6">
+<div class="flex flex-1 justify-between sm:hidden">
+<a class="relative inline-flex items-center rounded-md border border-border-color bg-white px-4 py-2 text-sm font-medium text-text-secondary hover:bg-background-light" href="#">Previous</a>
+<a class="relative ml-3 inline-flex items-center rounded-md border border-border-color bg-white px-4 py-2 text-sm font-medium text-text-secondary hover:bg-background-light" href="#">Next</a>
+</div>
+<div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+<div>
+<p class="text-sm text-text-secondary">
+                                    Showing <span class="font-medium text-text-main">1</span> to <span class="font-medium text-text-main">10</span> of <span class="font-medium text-text-main">97</span> results
+                                </p>
+</div>
+<div>
+<nav aria-label="Pagination" class="isolate inline-flex -space-x-px rounded-md shadow-sm">
+<a class="relative inline-flex items-center rounded-l-md px-2 py-2 text-text-secondary ring-1 ring-inset ring-border-color hover:bg-background-light focus:z-20 focus:outline-offset-0" href="#">
+<span class="sr-only">Previous</span>
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</a>
+<a aria-current="page" class="relative z-10 inline-flex items-center bg-primary px-4 py-2 text-sm font-semibold text-text-main focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#">1</a>
+<a class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-text-main ring-1 ring-inset ring-border-color hover:bg-background-light focus:z-20 focus:outline-offset-0" href="#">2</a>
+<a class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-text-main ring-1 ring-inset ring-border-color hover:bg-background-light focus:z-20 focus:outline-offset-0" href="#">3</a>
+<span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-text-secondary ring-1 ring-inset ring-border-color focus:outline-offset-0">...</span>
+<a class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-text-main ring-1 ring-inset ring-border-color hover:bg-background-light focus:z-20 focus:outline-offset-0" href="#">10</a>
+<a class="relative inline-flex items-center rounded-r-md px-2 py-2 text-text-secondary ring-1 ring-inset ring-border-color hover:bg-background-light focus:z-20 focus:outline-offset-0" href="#">
+<span class="sr-only">Next</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

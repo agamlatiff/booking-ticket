@@ -1,42 +1,49 @@
 const FIlterFlight = () => {
   return (
-    <div className="flex flex-col gap-4">
-      <p className="font-semibold">Flight</p>
+    <div className="flex flex-col gap-3">
+      <p className="text-text-dark text-sm font-bold mb-1">Stops</p>
       <label
         htmlFor="direct"
-        className="font-semibold flex items-center gap-[10px] has-[:checked]:text-white"
+        className="flex items-center gap-3 cursor-pointer group"
       >
         <input
-          type="radio"
+          type="checkbox"
           name="flight"
           id="direct"
-          className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-full checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
+          defaultChecked
+          className="w-5 h-5 rounded-md border-2 border-gray-300 text-sky-primary focus:ring-sky-primary/20 transition-all"
         />
-        Direct
+        <span className="text-gray-500 text-sm font-medium group-hover:text-sky-primary transition-colors">
+          Non-stop
+        </span>
       </label>
       <label
         htmlFor="transit"
-        className="font-semibold flex items-center gap-[10px] has-[:checked]:text-white"
+        className="flex items-center gap-3 cursor-pointer group"
       >
         <input
-          type="radio"
+          type="checkbox"
           name="flight"
           id="transit"
-          className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-full checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
+          className="w-5 h-5 rounded-md border-2 border-gray-300 text-sky-primary focus:ring-sky-primary/20 transition-all"
         />
-        Transit
+        <span className="text-gray-500 text-sm font-medium group-hover:text-sky-primary transition-colors">
+          1 Stop
+        </span>
       </label>
       <label
         htmlFor="transits"
-        className="font-semibold flex items-center gap-[10px] has-[:checked]:text-white"
+        className="flex items-center gap-3 cursor-pointer group"
       >
         <input
-          type="radio"
+          type="checkbox"
           name="flight"
           id="transits"
-          className="w-[18px] h-[18px] appearance-none checked:border-[3px] checked:border-solid checked:border-flysha-black rounded-full checked:bg-flysha-light-purple ring-2 ring-flysha-off-purple checked:ring-white"
+          className="w-5 h-5 rounded-md border-2 border-gray-300 text-sky-primary focus:ring-sky-primary/20 transition-all"
         />
-        Transits ~5
+        <span className="text-gray-500 text-sm font-medium group-hover:text-sky-primary transition-colors">
+          2+ Stops
+        </span>
       </label>
     </div>
   );

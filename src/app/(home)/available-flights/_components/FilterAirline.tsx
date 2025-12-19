@@ -5,8 +5,8 @@ const FilterAirline = async () => {
   const airplanes = await getAirplanes();
 
   return (
-    <div className="flex flex-col gap-4">
-      <p className="font-semibold">Airlines</p>
+    <div className="flex flex-col gap-3">
+      <p className="text-text-dark text-sm font-bold mb-1">Airlines</p>
       {airplanes.map((item, index) => (
         <CheckboxAirline key={index + item.id} item={item} />
       ))}

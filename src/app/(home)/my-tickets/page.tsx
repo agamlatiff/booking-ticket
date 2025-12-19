@@ -1,8 +1,10 @@
-import Navbar from "@/app/_components/Navbar";
+import NavbarLight from "@/app/_components/NavbarLight";
 import TicketCard from "./_components/TicketCard";
 import { getUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { getMyTicket } from "./lib/data";
+import Link from "next/link";
+import { Ticket } from "lucide-react";
 
 const MyTicketsPage = async () => {
   const { user, session } = await getUser();
@@ -14,37 +16,60 @@ const MyTicketsPage = async () => {
   const data = await getMyTicket(user.id);
 
   return (
-    <>
-      <section
-        id="Header"
-        className="bg-[url('/assets/images/background/airplane.png')] bg-no-repeat bg-cover bg-left-top h-[290px] relative"
-      >
-        <div className="Header-content bg-gradient-to-r from-[#080318] to-[rgba(8,3,24,0)] h-[290px]">
-          <Navbar />
-          <div className="title container max-w-[1130px] mx-auto flex flex-col gap-1 pt-[50px] pb-[68px]">
-            <h1 className="font-bold text-[32px] leading-[48px]">My Tickets</h1>
-            <p className="font-medium text-lg leading-[27px]">
-              183,042 flights avaiable
-            </p>
-          </div>
-          <div className="w-full h-[15px] bg-gradient-to-t from-[#080318] to-[rgba(8,3,24,0)] absolute bottom-0" />
-        </div>
-      </section>
+    <div className="bg-background-light min-h-screen font-display">
+      {/* Navigation */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <NavbarLight />
+      </header>
 
-      <section
-        id="Content"
-        className="container max-w-[1130px] mx-auto flex justify-end -mt-[60px] pb-[100px] z-10 relative"
-      >
-        <div className="ticket-container flex flex-col w-[900px] gap-6">
-          {data.map((val) => (
-            <TicketCard key={val.id} data={val}  />
-          ))}
-          <p className="text-center text-sm text-[#A0A0AC] h-fit">
-            You’ve reached the end of results.
+      {/* Header */}
+      <div className="bg-white border-b border-gray-100 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-sky-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        <div className="max-w-[1200px] mx-auto px-4 md:px-10 py-8 relative z-10">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 bg-sky-primary/10 rounded-xl flex items-center justify-center">
+              <Ticket className="w-5 h-5 text-sky-primary" />
+            </div>
+            <h1 className="text-text-dark text-3xl md:text-4xl font-extrabold tracking-tight">
+              My Tickets
+            </h1>
+          </div>
+          <p className="text-gray-500 text-lg">
+            {data.length} booking{data.length !== 1 ? "s" : ""} found
           </p>
         </div>
-      </section>
-    </>
+      </div>
+
+      {/* Content */}
+      <main className="max-w-[1200px] mx-auto px-4 md:px-10 py-8">
+        {data.length === 0 ? (
+          <div className="bg-white rounded-2xl p-12 shadow-sm border border-gray-200 text-center">
+            <Ticket className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-text-dark mb-2">
+              No bookings yet
+            </h2>
+            <p className="text-gray-500 mb-6">
+              Start planning your next adventure!
+            </p>
+            <Link
+              href="/available-flights"
+              className="inline-flex items-center gap-2 bg-sky-primary hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-colors"
+            >
+              Browse Flights
+            </Link>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {data.map((val) => (
+              <TicketCard key={val.id} data={val} />
+            ))}
+            <p className="text-center text-sm text-gray-400 mt-6">
+              You&apos;ve reached the end of results.
+            </p>
+          </div>
+        )}
+      </main>
+    </div>
   );
 };
 

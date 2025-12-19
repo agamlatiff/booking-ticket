@@ -17,6 +17,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Legacy dark theme colors
         "flysha-light-purple": "#B88DFF",
         "flysha-black": "#080318",
         "flysha-off-purple": "#AEA6C7",
@@ -24,6 +25,13 @@ const config: Config = {
         "flysha-red": "#FF2A2A",
         "flysha-grey": "#909296",
         "flysha-dark-grey": "#393449",
+        // New light theme colors
+        "sky-primary": "#137fec",
+        "background-light": "#f6f7f8",
+        "background-dark": "#101922",
+        "pastel-blue": "#e0f2fe",
+        "pastel-yellow": "#fef9c3",
+        "text-dark": "#111418",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
@@ -59,10 +67,16 @@ const config: Config = {
           "5": "hsl(var(--chart-5))",
         },
       },
+      fontFamily: {
+        display: ["Outfit", "sans-serif"],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        soft: "0 20px 40px -15px rgba(19, 127, 236, 0.15)",
       },
       keyframes: {
         "accordion-down": {
