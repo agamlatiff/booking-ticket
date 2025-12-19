@@ -68,7 +68,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["Outfit", "sans-serif"],
+        sans: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        display: ["var(--font-outfit)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
