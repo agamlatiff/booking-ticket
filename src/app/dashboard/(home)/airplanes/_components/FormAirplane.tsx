@@ -45,7 +45,7 @@ const FormAirplane: FC<FormAirplaneProps> = ({ type, defaultValues }) => {
       <div className="space-y-2">
         <Label htmlFor="code">Airplane Code</Label>
         <Input
-          placeholder="Airplanes Code..."
+          placeholder="AAA-123"
           name="code"
           id="code"
           required

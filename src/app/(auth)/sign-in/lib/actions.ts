@@ -65,6 +65,11 @@ export async function SignInUser(
     seessionCookie.value,
     seessionCookie.attributes
   );
-  
-  return redirect('/')
+
+  // Role-based redirect: ADMIN → dashboard, CUSTOMER → home
+  if (existingUser.role === 'ADMIN') {
+    return redirect('/dashboard');
+  }
+
+  return redirect('/');
 }

@@ -17,7 +17,8 @@ import { seatContext, type SeatContextType } from "../providers/SeatProvider";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import type { Session } from "lucia";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+
 
 type FlightProps = Flight & { seats: FlightSeat[]; plane: Airplane };
 

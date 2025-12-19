@@ -20,19 +20,19 @@ export async function POST(request: NextRequest) {
         seats:
           body.seat !== null
             ? {
-                some: {
-                  type: body.seat as TypeSeat,
-                  isBooked: false,
-                },
-              }
+              some: {
+                type: body.seat as TypeSeat,
+                isBooked: false,
+              },
+            }
             : {},
         departureDate:
           departureDate !== null
             ? {
-                gte: departureDate,
-              }
+              gte: departureDate,
+            }
             : {},
-        planeId: body.planeId.length > 0
+        planeId: body.planeIds && body.planeIds.length > 0
           ? {
             in: body.planeIds
           } : {},

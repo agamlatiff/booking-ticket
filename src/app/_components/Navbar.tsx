@@ -18,31 +18,21 @@ const Navbar = () => {
       </Link>
       <ul className="nav-menus flex gap-[30px] items-center w-fit">
         <li>
-          <Link href="" className="font-medium">
-            Flash Sale
+          <Link href="/" className="font-medium">
+            Home
           </Link>
         </li>
         <li>
-          <Link href="" className="font-medium">
-            Discover
+          <Link href="/available-flights" className="font-medium">
+            Flights
           </Link>
         </li>
         <li>
-          <Link href="" className="font-medium">
-            Packages
-          </Link>
-        </li>
-        <li>
-          <Link href="" className="font-medium">
-            Stories
-          </Link>
-        </li>
-        <li>
-          <Link href="" className="font-medium">
+          <Link href="/about" className="font-medium">
             About
           </Link>
         </li>
-      <NavbarAuth/>
+        <NavbarAuth />
       </ul>
     </nav>
   );

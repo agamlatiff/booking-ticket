@@ -15,8 +15,9 @@ import {
   type SeatValuesType,
 } from "@/lib/utils";
 import { useContext, useMemo } from "react";
-import { useRouter } from "next/router";
+
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface FlightItemProps {
   data: FlightWithPlane;

@@ -239,7 +239,7 @@ const HomePage = async () => {
           <div className="flex flex-col gap-5">
             <div className="rounded-[30px] h-[310px] overflow-hidden">
               <Image
-                width={120}
+                width={500}
                 height={60}
                 src="/assets/images/thumbnail/thumbnail1.png"
                 className="w-full h-[310px] object-cover"
@@ -249,7 +249,7 @@ const HomePage = async () => {
             <div className="flex gap-[14px] items-center">
               <div className="flex shrink-0 w-8 h-8">
                 <Image
-                  width={120}
+                  width={500}
                   height={60}
                   src="/assets/images/icons/crown-white.svg"
                   className="w-8 h-8"
@@ -265,7 +265,7 @@ const HomePage = async () => {
           <div className="flex flex-col gap-5">
             <div className="rounded-[30px] h-[310px] overflow-hidden">
               <Image
-                width={120}
+                width={500}
                 height={60}
                 src="/assets/images/thumbnail/thumbnail2.png"
                 className="w-full h-[310px] object-cover"
@@ -275,7 +275,7 @@ const HomePage = async () => {
             <div className="flex gap-[14px] items-center">
               <div className="flex shrink-0 w-8 h-8">
                 <Image
-                  width={120}
+                  width={500}
                   height={60}
                   src="/assets/images/icons/crown-white.svg"
                   className="w-8 h-8"
@@ -291,7 +291,7 @@ const HomePage = async () => {
           <div className="flex flex-col gap-5">
             <div className="rounded-[30px] h-[310px] overflow-hidden">
               <Image
-                width={120}
+                width={500}
                 height={60}
                 src="/assets/images/thumbnail/thumbnail3.png"
                 className="w-full h-[310px] object-cover"
@@ -301,7 +301,7 @@ const HomePage = async () => {
             <div className="flex gap-[14px] items-center">
               <div className="flex shrink-0 w-8 h-8">
                 <Image
-                  width={120}
+                  width={500}
                   height={60}
                   src="/assets/images/icons/crown-white.svg"
                   className="w-8 h-8"
@@ -317,7 +317,7 @@ const HomePage = async () => {
           <div className="flex flex-col gap-5">
             <div className="rounded-[30px] h-[310px] overflow-hidden">
               <Image
-                width={120}
+                width={500}
                 height={60}
                 src="/assets/images/thumbnail/thumbnail4.png"
                 className="w-full h-[310px] object-cover"
@@ -327,7 +327,7 @@ const HomePage = async () => {
             <div className="flex gap-[14px] items-center">
               <div className="flex shrink-0 w-8 h-8">
                 <Image
-                  width={120}
+                  width={500}
                   height={60}
                   src="/assets/images/icons/crown-white.svg"
                   className="w-8 h-8"
@@ -1090,8 +1090,8 @@ const HomePage = async () => {
       <footer className="flex flex-col justify-between mt-[150px] border-t-[6px] border-flysha-light-purple p-[100px_10px_30px]">
         <div className="container max-w-[1130px] mx-auto flex justify-between relative">
           <Image
-            width={120}
-            height={120}
+            width={500}
+            height={500}
             src="/assets/images/icons/Ellipse 4.png"
             className="absolute h-[300px] -top-[45px] -left-[20px] z-0"
             alt="icon"
@@ -1193,8 +1193,8 @@ const HomePage = async () => {
                 className="font-medium hover:font-semibold hover:text-flysha-light-purple transition-all duration-300 flex items-center gap-[6px]"
               >
                 <Image
-                  width={120}
-                  height={120}
+                  width={20}
+                  height={20}
                   src="/assets/images/icons/call.svg"
                   alt="icon"
                 />
@@ -1205,8 +1205,8 @@ const HomePage = async () => {
                 className="font-medium hover:font-semibold hover:text-flysha-light-purple transition-all duration-300 flex items-center gap-[6px]"
               >
                 <Image
-                  width={120}
-                  height={120}
+                  width={20}
+                  height={20}
                   src="/assets/images/icons/dribbble.svg"
                   alt="icon"
                 />
@@ -1217,8 +1217,8 @@ const HomePage = async () => {
                 className="font-medium hover:font-semibold hover:text-flysha-light-purple transition-all duration-300 flex items-center gap-[6px]"
               >
                 <Image
-                  width={120}
-                  height={120}
+                  width={20}
+                  height={20}
                   src="/assets/images/icons/sms.svg"
                   alt="icon"
                 />
