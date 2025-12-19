@@ -1,6 +1,5 @@
 "use client";
 
-import useCheckoutData from "@/hooks/useCheckoutData";
 import { getUrlFile } from "@/lib/supabase";
 import {
   CHECKOUT_KEY,
@@ -17,7 +16,7 @@ import { seatContext, type SeatContextType } from "../providers/SeatProvider";
 import { useToast } from "@/hooks/use-toast";
 import type { Session } from "lucia";
 import { useRouter } from "next/navigation";
-import { Plane, ArrowRight } from "lucide-react";
+import { Plane, ArrowRight, Sparkles } from "lucide-react";
 
 type FlightProps = Flight & { seats: FlightSeat[]; plane: Airplane };
 
@@ -27,16 +26,14 @@ interface FlightDetailProps {
 }
 
 const FlightDetail = ({ flight, session }: FlightDetailProps) => {
-  const data = useCheckoutData();
   const { toast } = useToast();
+  const router = useRouter();
 
-  const { selectedSeat } = useContext(seatContext) as SeatContextType;
+  const { selectedSeat, selectedClass } = useContext(seatContext) as SeatContextType;
 
   const seatClass = useMemo(() => {
-    return SEAT_VALUES[(data.data?.seat as SeatValuesType) ?? "ECONOMY"];
-  }, [data.data?.seat]);
-
-  const router = useRouter();
+    return SEAT_VALUES[selectedClass as SeatValuesType];
+  }, [selectedClass]);
 
   const continueBook = () => {
     if (selectedSeat === null) {
@@ -53,8 +50,8 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
     }
 
     const checkoutData: Checkout = {
-      id: data.data?.id,
-      seat: data.data?.seat,
+      id: flight.id,
+      seat: selectedClass,
       flightDetail: flight,
       seatDetail: selectedSeat,
     };
@@ -107,10 +104,25 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
         </h3>
 
         <div className="space-y-4">
+          {/* Class Badge */}
+          <div className="flex items-center gap-2 p-3 bg-gradient-to-r from-sky-primary/5 to-blue-50 rounded-xl border border-sky-primary/10">
+            <Sparkles className="w-4 h-4 text-sky-primary" />
+            <span className="text-sm font-bold text-sky-primary">
+              {seatClass.label} Class
+            </span>
+            {seatClass.additionalPrice > 0 && (
+              <span className="ml-auto text-xs text-gray-500">
+                +{rupiahFormat(seatClass.additionalPrice)}
+              </span>
+            )}
+          </div>
+
           {/* Passenger Selection */}
           <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
             <div
-              className={`text-white w-12 h-12 rounded-lg flex flex-col items-center justify-center shadow-lg ${selectedSeat ? "bg-sky-primary shadow-blue-200" : "bg-gray-300"
+              className={`text-white w-12 h-12 rounded-lg flex flex-col items-center justify-center shadow-lg transition-all duration-300 ${selectedSeat
+                  ? "bg-sky-primary shadow-blue-200"
+                  : "bg-gray-300"
                 }`}
             >
               <span className="text-xs font-medium opacity-80">Seat</span>
@@ -151,9 +163,13 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
             </span>
           </div>
           <div className="flex justify-between items-center mb-4">
-            <span className="text-gray-500 text-sm">Seat Upgrade</span>
+            <span className="text-gray-500 text-sm">
+              Seat Upgrade ({seatClass.label})
+            </span>
             <span className="text-sky-primary font-medium">
-              {rupiahFormat(seatClass.additionalPrice)}
+              {seatClass.additionalPrice > 0
+                ? `+${rupiahFormat(seatClass.additionalPrice)}`
+                : "Free"}
             </span>
           </div>
           <div className="flex justify-between items-center pt-4 border-t border-dashed border-gray-200">
@@ -168,7 +184,14 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
         <button
           type="button"
           onClick={continueBook}
-          className="w-full mt-6 bg-sky-primary hover:bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+          disabled={!selectedSeat}
+          className={`
+            w-full mt-6 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2
+            ${selectedSeat
+              ? "bg-sky-primary hover:bg-blue-600 text-white shadow-lg shadow-blue-200 hover:scale-[1.02] active:scale-[0.98]"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+            }
+          `}
         >
           Confirm Seat Selection
           <ArrowRight className="w-5 h-5" />
