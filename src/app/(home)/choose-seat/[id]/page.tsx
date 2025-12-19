@@ -1,7 +1,8 @@
 import NavbarLight from "@/app/_components/NavbarLight";
-import SeatList from "./_components/SeatList";
+import SeatMapWrapper from "./_components/SeatMapWrapper";
 import FlightDetail from "./_components/FlightDetail";
 import SeatClassToggle from "./_components/SeatClassToggle";
+import MobileSummaryWrapper from "./_components/MobileSummaryWrapper";
 import { getFlightById } from "../../lib/data";
 import { getUser } from "@/lib/auth";
 import Link from "next/link";
@@ -84,111 +85,22 @@ const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
             {/* Class Toggle */}
             <SeatClassToggle seats={flight.seats} basePrice={flight.price} />
 
-            {/* Legend */}
-            <div className="flex flex-wrap gap-3 bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50">
-                <div className="w-5 h-5 rounded border-2 border-gray-300 bg-white" />
-                <span className="text-sm font-medium text-gray-600">
-                  Available
-                </span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50">
-                <div className="w-5 h-5 rounded bg-gray-200 flex items-center justify-center text-gray-400 text-xs">
-                  ✕
-                </div>
-                <span className="text-sm font-medium text-gray-600">
-                  Occupied
-                </span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sky-primary/10">
-                <div className="w-5 h-5 rounded bg-sky-primary text-white flex items-center justify-center text-xs">
-                  ✓
-                </div>
-                <span className="text-sm font-medium text-sky-primary">
-                  Selected
-                </span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-50">
-                <div className="w-5 h-5 rounded border-2 border-amber-300 bg-amber-50" />
-                <span className="text-sm font-medium text-amber-700">
-                  Extra Legroom
-                </span>
-              </div>
-            </div>
-
-            {/* Fuselage Visual Container */}
-            <div className="relative w-full overflow-hidden rounded-2xl bg-white shadow-soft border border-gray-200 p-6 sm:p-8">
-              {/* Wing Indicators - Left */}
-              <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2">
-                <div className="w-16 h-40 bg-gradient-to-r from-gray-100 to-transparent rounded-r-full opacity-50" />
-                <div className="absolute inset-0 flex items-center justify-start pl-2">
-                  <span className="text-[10px] font-bold text-gray-300 rotate-90 whitespace-nowrap">
-                    WING
-                  </span>
-                </div>
-              </div>
-
-              {/* Wing Indicators - Right */}
-              <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2">
-                <div className="w-16 h-40 bg-gradient-to-l from-gray-100 to-transparent rounded-l-full opacity-50" />
-                <div className="absolute inset-0 flex items-center justify-end pr-2">
-                  <span className="text-[10px] font-bold text-gray-300 -rotate-90 whitespace-nowrap">
-                    WING
-                  </span>
-                </div>
-              </div>
-
-              {/* Decorative Cockpit Shape */}
-              <div className="w-20 h-20 bg-gradient-to-b from-gray-100 to-transparent rounded-t-full absolute -top-10 left-1/2 -translate-x-1/2 z-0 opacity-60" />
-
-              {/* Cabin Interior */}
-              <div className="relative z-10 w-full max-w-md mx-auto bg-gray-50 rounded-[3rem] px-4 sm:px-6 py-10 border-4 border-gray-200 shadow-inner">
-                {/* Front Decoration */}
-                <div className="flex justify-center mb-6 opacity-40">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-gray-300" />
-                    <Plane className="w-6 h-6 text-gray-400" />
-                    <div className="w-2 h-2 rounded-full bg-gray-300" />
-                  </div>
-                </div>
-
-                {/* Class Label with Availability */}
-                <div className="text-center mb-6">
-                  <span className="text-xs font-bold tracking-widest text-sky-primary uppercase bg-sky-primary/10 px-4 py-1.5 rounded-full inline-flex items-center gap-2">
-                    <Plane className="w-3 h-3" />
-                    Seat Selection
-                  </span>
-                </div>
-
-                {/* Seat Grid */}
-                {flight.seats && <SeatList seats={flight.seats} />}
-
-                {/* Rear/Bathroom Visual */}
-                <div className="mt-8 flex justify-center gap-8 opacity-40">
-                  <div className="flex flex-col items-center gap-1">
-                    <div className="w-8 h-8 rounded-lg bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
-                      🚻
-                    </div>
-                    <span className="text-[8px] font-medium text-gray-400">WC</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <div className="w-8 h-8 rounded-lg bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
-                      ☕
-                    </div>
-                    <span className="text-[8px] font-medium text-gray-400">Galley</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Tail decoration */}
-              <div className="w-16 h-16 bg-gradient-to-t from-gray-100 to-transparent rounded-b-full absolute -bottom-8 left-1/2 -translate-x-1/2 z-0 opacity-60" />
-            </div>
+            {/* Interactive Legend + Seat Grid with Fuselage */}
+            <SeatMapWrapper seats={flight.seats} />
           </div>
 
-          {/* Right Column: Summary Sidebar */}
-          <FlightDetail flight={flight} session={session} />
+          {/* Right Column: Summary Sidebar - Hidden on mobile */}
+          <div className="hidden lg:block lg:col-span-4">
+            <FlightDetail flight={flight} session={session} />
+          </div>
         </div>
+
+        {/* Bottom padding for mobile sticky bar */}
+        <div className="h-32 lg:hidden" />
       </main>
+
+      {/* Mobile Sticky Bottom Bar */}
+      <MobileSummaryWrapper flight={flight} session={session} />
     </div>
   );
 };

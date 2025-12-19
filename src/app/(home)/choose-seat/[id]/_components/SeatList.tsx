@@ -5,15 +5,17 @@ import type { FlightSeat } from "@prisma/client";
 import { useContext, useMemo } from "react";
 import { seatContext, type SeatContextType } from "../providers/SeatProvider";
 import { AlertTriangle } from "lucide-react";
+import type { LegendFilter } from "./SeatLegend";
 
 interface SeatListProps {
   seats: FlightSeat[];
+  filter?: LegendFilter;
 }
 
 // Row 3 is typically the exit row in smaller aircraft
 const EXIT_ROW = "3";
 
-const SeatList = ({ seats }: SeatListProps) => {
+const SeatList = ({ seats, filter = "all" }: SeatListProps) => {
   const { selectedClass } = useContext(seatContext) as SeatContextType;
 
   const { seatA, seatB, seatC, seatD } = useMemo(() => {
@@ -33,6 +35,15 @@ const SeatList = ({ seats }: SeatListProps) => {
     const rows = new Set(allSeats.map((s) => s.seatNumber.slice(1)));
     return Array.from(rows).sort((a, b) => parseInt(a) - parseInt(b));
   }, [seatA, seatB, seatC, seatD]);
+
+  // Check if seat should be highlighted based on filter
+  const shouldHighlight = (seat: FlightSeat, isExitRow: boolean): boolean => {
+    if (filter === "all") return true;
+    if (filter === "available") return !seat.isBooked;
+    if (filter === "occupied") return seat.isBooked;
+    if (filter === "legroom") return isExitRow;
+    return true;
+  };
 
   return (
     <div className="space-y-2">
@@ -116,6 +127,7 @@ const SeatList = ({ seats }: SeatListProps) => {
                       key={seat.id}
                       seat={seat}
                       isExitRow={isExitRow}
+                      isHighlighted={shouldHighlight(seat, isExitRow)}
                     />
                   ))}
                 </div>
@@ -138,6 +150,7 @@ const SeatList = ({ seats }: SeatListProps) => {
                       key={seat.id}
                       seat={seat}
                       isExitRow={isExitRow}
+                      isHighlighted={shouldHighlight(seat, isExitRow)}
                     />
                   ))}
                 </div>

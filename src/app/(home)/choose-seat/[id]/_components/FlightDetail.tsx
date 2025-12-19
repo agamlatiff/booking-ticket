@@ -63,8 +63,8 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
   const totalPrice = flight.price + seatClass.additionalPrice;
 
   return (
-    <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
-      {/* Flight Card */}
+    <div className="lg:sticky lg:top-24 space-y-6">
+      {/* Flight Card - Separate Card */}
       <div className="bg-white rounded-2xl p-6 shadow-soft border border-gray-200 relative overflow-hidden">
         <div className="flex justify-between items-start mb-6 z-10 relative">
           <div>
@@ -86,7 +86,7 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
         </div>
 
         {/* Decorative Map Line */}
-        <div className="relative h-16 w-full mb-4">
+        <div className="relative h-16 w-full">
           <div className="absolute inset-x-0 top-1/2 h-0.5 bg-gray-200 border-t border-dashed border-gray-300" />
           <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-gray-300 border-2 border-white" />
           <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-sky-primary border-2 border-white shadow-sm ring-2 ring-sky-primary/20" />
@@ -96,17 +96,16 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
         </div>
       </div>
 
-      {/* Seat Selection Summary */}
+      {/* Selection Card - Separate Card */}
       <div className="bg-white rounded-2xl p-6 shadow-soft border border-gray-200">
         <h3 className="text-lg font-bold text-text-dark mb-4 flex items-center gap-2">
-          <Plane className="w-5 h-5 text-sky-primary" />
+          <Sparkles className="w-5 h-5 text-sky-primary" />
           Your Selection
         </h3>
 
         <div className="space-y-4">
           {/* Class Badge */}
           <div className="flex items-center gap-2 p-3 bg-gradient-to-r from-sky-primary/5 to-blue-50 rounded-xl border border-sky-primary/10">
-            <Sparkles className="w-4 h-4 text-sky-primary" />
             <span className="text-sm font-bold text-sky-primary">
               {seatClass.label} Class
             </span>
@@ -142,13 +141,13 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
           </div>
 
           {/* Airplane Image */}
-          <div className="h-32 w-full rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center relative overflow-hidden group border border-gray-100">
+          <div className="h-28 w-full rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center relative overflow-hidden group border border-gray-100">
             <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#63a6e9_1px,transparent_1px)] [background-size:16px_16px]" />
             <Image
               src={getUrlFile(flight.plane.image)}
               alt={flight.plane.name}
-              width={120}
-              height={80}
+              width={140}
+              height={90}
               className="rounded-lg shadow-lg group-hover:scale-105 transition-transform duration-300 object-cover"
             />
           </div>
@@ -164,7 +163,7 @@ const FlightDetail = ({ flight, session }: FlightDetailProps) => {
           </div>
           <div className="flex justify-between items-center mb-4">
             <span className="text-gray-500 text-sm">
-              Seat Upgrade ({seatClass.label})
+              Seat Upgrade
             </span>
             <span className="text-sky-primary font-medium">
               {seatClass.additionalPrice > 0
