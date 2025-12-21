@@ -16,6 +16,7 @@ import {
   ArrowRight,
   Loader2,
 } from "lucide-react";
+import PaymentMethodTabs from "./PaymentMethodTabs";
 
 interface PaymentFormProps {
   user: User | null;
@@ -39,48 +40,22 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
   const { isLoading, payTransaction } = useTransaction({ user });
 
   return (
-    <div className="bg-white rounded-[2.5rem] p-8 sm:p-10 shadow-2xl shadow-gray-200/50 border border-white">
-      {/* Payment Method Tabs */}
+    <div className="bg-white rounded-[2rem] p-6 md:p-8 shadow-xl shadow-sky-primary/5 border border-gray-100">
+      {/* Header */}
       <div className="mb-8">
-        <label className="block text-sm font-bold text-text-dark mb-3 ml-2">
-          Select Payment Method
-        </label>
-        <div className="flex p-1.5 bg-gray-100 rounded-full gap-2 overflow-x-auto">
-          <button
-            type="button"
-            onClick={() => setPaymentMethod("card")}
-            className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full min-w-[140px] transition-all ${paymentMethod === "card"
-                ? "bg-white shadow-sm text-sky-primary border border-gray-100"
-                : "text-gray-500 hover:bg-white/50"
-              }`}
-          >
-            <CreditCard className="w-5 h-5" />
-            <span className="text-sm font-bold">Card</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setPaymentMethod("wallet")}
-            className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full min-w-[140px] transition-all ${paymentMethod === "wallet"
-                ? "bg-white shadow-sm text-sky-primary border border-gray-100"
-                : "text-gray-500 hover:bg-white/50"
-              }`}
-          >
-            <Wallet className="w-5 h-5" />
-            <span className="text-sm font-bold">E-Wallet</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setPaymentMethod("apple")}
-            className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full min-w-[140px] transition-all ${paymentMethod === "apple"
-                ? "bg-white shadow-sm text-sky-primary border border-gray-100"
-                : "text-gray-500 hover:bg-white/50"
-              }`}
-          >
-            <Smartphone className="w-5 h-5" />
-            <span className="text-sm font-bold">QRIS</span>
-          </button>
-        </div>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-text-dark mb-2">
+          Payment Details
+        </h2>
+        <p className="text-gray-500 text-lg">
+          Complete your purchase securely.
+        </p>
       </div>
+
+      {/* Payment Method Tabs */}
+      <PaymentMethodTabs
+        paymentMethod={paymentMethod}
+        setPaymentMethod={setPaymentMethod}
+      />
 
       {/* Card Payment Form */}
       {paymentMethod === "card" && (
@@ -95,10 +70,14 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
                 <CreditCard className="w-5 h-5 text-gray-400" />
               </div>
               <input
-                className="w-full bg-gray-100 text-text-dark placeholder:text-gray-400 font-medium rounded-full py-4 pl-12 pr-4 border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-sky-primary focus:bg-white transition-all duration-300"
+                className="w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10 transition-all duration-300 text-lg"
                 placeholder="0000 0000 0000 0000"
                 type="text"
               />
+              <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                {/* Card Brand Icon Placeholder */}
+                <div className="w-8 h-5 bg-gray-200 rounded flex items-center justify-center text-[10px] font-bold text-gray-500">VISA</div>
+              </div>
             </div>
           </div>
 
@@ -112,7 +91,7 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
                 <UserIcon className="w-5 h-5 text-gray-400" />
               </div>
               <input
-                className="w-full bg-gray-100 text-text-dark placeholder:text-gray-400 font-medium rounded-full py-4 pl-12 pr-4 border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-sky-primary focus:bg-white transition-all duration-300"
+                className="w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10 transition-all duration-300"
                 placeholder="e.g. John Doe"
                 type="text"
                 defaultValue={user?.name || ""}
@@ -131,7 +110,7 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
                   <Calendar className="w-5 h-5 text-gray-400" />
                 </div>
                 <input
-                  className="w-full bg-gray-100 text-text-dark placeholder:text-gray-400 font-medium rounded-full py-4 pl-12 pr-4 border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-sky-primary focus:bg-white transition-all duration-300"
+                  className="w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10 transition-all duration-300"
                   placeholder="MM/YY"
                   type="text"
                 />
@@ -148,7 +127,7 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
                   <Lock className="w-5 h-5 text-gray-400" />
                 </div>
                 <input
-                  className="w-full bg-gray-100 text-text-dark placeholder:text-gray-400 font-medium rounded-full py-4 pl-12 pr-4 border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-sky-primary focus:bg-white transition-all duration-300"
+                  className="w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10 transition-all duration-300"
                   placeholder="123"
                   type="text"
                 />
@@ -160,8 +139,8 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
 
       {/* E-Wallet / QRIS Message */}
       {paymentMethod !== "card" && (
-        <div className="flex flex-col items-center justify-center py-12 text-center">
-          <div className="w-20 h-20 bg-sky-primary/10 rounded-full flex items-center justify-center mb-4">
+        <div className="flex flex-col items-center justify-center py-12 text-center bg-gray-50 rounded-3xl border border-dashed border-gray-200">
+          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm">
             {paymentMethod === "wallet" ? (
               <Wallet className="w-10 h-10 text-sky-primary" />
             ) : (
@@ -171,7 +150,7 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
           <h3 className="text-lg font-bold text-text-dark mb-2">
             {paymentMethod === "wallet" ? "E-Wallet Payment" : "QRIS Payment"}
           </h3>
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-sm max-w-xs mx-auto">
             You will be redirected to complete payment via{" "}
             {paymentMethod === "wallet" ? "your e-wallet" : "QRIS scan"}.
           </p>
@@ -179,46 +158,35 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
       )}
 
       {/* Security Badge */}
-      <div className="flex items-center justify-center gap-2 py-4 mt-4">
-        <ShieldCheck className="w-5 h-5 text-green-500" />
-        <span className="text-xs text-gray-500 font-medium">
-          Payments are SSL encrypted and 100% secure
+      <div className="flex items-center justify-center gap-2 py-4 mt-6 bg-green-50 rounded-xl border border-green-100">
+        <ShieldCheck className="w-5 h-5 text-green-600" />
+        <span className="text-sm text-green-700 font-bold">
+          100% Secure Payment
         </span>
       </div>
 
       {/* Pay Button */}
-      <button
-        type="button"
-        onClick={payTransaction}
-        disabled={isLoading}
-        className="group relative w-full h-14 bg-sky-primary hover:bg-blue-600 text-white rounded-full font-bold text-lg shadow-lg shadow-sky-primary/40 hover:shadow-xl hover:shadow-sky-primary/50 transition-all transform hover:-translate-y-1 active:translate-y-0 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <span className="relative z-10 flex items-center justify-center gap-3">
-          {isLoading ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              Processing...
-            </>
-          ) : (
-            <>
-              Pay {rupiahFormat(totalPrice)} Now
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </>
-          )}
-        </span>
-      </button>
-
-      {/* Trust Badges */}
-      <div className="flex justify-center gap-6 mt-8 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-        <div className="h-8 px-3 py-1 bg-gray-100 rounded-lg flex items-center text-xs font-bold text-gray-500">
-          VISA
-        </div>
-        <div className="h-8 px-3 py-1 bg-gray-100 rounded-lg flex items-center text-xs font-bold text-gray-500">
-          Mastercard
-        </div>
-        <div className="h-8 px-3 py-1 bg-gray-100 rounded-lg flex items-center text-xs font-bold text-gray-500">
-          Midtrans
-        </div>
+      <div className="mt-8">
+        <button
+          type="button"
+          onClick={payTransaction}
+          disabled={isLoading}
+          className="group relative w-full h-16 bg-sky-primary hover:bg-sky-600 text-white rounded-full font-bold text-xl shadow-lg shadow-sky-primary/30 hover:shadow-xl hover:shadow-sky-primary/40 transition-all transform hover:-translate-y-1 active:translate-y-0 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span className="relative z-10 flex items-center justify-center gap-3">
+            {isLoading ? (
+              <>
+                <Loader2 className="w-6 h-6 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              <>
+                Pay {rupiahFormat(totalPrice)}
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              </>
+            )}
+          </span>
+        </button>
       </div>
     </div>
   );
