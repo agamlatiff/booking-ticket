@@ -2,6 +2,7 @@
 
 import useCheckoutData from "@/hooks/useCheckoutData";
 import useTransaction from "@/hooks/useTransaction";
+import { useCardForm } from "@/hooks/useCardForm";
 import { rupiahFormat, SEAT_VALUES, type SeatValuesType } from "@/lib/utils";
 import type { User } from "lucia";
 import { useMemo, useState } from "react";
@@ -22,11 +23,42 @@ interface PaymentFormProps {
   user: User | null;
 }
 
+// Card type icons
+const CardTypeIcon = ({ type }: { type: "visa" | "mastercard" | "amex" | "discover" | null }) => {
+  const labels: Record<string, { bg: string; text: string; label: string }> = {
+    visa: { bg: "bg-blue-600", text: "text-white", label: "VISA" },
+    mastercard: { bg: "bg-orange-500", text: "text-white", label: "MC" },
+    amex: { bg: "bg-blue-400", text: "text-white", label: "AMEX" },
+    discover: { bg: "bg-orange-400", text: "text-white", label: "DISC" },
+  };
+
+  const style = type ? labels[type] : { bg: "bg-gray-200", text: "text-gray-500", label: "CARD" };
+
+  return (
+    <div className={`w-10 h-6 ${style.bg} rounded flex items-center justify-center text-[10px] font-bold ${style.text}`}>
+      {style.label}
+    </div>
+  );
+};
+
 const PaymentForm = ({ user }: PaymentFormProps) => {
   const { data } = useCheckoutData();
   const [paymentMethod, setPaymentMethod] = useState<"card" | "wallet" | "apple">(
     "card"
   );
+
+  const {
+    formState,
+    errors,
+    touched,
+    cardType,
+    handleCardNumberChange,
+    handleExpiryChange,
+    handleCVCChange,
+    handleNameChange,
+    handleBlur,
+    validate,
+  } = useCardForm(user?.name || "");
 
   const selectedSeat = useMemo(() => {
     return SEAT_VALUES[(data?.seat as SeatValuesType) ?? "ECONOMY"];
@@ -38,6 +70,13 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
   }, [data?.flightDetail?.price, selectedSeat.additionalPrice]);
 
   const { isLoading, payTransaction } = useTransaction({ user });
+
+  const handleSubmit = () => {
+    if (paymentMethod === "card") {
+      if (!validate()) return;
+    }
+    payTransaction();
+  };
 
   return (
     <div className="bg-white rounded-[2rem] p-6 md:p-8 shadow-xl shadow-sky-primary/5 border border-gray-100">
@@ -59,7 +98,7 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
 
       {/* Card Payment Form */}
       {paymentMethod === "card" && (
-        <form className="flex flex-col gap-6">
+        <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
           {/* Card Number */}
           <div className="space-y-2">
             <label className="text-sm font-bold text-text-dark ml-2">
@@ -70,15 +109,24 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
                 <CreditCard className="w-5 h-5 text-gray-400" />
               </div>
               <input
-                className="w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10 transition-all duration-300 text-lg"
+                className={`w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-16 border transition-all duration-300 text-lg tracking-wider ${touched.cardNumber && errors.cardNumber
+                    ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
+                    : "border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10"
+                  }`}
                 placeholder="0000 0000 0000 0000"
                 type="text"
+                value={formState.cardNumber}
+                onChange={(e) => handleCardNumberChange(e.target.value)}
+                onBlur={() => handleBlur("cardNumber")}
+                maxLength={19}
               />
               <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                {/* Card Brand Icon Placeholder */}
-                <div className="w-8 h-5 bg-gray-200 rounded flex items-center justify-center text-[10px] font-bold text-gray-500">VISA</div>
+                <CardTypeIcon type={cardType} />
               </div>
             </div>
+            {touched.cardNumber && errors.cardNumber && (
+              <p className="text-red-500 text-sm ml-2">{errors.cardNumber}</p>
+            )}
           </div>
 
           {/* Cardholder Name */}
@@ -91,12 +139,20 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
                 <UserIcon className="w-5 h-5 text-gray-400" />
               </div>
               <input
-                className="w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10 transition-all duration-300"
+                className={`w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border transition-all duration-300 ${touched.cardName && errors.cardName
+                    ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
+                    : "border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10"
+                  }`}
                 placeholder="e.g. John Doe"
                 type="text"
-                defaultValue={user?.name || ""}
+                value={formState.cardName}
+                onChange={(e) => handleNameChange(e.target.value)}
+                onBlur={() => handleBlur("cardName")}
               />
             </div>
+            {touched.cardName && errors.cardName && (
+              <p className="text-red-500 text-sm ml-2">{errors.cardName}</p>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-6">
@@ -110,11 +166,21 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
                   <Calendar className="w-5 h-5 text-gray-400" />
                 </div>
                 <input
-                  className="w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10 transition-all duration-300"
+                  className={`w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border transition-all duration-300 ${touched.expiry && errors.expiry
+                      ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
+                      : "border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10"
+                    }`}
                   placeholder="MM/YY"
                   type="text"
+                  value={formState.expiry}
+                  onChange={(e) => handleExpiryChange(e.target.value)}
+                  onBlur={() => handleBlur("expiry")}
+                  maxLength={5}
                 />
               </div>
+              {touched.expiry && errors.expiry && (
+                <p className="text-red-500 text-sm ml-2">{errors.expiry}</p>
+              )}
             </div>
 
             {/* CVC */}
@@ -127,11 +193,21 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
                   <Lock className="w-5 h-5 text-gray-400" />
                 </div>
                 <input
-                  className="w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10 transition-all duration-300"
-                  placeholder="123"
+                  className={`w-full bg-gray-50 text-text-dark placeholder:text-gray-400 font-medium rounded-2xl py-4 pl-12 pr-4 border transition-all duration-300 ${touched.cvc && errors.cvc
+                      ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
+                      : "border-gray-200 focus:border-sky-primary focus:ring-4 focus:ring-sky-primary/10"
+                    }`}
+                  placeholder={cardType === "amex" ? "1234" : "123"}
                   type="text"
+                  value={formState.cvc}
+                  onChange={(e) => handleCVCChange(e.target.value)}
+                  onBlur={() => handleBlur("cvc")}
+                  maxLength={cardType === "amex" ? 4 : 3}
                 />
               </div>
+              {touched.cvc && errors.cvc && (
+                <p className="text-red-500 text-sm ml-2">{errors.cvc}</p>
+              )}
             </div>
           </div>
         </form>
@@ -169,7 +245,7 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
       <div className="mt-8">
         <button
           type="button"
-          onClick={payTransaction}
+          onClick={handleSubmit}
           disabled={isLoading}
           className="group relative w-full h-16 bg-sky-primary hover:bg-sky-600 text-white rounded-full font-bold text-xl shadow-lg shadow-sky-primary/30 hover:shadow-xl hover:shadow-sky-primary/40 transition-all transform hover:-translate-y-1 active:translate-y-0 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
         >
@@ -193,3 +269,4 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
 };
 
 export default PaymentForm;
+

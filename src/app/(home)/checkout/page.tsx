@@ -1,10 +1,24 @@
 import NavbarLight from "@/app/_components/NavbarLight";
 import { getUser } from "@/lib/auth";
-import { CheckCircle, CreditCard } from "lucide-react";
-import Link from "next/link";
+import { CreditCard, Plane, Armchair } from "lucide-react";
 import BookingSummary from "./_components/BookingSummary";
 import PaymentForm from "./_components/PaymentForm";
 import MobilePaymentBar from "./_components/MobilePaymentBar";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Checkout - Complete Your Booking",
+  description:
+    "Securely complete your flight booking with our easy payment options. Multiple payment methods available including credit card, e-wallet, and QRIS.",
+};
 
 const CheckoutPage = async () => {
   const { user } = await getUser();
@@ -18,30 +32,33 @@ const CheckoutPage = async () => {
 
       <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumbs */}
-        <nav className="mb-8">
-          <ol className="flex items-center gap-3 text-sm font-medium">
-            <li>
-              <Link
-                href="/available-flights"
-                className="text-gray-400 hover:text-sky-primary transition-colors flex items-center gap-1"
-              >
-                <CheckCircle className="w-4 h-4" /> Flight
-              </Link>
-            </li>
-            <li className="text-gray-300">/</li>
-            <li>
-              <span
-                className="text-gray-400 flex items-center gap-1 cursor-default"
-              >
-                <CheckCircle className="w-4 h-4" /> Seats
-              </span>
-            </li>
-            <li className="text-gray-300">/</li>
-            <li className="text-sky-primary flex items-center gap-1">
-              <CreditCard className="w-4 h-4" /> Payment
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumb className="mb-8">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/available-flights">
+                <span className="flex items-center gap-1">
+                  <Plane className="w-4 h-4" /> Flights
+                </span>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">
+                <span className="flex items-center gap-1">
+                  <Armchair className="w-4 h-4" /> Seats
+                </span>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>
+                <span className="flex items-center gap-1 text-sky-primary">
+                  <CreditCard className="w-4 h-4" /> Payment
+                </span>
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-24 lg:mb-0">
           {/* Left Column: Payment Methods & Form */}
@@ -63,3 +80,4 @@ const CheckoutPage = async () => {
 };
 
 export default CheckoutPage;
+

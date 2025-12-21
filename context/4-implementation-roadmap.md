@@ -204,7 +204,7 @@ model Ticket {
 - [ ] Persist filters in URL for shareability
 - [ ] Add filter count badges
 - [x] Add skeleton loading per card — _Created `loading.tsx`_
-- [ ] Add "No results" empty state
+- [x] Add "No results" empty state — _Using `EmptyState` component_
 - [ ] Add price range slider filter
 
 ---
@@ -246,11 +246,11 @@ model Ticket {
 
 **Remaining Work:**
 
-- [ ] Add form validation with Zod
-- [ ] Add card number formatting (spaces every 4 digits)
-- [ ] Add card type detection (Visa/Mastercard icons)
-- [ ] Add expiry date validation
-- [ ] Add processing/loading overlay during payment
+- [x] Add form validation with Zod — _Created `useCardForm` hook with Luhn validation_
+- [x] Add card number formatting (spaces every 4 digits) — _Done_
+- [x] Add card type detection (Visa/Mastercard icons) — _CardTypeIcon component_
+- [x] Add expiry date validation — _MM/YY format with date check_
+- [x] Add processing/loading overlay during payment — _Already had Loader2 spinner_
 
 ---
 
