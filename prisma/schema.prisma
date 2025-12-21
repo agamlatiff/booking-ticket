@@ -61,6 +61,7 @@ model Airplane {
 
 model Flight {
   id                  String       @id @default(cuid())
+  slug                String?      @unique  // SEO-friendly URL: e.g., "jkt-dps-2025-01-15"
   planeId             String
   plane               Airplane     @relation(fields: [planeId], references: [id])
   departureDate       DateTime
@@ -72,6 +73,9 @@ model Flight {
   price               Int
   seats               FlightSeat[]
   tickets             Ticket[]
+
+  @@index([departureCityCode, destinationCityCode, departureDate])
+  @@index([departureDate])
 }
 
 model FlightSeat {
@@ -87,6 +91,7 @@ model FlightSeat {
 model Ticket {
   id            String       @id @default(cuid())
   code          String       @unique
+  slug          String?      @unique  // SEO-friendly URL: e.g., "booking-flyh-abc123"
   flightId      String
   flight        Flight       @relation(fields: [flightId], references: [id])
   customerId    String
@@ -97,4 +102,8 @@ model Ticket {
   price         BigInt
   status        StatusTicket
   tokenMidtrans String?
+
+  @@index([customerId])
+  @@index([status])
+  @@index([bookingDate])
 }

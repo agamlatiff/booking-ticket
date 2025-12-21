@@ -127,3 +127,51 @@ export function makeid(length: number) {
   }
   return result;
 }
+
+// ============================================
+// SLUG GENERATION UTILITIES
+// ============================================
+
+/**
+ * Generate a SEO-friendly slug for a flight
+ * Format: "jkt-dps-2025-01-15" or "jkt-dps-2025-01-15-2" for duplicates
+ * 
+ * @example
+ * generateFlightSlug({ departureCityCode: 'JKT', destinationCityCode: 'DPS', departureDate: new Date() })
+ * // => "jkt-dps-2025-01-15"
+ */
+export function generateFlightSlug(flight: {
+  departureCityCode: string;
+  destinationCityCode: string;
+  departureDate: Date | string;
+}, counter?: number): string {
+  const date = dayjs(flight.departureDate).format('YYYY-MM-DD');
+  const base = `${flight.departureCityCode.toLowerCase()}-${flight.destinationCityCode.toLowerCase()}-${date}`;
+  return counter ? `${base}-${counter}` : base;
+}
+
+/**
+ * Generate a SEO-friendly slug for a booking/ticket
+ * Format: "booking-abc123" using the existing ticket code
+ * 
+ * @example
+ * generateBookingSlug('FLYH-ABC123')
+ * // => "booking-flyh-abc123"
+ */
+export function generateBookingSlug(ticketCode: string): string {
+  return `booking-${ticketCode.toLowerCase().replace(/\s+/g, '-')}`;
+}
+
+/**
+ * Extract the ID or slug from a URL parameter
+ * Supports both UUID (cuid) format and slug format
+ */
+export function parseIdOrSlug(param: string): { type: 'id' | 'slug'; value: string } {
+  // cuid format starts with 'c' and is 25 chars, or standard uuid
+  const isLikelyId = param.length >= 20 && /^[a-z0-9]+$/.test(param);
+  return {
+    type: isLikelyId ? 'id' : 'slug',
+    value: param,
+  };
+}
+

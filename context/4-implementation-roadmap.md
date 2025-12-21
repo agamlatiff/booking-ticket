@@ -40,70 +40,77 @@ gantt
 
 ## Phase 1: Foundation (Days 1-3)
 
-### 1.1 Design System Setup
+### 1.1 Design System Setup ✅ COMPLETED
 
-**Files to Create/Update:**
+**Files Created/Updated:** _(Last updated: December 21, 2025)_
 
-| Task                        | File                                | Priority |
-| --------------------------- | ----------------------------------- | -------- |
-| Add reusable Card component | `src/components/ui/card.tsx`        | 🔴       |
-| Add Tabs component          | `src/components/ui/tabs.tsx`        | 🔴       |
-| Add Breadcrumb component    | `src/components/ui/breadcrumb.tsx`  | 🟡       |
-| Enhance Skeleton component  | `src/components/ui/skeleton.tsx`    | 🟡       |
-| Add EmptyState component    | `src/components/ui/empty-state.tsx` | 🟡       |
-| Update button variants      | `src/components/ui/button.tsx`      | 🟡       |
-| Add design tokens           | `tailwind.config.ts`                | ✅ Done  |
+| Task                        | File                                | Status  |
+| --------------------------- | ----------------------------------- | ------- |
+| Add reusable Card component | `src/components/ui/card.tsx`        | ✅ Done |
+| Add Tabs component          | `src/components/ui/tabs.tsx`        | ✅ Done |
+| Add Breadcrumb component    | `src/components/ui/breadcrumb.tsx`  | ✅ Done |
+| Enhance Skeleton component  | `src/components/ui/skeleton.tsx`    | ✅ Done |
+| Add EmptyState component    | `src/components/ui/empty-state.tsx` | ✅ Done |
+| Update button variants      | `src/components/ui/button.tsx`      | ✅ Done |
+| Add design tokens           | `tailwind.config.ts`                | ✅ Done |
+
+**New Button Variants Available:**
+
+- `sky` — Primary blue CTA with shadow
+- `skyOutline` — Blue outline button
+- `danger` — Red danger action
+- `subtle` — Gray subtle button
+- Size `xl` — Extra large rounded button
+
+**New Skeleton Exports:**
+
+- `Skeleton` with variants: default, text, title, card, avatar, button
+- `SkeletonCard` — Pre-composed card skeleton
+- `SkeletonFlightCard` — Flight result card skeleton
 
 > [!NOTE] > **Loading Strategy:** Use **skeleton loading** for page/section loading. **Inline micro-spinner** only for small scope operations (button submit, inline refresh).
 
 **Verification:**
 
+- [x] Components created and typed correctly
 - [ ] Create a test page at `/dev/design-system` to preview all components
 - [ ] Verify components render correctly on mobile and desktop
 
 ---
 
-### 1.2 Slug Implementation
+### 1.2 Slug Implementation 🟡 IN PROGRESS
 
 **Goal:** Replace UUID-only URLs with human-readable slugs for better SEO.
 
-**Database Changes:**
+**Database Changes:** _(Last updated: December 21, 2025)_
 
 ```prisma
-// prisma/schema.prisma
+// prisma/schema.prisma - UPDATED ✅
 
 model Flight {
   id                  String       @id @default(cuid())
-  slug                String       @unique  // NEW: e.g., "jkt-dps-2025-01-15"
+  slug                String?      @unique  // SEO-friendly: "jkt-dps-2025-01-15"
   // ... other fields
+  @@index([departureCityCode, destinationCityCode, departureDate])
+  @@index([departureDate])
 }
 
 model Ticket {
   id            String       @id @default(cuid())
-  code          String       @unique  // Already exists, use as slug
-  slug          String       @unique  // NEW: e.g., "booking-abc123"
+  code          String       @unique
+  slug          String?      @unique  // SEO-friendly: "booking-flyh-abc123"
   // ... other fields
+  @@index([customerId])
+  @@index([status])
+  @@index([bookingDate])
 }
 ```
 
-**Slug Generation Logic:**
+**Slug Generation Functions:** _(Added to `src/lib/utils.ts`) ✅_
 
-```typescript
-// src/lib/utils.ts
-
-export function generateFlightSlug(flight: {
-  departureCityCode: string;
-  destinationCityCode: string;
-  departureDate: Date;
-}): string {
-  const date = dayjs(flight.departureDate).format("YYYY-MM-DD");
-  return `${flight.departureCityCode.toLowerCase()}-${flight.destinationCityCode.toLowerCase()}-${date}`;
-}
-
-export function generateBookingSlug(ticketCode: string): string {
-  return `booking-${ticketCode.toLowerCase()}`;
-}
-```
+- `generateFlightSlug(flight)` — Creates "jkt-dps-2025-01-15" format
+- `generateBookingSlug(ticketCode)` — Creates "booking-flyh-abc123" format
+- `parseIdOrSlug(param)` — Determines if URL param is ID or slug
 
 **Route Changes:**
 
@@ -114,27 +121,42 @@ export function generateBookingSlug(ticketCode: string): string {
 
 **Implementation Steps:**
 
-1. [ ] Add `slug` field to Flight and Ticket models in Prisma schema
+1. [x] Add `slug` field to Flight and Ticket models in Prisma schema
 2. [ ] Create migration: `npx prisma migrate dev --name add_slugs`
 3. [ ] Update seed script to generate slugs for existing data
-4. [ ] Create slug generation utility functions
+4. [x] Create slug generation utility functions
 5. [ ] Update API routes to support lookup by slug
 6. [ ] Update page routes to use `[slug]` instead of `[id]`
 7. [ ] Add redirects for old UUID URLs to new slug URLs
 
+> [!NOTE]
+> Migration requires database access. Run `npx prisma migrate dev --name add_slugs` when ready.
+
 ---
 
-### 1.3 Query Infrastructure
+### 1.3 Query Infrastructure ✅ COMPLETED
 
-**Files to Create:**
+**Files Created:** _(Last updated: December 21, 2025)_
 
-| File                             | Purpose                           |
-| -------------------------------- | --------------------------------- |
-| `src/lib/query-keys.ts`          | Centralized query key definitions |
-| `src/lib/query-client.ts`        | Query client configuration        |
-| `src/lib/validations/index.ts`   | Zod schema exports                |
-| `src/lib/validations/booking.ts` | Booking-related schemas           |
-| `src/lib/validations/flight.ts`  | Flight search schemas             |
+| File                             | Purpose                           | Status  |
+| -------------------------------- | --------------------------------- | ------- |
+| `src/lib/query-keys.ts`          | Centralized query key definitions | ✅ Done |
+| `src/lib/validations/index.ts`   | Zod schema exports                | ✅ Done |
+| `src/lib/validations/booking.ts` | Booking-related schemas           | ✅ Done |
+| `src/lib/validations/flight.ts`  | Flight search schemas             | ✅ Done |
+
+**Query Keys Available:**
+
+- `queryKeys.flights` — search, detail, bySlug
+- `queryKeys.seats` — byFlight, byFlightAndClass
+- `queryKeys.bookings` — list, mine, detail, byCode
+- `queryKeys.user` — current, profile
+- `queryKeys.admin` — stats, recentBookings, revenue
+
+**Validation Schemas Available:**
+
+- `passengerSchema`, `paymentSchema`, `createBookingSchema`
+- `flightSearchSchema`, `flightFilterSchema`, `createFlightSchema`
 
 ---
 
@@ -146,17 +168,17 @@ export function generateBookingSlug(ticketCode: string): string {
 
 **Tasks:**
 
-| Task                            | Component                  | Status  |
-| ------------------------------- | -------------------------- | ------- |
-| Hero section with search widget | `page.tsx`                 | ✅ Done |
-| Popular destinations            | `DestinationCard.tsx`      | ✅ Done |
-| Floating 3D illustrations       | `page.tsx`                 | ✅ Done |
-| Light navbar                    | `NavbarLight.tsx`          | ✅ Done |
-| SEO meta tags                   | `page.tsx` or `layout.tsx` | 🔴 TODO |
+| Task                            | Component             | Status  |
+| ------------------------------- | --------------------- | ------- |
+| Hero section with search widget | `page.tsx`            | ✅ Done |
+| Popular destinations            | `DestinationCard.tsx` | ✅ Done |
+| Floating 3D illustrations       | `page.tsx`            | ✅ Done |
+| Light navbar                    | `NavbarLight.tsx`     | ✅ Done |
+| SEO meta tags                   | `layout.tsx`          | ✅ Done |
 
 **Remaining Work:**
 
-- [ ] Add proper SEO metadata (title, description, OpenGraph)
+- [x] Add proper SEO metadata (title, description, OpenGraph) — _Done in `layout.tsx`_
 - [ ] Add structured data for flight search (JSON-LD)
 - [ ] Optimize images with next/image
 - [ ] Add loading states for destination cards
@@ -181,7 +203,7 @@ export function generateBookingSlug(ticketCode: string): string {
 
 - [ ] Persist filters in URL for shareability
 - [ ] Add filter count badges
-- [ ] Add skeleton loading per card
+- [x] Add skeleton loading per card — _Created `loading.tsx`_
 - [ ] Add "No results" empty state
 - [ ] Add price range slider filter
 
