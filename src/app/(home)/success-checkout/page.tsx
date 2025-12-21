@@ -1,136 +1,176 @@
-import Navbar from "@/app/_components/Navbar";
+import NavbarLight from "@/app/_components/NavbarLight";
 import { getUser } from "@/lib/auth";
 import Image from "next/image";
-import React from "react";
-import CheckoutCart from "./_components/CheckoutCart";
 import Link from "next/link";
+import {
+  CheckCircle,
+  Download,
+  Share2,
+  Plane,
+  Calendar,
+  MapPin,
+  User,
+  Armchair,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Booking Confirmed! - FlyHigher",
+  description: "Your flight has been successfully booked. View your e-ticket and boarding pass.",
+};
 
 const SuccessPage = async () => {
-  
-  const {user} = await getUser()
-  return (
-    <>
-      <section
-        id="Header"
-        className="bg-[url('/assets/images/background/airplane.png')] bg-no-repeat bg-cover bg-left-top h-[290px] relative"
-      >
-        <div className="Header-content bg-gradient-to-r from-[#080318] to-[rgba(8,3,24,0)] h-[290px]">
-          <Navbar />
-          <div className="w-full h-[15px] bg-gradient-to-t from-[#080318] to-[rgba(8,3,24,0)] absolute bottom-0" />
-        </div>
-      </section>
+  const { user } = await getUser();
 
-      <section
-        id="Content"
-        className="container max-w-[1130px] mx-auto -mt-[103px] z-10 relative"
-      >
-        <div className="checkout-container flex justify-center items-center gap-[100px]">
-<CheckoutCart user={user}/>
-            <div className="flex flex-col p-[20px_20px_25px] border-b-2 border-dotted border-flysha-grey gap-4 relative">
-              <div className="flex w-[300px] h-[130px] shrink-0 rounded-[14px] overflow-hidden bg-[#EDE8F5]">
-                <Image width={300} height={130}
-                  src="/assets/images/background/airplane.png"
-                  className="w-full h-full object-cover"
-                  alt="thumbnail"
-                />
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex flex-col gap-[2px]">
-                  <p className="font-bold text-lg text-flysha-black">
-                    Angga Fly
-                  </p>
-                  <p className="text-sm text-flysha-grey">
-                    AF-293 • First Class
-                  </p>
-                </div>
-                <div className="flex h-fit">
-                  <Image width={25} height={25}
-                    src="/assets/images/icons/Star.svg"
-                    className="w-5 h-5"
-                    alt="star"
-                  />
-                  <Image width={25} height={25}
-                    src="/assets/images/icons/Star.svg"
-                    className="w-5 h-5"
-                    alt="star"
-                  />
-                  <Image width={25} height={25}
-                    src="/assets/images/icons/Star.svg"
-                    className="w-5 h-5"
-                    alt="star"
-                  />
-                  <Image width={25} height={25}
-                    src="/assets/images/icons/Star.svg"
-                    className="w-5 h-5"
-                    alt="star"
-                  />
-                  <Image width={25} height={25}
-                    src="/assets/images/icons/Star.svg"
-                    className="w-5 h-5"
-                    alt="star"
-                  />
-                </div>
-              </div>
-              <div className="flex justify-between items-center w-[370px] absolute transform -translate-x-1/2 -translate-y-1/2 left-1/2 -bottom-[30px]">
-                <div className="w-[30px] h-[30px] rounded-full flex shrink-0 bg-flysha-black" />
-                <div className="w-[30px] h-[30px] rounded-full flex shrink-0 bg-flysha-black" />
-              </div>
-            </div>
-            <div className="flex flex-col gap-[10px] p-[25px_20px_20px]">
-              <div className="flex justify-between text-flysha-black">
-                <span>Date</span>
-                <span className="font-semibold">10 March 2024</span>
-              </div>
-              <div className="flex justify-between text-flysha-black">
-                <span>Time</span>
-                <span className="font-semibold">09:00 - 12:00</span>
-              </div>
-              <div className="flex justify-between text-flysha-black">
-                <span>Airport</span>
-                <span className="font-semibold">CGK - PDV</span>
-              </div>
-              <div className="flex justify-between text-flysha-black">
-                <span>Name</span>
-                <span className="font-semibold">Angga Risky</span>
-              </div>
-              <div className="flex justify-between text-flysha-black">
-                <span>Seat Choosen</span>
-                <span className="font-semibold">3C</span>
-              </div>
-              <div className="flex justify-between text-flysha-black">
-                <span>Passport No.</span>
-                <span className="font-semibold">AB2091MB</span>
-              </div>
-              <div className="flex justify-between text-flysha-black">
-                <span>Passenger</span>
-                <span className="font-semibold">1 Person</span>
-              </div>
+  return (
+    <div className="bg-background-light min-h-screen font-display">
+      {/* Navigation */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <NavbarLight />
+      </header>
+
+      <main className="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Success Header */}
+        <div className="text-center mb-10">
+          <div className="relative inline-flex items-center justify-center mb-6">
+            {/* Confetti-like decorations */}
+            <Sparkles className="absolute -top-2 -left-4 w-6 h-6 text-yellow-400 animate-pulse" />
+            <Sparkles className="absolute -top-1 -right-3 w-5 h-5 text-pink-400 animate-pulse" style={{ animationDelay: "0.2s" }} />
+            <Sparkles className="absolute -bottom-1 left-0 w-4 h-4 text-sky-400 animate-pulse" style={{ animationDelay: "0.4s" }} />
+
+            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
+              <CheckCircle className="w-14 h-14 text-green-500" />
             </div>
           </div>
-          <div className="flex flex-col gap-[42px] w-fit">
-            <h1 className="font-bold text-[32px] leading-[48px]">
-              Success Checkout. <br />
-              Enjoy Your Best Flight.
-            </h1>
-            <div className="flex flex-col gap-[14px]">
-              <Link
-                href="/available/flights"
-                className="font-bold text-flysha-black bg-flysha-light-purple rounded-full h-12 w-full transition-all duration-300 hover:shadow-[0_10px_20px_0_#B88DFF] flex justify-center items-center"
-              >
-                Book More Flights
-              </Link>
-              <Link
-                href="/my-tickets"
-                className="font-semibold bg-flysha-black hover:bg-flysha-bg-purple border border-white hover:border-0 rounded-full h-12 w-full transition-all duration-300 flex justify-center items-center"
-              >
-                View My Tickets
-              </Link>
+          <h1 className="text-4xl md:text-5xl font-black text-text-dark mb-3">
+            Booking Confirmed!
+          </h1>
+          <p className="text-gray-500 text-lg max-w-md mx-auto">
+            Your e-ticket has been sent to <span className="font-semibold text-text-dark">{user?.email || "your email"}</span>
+          </p>
+        </div>
+
+        {/* Boarding Pass Card */}
+        <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 overflow-hidden mb-8 border border-gray-100">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-sky-primary to-blue-600 px-6 py-4 text-white">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Plane className="w-5 h-5" />
+                <span className="font-bold">FlyHigher</span>
+              </div>
+              <span className="text-sm font-medium bg-white/20 px-3 py-1 rounded-full">
+                E-Ticket
+              </span>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="p-6 md:p-8">
+            {/* Route */}
+            <div className="flex items-center justify-between mb-8">
+              <div className="text-center">
+                <p className="text-3xl font-black text-text-dark">JKT</p>
+                <p className="text-sm text-gray-500">Jakarta</p>
+              </div>
+              <div className="flex-1 mx-4 relative">
+                <div className="border-t-2 border-dashed border-gray-200" />
+                <Plane className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-sky-primary bg-white px-1" />
+              </div>
+              <div className="text-center">
+                <p className="text-3xl font-black text-text-dark">DPS</p>
+                <p className="text-sm text-gray-500">Bali</p>
+              </div>
             </div>
 
+            {/* Details Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center gap-2 text-gray-400 mb-1">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-xs font-medium uppercase">Date</span>
+                </div>
+                <p className="font-bold text-text-dark">Dec 25, 2025</p>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center gap-2 text-gray-400 mb-1">
+                  <MapPin className="w-4 h-4" />
+                  <span className="text-xs font-medium uppercase">Time</span>
+                </div>
+                <p className="font-bold text-text-dark">09:00 AM</p>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center gap-2 text-gray-400 mb-1">
+                  <User className="w-4 h-4" />
+                  <span className="text-xs font-medium uppercase">Passenger</span>
+                </div>
+                <p className="font-bold text-text-dark truncate">{user?.name || "Guest"}</p>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center gap-2 text-gray-400 mb-1">
+                  <Armchair className="w-4 h-4" />
+                  <span className="text-xs font-medium uppercase">Seat</span>
+                </div>
+                <p className="font-bold text-text-dark">--</p>
+              </div>
+            </div>
+
+            {/* Barcode Placeholder */}
+            <div className="flex flex-col items-center py-6 border-t border-dashed border-gray-200">
+              <div className="w-48 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-2">
+                <div className="flex gap-0.5">
+                  {[...Array(30)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-1 bg-gray-800 rounded-sm"
+                      style={{ height: `${Math.random() * 20 + 20}px` }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs text-gray-400 font-mono">FLYH-XXXXXX</p>
+            </div>
+          </div>
         </div>
-      </section>
-    </>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-8">
+          <button className="flex-1 flex items-center justify-center gap-2 h-14 bg-sky-primary hover:bg-sky-600 text-white font-bold rounded-full shadow-lg shadow-sky-primary/30 transition-all">
+            <Download className="w-5 h-5" />
+            Download E-Ticket
+          </button>
+          <button className="flex-1 flex items-center justify-center gap-2 h-14 bg-white hover:bg-gray-50 text-text-dark font-bold rounded-full border-2 border-gray-200 transition-all">
+            <Share2 className="w-5 h-5" />
+            Share Booking
+          </button>
+        </div>
+
+        {/* Next Steps */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-100">
+          <h3 className="font-bold text-text-dark mb-4">What&apos;s Next?</h3>
+          <div className="space-y-3">
+            <Link
+              href="/my-tickets"
+              className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors group"
+            >
+              <span className="font-medium text-gray-700">View My Tickets</span>
+              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/"
+              className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors group"
+            >
+              <span className="font-medium text-gray-700">Book Another Flight</span>
+              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 };
 
 export default SuccessPage;
+

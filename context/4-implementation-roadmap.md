@@ -231,42 +231,47 @@ model Ticket {
 
 ---
 
-### 2.4 Checkout Page
+### 2.4 Checkout Page ✅ SIMPLIFIED
 
 **Reference:** `stitch_flight_search_landing_page/seat_selection_payment/`
 
-**Tasks:**
+**Design Decision:** Removed credit card form and payment method tabs since Midtrans Snap handles all payment UI. Cleaner UX with direct payment flow.
 
-| Task                | Component                  | Status  |
-| ------------------- | -------------------------- | ------- |
-| Payment method tabs | `PaymentMethodTabs.tsx`    | ✅ Done |
-| Credit card form    | `PaymentForm.tsx`          | ✅ Done |
-| Booking summary     | `BookingSummary.tsx`       | ✅ Done |
-| Mobile sticky bar   | `MobileSummaryWrapper.tsx` | ✅ Done |
+**Components:**
 
-**Remaining Work:**
+| Task                    | Component              | Status  |
+| ----------------------- | ---------------------- | ------- |
+| Booking summary sidebar | `BookingSummary.tsx`   | ✅ Done |
+| Payment methods preview | `PaymentForm.tsx`      | ✅ Done |
+| What's included section | `PaymentForm.tsx`      | ✅ Done |
+| Mobile sticky bar       | `MobilePaymentBar.tsx` | ✅ Done |
+| Breadcrumb navigation   | `page.tsx`             | ✅ Done |
+| SEO metadata            | `page.tsx`             | ✅ Done |
 
-- [x] Add form validation with Zod — _Created `useCardForm` hook with Luhn validation_
-- [x] Add card number formatting (spaces every 4 digits) — _Done_
-- [x] Add card type detection (Visa/Mastercard icons) — _CardTypeIcon component_
-- [x] Add expiry date validation — _MM/YY format with date check_
-- [x] Add processing/loading overlay during payment — _Already had Loader2 spinner_
+**Payment Flow:**
+
+1. User reviews booking summary
+2. Clicks "Pay" button
+3. Midtrans Snap popup opens
+4. User selects payment method & completes in Midtrans
 
 ---
 
-### 2.5 Booking Confirmation
+### 2.5 Booking Confirmation ✅ REDESIGNED
 
 **Reference:** `stitch_flight_search_landing_page/booking_confirmation_1/` and `booking_confirmation_2/`
 
-**Tasks:**
+**Components:**
 
-| Task                            | Status   |
-| ------------------------------- | -------- |
-| Success page with confetti      | 🟡 Basic |
-| Boarding pass preview           | 🔴 TODO  |
-| Download ticket button          | 🔴 TODO  |
-| Share booking option            | 🔴 TODO  |
-| Email confirmation (UI preview) | 🔴 TODO  |
+| Task                         | Status  |
+| ---------------------------- | ------- |
+| Light theme layout           | ✅ Done |
+| Success animation (sparkles) | ✅ Done |
+| Boarding pass preview card   | ✅ Done |
+| Download ticket button       | ✅ Done |
+| Share booking button         | ✅ Done |
+| What's Next section          | ✅ Done |
+| SEO metadata                 | ✅ Done |
 
 ---
 
