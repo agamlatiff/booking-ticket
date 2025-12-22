@@ -5,6 +5,12 @@ import { redirect } from "next/navigation";
 import { getMyTicket } from "./lib/data";
 import Link from "next/link";
 import { Ticket } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Tickets - FlyHigher",
+  description: "View and manage your flight bookings. Access your e-tickets, check flight status, and manage your reservations.",
+};
 
 const MyTicketsPage = async () => {
   const { user, session } = await getUser();

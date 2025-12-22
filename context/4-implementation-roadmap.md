@@ -275,42 +275,47 @@ model Ticket {
 
 ---
 
-### 2.6 About Us Page
+### 2.6 About Us Page ✅ REDESIGNED
 
 **Reference:** `stitch_flight_search_landing_page/about_us__our_story_1/`, `about_us__our_story_2/`, `about_us__our_story_3/`
 
-**Tasks:**
+**Components:**
 
-| Task                            | Status  |
-| ------------------------------- | ------- |
-| Hero section with company story | 🔴 TODO |
-| Team section                    | 🔴 TODO |
-| Mission & values                | 🔴 TODO |
-| Timeline/milestones             | 🔴 TODO |
-| Contact section                 | 🔴 TODO |
+| Task                      | Status  |
+| ------------------------- | ------- |
+| Light theme layout        | ✅ Done |
+| Hero section with tagline | ✅ Done |
+| Stats section (4 metrics) | ✅ Done |
+| Mission section           | ✅ Done |
+| Values cards (3 values)   | ✅ Done |
+| Company timeline          | ✅ Done |
+| CTA section               | ✅ Done |
+| SEO metadata              | ✅ Done |
 
 ---
 
-### 2.7 Manage Booking Page
+### 2.7 Manage Booking Page ✅ CORE DONE
 
 **Reference:** `stitch_flight_search_landing_page/manage_booking_details/`
 
-**Tasks:**
+**Components:**
 
 | Task                     | Component              | Status  |
 | ------------------------ | ---------------------- | ------- |
+| Light theme layout       | `page.tsx`             | ✅ Done |
 | Flight timeline          | `detail/[id]/page.tsx` | ✅ Done |
 | Management action cards  | `detail/[id]/page.tsx` | ✅ Done |
 | Passenger sidebar        | `detail/[id]/page.tsx` | ✅ Done |
 | Payment summary          | `detail/[id]/page.tsx` | ✅ Done |
 | Cancellation danger zone | `detail/[id]/page.tsx` | ✅ Done |
+| SEO metadata             | `page.tsx`             | ✅ Done |
 
-**Remaining Work:**
+**Future Enhancements:**
 
-- [ ] Add change dates functionality
-- [ ] Add baggage add-on modal
-- [ ] Add class upgrade flow
-- [ ] Add cancellation confirmation modal
+- [ ] Change dates modal
+- [ ] Baggage add-on modal
+- [ ] Class upgrade flow
+- [ ] Cancellation confirmation modal
 
 ---
 
