@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 interface NavbarProps {
   showAuth?: boolean;
@@ -36,31 +37,28 @@ export function Navbar({ showAuth = true }: NavbarProps) {
         </Link>
       </div>
 
-      {/* Auth Buttons */}
-      {showAuth && (
-        <div className="flex items-center gap-4">
-          <Link
-            href="/sign-in"
-            className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition"
-          >
-            Log In
-          </Link>
-          <Button asChild>
-            <Link href="/sign-up">Get Started</Link>
-          </Button>
-          <button
-            className="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition text-gray-500"
-            onClick={() => document.documentElement.classList.toggle("dark")}
-          >
-            <span className="material-symbols-outlined text-sm block dark:hidden">
-              dark_mode
-            </span>
-            <span className="material-symbols-outlined text-sm hidden dark:block">
-              light_mode
-            </span>
-          </button>
-        </div>
-      )}
+      {/* Auth Buttons & Theme Toggle */}
+      <div className="flex items-center gap-3">
+        {showAuth && (
+          <>
+            <Link
+              href="/sign-in"
+              className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition hidden sm:block"
+            >
+              Log In
+            </Link>
+            <Button asChild size="sm">
+              <Link href="/sign-up">Get Started</Link>
+            </Button>
+          </>
+        )}
+        <ThemeToggle />
+
+        {/* Mobile Menu Button */}
+        <button className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+          <span className="material-symbols-outlined text-gray-600 dark:text-gray-300">menu</span>
+        </button>
+      </div>
     </nav>
   );
 }
