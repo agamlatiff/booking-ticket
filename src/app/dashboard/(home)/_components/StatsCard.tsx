@@ -1,9 +1,7 @@
-import { type LucideIcon } from "lucide-react";
-
 interface StatsCardProps {
   title: string;
   value: string | number;
-  icon: LucideIcon;
+  icon: string; // Material Symbols icon name
   trend?: {
     value: number;
     isPositive: boolean;
@@ -13,41 +11,41 @@ interface StatsCardProps {
 
 const colorMap = {
   blue: {
-    bg: "bg-blue-50",
-    icon: "bg-blue-500",
-    text: "text-blue-600",
+    bg: "bg-accent/10 dark:bg-accent/20",
+    icon: "bg-accent",
+    text: "text-accent",
   },
   green: {
-    bg: "bg-emerald-50",
+    bg: "bg-emerald-50 dark:bg-emerald-900/20",
     icon: "bg-emerald-500",
-    text: "text-emerald-600",
+    text: "text-emerald-600 dark:text-emerald-400",
   },
   purple: {
-    bg: "bg-purple-50",
+    bg: "bg-purple-50 dark:bg-purple-900/20",
     icon: "bg-purple-500",
-    text: "text-purple-600",
+    text: "text-purple-600 dark:text-purple-400",
   },
   orange: {
-    bg: "bg-orange-50",
+    bg: "bg-orange-50 dark:bg-orange-900/20",
     icon: "bg-orange-500",
-    text: "text-orange-600",
+    text: "text-orange-600 dark:text-orange-400",
   },
 };
 
 const StatsCard = ({
   title,
   value,
-  icon: Icon,
+  icon,
   trend,
   color = "blue",
 }: StatsCardProps) => {
   const colors = colorMap[color];
 
   return (
-    <div className={`rounded-2xl p-6 ${colors.bg} border border-gray-100`}>
+    <div className={`rounded-2xl p-6 ${colors.bg} border border-gray-100 dark:border-gray-800`}>
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
+          <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">{title}</p>
           <p className={`text-3xl font-black ${colors.text}`}>{value}</p>
           {trend && (
             <p
@@ -62,7 +60,7 @@ const StatsCard = ({
         <div
           className={`w-12 h-12 rounded-xl ${colors.icon} flex items-center justify-center`}
         >
-          <Icon className="w-6 h-6 text-white" />
+          <span className="material-symbols-outlined text-white text-2xl">{icon}</span>
         </div>
       </div>
     </div>
