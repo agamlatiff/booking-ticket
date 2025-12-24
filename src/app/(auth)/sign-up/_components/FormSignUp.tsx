@@ -1,10 +1,7 @@
 "use client";
 
 import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
-import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
-
-import { Button } from "@/components/ui/button";
 import { signUpUser } from "../lib/actions";
 
 const initialState: ActionResult = {
@@ -16,13 +13,14 @@ const SubmitButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <Button
+    <button
       type="submit"
       disabled={pending}
-      className="text-center rounded-full bg-flysha-light-purple font-bold w-full p-[12px_30px] transition-all duration-300 hover:shadow-[0_10px_20px_0_#B88DFF] disabled:opacity-40 text-white"
+      className="mt-4 w-full h-11 rounded-lg bg-accent hover:bg-sky-400 text-primary text-sm font-bold leading-normal tracking-[0.015em] transition-all duration-200 transform active:scale-[0.99] shadow-[0_4px_14px_0_rgba(56,189,248,0.39)] hover:shadow-[0_6px_20px_rgba(56,189,248,0.23)] flex items-center justify-center gap-2 disabled:opacity-50"
     >
-      {pending ? "Creating..." : "Create New Account"}
-    </Button>
+      <span>{pending ? "Creating..." : "Create Account"}</span>
+      <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+    </button>
   );
 };
 
@@ -30,78 +28,148 @@ const FormSignUp = () => {
   const [state, formState] = useFormState(signUpUser, initialState);
 
   return (
-    <form
-      action={formState}
-      className="bg-white text-flysha-black w-[500px] flex flex-col rounded-[20px] gap-5 p-5"
-    >
+    <form action={formState} className="flex flex-col gap-5">
+      {/* Error Message */}
       {state.errorTitle !== null && (
-        <div className=" bg-red-500 w-full p-4 rounded-lg text-white">
-          <div className="text-lg  mb-1 font-medium">{state.errorTitle}</div>
-          <ul className="list-disc list-inside">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 w-full p-4 rounded-lg text-red-600 dark:text-red-400">
+          <div className="text-sm font-bold mb-1 flex items-center gap-2">
+            <span className="material-symbols-outlined text-lg">error</span>
+            {state.errorTitle}
+          </div>
+          <ul className="list-disc list-inside text-sm">
             {state.errorDesc?.map((e, index) => (
               <li key={index}>{e}</li>
             ))}
           </ul>
         </div>
       )}
-      <div className="flex gap-5">
-        <div className="flex flex-col gap-2">
-          <label htmlFor="name" className="font-medium">
-            Complete Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Write your name"
-            className="rounded-full h-6 w-full p-[12px_20px] h-[48px] bg-[#EDE8F5] appearance-none outline-none font-semibold focus:ring-2 focus:ring-flysha-light-purple"
-          />
+
+      {/* Social Signup */}
+      <div className="grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          className="flex items-center justify-center gap-2.5 h-11 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 text-gray-900 dark:text-white text-sm font-bold transition-all duration-200 border border-transparent hover:border-gray-200 dark:hover:border-transparent group"
+        >
+          <span className="material-symbols-outlined text-[22px] text-gray-600 dark:text-gray-300 group-hover:text-accent transition-colors">
+            language
+          </span>
+          <span className="truncate">Google</span>
+        </button>
+        <button
+          type="button"
+          className="flex items-center justify-center gap-2.5 h-11 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 text-gray-900 dark:text-white text-sm font-bold transition-all duration-200 border border-transparent hover:border-gray-200 dark:hover:border-transparent group"
+        >
+          <span className="material-symbols-outlined text-[22px] text-gray-600 dark:text-gray-300 group-hover:text-accent transition-colors">
+            smartphone
+          </span>
+          <span className="truncate">Apple</span>
+        </button>
+      </div>
+
+      {/* Divider */}
+      <div className="relative flex py-1 items-center">
+        <div className="flex-grow border-t border-gray-100 dark:border-gray-700" />
+        <span className="flex-shrink-0 mx-4 text-gray-400 dark:text-gray-500 text-xs font-semibold tracking-wider uppercase">
+          Or sign up with email
+        </span>
+        <div className="flex-grow border-t border-gray-100 dark:border-gray-700" />
+      </div>
+
+      {/* Form Fields */}
+      <div className="space-y-4">
+        {/* Name and Passport Row */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="group">
+            <label
+              className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5 ml-1"
+              htmlFor="name"
+            >
+              Full Name
+            </label>
+            <div className="relative flex items-center">
+              <span className="material-symbols-outlined absolute left-3.5 text-gray-400 text-[20px] pointer-events-none group-focus-within:text-accent transition-colors">
+                person
+              </span>
+              <input
+                className="w-full h-11 pl-10 pr-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none text-gray-900 dark:text-white text-sm font-medium transition-all placeholder:text-gray-400/70"
+                id="name"
+                name="name"
+                placeholder="John Doe"
+                type="text"
+                required
+              />
+            </div>
+          </div>
+          <div className="group">
+            <label
+              className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5 ml-1"
+              htmlFor="passport"
+            >
+              Passport No.
+            </label>
+            <div className="relative flex items-center">
+              <span className="material-symbols-outlined absolute left-3.5 text-gray-400 text-[20px] pointer-events-none group-focus-within:text-accent transition-colors">
+                badge
+              </span>
+              <input
+                className="w-full h-11 pl-10 pr-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none text-gray-900 dark:text-white text-sm font-medium transition-all placeholder:text-gray-400/70"
+                id="passport"
+                name="passport"
+                placeholder="A12345678"
+                type="text"
+              />
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="passport" className="font-medium">
-            No. Passport
+
+        {/* Email */}
+        <div className="group">
+          <label
+            className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5 ml-1"
+            htmlFor="email"
+          >
+            Email Address
           </label>
-          <input
-            type="text"
-            name="passport"
-            id="passport"
-            placeholder="Write passport number"
-            className="rounded-full h-6 w-full p-[12px_20px] h-[48px] bg-[#EDE8F5] appearance-none outline-none font-semibold focus:ring-2 focus:ring-flysha-light-purple"
-          />
+          <div className="relative flex items-center">
+            <span className="material-symbols-outlined absolute left-3.5 text-gray-400 text-[20px] pointer-events-none group-focus-within:text-accent transition-colors">
+              mail
+            </span>
+            <input
+              className="w-full h-11 pl-10 pr-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none text-gray-900 dark:text-white text-sm font-medium transition-all placeholder:text-gray-400/70"
+              id="email"
+              name="email"
+              placeholder="name@company.com"
+              type="email"
+              required
+            />
+          </div>
+        </div>
+
+        {/* Password */}
+        <div className="group">
+          <label
+            className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5 ml-1"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <div className="relative flex items-center">
+            <span className="material-symbols-outlined absolute left-3.5 text-gray-400 text-[20px] pointer-events-none group-focus-within:text-accent transition-colors">
+              lock
+            </span>
+            <input
+              className="w-full h-11 pl-10 pr-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none text-gray-900 dark:text-white text-sm font-medium transition-all placeholder:text-gray-400/70"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              type="password"
+              required
+            />
+          </div>
         </div>
       </div>
-      <div className="flex flex-col gap-1">
-        <label htmlFor="email" className="font-medium">
-          Email Address
-        </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Write your email"
-          className="rounded-full h-6 w-full p-[12px_20px] h-[48px] bg-[#EDE8F5] appearance-none outline-none font-semibold  focus:ring-2 focus:ring-flysha-light-purple"
-        />
-      </div>
-      <div className="flex flex-col gap-1">
-        <label htmlFor="password" className="font-medium">
-          Password
-        </label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Type your password"
-          className="rounded-full h-6 w-full p-[12px_20px] h-[48px] bg-[#EDE8F5] appearance-none outline-none font-semibold focus:ring-2 focus:ring-flysha-light-purple"
-        />
-        {/* <span class="error-messages font-medium text-xs text-flysha-red font-inter">Wrong format email address</span> */}
-      </div>
+
       <SubmitButton />
-      <Link
-        href="/sign-in"
-        className="text-center text-flysha-black hover:text-white rounded-full bg-white hover:bg-flysha-black font-semibold w-full p-[12px_30px] border border-flysha-black transition-all duration-300"
-      >
-        Sign In
-      </Link>
     </form>
   );
 };
