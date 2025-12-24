@@ -1,4 +1,5 @@
-import NavbarLight from "@/app/_components/NavbarLight";
+import { Navbar } from "@/components/ui/navbar";
+import { Footer } from "@/components/ui/footer";
 import SeatMapWrapper from "./_components/SeatMapWrapper";
 import FlightDetail from "./_components/FlightDetail";
 import SeatClassToggle from "./_components/SeatClassToggle";
@@ -6,7 +7,6 @@ import MobileSummaryWrapper from "./_components/MobileSummaryWrapper";
 import { getFlightById } from "../../lib/data";
 import { getUser } from "@/lib/auth";
 import Link from "next/link";
-import { CheckCircle, Plane, ArrowLeft } from "lucide-react";
 
 type Params = {
   id: string;
@@ -22,27 +22,38 @@ const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
 
   if (!flight) {
     return (
-      <div className="bg-background-light min-h-screen font-display flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">Flight not found</h1>
-          <p className="text-gray-500 mb-4">The flight you&apos;re looking for doesn&apos;t exist.</p>
-          <Link
-            href="/available-flights"
-            className="inline-flex items-center gap-2 text-sky-primary hover:underline"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to flights
-          </Link>
+      <div className="bg-background dark:bg-background-dark min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <span className="material-symbols-outlined text-6xl text-gray-300 dark:text-gray-600 mb-4">
+              flight_off
+            </span>
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+              Flight not found
+            </h1>
+            <p className="text-gray-500 dark:text-gray-400 mb-4">
+              The flight you&apos;re looking for doesn&apos;t exist.
+            </p>
+            <Link
+              href="/available-flights"
+              className="inline-flex items-center gap-2 text-accent hover:underline"
+            >
+              <span className="material-symbols-outlined">arrow_back</span>
+              Back to flights
+            </Link>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="bg-background-light min-h-screen font-display">
+    <div className="bg-background dark:bg-background-dark min-h-screen flex flex-col transition-colors duration-300">
       {/* Navigation */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <NavbarLight />
+      <header className="sticky top-0 z-50 bg-white/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+        <Navbar />
       </header>
 
       <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -52,17 +63,19 @@ const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
             <li>
               <Link
                 href="/available-flights"
-                className="text-gray-400 hover:text-sky-primary transition-colors flex items-center gap-1"
+                className="text-gray-400 dark:text-gray-500 hover:text-accent transition-colors flex items-center gap-1"
               >
-                <CheckCircle className="w-4 h-4" /> Flight
+                <span className="material-symbols-outlined text-lg">check_circle</span>
+                Flight
               </Link>
             </li>
-            <li className="text-gray-300">/</li>
-            <li className="text-sky-primary flex items-center gap-1">
-              <Plane className="w-4 h-4" /> Seats
+            <li className="text-gray-300 dark:text-gray-600">/</li>
+            <li className="text-accent flex items-center gap-1">
+              <span className="material-symbols-outlined text-lg">airline_seat_recline_extra</span>
+              Seats
             </li>
-            <li className="text-gray-300">/</li>
-            <li className="text-gray-400">Payment</li>
+            <li className="text-gray-300 dark:text-gray-600">/</li>
+            <li className="text-gray-400 dark:text-gray-500">Payment</li>
           </ol>
         </nav>
 
@@ -72,10 +85,10 @@ const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
-                <h1 className="text-3xl md:text-4xl font-extrabold text-text-dark tracking-tight mb-2">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-2">
                   Where would you like to sit?
                 </h1>
-                <p className="text-gray-500 text-lg">
+                <p className="text-gray-500 dark:text-gray-400 text-lg">
                   Select your preferred spot for your journey to{" "}
                   {flight.destinationCity}.
                 </p>
@@ -101,6 +114,9 @@ const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
 
       {/* Mobile Sticky Bottom Bar */}
       <MobileSummaryWrapper flight={flight} session={session} />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
