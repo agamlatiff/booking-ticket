@@ -29,23 +29,28 @@ const FilterClass = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-text-dark text-sm font-bold mb-1">Seat Class</p>
+      <p className="text-gray-900 dark:text-white text-sm font-bold mb-1">Seat Class</p>
       {SEAT_OPTIONS.map((item, index) => (
         <label
           key={`${item + index}`}
           htmlFor={item}
           className="flex items-center gap-3 cursor-pointer group"
         >
-          <input
-            onChange={handleChange}
-            type="radio"
-            name="seat"
-            id={item}
-            value={item}
-            checked={state.seat === item}
-            className="w-5 h-5 rounded-md border-2 border-gray-300 text-sky-primary focus:ring-sky-primary/20 transition-all"
-          />
-          <span className="text-gray-500 text-sm font-medium group-hover:text-sky-primary transition-colors">
+          <div className="relative">
+            <input
+              onChange={handleChange}
+              type="radio"
+              name="seat"
+              id={item}
+              value={item}
+              checked={state.seat === item}
+              className="sr-only peer"
+            />
+            <div className="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-accent peer-checked:bg-accent transition-all flex items-center justify-center">
+              <div className="w-2 h-2 rounded-full bg-white scale-0 peer-checked:scale-100 transition-transform" />
+            </div>
+          </div>
+          <span className="text-gray-600 dark:text-gray-300 text-sm font-medium group-hover:text-accent transition-colors">
             {SEAT_LABELS[item]}
           </span>
         </label>
