@@ -87,7 +87,7 @@ Surface Dark: #1e293b
 - [x] Update Card component (rounded-2xl/3xl)
 - [x] Create NavBar component (new style)
 - [x] Create Footer component
-- [ ] Create Badge component (new style)
+- [x] Create Badge component (new style)
 
 ---
 
@@ -151,11 +151,11 @@ Surface Dark: #1e293b
 - [x] Search/filter destinations
 - [x] Popular destinations
 
-### 3.2 Destination Detail (`/destinations/[slug]`)
+### 3.2 Destination Detail (`/destinations/[slug]`) ✅
 
-- [ ] Destination hero image
-- [ ] Description
-- [ ] Flights to destination
+- [x] Destination hero image
+- [x] Description
+- [x] Flights to destination
 
 ### 3.3 Partners Page (`/partners`) ✅
 
