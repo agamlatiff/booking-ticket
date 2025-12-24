@@ -5,32 +5,36 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-primary/20 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/20 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
+        // FlyHigher Primary Variants
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90 rounded-md",
+          "bg-primary text-white shadow-lg shadow-primary/10 hover:bg-slate-800 dark:bg-accent dark:hover:bg-sky-300 dark:text-primary rounded-full",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 rounded-md",
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 rounded-full",
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md",
+          "border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 rounded-md",
-        ghost: "hover:bg-accent hover:text-accent-foreground rounded-md",
-        link: "text-primary underline-offset-4 hover:underline",
-        // FlyHigher Design System variants
-        sky: "bg-sky-primary hover:bg-sky-600 text-white font-bold rounded-full shadow-lg shadow-sky-primary/20",
-        skyOutline: "border-2 border-sky-primary text-sky-primary hover:bg-sky-50 font-semibold rounded-full",
-        danger: "bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-full",
-        subtle: "bg-gray-100 hover:bg-gray-200 text-text-dark font-semibold rounded-full",
+          "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl",
+        ghost:
+          "hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl",
+        link:
+          "text-primary dark:text-accent underline-offset-4 hover:underline",
+        // Accent Variant
+        accent:
+          "bg-accent hover:bg-sky-400 text-primary font-bold rounded-full shadow-lg shadow-accent/30",
+        // Glass Variant
+        glass:
+          "bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 rounded-full",
       },
       size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 px-3 text-xs rounded-md",
-        lg: "h-10 px-8 rounded-md",
-        xl: "h-12 px-8 text-base rounded-full",
-        icon: "h-9 w-9 rounded-md",
+        default: "h-10 px-5 py-2.5",
+        sm: "h-8 px-4 text-xs",
+        lg: "h-12 px-8 text-base",
+        xl: "h-14 px-10 text-lg",
+        icon: "h-10 w-10",
       },
     },
     defaultVariants: {

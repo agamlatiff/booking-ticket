@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlyHigher - Destinations</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0f172a", 
+              accent: "#38bdf8",
+              success: "#10b981", 
+              "warm-bg": "#fcfcfc",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1e293b",
+              "gray-light": "#f1f5f9",
+              "gray-soft": "#94a3b8",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem",
+              '2xl': "1rem",
+              '3xl': "1.5rem",
+            },
+            boxShadow: {
+                'card': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                'card-hover': '0 10px 25px -5px rgba(56, 189, 248, 0.15)',
+            }
+          },
+        },
+      };
+    </script>
+<style type="text/tailwindcss">
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-warm-bg dark:bg-slate-900 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
+<nav class="w-full py-5 px-6 max-w-7xl mx-auto flex items-center justify-between z-50 relative">
+<div class="flex items-center gap-2">
+<div class="bg-primary dark:bg-accent text-white dark:text-primary p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-xl">flight_takeoff</span>
+</div>
+<span class="font-bold text-xl tracking-tight text-primary dark:text-white">FlyHigher</span>
+</div>
+<div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300">
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Flights</a>
+<a class="text-primary dark:text-accent font-semibold transition" href="#">Destinations</a>
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Partners</a>
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Support</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2">
+<img alt="User profile" class="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgThaG6PH7l_T-VKlqQiFKFJiPYo4YGaJ5PcPcOThhWZU02HE1Ry61wC8lVvH5CdJx8fgJCq1fv5XmBFYUSI2sRkAyll_G8l_kkq9m6-uL9dA1LWM2uXBeh1IZ8DzDaAjjMjxWmUQyCGyzQk8xn9DcA17KUVrKfRgXuzYg9M-LWM72quKfnyrTwVLpNPK2tQ-QIEIDd_Mhe3YEuDb-x6BfxacAU0EUbok9_Zg876BXawRN7Ul87BWD8Yx4USjetiEhTIEtaRcpzRc"/>
+<span class="text-sm font-medium text-gray-700 dark:text-gray-200">Tom Scott</span>
+</div>
+<button class="ml-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition text-gray-500" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-sm block dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined text-sm hidden dark:block">light_mode</span>
+</button>
+</div>
+</nav>
+<div class="relative bg-white dark:bg-surface-dark border-b border-gray-100 dark:border-gray-800">
+<div class="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-6 py-12 lg:py-16 relative z-10">
+<div class="max-w-3xl mx-auto text-center">
+<h1 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight leading-tight">
+                Explore the World's<br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-600">Most Amazing Places</span>
+</h1>
+<p class="text-gray-500 dark:text-gray-400 mb-10 text-lg">Uncover hidden gems, iconic cities, and paradise islands for your next adventure.</p>
+<div class="bg-white dark:bg-gray-800 p-2 rounded-3xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row gap-2 relative z-20">
+<div class="flex-1 flex items-center px-4 py-3 bg-gray-50 dark:bg-gray-900/50 rounded-2xl sm:rounded-l-2xl sm:rounded-r-xl group focus-within:ring-2 ring-accent/20 transition">
+<span class="material-symbols-outlined text-gray-400 mr-3 text-2xl group-focus-within:text-accent transition">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-gray-800 dark:text-white placeholder-gray-400 text-base" placeholder="Search by city, country, or interest..." type="text"/>
+</div>
+<div class="sm:w-auto flex items-center px-4 py-3 bg-gray-50 dark:bg-gray-900/50 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+<span class="material-symbols-outlined text-gray-400 mr-2">calendar_month</span>
+<span class="text-gray-600 dark:text-gray-300 text-sm font-medium whitespace-nowrap">Anytime</span>
+</div>
+<button class="bg-primary dark:bg-accent text-white dark:text-primary px-8 py-3 rounded-2xl font-bold hover:opacity-90 transition shadow-lg shadow-primary/20 dark:shadow-accent/20 flex items-center justify-center gap-2">
+<span>Explore</span>
+</button>
+</div>
+<div class="mt-8 flex flex-wrap justify-center gap-3">
+<span class="text-sm font-medium text-gray-400 py-1 flex items-center gap-1"><span class="material-symbols-outlined text-sm">auto_awesome</span> Trending:</span>
+<button class="px-4 py-1.5 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-300 hover:border-accent hover:text-accent hover:bg-accent/5 transition">Beach</button>
+<button class="px-4 py-1.5 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-300 hover:border-accent hover:text-accent hover:bg-accent/5 transition">City Break</button>
+<button class="px-4 py-1.5 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-300 hover:border-accent hover:text-accent hover:bg-accent/5 transition">Nature</button>
+<button class="px-4 py-1.5 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-300 hover:border-accent hover:text-accent hover:bg-accent/5 transition">Honeymoon</button>
+</div>
+</div>
+</div>
+</div>
+<main class="max-w-7xl mx-auto px-6 py-12 space-y-20">
+<section>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-accent fill">trending_up</span>
+                    Popular Destinations
+                </h2>
+<p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Most loved places by our travelers this week</p>
+</div>
+<a class="group flex items-center gap-1 text-accent font-semibold text-sm hover:text-accent/80 transition" href="#">
+                View All <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="group bg-white dark:bg-surface-dark rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+<div class="relative h-60 overflow-hidden">
+<img alt="Paris" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmKdwXTYs2JgiQc7FloH9xeglTn87NAiKqLiMjhsxaj-rkHac7hC3P5cuDSy59Vf32w9TFe0Xq7tc94GPn5VI5YxxXyUpMTRSbd0J179jUyAgCn9Zw8Vrm1vKvQLweVmeaRgWSFix1WtD_HWdn9PsLsJp4xbb0B9o4qCuL48an8oX-s7kGmeLdcgQGyMS1dgUDGsuZyQ9mju2zk_q30T_xlgzQTevATxsDtDx2wdMdjOsuf1h8dhV6rqnSAPSW-reeOjY5BNOJVbc"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-lg text-xs font-bold text-primary shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm fill">star</span> 4.9
+                    </div>
+<button class="absolute bottom-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-red-500 transition border border-white/20">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-bold text-xl text-gray-900 dark:text-white group-hover:text-accent transition">Paris</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">France</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-4">Experience the romance, art, and fashion of the City of Light.</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-gray-50 dark:bg-gray-800 rounded text-[10px] font-medium text-gray-500 uppercase tracking-wide">Art</span>
+<span class="px-2 py-1 bg-gray-50 dark:bg-gray-800 rounded text-[10px] font-medium text-gray-500 uppercase tracking-wide">Romance</span>
+<span class="px-2 py-1 bg-gray-50 dark:bg-gray-800 rounded text-[10px] font-medium text-gray-500 uppercase tracking-wide">Food</span>
+</div>
+<div class="border-t border-gray-100 dark:border-gray-800 pt-4 flex items-center justify-between">
+<div>
+<span class="text-xs text-gray-400 block mb-0.5">Flights from</span>
+<span class="font-bold text-lg text-primary dark:text-accent">$450</span>
+</div>
+<button class="text-sm font-bold text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-xl group-hover:bg-primary group-hover:text-white dark:group-hover:bg-accent dark:group-hover:text-primary transition">
+                            Explore
+                        </button>
+</div>
+</div>
+</div>
+<div class="group bg-white dark:bg-surface-dark rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+<div class="relative h-60 overflow-hidden">
+<img alt="Tokyo" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjau5yR3a6b229Mdq2pFpyuY9JGwBqVHTTT-KVD_16k_ggy-5czySAsrVIrfDucOv5rYBNtxcqvBO6JVfG504MNDrEe47ahha_ROL58B3qDqA-YkEiOy6tnyCUT1GY5me85-TvJxQXWrbgp4MIELQCG_GcjDMxcG9v3E8vfd-db-SgXOJgLoLYpajN_swSiLlXayBzkJCw2S5fslw2fexqwZJDNKzxmGCXGvJB3ZYFU9R-hXn1siDRxNIsuEuFI6MkLtF7VhKJCYw"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-lg text-xs font-bold text-primary shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm fill">star</span> 4.8
+                    </div>
+<button class="absolute bottom-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-red-500 transition border border-white/20">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-bold text-xl text-gray-900 dark:text-white group-hover:text-accent transition">Tokyo</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">Japan</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-4">A dazzling mix of modern neon lights and traditional temples.</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-gray-50 dark:bg-gray-800 rounded text-[10px] font-medium text-gray-500 uppercase tracking-wide">Shopping</span>
+<span class="px-2 py-1 bg-gray-50 dark:bg-gray-800 rounded text-[10px] font-medium text-gray-500 uppercase tracking-wide">Culture</span>
+</div>
+<div class="border-t border-gray-100 dark:border-gray-800 pt-4 flex items-center justify-between">
+<div>
+<span class="text-xs text-gray-400 block mb-0.5">Flights from</span>
+<span class="font-bold text-lg text-primary dark:text-accent">$820</span>
+</div>
+<button class="text-sm font-bold text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-xl group-hover:bg-primary group-hover:text-white dark:group-hover:bg-accent dark:group-hover:text-primary transition">
+                            Explore
+                        </button>
+</div>
+</div>
+</div>
+<div class="group bg-white dark:bg-surface-dark rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+<div class="relative h-60 overflow-hidden">
+<img alt="New York" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJxz_v7C2U34o6J33cGtqG4WSGVLay64eYwrL1FUji0Kn8_8uUlNNGLq1ATtylIRg6d0fYpWXFlHM_xR3QfZTOUFW9ys_wMgPRr9b_r50A4DfKMh4em6u-8K4urV7DSCxHLQ2kvW9fHtpJFLtShs1n7GbNjm5kNrS5Hk8pe_pCHZTD6h5iNBbSajv1sRVhpptqmahf4DOJKxAT-b9lyctnWky_8oDcaWA5UGRgfExuR6qT04LUXt_3Y10FL6cl0s5UHnEj-EWubjY"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-lg text-xs font-bold text-primary shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm fill">star</span> 4.7
+                    </div>
+<button class="absolute bottom-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-red-500 transition border border-white/20">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-bold text-xl text-gray-900 dark:text-white group-hover:text-accent transition">New York</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">United States</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-4">The city that never sleeps, offering endless entertainment.</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-gray-50 dark:bg-gray-800 rounded text-[10px] font-medium text-gray-500 uppercase tracking-wide">Urban</span>
+<span class="px-2 py-1 bg-gray-50 dark:bg-gray-800 rounded text-[10px] font-medium text-gray-500 uppercase tracking-wide">Nightlife</span>
+</div>
+<div class="border-t border-gray-100 dark:border-gray-800 pt-4 flex items-center justify-between">
+<div>
+<span class="text-xs text-gray-400 block mb-0.5">Flights from</span>
+<span class="font-bold text-lg text-primary dark:text-accent">$300</span>
+</div>
+<button class="text-sm font-bold text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-xl group-hover:bg-primary group-hover:text-white dark:group-hover:bg-accent dark:group-hover:text-primary transition">
+                            Explore
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-purple-500 fill">location_city</span>
+                    Dream Cities
+                </h2>
+<p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Historic landmarks and modern marvels</p>
+</div>
+<a class="group flex items-center gap-1 text-accent font-semibold text-sm hover:text-accent/80 transition" href="#">
+                View All <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="group bg-white dark:bg-surface-dark rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+<div class="relative h-60 overflow-hidden">
+<img alt="London" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzWqH8zIy68kPlhQZaPNNzOpoxSHOYt62HXWDtqpmL87jeT8K1-W317C7pzXB7JI9Eqy8piYFeyB4e8hSjHxQuzCIO1hnTP1vOzMRzxSBOViOtgK1ZGesMPnsUbuf-_99DTuqLxtcATquhyftbHHcHigwvNXZUCNdDdOb46Rz0roEJSkL3Vj9EUqcDD3IzrfiWmSwLR7lyBFJuwG_ZJC6pJWxMqJkjfyu_N5mybQAL4dXYOiXK1lKqynvYC_KDAKqgD_64aJAJY5c"/>
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<div class="text-xs font-bold uppercase tracking-wider mb-1 opacity-80">Top Rated</div>
+<h3 class="font-bold text-xl">London, UK</h3>
+</div>
+</div>
+<div class="p-6">
+<p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-4">Discover royal history and world-class museums in London.</p>
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-gray-500 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded">Direct flights available</span>
+<span class="font-bold text-lg text-primary dark:text-accent">$420</span>
+</div>
+</div>
+</div>
+<div class="group bg-white dark:bg-surface-dark rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+<div class="relative h-60 overflow-hidden">
+<img alt="Dubai" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0sPavQmh-avtchPtlq1e_KYlhuCgpoQkyRJj04eB-ieybRv5Sw4D9nb3-BPgaDyvzYiYx3GKbjJt_wfyPbGB9QtIrxyepUF1MKKYTKo_sQ1_8SV0ve27Xue4s3v9EjTCkv8QpmdvumbF3cDJS2CiJ-dpbh_fK0fKvWfM4kFtuf7nkFQsnbkuL5W2h5qgCkgfQ1HPaMQXqyveWzDqgdFWltWpQaVWizcvDiZW_9_tTo01JkmBmkJkYJgyXSQgfOIPgJBo653Ltec0"/>
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<div class="text-xs font-bold uppercase tracking-wider mb-1 opacity-80">Luxury</div>
+<h3 class="font-bold text-xl">Dubai, UAE</h3>
+</div>
+</div>
+<div class="p-6">
+<p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-4">Futuristic architecture, luxury shopping, and lively nightlife.</p>
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-gray-500 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded">Visa on arrival</span>
+<span class="font-bold text-lg text-primary dark:text-accent">$550</span>
+</div>
+</div>
+</div>
+<div class="group bg-white dark:bg-surface-dark rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+<div class="relative h-60 overflow-hidden">
+<img alt="Rome" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ44iv1XkI4HwcyaEq-MC7okQTwtAmVZKCCSQBQaAdS6Wl8ZogseoCLsj-7wy3JcT31XTUiprutkCIMN-vyOHIsV0EezOBOXUe9dH-hs-4i1CbWPDpROrhq-lh5PMkttM3JbKnWJZpkKj33dJ-Dhgkfm7L5cuLkxMIzwTZwZZc2QlpMMiaLDuqGzVgOlCfUGbJrSgRnkU0wGybmajd1sswVMPAf3o55zCRcIPXgOBJwil6NHMWSfPU4RfRpLH41z9PmVnzfZm4gZ8"/>
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<div class="text-xs font-bold uppercase tracking-wider mb-1 opacity-80">History</div>
+<h3 class="font-bold text-xl">Rome, Italy</h3>
+</div>
+</div>
+<div class="p-6">
+<p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-4">Walk through centuries of history in the Eternal City.</p>
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-gray-500 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded">Best in Spring</span>
+<span class="font-bold text-lg text-primary dark:text-accent">$480</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-400 fill">beach_access</span>
+                    Beach Vacations
+                </h2>
+<p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Sun, sand, and sea for the ultimate relaxation</p>
+</div>
+<a class="group flex items-center gap-1 text-accent font-semibold text-sm hover:text-accent/80 transition" href="#">
+                View All <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="group relative rounded-3xl overflow-hidden aspect-[4/5] cursor-pointer shadow-lg">
+<img alt="Bali" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeud6ZlGezmxmWvvdY83U1X7mMjjylbIyuv931SrY8qNTNEeJ6krzBNC6DJVlrwbYeJrWmALaXJVwWp10jwQEIoC9TrxcmKUsnCWCbMh--uYzrK3w_ZcGlSfmOMfhLb_krXgu8s8jzIowdBbnkHGUnCX9otAa76CboACS3qYGzx6qN3tDZKLzjkKQghczb0n9xmfRa9V1Z07W1AJ0RIfug7ZrBxlhVAgZl84CPN1nTrgFPr5rVxIbA_w2BRB_GadpYc5EFUz6pnYA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h3 class="font-bold text-xl mb-1">Bali</h3>
+<p class="text-xs opacity-90 mb-3">Indonesia</p>
+<span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold border border-white/20">From $600</span>
+</div>
+</div>
+<div class="group relative rounded-3xl overflow-hidden aspect-[4/5] cursor-pointer shadow-lg">
+<img alt="Maldives" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm8cx9sX3yazJ5Im0ygJ9ZTW06t4azEDQJ7PAdetZhrlYLFs-EXFGlwzYrvOCvHSds9l9u8rXZli1CYtpMWw8DPAJltN5NGYVlim17WTCLsiYgOl2qjPHdByrZC54rBQORMnTGSeO52DJYBXIpyAXsJDpBtjEORGSB5mPkElcSi6ZdVBgY2cf0B7JxiRp7_N_V2KZtXa5mizqvSq0Wl7omZo2HFwRY3NwITNGBqQLvSQ9s0XgrWa1x1xK3ktcP2PzvKNRjZyM8abs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h3 class="font-bold text-xl mb-1">Maldives</h3>
+<p class="text-xs opacity-90 mb-3">Maldives</p>
+<span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold border border-white/20">From $900</span>
+</div>
+</div>
+<div class="group relative rounded-3xl overflow-hidden aspect-[4/5] cursor-pointer shadow-lg">
+<img alt="Santorini" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDprklrt2E2QS87CGxGHHnJEabb8-vpJKg6Z7qO41LLydLwG-6jyK6W__NmFesqgWYc7eIeHZGZvuMU1aBSwGO2pDoMBabWUX6NDWMmaHvAKQR7fRtN_a2ypIyi0daKEyynznJbRacBhQMp5XAyZo7_WuLryRpf_VYOQrU6KeoKY4FTHurWVjJnVJiiocTQB68TBFcF_AmlNnGQNTgxWRK-EmRcXqxsQ_BVQFuPFOyIZL3ZA4Np-loJuRW7_4y1BkZhD34DX42YNN8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h3 class="font-bold text-xl mb-1">Santorini</h3>
+<p class="text-xs opacity-90 mb-3">Greece</p>
+<span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold border border-white/20">From $750</span>
+</div>
+</div>
+<div class="group relative rounded-3xl overflow-hidden aspect-[4/5] cursor-pointer shadow-lg flex items-center justify-center bg-gray-100 dark:bg-surface-dark border-2 border-dashed border-gray-300 dark:border-gray-700 hover:border-accent hover:bg-accent/5 transition">
+<div class="text-center p-6">
+<div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent mx-auto mb-4 group-hover:scale-110 transition">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+<h3 class="font-bold text-gray-900 dark:text-white">View All</h3>
+<p class="text-xs text-gray-500 mt-1">20+ more destinations</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-primary text-white mt-12">
+<div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10">
+<div class="col-span-1">
+<div class="flex items-center gap-2 mb-6">
+<div class="bg-accent text-primary p-1 rounded-md">
+<span class="material-symbols-outlined text-lg">flight_takeoff</span>
+</div>
+<span class="font-bold text-lg">FlyHigher</span>
+</div>
+<div class="flex flex-col gap-3 text-sm text-gray-400">
+<a class="hover:text-white transition flex items-center gap-2" href="mailto:booking@flyhigher.com"><span class="material-symbols-outlined text-sm">email</span> booking@flyhigher.com</a>
+<a class="hover:text-white transition flex items-center gap-2" href="tel:+016075550123"><span class="material-symbols-outlined text-sm">phone</span> +01 607 555-0123</a>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider">Explore</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-accent transition" href="#">Destinations</a></li>
+<li><a class="hover:text-accent transition" href="#">Airlines</a></li>
+<li><a class="hover:text-accent transition" href="#">Hotels</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider">Support</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-accent transition" href="#">Help Center</a></li>
+<li><a class="hover:text-accent transition" href="#">Cancellations</a></li>
+<li><a class="hover:text-accent transition" href="#">Baggage Rules</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider">Company</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-accent transition" href="#">About Us</a></li>
+<li><a class="hover:text-accent transition" href="#">Careers</a></li>
+<li><a class="hover:text-accent transition" href="#">Press</a></li>
+</ul>
+</div>
+</div>
+<div class="py-6 text-center text-xs text-gray-500">
+            © 2023 FlyHigher Inc. All rights reserved.
+        </div>
+</footer>
+
+</body></html>

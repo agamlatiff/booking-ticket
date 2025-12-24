@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlyHigher - Support Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0f172a", 
+              accent: "#38bdf8",
+              success: "#10b981", 
+              "warm-bg": "#fcfcfc",
+              "soft-blue": "#e0f2fe",
+              "soft-green": "#dcfce7",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1e293b",
+              "gray-light": "#f1f5f9",
+              "gray-soft": "#94a3b8",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem",
+              '2xl': "1rem",
+              '3xl': "1.5rem",
+              '4xl': "2rem",
+            },
+            boxShadow: {
+                'card': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                'card-hover': '0 10px 30px -5px rgba(56, 189, 248, 0.15)',
+                'search': '0 8px 30px -4px rgba(0, 0, 0, 0.08)',
+            }
+          },
+        },
+      };
+    </script>
+<style type="text/tailwindcss">
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hero-pattern {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .dark .hero-pattern {
+            background-color: #0f172a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-warm-bg dark:bg-slate-900 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
+<nav class="w-full py-5 px-6 max-w-7xl mx-auto flex items-center justify-between z-50 relative bg-transparent">
+<div class="flex items-center gap-2">
+<div class="bg-primary dark:bg-accent text-white dark:text-primary p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-xl">flight_takeoff</span>
+</div>
+<span class="font-bold text-xl tracking-tight text-primary dark:text-white">FlyHigher</span>
+</div>
+<div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300">
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Flights</a>
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Destinations</a>
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Partners</a>
+<a class="text-primary dark:text-accent font-semibold transition" href="#">Support</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2">
+<img alt="User profile" class="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvUhoQVWPKWBRv1h4KIyrDKd8Nag8SKDDj8EdeqJXh1XkrI521DQfprmRgrMGuLm0nxXcRE2keM1twQPXrsDZemUHWF8KXuNLxcZ7jnq3ZqCWKWDGYOyYqVrEEIEOkXp3xOVVyI6dxr4iaDuHWBcLdl3GcThM8xTujVCvQH8lQbFbOHERu6h8aYBhfM5I63tTKsRPRBCN3hMUa1RGq9Cb8QyQ9EGg9AYHes84NygtTtxCvS39Wn7tsQGrVBiaBNTy6vE9eR1N0Dkk"/>
+<span class="text-sm font-medium text-gray-700 dark:text-gray-200">Tom Scott</span>
+</div>
+<button class="ml-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition text-gray-500" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-sm block dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined text-sm hidden dark:block">light_mode</span>
+</button>
+</div>
+</nav>
+<section class="relative pt-12 pb-20 px-6 hero-pattern">
+<div class="max-w-4xl mx-auto text-center relative z-10">
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-soft-blue dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full text-sm font-semibold mb-6">
+<span class="material-symbols-outlined text-lg">favorite</span> We're here to help
+            </div>
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
+                How can we help you <br class="hidden md:block"/> fly higher today?
+            </h1>
+<p class="text-lg text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+                Search for topics, browse articles, or get in touch with our support team for assistance with your bookings.
+            </p>
+<div class="relative max-w-2xl mx-auto shadow-search rounded-3xl group">
+<div class="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400 text-2xl group-focus-within:text-accent transition-colors">search</span>
+</div>
+<input class="block w-full pl-16 pr-6 py-5 rounded-3xl border-none text-gray-900 bg-white dark:bg-surface-dark dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-accent/50 text-lg shadow-sm" placeholder="Describe your issue or search keywords..." type="text"/>
+<button class="absolute right-3 top-2.5 bottom-2.5 bg-primary hover:bg-slate-800 dark:bg-accent dark:hover:bg-sky-400 dark:text-primary text-white px-6 rounded-2xl font-semibold transition-colors">
+                    Search
+                </button>
+</div>
+</div>
+</section>
+<main class="max-w-7xl mx-auto px-6 py-12 -mt-10 relative z-20">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+<a class="group bg-white dark:bg-surface-dark p-8 rounded-3xl shadow-card hover:shadow-card-hover border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:-translate-y-1" href="#">
+<div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-blue-500 text-3xl">confirmation_number</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Booking &amp; Reservations</h3>
+<p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Manage your bookings, check status, or request changes to your itinerary.</p>
+</a>
+<a class="group bg-white dark:bg-surface-dark p-8 rounded-3xl shadow-card hover:shadow-card-hover border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:-translate-y-1" href="#">
+<div class="w-14 h-14 bg-green-50 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-green-500 text-3xl">cancel</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Cancellations &amp; Refunds</h3>
+<p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Learn about our cancellation policies and how to process refund requests.</p>
+</a>
+<a class="group bg-white dark:bg-surface-dark p-8 rounded-3xl shadow-card hover:shadow-card-hover border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:-translate-y-1" href="#">
+<div class="w-14 h-14 bg-purple-50 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-purple-500 text-3xl">luggage</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Baggage Info</h3>
+<p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Find information on baggage allowances, restrictions, and lost items.</p>
+</a>
+<a class="group bg-white dark:bg-surface-dark p-8 rounded-3xl shadow-card hover:shadow-card-hover border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:-translate-y-1" href="#">
+<div class="w-14 h-14 bg-orange-50 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-orange-500 text-3xl">account_circle</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Account &amp; Profile</h3>
+<p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Update your personal details, manage preferences, and security settings.</p>
+</a>
+<a class="group bg-white dark:bg-surface-dark p-8 rounded-3xl shadow-card hover:shadow-card-hover border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:-translate-y-1" href="#">
+<div class="w-14 h-14 bg-red-50 dark:bg-red-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-red-500 text-3xl">loyalty</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Loyalty Program</h3>
+<p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Check your miles balance, redeem rewards, and view membership benefits.</p>
+</a>
+<a class="group bg-white dark:bg-surface-dark p-8 rounded-3xl shadow-card hover:shadow-card-hover border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:-translate-y-1" href="#">
+<div class="w-14 h-14 bg-teal-50 dark:bg-teal-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-teal-500 text-3xl">flight_class</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Special Assistance</h3>
+<p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Request wheelchair assistance, medical help, or support for traveling with pets.</p>
+</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2">
+<div class="bg-white dark:bg-surface-dark rounded-3xl p-8 shadow-card border border-gray-100 dark:border-gray-800">
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-accent">help</span> Frequently Asked Questions
+                    </h2>
+<div class="space-y-4">
+<details class="group bg-gray-50 dark:bg-slate-800/50 rounded-xl overflow-hidden transition-all duration-300 [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer">
+<h4 class="font-semibold text-gray-800 dark:text-gray-200 group-hover:text-accent transition-colors">How do I change my flight date?</h4>
+<span class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-4 pb-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                To change your flight date, go to "My Bookings", select the flight you wish to change, and click "Modify Flight". Please note that change fees may apply depending on your ticket type.
+                            </div>
+</details>
+<details class="group bg-gray-50 dark:bg-slate-800/50 rounded-xl overflow-hidden transition-all duration-300 [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer">
+<h4 class="font-semibold text-gray-800 dark:text-gray-200 group-hover:text-accent transition-colors">What is the baggage allowance for economy class?</h4>
+<span class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-4 pb-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                Economy class passengers are typically allowed one carry-on bag (up to 7kg) and one checked bag (up to 23kg). However, this can vary by airline and route. Please check your ticket details for specific information.
+                            </div>
+</details>
+<details class="group bg-gray-50 dark:bg-slate-800/50 rounded-xl overflow-hidden transition-all duration-300 [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer">
+<h4 class="font-semibold text-gray-800 dark:text-gray-200 group-hover:text-accent transition-colors">How can I request a refund?</h4>
+<span class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-4 pb-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                Refunds can be requested through the "Cancellations &amp; Refunds" section in your account. If your flight was cancelled by the airline, you are entitled to a full refund. Processing times usually take 7-14 business days.
+                            </div>
+</details>
+<details class="group bg-gray-50 dark:bg-slate-800/50 rounded-xl overflow-hidden transition-all duration-300 [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer">
+<h4 class="font-semibold text-gray-800 dark:text-gray-200 group-hover:text-accent transition-colors">Do I need a visa for my connecting flight?</h4>
+<span class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-4 pb-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                Visa requirements for connecting flights depend on the country you are transiting through and your citizenship. We recommend checking with the embassy or using our "Travel Requirements" tool before you fly.
+                            </div>
+</details>
+</div>
+<div class="mt-6 text-center">
+<a class="text-sm font-bold text-accent hover:text-blue-400 transition inline-flex items-center gap-1" href="#">
+                            View all articles <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1 space-y-6">
+<div class="bg-gradient-to-br from-primary to-slate-800 dark:from-surface-dark dark:to-slate-900 rounded-3xl p-8 text-white relative overflow-hidden shadow-card">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-9xl">support_agent</span>
+</div>
+<div class="relative z-10">
+<div class="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-white text-2xl">chat</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">Need instant help?</h3>
+<p class="text-gray-300 text-sm mb-8 leading-relaxed">Our support team is available 24/7 to assist you with any urgent queries.</p>
+<button class="w-full bg-accent hover:bg-sky-400 text-primary font-bold py-3.5 px-6 rounded-xl transition shadow-lg shadow-accent/20 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">forum</span> Chat with Us
+                        </button>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-3xl p-6 shadow-card border border-gray-100 dark:border-gray-800 flex items-center gap-4">
+<div class="w-12 h-12 bg-soft-green dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-600 dark:text-green-400 flex-shrink-0">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div>
+<div class="text-xs text-gray-500 font-medium uppercase tracking-wider">Call Support</div>
+<div class="text-lg font-bold text-gray-900 dark:text-white">+01 607 555-0123</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-3xl p-6 shadow-card border border-gray-100 dark:border-gray-800 flex items-center gap-4">
+<div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 flex-shrink-0">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<div class="text-xs text-gray-500 font-medium uppercase tracking-wider">Email Us</div>
+<div class="text-lg font-bold text-gray-900 dark:text-white">help@flyhigher.com</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-primary text-white mt-12">
+<div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10">
+<div class="col-span-1">
+<div class="flex items-center gap-2 mb-6">
+<div class="bg-accent text-primary p-1 rounded-md">
+<span class="material-symbols-outlined text-lg">flight_takeoff</span>
+</div>
+<span class="font-bold text-lg">FlyHigher</span>
+</div>
+<div class="flex flex-col gap-3 text-sm text-gray-400">
+<a class="hover:text-white transition flex items-center gap-2" href="mailto:booking@flyhigher.com"><span class="material-symbols-outlined text-sm">email</span> booking@flyhigher.com</a>
+<a class="hover:text-white transition flex items-center gap-2" href="tel:+016075550123"><span class="material-symbols-outlined text-sm">phone</span> +01 607 555-0123</a>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider">Explore</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-accent transition" href="#">Destinations</a></li>
+<li><a class="hover:text-accent transition" href="#">Airlines</a></li>
+<li><a class="hover:text-accent transition" href="#">Hotels</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider">Support</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-accent transition" href="#">Help Center</a></li>
+<li><a class="hover:text-accent transition" href="#">Cancellations</a></li>
+<li><a class="hover:text-accent transition" href="#">Baggage Rules</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider">Company</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-accent transition" href="#">About Us</a></li>
+<li><a class="hover:text-accent transition" href="#">Careers</a></li>
+<li><a class="hover:text-accent transition" href="#">Press</a></li>
+</ul>
+</div>
+</div>
+<div class="py-6 text-center text-xs text-gray-500">
+            © 2023 FlyHigher Inc. All rights reserved.
+        </div>
+</footer>
+
+</body></html>

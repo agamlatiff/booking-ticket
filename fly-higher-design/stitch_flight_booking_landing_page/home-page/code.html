@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlyHigher - Flight Booking</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0f172a", // Darker Slate for more professional look
+              accent: "#38bdf8", // Sky blue for aviation theme
+              "background-light": "#f8fafc",
+              "background-dark": "#020617",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1e293b",
+              "gray-light": "#f1f5f9",
+              "gray-dark": "#334155",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+              sans: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem",
+              '2xl': "1rem",
+              '3xl': "1.5rem",
+            },
+            boxShadow: {
+                'card': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)',
+                'glow': '0 0 20px rgba(56, 189, 248, 0.15)',
+            }
+          },
+        },
+      };
+    </script>
+<style type="text/tailwindcss">
+        .highlight-underline {
+            background-image: linear-gradient(to right, #38bdf8 0%, #38bdf8 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.2em;
+            background-position: 0 88%;
+            transition: background-size 0.3s ease;
+        }
+        .highlight-underline:hover {
+            background-size: 100% 100%;
+            color: white;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float 6s ease-in-out infinite 3s;
+        }
+        .path-draw {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 3s ease-out forwards;
+        }
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
+<nav class="w-full py-6 px-6 max-w-7xl mx-auto flex items-center justify-between z-50 relative">
+<div class="flex items-center gap-2">
+<div class="bg-primary dark:bg-accent text-white dark:text-primary p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-xl">flight_takeoff</span>
+</div>
+<span class="font-bold text-xl tracking-tight text-primary dark:text-white">FlyHigher</span>
+</div>
+<div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300">
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Flights</a>
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Destinations</a>
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Partners</a>
+<a class="hover:text-primary dark:hover:text-accent transition" href="#">Support</a>
+</div>
+<div class="flex items-center gap-4">
+<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" href="#">Log In</a>
+<a class="bg-primary hover:bg-slate-800 dark:bg-accent dark:hover:bg-sky-300 dark:text-primary text-white px-5 py-2.5 rounded-full text-sm font-medium transition shadow-lg shadow-primary/10" href="#">Get Started</a>
+<button class="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition text-gray-500" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-sm block dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined text-sm hidden dark:block">light_mode</span>
+</button>
+</div>
+</nav>
+<header class="relative pt-12 pb-24 px-6 overflow-hidden">
+<svg class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-30 dark:opacity-10" preserveAspectRatio="none" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
+<path class="text-gray-200 dark:text-gray-700" d="M-100,500 C200,600 500,200 900,300 C1200,400 1300,100 1600,200" fill="none" stroke="currentColor" stroke-dasharray="8,8" stroke-width="2"></path>
+<path class="text-gray-100 dark:text-gray-800" d="M-100,700 C300,700 400,400 800,500 C1100,600 1400,400 1600,600" fill="none" stroke="currentColor" stroke-width="1"></path>
+</svg>
+<div class="relative z-10 max-w-5xl mx-auto text-center">
+<div class="inline-flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 px-3 py-1 rounded-full text-xs font-medium mb-8 text-gray-600 dark:text-gray-300 shadow-sm animate-float">
+<span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                The smarter way to fly
+            </div>
+<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6 text-gray-900 dark:text-white">
+                Elevate your travel with <br/>
+<span class="highlight-underline">seamless</span> connections
+            </h1>
+<p class="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
+                FlyHigher simplifies your journey. Compare global airlines, secure exclusive rates, and manage bookings effortlessly in one dashboard.
+            </p>
+<div class="bg-white dark:bg-surface-dark p-2 rounded-[2rem] shadow-card border border-gray-100 dark:border-gray-700 max-w-4xl mx-auto relative z-20">
+<div class="flex flex-col md:flex-row gap-2">
+<div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-2">
+<div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-transparent hover:border-accent/30 hover:bg-white dark:hover:bg-gray-800 transition group cursor-pointer">
+<label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">From</label>
+<div class="flex items-center gap-2 text-gray-900 dark:text-white font-medium">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-accent transition text-lg">flight_takeoff</span>
+<span class="truncate">New York (JFK)</span>
+</div>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-transparent hover:border-accent/30 hover:bg-white dark:hover:bg-gray-800 transition group cursor-pointer">
+<label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">To</label>
+<div class="flex items-center gap-2 text-gray-900 dark:text-white font-medium">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-accent transition text-lg">flight_land</span>
+<span class="truncate">London (LHR)</span>
+</div>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-transparent hover:border-accent/30 hover:bg-white dark:hover:bg-gray-800 transition group cursor-pointer">
+<label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Date</label>
+<div class="flex items-center gap-2 text-gray-900 dark:text-white font-medium">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-accent transition text-lg">calendar_month</span>
+<span class="truncate">Oct 24, 2023</span>
+</div>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-transparent hover:border-accent/30 hover:bg-white dark:hover:bg-gray-800 transition group cursor-pointer">
+<label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Passengers</label>
+<div class="flex items-center gap-2 text-gray-900 dark:text-white font-medium">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-accent transition text-lg">group</span>
+<span class="truncate">2 Adults</span>
+</div>
+</div>
+</div>
+<button class="bg-primary hover:bg-slate-800 dark:bg-accent dark:hover:bg-sky-300 dark:text-primary text-white p-4 md:px-8 rounded-2xl text-base font-bold transition shadow-lg shadow-primary/20 flex items-center justify-center gap-2 min-w-[140px]">
+<span class="material-symbols-outlined">search</span> Search
+                    </button>
+</div>
+</div>
+</div>
+<div class="absolute top-32 left-10 lg:left-24 hidden md:block animate-float">
+<div class="p-3 rounded-2xl bg-white dark:bg-surface-dark shadow-lg border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined">flight</span>
+</div>
+<div>
+<div class="text-xs font-semibold text-gray-800 dark:text-gray-200">Flight Confirmed</div>
+<div class="text-[10px] text-gray-400">NYC → PAR</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-32 right-10 lg:right-24 hidden md:block animate-float-delayed">
+<div class="p-3 rounded-2xl bg-white dark:bg-surface-dark shadow-lg border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-green-50 dark:bg-green-900/30 flex items-center justify-center text-green-500">
+<span class="material-symbols-outlined">savings</span>
+</div>
+<div>
+<div class="text-xs font-semibold text-gray-800 dark:text-gray-200">Best Price Found</div>
+<div class="text-[10px] text-gray-400">Saved $45</div>
+</div>
+</div>
+</div>
+</header>
+<div class="border-y border-gray-100 dark:border-gray-800 bg-white dark:bg-background-dark/50">
+<div class="max-w-7xl mx-auto py-10 px-6">
+<p class="text-center text-xs font-semibold uppercase tracking-wider text-gray-400 mb-8">Trusting Partners</p>
+<div class="flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+<span class="text-xl font-bold font-display text-gray-800 dark:text-gray-200 flex items-center gap-2"><span class="material-symbols-outlined text-2xl">airlines</span>SkyAir</span>
+<span class="text-xl font-bold font-display text-gray-800 dark:text-gray-200 flex items-center gap-2"><span class="material-symbols-outlined text-2xl">flight</span>JetStream</span>
+<span class="text-xl font-bold font-display text-gray-800 dark:text-gray-200 flex items-center gap-2"><span class="material-symbols-outlined text-2xl">travel_explore</span>AeroGlobal</span>
+<span class="text-xl font-bold font-display text-gray-800 dark:text-gray-200 flex items-center gap-2"><span class="material-symbols-outlined text-2xl">cloud</span>CloudAir</span>
+<span class="text-xl font-bold font-display text-gray-800 dark:text-gray-200 flex items-center gap-2"><span class="material-symbols-outlined text-2xl">public</span>WorldWings</span>
+</div>
+</div>
+</div>
+<section class="py-24 px-6 bg-gray-50/50 dark:bg-background-dark">
+<div class="max-w-3xl mx-auto text-center mb-16">
+<span class="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">Platform Features</span>
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Everything you need for a <br/>smooth journey</h2>
+<p class="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">From finding the perfect destination to managing your boarding passes, FlyHigher handles the details so you can enjoy the trip.</p>
+</div>
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="md:col-span-2 bg-white dark:bg-surface-dark rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row gap-10 overflow-hidden relative shadow-card border border-gray-100 dark:border-gray-800">
+<div class="md:w-1/3 z-10 flex flex-col justify-center">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Trending Destinations</h3>
+<p class="text-gray-500 dark:text-gray-400 mb-8 text-sm leading-relaxed">Explore the most sought-after locations this season. Whether you seek adventure or relaxation, we have the perfect flight.</p>
+<button class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white px-6 py-3 rounded-xl text-sm font-semibold transition flex items-center gap-2 w-fit">
+                        View All Destinations <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="md:w-2/3 flex-grow bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
+<div class="flex justify-between items-center mb-6">
+<span class="font-semibold text-gray-700 dark:text-gray-200 text-sm">Top Picks</span>
+<div class="flex gap-2">
+<span class="text-xs px-3 py-1 bg-white dark:bg-gray-800 shadow-sm rounded-full text-gray-600 dark:text-gray-300 font-medium">International</span>
+<span class="text-xs px-3 py-1 text-gray-400 font-medium cursor-pointer hover:text-gray-600">Domestic</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 h-48">
+<div class="rounded-xl bg-cover bg-center relative overflow-hidden group cursor-pointer shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCMKwwIR105T1LWulnBi06uehM5Kj2XgiyYS4uvj_E-iau753VMNwbWFhuD1L2PK6She1PsfJ8RyuBIZna4gIQGPVDWy-bmAZ7IVW71MPHGrs0yuVJpc6U6ezrdIYwkw4omhPFDhEUR7eh89rCsgRSP7yGv2iPiqSN3hz7FWzrT7J9P_mfcrCNv2JiQHaIRVOXqlAyutXpc65oZu4kmz-WxjZFa1UBMsC7eiktAvdfhIqTFktkK0TdZEIBzrEzNZ-qvEe0dZxYmBT4');">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/80 transition duration-300"></div>
+<div class="absolute bottom-3 left-3 text-white">
+<div class="font-bold text-sm">Bali</div>
+<div class="text-[10px] opacity-80">Indonesia</div>
+</div>
+</div>
+<div class="rounded-xl bg-cover bg-center relative overflow-hidden group cursor-pointer shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEEOrXKbe-vkvYj_kHoPOy9fzT1HY0Nhyh7MOWVvv_YE-A9tRnkHAMqjNHid2gCtDTvM45cWKgk8KHCLdAZIhP8HMYSd3-YMDtqMdiRf1A7paB0U0YJydiJugRAOfVcFcfF-OT8KKl2QjW_G4UUfEtQKlAMYvwmHJ9VtzvKbOIQ5vFEOSlQYAzi5HkRQJq_nD4oaLD-WHwQIV6-ONxljauzi1-xlCQGoh9sCRhd-KATUtNdCjLIzIIH5U9QTxjMtag_Fgn7T4VFvI');">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/80 transition duration-300"></div>
+<div class="absolute bottom-3 left-3 text-white">
+<div class="font-bold text-sm">Tokyo</div>
+<div class="text-[10px] opacity-80">Japan</div>
+</div>
+</div>
+<div class="rounded-xl bg-cover bg-center relative overflow-hidden group cursor-pointer shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9LjHx274DFtc7yOiPlZjgFPV-gpMBSuTNtpaQEoWYFMn4WIZwqbRfUU4ohCgbsXohTElJNnnt1WicCPQpWKKMtXIqG_9tmRFi2nRRluG24lsMtBViUTUwXnbl2fzKumo63WA1PDF0Tg3oaU7Nad1wy9Kwyv3vEfciJhcgV6k13Gm8CmJ3m9iFX42Vig_en6dZP3MqDMt8OkEY4b1XC5V0IqvtHxPqRCnWPr2UDiXhOfX2wLRwXmSULyRJ_S0liKd0jpvkf8EbAG8');">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/80 transition duration-300"></div>
+<div class="absolute bottom-3 left-3 text-white">
+<div class="font-bold text-sm">Paris</div>
+<div class="text-[10px] opacity-80">France</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-[2rem] p-8 flex flex-col shadow-card border border-gray-100 dark:border-gray-800">
+<div class="mb-6">
+<div class="w-10 h-10 rounded-full bg-accent/20 text-accent flex items-center justify-center mb-4">
+<span class="material-symbols-outlined">local_offer</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Exclusive Deals</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Members save an average of 15% on international flights. Join today for free.</p>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary dark:group-hover:text-accent transition">flight_takeoff</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-gray-800 dark:text-gray-200">New York <span class="text-gray-400 font-normal">to</span> London</span>
+<span class="text-[10px] text-gray-500">Oct 12 - Oct 19</span>
+</div>
+</div>
+<div class="text-right">
+<span class="block text-sm font-bold text-primary dark:text-accent">$340</span>
+<span class="text-[10px] text-green-600 bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded">-20%</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary dark:group-hover:text-accent transition">flight_takeoff</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-gray-800 dark:text-gray-200">Los Angeles <span class="text-gray-400 font-normal">to</span> Tokyo</span>
+<span class="text-[10px] text-gray-500">Nov 05 - Nov 20</span>
+</div>
+</div>
+<div class="text-right">
+<span class="block text-sm font-bold text-primary dark:text-accent">$620</span>
+<span class="text-[10px] text-green-600 bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded">-15%</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary dark:group-hover:text-accent transition">flight_takeoff</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-gray-800 dark:text-gray-200">San Francisco <span class="text-gray-400 font-normal">to</span> Paris</span>
+<span class="text-[10px] text-gray-500">Dec 10 - Dec 24</span>
+</div>
+</div>
+<div class="text-right">
+<span class="block text-sm font-bold text-primary dark:text-accent">$550</span>
+<span class="text-[10px] text-green-600 bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded">-10%</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-[2rem] p-8 flex flex-col shadow-card border border-gray-100 dark:border-gray-800">
+<div class="mb-6">
+<div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Easy Booking Process</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm">A simplified flow designed for speed and clarity. Book your next flight in minutes.</p>
+</div>
+<div class="relative pl-6 space-y-8">
+<div class="relative group">
+<div class="absolute left-[-29px] top-1 w-5 h-5 rounded-full border-4 border-white dark:border-surface-dark bg-gray-200 dark:bg-gray-600 group-hover:bg-purple-500 transition z-10"></div>
+<div class="absolute left-[-20px] top-6 bottom-[-32px] w-[2px] bg-gray-100 dark:bg-gray-700"></div>
+<h4 class="text-sm font-bold text-gray-800 dark:text-white">Select Flight</h4>
+<p class="text-xs text-gray-500 mt-1">Choose from hundreds of airlines with transparent pricing.</p>
+</div>
+<div class="relative group">
+<div class="absolute left-[-29px] top-1 w-5 h-5 rounded-full border-4 border-white dark:border-surface-dark bg-gray-200 dark:bg-gray-600 group-hover:bg-purple-500 transition z-10"></div>
+<div class="absolute left-[-20px] top-6 bottom-[-32px] w-[2px] bg-gray-100 dark:bg-gray-700"></div>
+<h4 class="text-sm font-bold text-gray-800 dark:text-white">Passenger Details</h4>
+<p class="text-xs text-gray-500 mt-1">Auto-fill saved traveler info for faster checkout.</p>
+</div>
+<div class="relative group">
+<div class="absolute left-[-29px] top-1 w-5 h-5 rounded-full border-4 border-white dark:border-surface-dark bg-gray-200 dark:bg-gray-600 group-hover:bg-purple-500 transition z-10"></div>
+<h4 class="text-sm font-bold text-gray-800 dark:text-white">Secure Payment</h4>
+<p class="text-xs text-gray-500 mt-1">Encrypted transactions with multiple payment options.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-7xl mx-auto px-6 pb-24">
+<div class="bg-primary dark:bg-surface-dark rounded-[2.5rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-primary/80 pointer-events-none"></div>
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 40px 40px;"></div>
+<div class="relative z-10 max-w-3xl mx-auto mb-16">
+<div class="inline-block bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full text-xs font-medium text-white mb-6">
+                    Global Network
+                </div>
+<h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Airline Partners</h2>
+<p class="text-blue-100/80 text-lg leading-relaxed">We connect you with carriers from around the globe. One platform, infinite possibilities for your journey.</p>
+<a class="inline-flex items-center gap-2 mt-8 text-white border-b border-white/30 hover:border-white pb-1 transition" href="#">
+                    View all 500+ airlines <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+</a>
+</div>
+<div class="grid grid-cols-4 md:grid-cols-8 gap-4 max-w-5xl mx-auto">
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-blue-600">airlines</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="font-bold text-xl text-gray-800">AA</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-red-500">flight_takeoff</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-blue-900">public</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-yellow-500">connecting_airports</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-green-600">luggage</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-purple-600">airplane_ticket</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-orange-500">cloud</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-red-600">local_activity</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-gray-800">map</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-orange-600">wb_sunny</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-indigo-600">bed</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-purple-500">explore</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-pink-500">favorite</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-green-700">shopping_bag</span></div>
+<div class="aspect-square bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:-translate-y-1 transition duration-300 opacity-90 hover:opacity-100"><span class="material-symbols-outlined text-3xl text-blue-800">work</span></div>
+</div>
+</div>
+</section>
+<section class="py-20 px-6 max-w-4xl mx-auto text-center">
+<span class="material-symbols-outlined text-5xl text-gray-200 dark:text-gray-700 mb-8">format_quote</span>
+<h3 class="text-2xl md:text-3xl font-medium text-gray-800 dark:text-gray-100 leading-relaxed mb-10">
+            "FlyHigher made my family vacation planning effortless. We found the perfect flights at a great price, and the entire booking process was smooth and transparent."
+        </h3>
+<div class="flex flex-col items-center">
+<div class="flex -space-x-4 mb-4">
+<img alt="Author" class="w-12 h-12 rounded-full border-2 border-white dark:border-background-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsBNgzep14mfOWlkI0TGtAAQn6yM1SUn6YEE2Za3c9ArGgqenv33r6A3TUiUuIv9xALkWWL083k8y8_pdgrH1_MVPyem9CQSLd12tflBIhH86_ChtFlzCUZj7hgJCQ-yCnGH8ijYcYPn14OeyUxGT9U46ZYiSgAj1xN3bXhtkwppW9fdoE8_0Ujqqwj0B6zVqCFflBh_07r9N0zu09iX_9k0Bw6FiN1lOxQ01M-qsoYoAga7NSSx-RmKWW4yDXFFUe9v5-6rYlj2M"/>
+<img alt="Author" class="w-12 h-12 rounded-full border-2 border-white dark:border-background-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgThaG6PH7l_T-VKlqQiFKFJiPYo4YGaJ5PcPcOThhWZU02HE1Ry61wC8lVvH5CdJx8fgJCq1fv5XmBFYUSI2sRkAyll_G8l_kkq9m6-uL9dA1LWM2uXBeh1IZ8DzDaAjjMjxWmUQyCGyzQk8xn9DcA17KUVrKfRgXuzYg9M-LWM72quKfnyrTwVLpNPK2tQ-QIEIDd_Mhe3YEuDb-x6BfxacAU0EUbok9_Zg876BXawRN7Ul87BWD8Yx4USjetiEhTIEtaRcpzRc"/>
+</div>
+<p class="text-base font-bold text-gray-900 dark:text-white">Barbara &amp; Tom Scott</p>
+<p class="text-sm text-gray-500">Frequent Travelers</p>
+</div>
+</section>
+<div class="bg-gray-50 dark:bg-surface-dark py-16 mb-0 border-t border-gray-100 dark:border-gray-800">
+<div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-around items-center text-center gap-10">
+<div>
+<p class="text-4xl font-bold text-primary dark:text-white mb-2">2M+</p>
+<p class="text-xs font-semibold text-gray-400 uppercase tracking-widest">Daily Flights</p>
+</div>
+<div class="w-px h-12 bg-gray-200 dark:bg-gray-700 hidden md:block"></div>
+<div>
+<p class="text-4xl font-bold text-primary dark:text-white mb-2">50K+</p>
+<p class="text-xs font-semibold text-gray-400 uppercase tracking-widest">Happy Travelers</p>
+</div>
+<div class="w-px h-12 bg-gray-200 dark:bg-gray-700 hidden md:block"></div>
+<div>
+<p class="text-4xl font-bold text-primary dark:text-white mb-2">120+</p>
+<p class="text-xs font-semibold text-gray-400 uppercase tracking-widest">Countries</p>
+</div>
+</div>
+</div>
+<footer class="bg-primary text-white">
+<div class="border-b border-white/10">
+<div class="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="max-w-lg text-center md:text-left">
+<h2 class="text-3xl font-bold mb-2">Ready for takeoff with <span class="text-accent">FlyHigher</span>?</h2>
+</div>
+<div class="flex gap-4">
+<a class="bg-white/10 text-white border border-white/20 px-6 py-3 rounded-full text-sm font-bold transition hover:bg-white/20" href="#">View Deals</a>
+<a class="bg-accent text-primary px-6 py-3 rounded-full text-sm font-bold transition hover:bg-sky-400 shadow-[0_0_20px_rgba(56,189,248,0.3)]" href="#">Sign up Free</a>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1">
+<div class="flex items-center gap-2 mb-6">
+<div class="bg-accent text-primary p-1 rounded-md">
+<span class="material-symbols-outlined text-lg">flight_takeoff</span>
+</div>
+<span class="font-bold text-lg">FlyHigher</span>
+</div>
+<div class="flex flex-col gap-3 text-sm text-gray-400">
+<a class="hover:text-white transition flex items-center gap-2" href="mailto:booking@flyhigher.com"><span class="material-symbols-outlined text-sm">email</span> booking@flyhigher.com</a>
+<a class="hover:text-white transition flex items-center gap-2" href="tel:+016075550123"><span class="material-symbols-outlined text-sm">phone</span> +01 607 555-0123</a>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider">Explore</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-accent transition" href="#">Destinations</a></li>
+<li><a class="hover:text-accent transition" href="#">Airlines</a></li>
+<li><a class="hover:text-accent transition" href="#">Hotels</a></li>
+<li><a class="hover:text-accent transition" href="#">Car Rentals</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider">Support</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-accent transition" href="#">Help Center</a></li>
+<li><a class="hover:text-accent transition" href="#">Cancellations</a></li>
+<li><a class="hover:text-accent transition" href="#">Baggage Rules</a></li>
+<li><a class="hover:text-accent transition" href="#">Travel Safety</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider">Company</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li><a class="hover:text-accent transition" href="#">About Us</a></li>
+<li><a class="hover:text-accent transition" href="#">Careers</a></li>
+<li><a class="hover:text-accent transition" href="#">Blog</a></li>
+<li><a class="hover:text-accent transition" href="#">Press</a></li>
+</ul>
+</div>
+</div>
+</footer>
+
+</body></html>

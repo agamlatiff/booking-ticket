@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlyHigher - Register</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101d22",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(0, 0, 0, 0.1)',
+                        'card': '0 0 50px -12px rgba(0, 0, 0, 0.12)',
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111618] dark:text-white antialiased overflow-x-hidden selection:bg-primary/30">
+<!-- Main Container -->
+<div class="relative min-h-screen w-full flex items-center justify-center p-4 lg:p-6 group/design-root">
+<!-- Background Ambient Elements -->
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+<!-- Background Image -->
+<div class="absolute inset-0 bg-cover bg-center opacity-40 dark:opacity-20 transition-opacity duration-700" data-alt="Soft blurry view of mountains and clouds in the morning light" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAAHIRssAWbffTY2rgWyQLUNkLncMGiQx-GDQLs3kPB6UmGICkVadCVjCuzpCLj03I9_onRs1YzdSvRBj8GczU7FWURuj3SJRtz6HZFZfh_MeDels72laIDCTKYAulUXSvmlAbUG6N33UpyJSXoX9GHVZAlFUM-X0BMgtum14U7Jtu2Yrjgmp4pMRYd7BbtHzXn_5YyfWK6R4KD7zOUrhE9PzZ7umdSxymGUCnXLh_8bcQyCiIlV5R0ZCbJUHgToOMIUi7h_ntPqi8');">
+</div>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-b from-white/20 via-background-light/80 to-background-light dark:from-black/20 dark:via-background-dark/80 dark:to-background-dark backdrop-blur-[4px]"></div>
+</div>
+<!-- Floating Card -->
+<div class="relative z-10 w-full max-w-[1000px] bg-white dark:bg-[#1a2c32] rounded-2xl shadow-card flex flex-col md:flex-row overflow-hidden border border-white/50 dark:border-white/5">
+<!-- Left Side: Visual Illustration -->
+<div class="hidden md:flex md:w-5/12 lg:w-1/2 relative bg-primary/5 dark:bg-primary/10 flex-col justify-between overflow-hidden group">
+<!-- Image Background -->
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105" data-alt="Airplane wing view looking out into clear blue sky and fluffy clouds" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBnraTAdyfCgSiCM8Jyd3V-LUsjTdnT3woxb9H_YcK9c5iBmWKoZ6P_AZZtmV1j9RHmSeT7nrinREBXgly8-H-tv76o6FPp9bwSZwtPPi8N4ff0UgoW7ro1zO6B4RF0f405j2IJxbukSBflTcsck3kvbZbPDgWPFcL6NZkCjHzxeiIiZc7AI1EBrbwfjdlvA2YJzrhGAlYh0QrEiY7h4-lsgwdHy-C-PTZHLy4u7t6if-FqnO_c8yZZKIBEpA1eP9Pa4XuGDabfGMg');">
+</div>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-[#101d22]/90 via-[#101d22]/20 to-transparent"></div>
+<!-- Content over Image -->
+<div class="relative z-10 p-10 h-full flex flex-col justify-between">
+<div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">flight_takeoff</span>
+</div>
+<div class="text-white space-y-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/10 text-xs font-medium">
+<span class="material-symbols-outlined text-sm">public</span>
+<span>Explore 500+ Destinations</span>
+</div>
+<h3 class="text-3xl font-bold leading-tight tracking-tight">Your journey begins before you board.</h3>
+<p class="text-white/80 font-medium leading-relaxed">Join FlyHigher today and unlock exclusive access to premium lounges and fast-track booking.</p>
+<!-- Mini pagination dots purely for visual flair -->
+<div class="flex gap-2 pt-2">
+<div class="w-8 h-1 bg-primary rounded-full"></div>
+<div class="w-2 h-1 bg-white/30 rounded-full"></div>
+<div class="w-2 h-1 bg-white/30 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Register Form -->
+<div class="w-full md:w-7/12 lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+<!-- Mobile Logo (Visible only on small screens) -->
+<div class="md:hidden flex items-center gap-2 mb-6 text-primary">
+<span class="material-symbols-outlined text-3xl">flight_takeoff</span>
+<span class="text-xl font-bold text-[#111618] dark:text-white">FlyHigher</span>
+</div>
+<div class="space-y-2 mb-8">
+<h1 class="text-[#111618] dark:text-white tracking-tight text-3xl font-bold">Get Started</h1>
+<p class="text-[#617f89] dark:text-slate-400 text-sm font-normal">Create your account now to get the best deals.</p>
+</div>
+<!-- Form -->
+<form class="flex flex-col gap-5">
+<!-- Social Login Buttons -->
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2.5 h-11 px-4 rounded-lg bg-[#f6f8f8] hover:bg-[#ebf0f1] dark:bg-white/5 dark:hover:bg-white/10 text-[#111618] dark:text-white text-sm font-bold transition-all duration-200 border border-transparent hover:border-gray-200 dark:hover:border-transparent group" type="button">
+<span class="material-symbols-outlined text-[22px] text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">language</span>
+<span class="truncate">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2.5 h-11 px-4 rounded-lg bg-[#f6f8f8] hover:bg-[#ebf0f1] dark:bg-white/5 dark:hover:bg-white/10 text-[#111618] dark:text-white text-sm font-bold transition-all duration-200 border border-transparent hover:border-gray-200 dark:hover:border-transparent group" type="button">
+<span class="material-symbols-outlined text-[22px] text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">smartphone</span>
+<span class="truncate">Apple</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="relative flex py-1 items-center">
+<div class="flex-grow border-t border-gray-100 dark:border-gray-700"></div>
+<span class="flex-shrink-0 mx-4 text-gray-400 dark:text-gray-500 text-xs font-semibold tracking-wider uppercase">Or register with email</span>
+<div class="flex-grow border-t border-gray-100 dark:border-gray-700"></div>
+</div>
+<!-- Inputs -->
+<div class="space-y-4">
+<div class="group">
+<label class="block text-xs font-bold uppercase tracking-wider text-[#617f89] dark:text-gray-400 mb-1.5 ml-1" for="fullname">Full Name</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-gray-400 text-[20px] pointer-events-none group-focus-within:text-primary transition-colors">person</span>
+<input class="w-full h-11 pl-10 pr-4 rounded-lg bg-[#fcfdfd] dark:bg-[#152329] border border-[#e5e9eb] dark:border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-[#111618] dark:text-white text-sm font-medium transition-all placeholder:text-gray-400/70" id="fullname" placeholder="e.g. Alex Johnson" type="text"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-xs font-bold uppercase tracking-wider text-[#617f89] dark:text-gray-400 mb-1.5 ml-1" for="email">Email Address</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-gray-400 text-[20px] pointer-events-none group-focus-within:text-primary transition-colors">mail</span>
+<input class="w-full h-11 pl-10 pr-4 rounded-lg bg-[#fcfdfd] dark:bg-[#152329] border border-[#e5e9eb] dark:border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-[#111618] dark:text-white text-sm font-medium transition-all placeholder:text-gray-400/70" id="email" placeholder="name@company.com" type="email"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="group">
+<label class="block text-xs font-bold uppercase tracking-wider text-[#617f89] dark:text-gray-400 mb-1.5 ml-1" for="password">Password</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-gray-400 text-[20px] pointer-events-none group-focus-within:text-primary transition-colors">lock</span>
+<input class="w-full h-11 pl-10 pr-4 rounded-lg bg-[#fcfdfd] dark:bg-[#152329] border border-[#e5e9eb] dark:border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-[#111618] dark:text-white text-sm font-medium transition-all placeholder:text-gray-400/70" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-xs font-bold uppercase tracking-wider text-[#617f89] dark:text-gray-400 mb-1.5 ml-1" for="confirm_password">Confirm</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-gray-400 text-[20px] pointer-events-none group-focus-within:text-primary transition-colors">lock_reset</span>
+<input class="w-full h-11 pl-10 pr-4 rounded-lg bg-[#fcfdfd] dark:bg-[#152329] border border-[#e5e9eb] dark:border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-[#111618] dark:text-white text-sm font-medium transition-all placeholder:text-gray-400/70" id="confirm_password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Terms & Conditions -->
+<div class="flex items-start gap-3 mt-1">
+<div class="flex h-5 items-center">
+<input class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary bg-gray-50 dark:bg-gray-700 dark:border-gray-600 cursor-pointer" id="terms" type="checkbox"/>
+</div>
+<label class="text-xs text-[#617f89] dark:text-gray-400 leading-snug cursor-pointer select-none" for="terms">
+                            I agree to the <a class="font-bold text-primary hover:text-[#0ea5d7] transition-colors" href="#">Terms of Service</a> and acknowledge the <a class="font-bold text-primary hover:text-[#0ea5d7] transition-colors" href="#">Privacy Policy</a>.
+                        </label>
+</div>
+<!-- Submit Button -->
+<button class="mt-2 w-full h-11 rounded-lg bg-primary hover:bg-[#0ea5d7] text-[#111618] text-sm font-bold leading-normal tracking-[0.015em] transition-all duration-200 transform active:scale-[0.99] shadow-[0_4px_14px_0_rgba(19,182,236,0.39)] hover:shadow-[0_6px_20px_rgba(19,182,236,0.23)] flex items-center justify-center gap-2" type="button">
+<span>Create Account</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</form>
+<!-- Footer Link -->
+<div class="mt-8 pt-6 border-t border-gray-100 dark:border-white/5 text-center">
+<p class="text-sm text-[#617f89] dark:text-gray-400">
+                        Already have an account? 
+                        <a class="font-bold text-primary hover:text-[#0ea5d7] hover:underline transition-colors ml-1" href="#">Log In</a>
+</p>
+</div>
+</div>
+</div>
+<!-- Subtle Footer Info -->
+<div class="absolute bottom-4 left-0 w-full text-center pointer-events-none">
+<p class="text-[10px] text-gray-400/60 dark:text-white/20">© 2024 FlyHigher Inc. All rights reserved.</p>
+</div>
+</div>
+</body></html>

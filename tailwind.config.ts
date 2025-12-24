@@ -11,34 +11,36 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "hsl(var(--background))",
+        // FlyHigher Design System Colors
+        primary: {
+          DEFAULT: "#0f172a", // Slate dark
+          foreground: "#ffffff",
+        },
+        accent: {
+          DEFAULT: "#38bdf8", // Sky blue
+          foreground: "#0f172a",
+        },
+        background: {
+          DEFAULT: "#f8fafc",
+          dark: "#020617",
+        },
+        surface: {
+          DEFAULT: "#ffffff",
+          dark: "#1e293b",
+        },
+        // Gray scales
+        "gray-light": "#f1f5f9",
+        "gray-dark": "#334155",
+
+        // Legacy support (can be removed later)
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Legacy dark theme colors
-        "flysha-light-purple": "#B88DFF",
-        "flysha-black": "#080318",
-        "flysha-off-purple": "#AEA6C7",
-        "flysha-bg-purple": "#1D1730",
-        "flysha-red": "#FF2A2A",
-        "flysha-grey": "#909296",
-        "flysha-dark-grey": "#393449",
-        // New light theme colors
-        "sky-primary": "#137fec",
-        "background-light": "#f6f7f8",
-        "background-dark": "#101922",
-        "pastel-blue": "#e0f2fe",
-        "pastel-yellow": "#fef9c3",
-        "text-dark": "#111418",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
-        },
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -47,10 +49,6 @@ const config: Config = {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -68,33 +66,45 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-outfit)", "system-ui", "sans-serif"],
-        display: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        display: ["Inter", "system-ui", "sans-serif"],
       },
       borderRadius: {
+        DEFAULT: "0.75rem",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "2xl": "1rem",
+        "3xl": "1.5rem",
+        "4xl": "2rem",
       },
       boxShadow: {
+        card: "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)",
+        glow: "0 0 20px rgba(56, 189, 248, 0.15)",
         soft: "0 20px 40px -15px rgba(19, 127, 236, 0.15)",
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        float: {
+          "0%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+          "100%": { transform: "translateY(0px)" },
+        },
+        "float-delayed": {
+          "0%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+          "100%": { transform: "translateY(0px)" },
+        },
+        draw: {
+          from: { strokeDashoffset: "1000" },
+          to: { strokeDashoffset: "0" },
         },
         slide: {
           "0%": { transform: "translateX(0%)" },
@@ -104,6 +114,9 @@ const config: Config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        float: "float 6s ease-in-out infinite",
+        "float-delayed": "float 6s ease-in-out infinite 3s",
+        draw: "draw 3s ease-out forwards",
       },
     },
   },
