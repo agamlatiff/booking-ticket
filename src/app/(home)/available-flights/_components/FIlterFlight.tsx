@@ -4,19 +4,17 @@ const FIlterFlight = () => {
   return (
     <div className="flex flex-col gap-3">
       <p className="text-gray-900 dark:text-white text-sm font-bold mb-1">Stops</p>
-      <label
-        htmlFor="direct"
-        className="custom-checkbox flex items-center gap-3 cursor-pointer group"
-      >
+
+      <label htmlFor="direct" className="flex items-center gap-3 cursor-pointer group">
         <input
           type="checkbox"
           name="flight"
           id="direct"
           defaultChecked
-          className="hidden peer"
+          className="peer sr-only"
         />
         <div className="w-5 h-5 border-2 border-gray-200 dark:border-gray-600 rounded-md flex items-center justify-center transition-colors peer-checked:bg-accent peer-checked:border-accent">
-          <svg className="w-3 h-3 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
           </svg>
         </div>
@@ -24,18 +22,16 @@ const FIlterFlight = () => {
           Non-stop
         </span>
       </label>
-      <label
-        htmlFor="transit"
-        className="custom-checkbox flex items-center gap-3 cursor-pointer group"
-      >
+
+      <label htmlFor="transit" className="flex items-center gap-3 cursor-pointer group">
         <input
           type="checkbox"
           name="flight"
           id="transit"
-          className="hidden peer"
+          className="peer sr-only"
         />
         <div className="w-5 h-5 border-2 border-gray-200 dark:border-gray-600 rounded-md flex items-center justify-center transition-colors peer-checked:bg-accent peer-checked:border-accent">
-          <svg className="w-3 h-3 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
           </svg>
         </div>
@@ -43,18 +39,16 @@ const FIlterFlight = () => {
           1 Stop
         </span>
       </label>
-      <label
-        htmlFor="transits"
-        className="custom-checkbox flex items-center gap-3 cursor-pointer group"
-      >
+
+      <label htmlFor="transits" className="flex items-center gap-3 cursor-pointer group">
         <input
           type="checkbox"
           name="flight"
           id="transits"
-          className="hidden peer"
+          className="peer sr-only"
         />
         <div className="w-5 h-5 border-2 border-gray-200 dark:border-gray-600 rounded-md flex items-center justify-center transition-colors peer-checked:bg-accent peer-checked:border-accent">
-          <svg className="w-3 h-3 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
           </svg>
         </div>

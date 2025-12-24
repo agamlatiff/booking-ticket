@@ -36,21 +36,27 @@ const FilterClass = () => {
           htmlFor={item}
           className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="relative">
-            <input
-              onChange={handleChange}
-              type="radio"
-              name="seat"
-              id={item}
-              value={item}
-              checked={state.seat === item}
-              className="sr-only peer"
-            />
-            <div className="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-accent peer-checked:bg-accent transition-all flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-white scale-0 peer-checked:scale-100 transition-transform" />
-            </div>
+          <input
+            onChange={handleChange}
+            type="radio"
+            name="seat"
+            id={item}
+            value={item}
+            checked={state.seat === item}
+            className="peer sr-only"
+          />
+          <div className={`w-5 h-5 rounded-full border-2 transition-all flex items-center justify-center ${state.seat === item
+              ? "border-accent bg-accent"
+              : "border-gray-300 dark:border-gray-600"
+            }`}>
+            {state.seat === item && (
+              <div className="w-2 h-2 rounded-full bg-white" />
+            )}
           </div>
-          <span className="text-gray-600 dark:text-gray-300 text-sm font-medium group-hover:text-accent transition-colors">
+          <span className={`text-sm font-medium transition-colors ${state.seat === item
+              ? "text-accent"
+              : "text-gray-600 dark:text-gray-300 group-hover:text-accent"
+            }`}>
             {SEAT_LABELS[item]}
           </span>
         </label>
