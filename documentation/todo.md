@@ -96,37 +96,36 @@ Semua phase utama sudah selesai. Tersisa beberapa optimization tasks untuk masa 
   - [x] Clear existing data sebelum seed (configurable flag)
   - [x] Command: `npx prisma db seed`
 
-### 6.1 Search & Filtering
+### 6.1 Search & Filtering ✅
 
-- [ ] **Global Search Component** - Reusable search dengan debounce
-  - [ ] Implement URL-based search params (`?q=keyword`)
-  - [ ] Debounce input (300ms)
-  - [ ] Clear search button
-- [ ] **Filter Dropdowns**
+- [x] **Global Search Component** - Reusable search dengan debounce
+  - [x] Implement URL-based search params (`?q=keyword`)
+  - [x] Debounce input (300ms)
+  - [x] Clear search button
+- [x] **Filter Dropdowns**
 
-  - [ ] Airplanes: Type filter, Status filter
-  - [ ] Flights: Status filter, Route filter, Date filter
-  - [ ] Tickets: Status filter, Flight filter, Date filter
-  - [ ] Users: Status filter, Role filter, Date filter
+  - [x] Airplanes: Type filter, Status filter
+  - [x] Flights: Status filter, Date filter
+  - [x] Tickets: Status filter, Date filter
+  - [x] Users: Role filter
 
-- [ ] **Filter State Management**
-  - [ ] URL params persistence (`?status=active&role=admin`)
-  - [ ] Reset filters button
-  - [ ] Filter count badge
+- [x] **Filter State Management**
+  - [x] URL params persistence (`?status=active&role=admin`)
+  - [x] Reset filters button
+  - [x] Filter count badge
 
-### 6.2 Pagination
+### 6.2 Pagination ✅
 
-- [ ] **DataTable Pagination Enhancement**
+- [x] **DataTable Pagination Enhancement**
 
-  - [ ] Server-side pagination (limit, offset)
-  - [ ] Page size selector (10, 25, 50, 100)
-  - [ ] Page number buttons dengan ellipsis
-  - [ ] Previous/Next navigation
-  - [ ] "Showing X-Y of Z" info
+  - [x] Server-side pagination (limit, offset)
+  - [x] Page number buttons dengan ellipsis
+  - [x] Previous/Next navigation
+  - [x] "Showing X-Y of Z" info
 
-- [ ] **URL Pagination State**
-  - [ ] Persist page number in URL (`?page=2`)
-  - [ ] Sync with filter changes (reset to page 1)
+- [x] **URL Pagination State**
+  - [x] Persist page number in URL (`?page=2`)
+  - [x] Sync with filter changes (reset to page 1)
 
 ### 6.3 CRUD Operations
 
