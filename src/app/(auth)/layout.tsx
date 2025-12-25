@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -51,7 +52,7 @@ export default function AuthLayout({
           <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-background-light/80 to-background-light dark:from-black/20 dark:via-background-dark/80 dark:to-background-dark backdrop-blur-[4px]" />
         </div>
 
-        {/* Navigation */}
+        {/* Navigation - Consistent with landing page */}
         <nav className="relative z-50 w-full py-6 px-6 max-w-7xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <div className="bg-primary dark:bg-accent text-white dark:text-primary p-1.5 rounded-lg">
@@ -63,18 +64,22 @@ export default function AuthLayout({
           </Link>
 
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300">
-            <Link href="/" className="hover:text-primary dark:hover:text-accent transition">
-              Home
-            </Link>
             <Link href="/available-flights" className="hover:text-primary dark:hover:text-accent transition">
               Flights
             </Link>
+            <Link href="/destinations" className="hover:text-primary dark:hover:text-accent transition">
+              Destinations
+            </Link>
+            <Link href="/partners" className="hover:text-primary dark:hover:text-accent transition">
+              Partners
+            </Link>
             <Link href="/support" className="hover:text-primary dark:hover:text-accent transition">
-              About
+              Support
             </Link>
-            <Link href="/dashboard" className="hover:text-primary dark:hover:text-accent transition">
-              Dashboard
-            </Link>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
           </div>
         </nav>
 
@@ -86,3 +91,4 @@ export default function AuthLayout({
     </html>
   );
 }
+

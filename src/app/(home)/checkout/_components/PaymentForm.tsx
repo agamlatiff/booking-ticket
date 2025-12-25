@@ -34,44 +34,44 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
   const { isLoading, payTransaction } = useTransaction({ user });
 
   return (
-    <div className="bg-white rounded-[2rem] p-6 md:p-8 shadow-xl shadow-sky-primary/5 border border-gray-100">
+    <div className="bg-white dark:bg-surface-dark rounded-[2rem] p-6 md:p-8 shadow-xl shadow-sky-primary/5 dark:shadow-sky-primary/10 border border-gray-100 dark:border-gray-700">
       {/* Header */}
       <div className="mb-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-text-dark mb-2">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-text-dark dark:text-white mb-2">
           Complete Payment
         </h2>
-        <p className="text-gray-500 text-lg">
+        <p className="text-gray-500 dark:text-gray-400 text-lg">
           Review your booking and proceed to payment.
         </p>
       </div>
 
       {/* Payment Methods Preview */}
-      <div className="bg-gray-50 rounded-2xl p-6 mb-8">
-        <h3 className="text-sm font-bold text-text-dark mb-4 uppercase tracking-wider">
+      <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 mb-8">
+        <h3 className="text-sm font-bold text-text-dark dark:text-white mb-4 uppercase tracking-wider">
           Available Payment Methods
         </h3>
         <div className="grid grid-cols-3 gap-4">
-          <div className="flex flex-col items-center gap-2 p-4 bg-white rounded-xl border border-gray-100">
+          <div className="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-700 rounded-xl border border-gray-100 dark:border-gray-600">
             <CreditCard className="w-8 h-8 text-sky-primary" />
-            <span className="text-xs font-medium text-gray-600">Credit Card</span>
+            <span className="text-xs font-medium text-gray-600 dark:text-gray-300">Credit Card</span>
           </div>
-          <div className="flex flex-col items-center gap-2 p-4 bg-white rounded-xl border border-gray-100">
+          <div className="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-700 rounded-xl border border-gray-100 dark:border-gray-600">
             <Wallet className="w-8 h-8 text-sky-primary" />
-            <span className="text-xs font-medium text-gray-600">E-Wallet</span>
+            <span className="text-xs font-medium text-gray-600 dark:text-gray-300">E-Wallet</span>
           </div>
-          <div className="flex flex-col items-center gap-2 p-4 bg-white rounded-xl border border-gray-100">
+          <div className="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-700 rounded-xl border border-gray-100 dark:border-gray-600">
             <Smartphone className="w-8 h-8 text-sky-primary" />
-            <span className="text-xs font-medium text-gray-600">QRIS</span>
+            <span className="text-xs font-medium text-gray-600 dark:text-gray-300">QRIS</span>
           </div>
         </div>
-        <p className="text-xs text-gray-400 text-center mt-4">
+        <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-4">
           You'll select your payment method in the secure payment window
         </p>
       </div>
 
       {/* What's Included */}
       <div className="space-y-3 mb-8">
-        <h3 className="text-sm font-bold text-text-dark uppercase tracking-wider">
+        <h3 className="text-sm font-bold text-text-dark dark:text-white uppercase tracking-wider">
           What's Included
         </h3>
         <div className="space-y-2">
@@ -83,16 +83,16 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-              <span className="text-gray-600 text-sm">{item}</span>
+              <span className="text-gray-600 dark:text-gray-300 text-sm">{item}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Security Badge */}
-      <div className="flex items-center justify-center gap-2 py-4 bg-green-50 rounded-xl border border-green-100 mb-8">
-        <ShieldCheck className="w-5 h-5 text-green-600" />
-        <span className="text-sm text-green-700 font-bold">
+      <div className="flex items-center justify-center gap-2 py-4 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-100 dark:border-green-800 mb-8">
+        <ShieldCheck className="w-5 h-5 text-green-600 dark:text-green-400" />
+        <span className="text-sm text-green-700 dark:text-green-400 font-bold">
           100% Secure Payment via Midtrans
         </span>
       </div>
@@ -120,7 +120,7 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
       </button>
 
       {/* Terms */}
-      <p className="text-xs text-gray-400 text-center mt-4">
+      <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-4">
         By clicking Pay, you agree to our Terms of Service and Privacy Policy.
         Payment is processed securely by Midtrans.
       </p>

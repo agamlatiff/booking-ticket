@@ -1,6 +1,6 @@
 "use client";
 
-import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
+import type { ActionResult } from "@/lib/types";
 import { useFormState, useFormStatus } from "react-dom";
 import { signUpUser } from "../lib/actions";
 
@@ -37,43 +37,25 @@ const FormSignUp = () => {
             {state.errorTitle}
           </div>
           <ul className="list-disc list-inside text-sm">
-            {state.errorDesc?.map((e, index) => (
+            {state.errorDesc?.map((e: string, index: number) => (
               <li key={index}>{e}</li>
             ))}
           </ul>
         </div>
       )}
 
-      {/* Social Signup */}
+      {/* TODO: Social Signup - Enable when OAuth is configured */}
+      {/* 
       <div className="grid grid-cols-2 gap-3">
-        <button
-          type="button"
-          className="flex items-center justify-center gap-2.5 h-11 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 text-gray-900 dark:text-white text-sm font-bold transition-all duration-200 border border-transparent hover:border-gray-200 dark:hover:border-transparent group"
-        >
-          <span className="material-symbols-outlined text-[22px] text-gray-600 dark:text-gray-300 group-hover:text-accent transition-colors">
-            language
-          </span>
-          <span className="truncate">Google</span>
-        </button>
-        <button
-          type="button"
-          className="flex items-center justify-center gap-2.5 h-11 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 text-gray-900 dark:text-white text-sm font-bold transition-all duration-200 border border-transparent hover:border-gray-200 dark:hover:border-transparent group"
-        >
-          <span className="material-symbols-outlined text-[22px] text-gray-600 dark:text-gray-300 group-hover:text-accent transition-colors">
-            smartphone
-          </span>
-          <span className="truncate">Apple</span>
-        </button>
+        <button type="button" className="...">Google</button>
+        <button type="button" className="...">Apple</button>
       </div>
-
-      {/* Divider */}
       <div className="relative flex py-1 items-center">
         <div className="flex-grow border-t border-gray-100 dark:border-gray-700" />
-        <span className="flex-shrink-0 mx-4 text-gray-400 dark:text-gray-500 text-xs font-semibold tracking-wider uppercase">
-          Or sign up with email
-        </span>
+        <span className="...">Or sign up with email</span>
         <div className="flex-grow border-t border-gray-100 dark:border-gray-700" />
       </div>
+      */}
 
       {/* Form Fields */}
       <div className="space-y-4">

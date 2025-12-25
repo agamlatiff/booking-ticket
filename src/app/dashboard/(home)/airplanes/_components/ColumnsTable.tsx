@@ -1,50 +1,154 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { getUrlFile } from "@/lib/supabase";
 import type { Airplane } from "@prisma/client";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Pencil } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import DeleteAirplane from "./DeleteAirplane";
+import { getUrlFile } from "@/lib/supabase";
 
 export const columns: ColumnDef<Airplane>[] = [
   {
-    accessorKey: "image",
-    header: "Image",
+    id: "select",
+    header: ({ table }) => (
+      <input
+        type="checkbox"
+        className="rounded border-gray-300 dark:border-gray-600 text-accent focus:ring-accent/20"
+        checked={table.getIsAllPageRowsSelected()}
+        onChange={(e) => table.toggleAllPageRowsSelected(!!e.target.checked)}
+      />
+    ),
+    cell: ({ row }) => (
+      <input
+        type="checkbox"
+        className="rounded border-gray-300 dark:border-gray-600 text-accent focus:ring-accent/20"
+        checked={row.getIsSelected()}
+        onChange={(e) => row.toggleSelected(!!e.target.checked)}
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "name",
+    header: "Aircraft Info",
     cell: ({ row }) => {
       const plane = row.original;
       return (
-        <Image
-          src={getUrlFile(plane.image)}
-          alt={'Image of ' + plane.name}
-         width={60}
-         height={60}
-        />
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400 overflow-hidden">
+            {plane.image ? (
+              <Image
+                src={getUrlFile(plane.image)}
+                alt={plane.name}
+                width={40}
+                height={40}
+                className="object-cover"
+              />
+            ) : (
+              <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                flight
+              </span>
+            )}
+          </div>
+          <div>
+            <p className="font-bold text-gray-900 dark:text-white text-sm">{plane.code || "N/A"}</p>
+            <p className="text-xs text-gray-400">{plane.name}</p>
+          </div>
+        </div>
       );
     },
   },
   {
-    accessorKey: "code",
-    header: "Code",
+    id: "type",
+    header: "Type",
+    cell: ({ row }) => {
+      const plane = row.original;
+      // Determine type based on name
+      const isWideBody = plane.name.toLowerCase().includes("787") ||
+        plane.name.toLowerCase().includes("a350") ||
+        plane.name.toLowerCase().includes("777");
+      return (
+        <div className="flex flex-col">
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{plane.name}</span>
+          <span className="text-xs text-gray-400">{isWideBody ? "Wide-body" : "Narrow-body"}</span>
+        </div>
+      );
+    },
   },
   {
-    accessorKey: "name",
-    header: "Name",
+    id: "capacity",
+    header: "Capacity",
+    cell: () => {
+      // Mock capacity - in real app, add this field to database
+      const capacity = Math.floor(Math.random() * 200) + 100;
+      return (
+        <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
+          <span className="material-symbols-outlined text-sm text-gray-400">group</span>
+          <span className="text-sm font-medium">{capacity} Seats</span>
+        </div>
+      );
+    },
+  },
+  {
+    id: "status",
+    header: "Status",
+    cell: () => {
+      // Mock status - in real app, add this field to database
+      const statuses = ["Active", "Active", "Maintenance", "Active", "Inactive"];
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
+
+      const statusStyles = {
+        Active: {
+          bg: "bg-emerald-50 dark:bg-emerald-900/20",
+          text: "text-emerald-600 dark:text-emerald-400",
+          dot: "bg-emerald-500",
+          border: "border-emerald-500/10",
+        },
+        Maintenance: {
+          bg: "bg-amber-50 dark:bg-amber-900/20",
+          text: "text-amber-600 dark:text-amber-400",
+          dot: "bg-amber-500 animate-pulse",
+          border: "border-amber-500/10",
+        },
+        Inactive: {
+          bg: "bg-gray-100 dark:bg-gray-800",
+          text: "text-gray-500 dark:text-gray-400",
+          dot: "bg-gray-400",
+          border: "border-gray-200 dark:border-gray-700",
+        },
+      };
+
+      const style = statusStyles[status as keyof typeof statusStyles];
+
+      return (
+        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${style.bg} ${style.text} ${style.border}`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${style.dot}`} />
+          {status}
+        </span>
+      );
+    },
   },
   {
     id: "actions",
+    header: () => <span className="sr-only">Actions</span>,
     cell: ({ row }) => {
       const plane = row.original;
       return (
-        <div className="inline-flex gap-5 items-center">
-          <Button variant={"secondary"} size={"sm"} asChild>
-            <Link href={`/dashboard/airplanes/edit/${plane.id}`}>
-              <Pencil className="mr-2 size-4" />
-              Edit
-            </Link>
-          </Button>
+        <div className="flex items-center justify-end gap-1">
+          <button
+            className="p-2 text-gray-400 hover:text-accent hover:bg-accent/10 rounded-lg transition-colors"
+            title="View Details"
+          >
+            <span className="material-symbols-outlined text-lg">visibility</span>
+          </button>
+          <Link
+            href={`/dashboard/airplanes/edit/${plane.id}`}
+            className="p-2 text-gray-400 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-lg transition-colors"
+            title="Edit"
+          >
+            <span className="material-symbols-outlined text-lg">edit</span>
+          </Link>
           <DeleteAirplane id={plane.id} />
         </div>
       );

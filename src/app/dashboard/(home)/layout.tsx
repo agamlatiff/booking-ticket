@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../../globals.css";
 import Link from "next/link";
 import ButtonLogout from "./_components/ButtonLogout";
+import DashboardThemeToggle from "./_components/DashboardThemeToggle";
 import { getUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -107,13 +108,7 @@ export default async function DashboardLayout({
                 <span className="material-symbols-outlined text-gray-500">notifications</span>
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-accent rounded-full" />
               </button>
-              <button
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                onClick={() => document.documentElement.classList.toggle("dark")}
-              >
-                <span className="material-symbols-outlined text-gray-500 dark:hidden">dark_mode</span>
-                <span className="material-symbols-outlined text-gray-500 hidden dark:block">light_mode</span>
-              </button>
+              <DashboardThemeToggle />
             </div>
           </div>
         </header>

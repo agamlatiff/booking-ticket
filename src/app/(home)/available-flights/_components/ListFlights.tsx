@@ -16,14 +16,14 @@ const ListFlights = () => {
 
   if (!flights || flights.length === 0) {
     return (
-      <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-800">
         <EmptyState
           icon="plane"
           title="No flights found"
           description="We couldn't find any flights matching your search criteria. Try adjusting your dates or destination."
           action={
             <Link href="/">
-              <Button variant="sky" size="lg">
+              <Button variant="accent" size="lg">
                 Modify Search
               </Button>
             </Link>

@@ -52,12 +52,12 @@ const SeatList = ({ seats, filter = "all" }: SeatListProps) => {
         {/* Left columns */}
         <div className="flex gap-1 sm:gap-2">
           <div className="w-10 h-6 sm:w-11 flex items-center justify-center">
-            <span className="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
+            <span className="text-xs font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">
               A
             </span>
           </div>
           <div className="w-10 h-6 sm:w-11 flex items-center justify-center">
-            <span className="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
+            <span className="text-xs font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">
               B
             </span>
           </div>
@@ -65,18 +65,18 @@ const SeatList = ({ seats, filter = "all" }: SeatListProps) => {
 
         {/* Aisle indicator */}
         <div className="w-6 sm:w-8 flex items-center justify-center">
-          <div className="w-4 h-0.5 bg-gray-200 rounded-full" />
+          <div className="w-4 h-0.5 bg-gray-200 dark:bg-gray-600 rounded-full" />
         </div>
 
         {/* Right columns */}
         <div className="flex gap-1 sm:gap-2">
           <div className="w-10 h-6 sm:w-11 flex items-center justify-center">
-            <span className="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
+            <span className="text-xs font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">
               C
             </span>
           </div>
           <div className="w-10 h-6 sm:w-11 flex items-center justify-center">
-            <span className="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
+            <span className="text-xs font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">
               D
             </span>
           </div>
@@ -102,14 +102,14 @@ const SeatList = ({ seats, filter = "all" }: SeatListProps) => {
               {/* Exit Row Indicator */}
               {isExitRow && (
                 <div className="flex items-center justify-center gap-2 py-2 mb-2">
-                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-300 to-transparent" />
-                  <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-50 rounded-full border border-amber-200">
-                    <AlertTriangle className="w-3 h-3 text-amber-600" />
-                    <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">
+                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-300 dark:via-amber-600 to-transparent" />
+                  <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-50 dark:bg-amber-900/30 rounded-full border border-amber-200 dark:border-amber-700">
+                    <AlertTriangle className="w-3 h-3 text-amber-600 dark:text-amber-500" />
+                    <span className="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider">
                       Emergency Exit
                     </span>
                   </div>
-                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-300 to-transparent" />
+                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-300 dark:via-amber-600 to-transparent" />
                 </div>
               )}
 
@@ -117,7 +117,7 @@ const SeatList = ({ seats, filter = "all" }: SeatListProps) => {
               <div
                 className={`
                   flex items-center justify-center gap-1 sm:gap-3 py-1
-                  ${isExitRow ? "bg-amber-50/50 rounded-lg mx-[-8px] px-2" : ""}
+                  ${isExitRow ? "bg-amber-50/50 dark:bg-amber-900/20 rounded-lg mx-[-8px] px-2" : ""}
                 `}
               >
                 {/* Left side seats */}
@@ -136,7 +136,7 @@ const SeatList = ({ seats, filter = "all" }: SeatListProps) => {
                 <div className="w-6 sm:w-8 flex items-center justify-center">
                   <span
                     className={`text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full
-                      ${isExitRow ? "bg-amber-200 text-amber-800" : "bg-gray-100 text-gray-400"}
+                      ${isExitRow ? "bg-amber-200 dark:bg-amber-800 text-amber-800 dark:text-amber-200" : "bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500"}
                     `}
                   >
                     {rowNum}

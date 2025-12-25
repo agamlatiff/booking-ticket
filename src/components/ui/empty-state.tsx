@@ -37,16 +37,16 @@ function EmptyState({
       )}
       {...props}
     >
-      <div className="mb-4 rounded-full bg-gray-100 p-4">
+      <div className="mb-4 rounded-full bg-gray-100 dark:bg-gray-800 p-4">
         {IconComponent ? (
-          <IconComponent className="h-8 w-8 text-gray-400" />
+          <IconComponent className="h-8 w-8 text-gray-400 dark:text-gray-500" />
         ) : (
           icon
         )}
       </div>
-      <h3 className="text-lg font-semibold text-text-dark mb-1">{title}</h3>
+      <h3 className="text-lg font-semibold text-text-dark dark:text-white mb-1">{title}</h3>
       {description && (
-        <p className="text-sm text-gray-500 max-w-sm mb-4">{description}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm mb-4">{description}</p>
       )}
       {action && <div className="mt-2">{action}</div>}
     </div>

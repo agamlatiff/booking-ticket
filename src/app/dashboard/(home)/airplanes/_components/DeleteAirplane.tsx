@@ -1,7 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
 import type { FC } from "react";
 import { useFormStatus } from "react-dom";
 import { deleteAirplane } from "../lib/actions";
@@ -14,15 +12,16 @@ const SubmitButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <Button
-      size={"sm"}
-      className="w-full bg-red-600"
+    <button
       type="submit"
       disabled={pending}
+      className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors disabled:opacity-50"
+      title="Delete"
     >
-      <Trash className=" size-4" />
-      {pending ? " Deleting..." : "Delete"}
-    </Button>
+      <span className="material-symbols-outlined text-lg">
+        {pending ? "hourglass_empty" : "delete"}
+      </span>
+    </button>
   );
 };
 

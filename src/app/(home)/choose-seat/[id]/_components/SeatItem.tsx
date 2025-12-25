@@ -76,12 +76,12 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true }: SeatItemPro
             relative w-10 h-10 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center 
             font-bold text-sm transition-all duration-200 ease-out
             ${isBooked
-              ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+              ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
               : isSelected
-                ? "bg-sky-primary text-white shadow-lg shadow-blue-300/50 scale-105"
+                ? "bg-sky-primary text-white shadow-lg shadow-blue-300/50 dark:shadow-blue-500/30 scale-105"
                 : isExitRow
-                  ? "border-2 border-amber-300 bg-amber-50 text-amber-700 hover:border-sky-primary hover:bg-blue-50 hover:text-sky-primary hover:scale-105"
-                  : "border-2 border-gray-200 bg-white text-gray-500 hover:border-sky-primary hover:bg-blue-50 hover:text-sky-primary hover:scale-105"
+                  ? "border-2 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 hover:border-sky-primary hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-sky-primary hover:scale-105"
+                  : "border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:border-sky-primary hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-sky-primary hover:scale-105"
             }
             ${!isBooked && !isSelected ? "active:scale-95" : ""}
           `}
@@ -129,8 +129,8 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true }: SeatItemPro
             <div className="flex items-center justify-between mb-2 pb-2 border-b border-gray-700">
               <span className="font-bold text-sm">Seat {seat.seatNumber}</span>
               <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${seatPosition === "Window"
-                  ? "bg-blue-500/20 text-blue-300"
-                  : "bg-green-500/20 text-green-300"
+                ? "bg-blue-500/20 text-blue-300"
+                : "bg-green-500/20 text-green-300"
                 }`}>
                 {seatPosition}
               </span>

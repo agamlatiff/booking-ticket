@@ -1,40 +1,55 @@
 import type { RecentBooking } from "../lib/dashboard-data";
-import { rupiahFormat } from "@/lib/utils";
+import Link from "next/link";
 
 interface RecentBookingsProps {
   bookings: RecentBooking[];
 }
 
-// Simple relative time formatter
-function formatTimeAgo(date: Date): string {
-  const now = new Date();
-  const diffMs = now.getTime() - new Date(date).getTime();
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
+const statusColors: Record<string, { bg: string; text: string; border: string }> = {
+  SUCCESS: { bg: "bg-emerald-50 dark:bg-emerald-900/20", text: "text-emerald-600 dark:text-emerald-400", border: "border-emerald-500/10" },
+  PENDING: { bg: "bg-amber-50 dark:bg-amber-900/20", text: "text-amber-600 dark:text-amber-400", border: "border-amber-500/10" },
+  FAILED: { bg: "bg-red-50 dark:bg-red-900/20", text: "text-red-600 dark:text-red-400", border: "border-red-500/10" },
+  CANCELLED: { bg: "bg-gray-100 dark:bg-gray-800", text: "text-gray-600 dark:text-gray-400", border: "border-gray-500/10" },
+};
 
-  if (diffMins < 1) return "just now";
-  if (diffMins < 60) return `${diffMins}m ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays < 7) return `${diffDays}d ago`;
-  return new Date(date).toLocaleDateString();
+const statusLabels: Record<string, string> = {
+  SUCCESS: "Confirmed",
+  PENDING: "Pending",
+  FAILED: "Failed",
+  CANCELLED: "Cancelled",
+};
+
+// Get initials from name
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
 }
 
-const statusColors: Record<string, string> = {
-  SUCCESS: "bg-emerald-100 text-emerald-700",
-  PENDING: "bg-yellow-100 text-yellow-700",
-  FAILED: "bg-red-100 text-red-700",
-  CANCELLED: "bg-gray-100 text-gray-600",
-};
+// Generate color based on name
+function getAvatarColor(name: string): string {
+  const colors = [
+    "bg-indigo-100 text-indigo-600",
+    "bg-pink-100 text-pink-600",
+    "bg-emerald-100 text-emerald-600",
+    "bg-amber-100 text-amber-600",
+    "bg-purple-100 text-purple-600",
+  ];
+  const index = name.charCodeAt(0) % colors.length;
+  return colors[index];
+}
 
 const RecentBookings = ({ bookings }: RecentBookingsProps) => {
   if (bookings.length === 0) {
     return (
-      <div className="bg-white rounded-2xl p-6 border border-gray-100">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">
+      <div className="bg-white dark:bg-surface-dark rounded-2xl p-6 border border-gray-100 dark:border-gray-800">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
           Recent Bookings
         </h3>
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
           <p>No bookings yet</p>
         </div>
       </div>
@@ -42,69 +57,73 @@ const RecentBookings = ({ bookings }: RecentBookingsProps) => {
   }
 
   return (
-    <div className="bg-white rounded-2xl p-6 border border-gray-100">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-gray-900">Recent Bookings</h3>
-        <a
+    <div className="bg-white dark:bg-surface-dark rounded-2xl p-6 border border-gray-100 dark:border-gray-800 overflow-x-auto">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white">Recent Bookings</h2>
+        <Link
           href="/dashboard/tickets"
-          className="text-sm font-medium text-blue-600 hover:underline"
+          className="text-xs font-semibold text-accent hover:text-sky-600 bg-accent/10 dark:bg-accent/20 px-3 py-1.5 rounded-lg transition"
         >
-          View all →
-        </a>
+          View All
+        </Link>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left text-xs font-bold text-gray-500 uppercase tracking-wider pb-3">
-                Customer
-              </th>
-              <th className="text-left text-xs font-bold text-gray-500 uppercase tracking-wider pb-3">
-                Route
-              </th>
-              <th className="text-left text-xs font-bold text-gray-500 uppercase tracking-wider pb-3">
-                Status
-              </th>
-              <th className="text-right text-xs font-bold text-gray-500 uppercase tracking-wider pb-3">
-                Amount
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-50">
-            {bookings.map((booking) => (
-              <tr key={booking.id} className="hover:bg-gray-50 transition-colors">
-                <td className="py-4">
-                  <div>
-                    <p className="font-semibold text-gray-900 text-sm">
-                      {booking.customerName}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {formatTimeAgo(booking.bookingDate)}
-                    </p>
+      <table className="w-full text-left border-collapse">
+        <thead>
+          <tr className="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wider border-b border-gray-100 dark:border-gray-700">
+            <th className="pb-3 pl-2 font-medium">Passenger</th>
+            <th className="pb-3 font-medium">Route</th>
+            <th className="pb-3 font-medium">Date</th>
+            <th className="pb-3 font-medium">Class</th>
+            <th className="pb-3 font-medium text-right pr-2">Status</th>
+          </tr>
+        </thead>
+        <tbody className="text-sm">
+          {bookings.map((booking, index) => {
+            const colors = statusColors[booking.status] || statusColors.PENDING;
+            const statusLabel = statusLabels[booking.status] || booking.status;
+            const avatarColor = getAvatarColor(booking.customerName);
+
+            return (
+              <tr
+                key={booking.id}
+                className={`group hover:bg-gray-50/80 dark:hover:bg-gray-800/50 transition-colors ${index !== bookings.length - 1 ? "border-b border-gray-50 dark:border-gray-800" : ""
+                  }`}
+              >
+                <td className="py-4 pl-2 flex items-center gap-3">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${avatarColor}`}>
+                    {getInitials(booking.customerName)}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-medium text-gray-900 dark:text-white">{booking.customerName}</span>
+                    <span className="text-[10px] text-gray-400">#{booking.id.slice(-6).toUpperCase()}</span>
                   </div>
                 </td>
-                <td className="py-4">
-                  <span className="text-sm text-gray-700">{booking.route}</span>
+                <td className="py-4 text-gray-600 dark:text-gray-400">
+                  <div className="flex items-center gap-1 font-medium">
+                    {booking.route.split(" → ")[0]}
+                    <span className="material-symbols-outlined text-[10px] text-gray-400">arrow_forward</span>
+                    {booking.route.split(" → ")[1]}
+                  </div>
                 </td>
-                <td className="py-4">
-                  <span
-                    className={`inline-flex px-2.5 py-1 rounded-full text-xs font-bold ${statusColors[booking.status] || statusColors.PENDING
-                      }`}
-                  >
-                    {booking.status}
+                <td className="py-4 text-gray-500 dark:text-gray-400">
+                  {new Date(booking.bookingDate).toLocaleDateString("en", { month: "short", day: "numeric" })}
+                </td>
+                <td className="py-4 text-gray-500 dark:text-gray-400">
+                  <span className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded text-xs">
+                    Economy
                   </span>
                 </td>
-                <td className="py-4 text-right">
-                  <span className="font-bold text-gray-900 text-sm">
-                    {rupiahFormat(booking.price)}
+                <td className="py-4 text-right pr-2">
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${colors.bg} ${colors.text} ${colors.border}`}>
+                    {statusLabel}
                   </span>
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
