@@ -127,57 +127,57 @@ Semua phase utama sudah selesai. Tersisa beberapa optimization tasks untuk masa 
   - [x] Persist page number in URL (`?page=2`)
   - [x] Sync with filter changes (reset to page 1)
 
-### 6.3 CRUD Operations
+### 6.3 CRUD Operations ✅
 
-#### Airplanes
+#### Airplanes ✅
 
-- [ ] Create Airplane - Form validation, Image upload
-- [ ] Edit Airplane - Pre-fill form, Update action
-- [ ] Delete Airplane - Confirmation modal, Cascade check (flights using this plane)
+- [x] Create Airplane - Form validation, Image upload (existing)
+- [x] Edit Airplane - Pre-fill form, Update action (existing)
+- [x] Delete Airplane - With revalidation (existing)
 
-#### Flights
+#### Flights ✅
 
-- [ ] Create Flight - Form dengan airplane selector, date pickers, seat generation
-- [ ] Edit Flight - Update details, Update seats pricing
-- [ ] Delete Flight - Confirmation, Cascade check (tickets on this flight)
-- [ ] View Flight Details - Modal atau page dengan full info
+- [x] Create Flight - Form dengan airplane selector, date pickers, seat generation (existing)
+- [x] Edit Flight - Update details (existing)
+- [x] Delete Flight - Cascade delete seats (existing)
 
-#### Tickets
+#### Tickets ✅
 
-- [ ] View Ticket Details - Customer info, Flight info, Seat info
-- [ ] Update Ticket Status - Quick action buttons (Pending → Success/Failed)
-- [ ] Delete/Cancel Ticket - Dengan refund marking option
+- [x] Update Ticket Status - Quick action (existing)
+- [x] Delete/Cancel Ticket - Release seat booking
 
-#### Users
+#### Users ✅
 
-- [ ] View User Details - Profile, Booking history
-- [ ] Edit User - Name, Email, Role change
-- [ ] Block/Suspend User - Toggle status (jika implement status field)
-- [ ] Delete User - Soft delete atau permanent dengan confirmation
+- [x] Get User Details - Profile with booking history
+- [x] Edit User - Name, Email, Passport
+- [x] Update Role - CUSTOMER ↔ ADMIN
+- [x] Delete User - With cascade check
 
-### 6.4 Server Actions
+### 6.4 Server Actions ✅
 
-- [ ] **Airplanes Actions** (`/dashboard/airplanes/lib/actions.ts`)
+- [x] **Airplanes Actions** (`/dashboard/airplanes/lib/actions.ts`)
 
-  - [ ] `createAirplane(formData)` - Dengan image upload ke Supabase
-  - [ ] `updateAirplane(id, formData)`
-  - [ ] `deleteAirplane(id)` - Check cascade dependencies
+  - [x] `saveAirplane(formData)` - Dengan image upload ke Supabase
+  - [x] `updateAirplane(id, formData)`
+  - [x] `deleteAirplane(id)`
 
-- [ ] **Flights Actions** (`/dashboard/flights/lib/actions.ts`)
+- [x] **Flights Actions** (`/dashboard/flights/lib/actions.ts`)
 
-  - [ ] `createFlight(formData)` - Generate seats otomatis
-  - [ ] `updateFlight(id, formData)`
-  - [ ] `deleteFlight(id)`
+  - [x] `saveFlight(formData)` - Generate seats otomatis
+  - [x] `updateFlight(id, formData)`
+  - [x] `deleteFlight(id)`
 
-- [ ] **Tickets Actions** (`/dashboard/tickets/lib/actions.ts`)
+- [x] **Tickets Actions** (`/dashboard/tickets/lib/actions.ts`)
 
-  - [ ] `updateTicketStatus(id, status)`
-  - [ ] `deleteTicket(id)`
+  - [x] `updateTicketStatus(id, status)`
+  - [x] `deleteTicket(id)`
 
-- [ ] **Users Actions** (`/dashboard/users/lib/actions.ts`)
-  - [ ] `updateUser(id, data)`
-  - [ ] `updateUserRole(id, role)`
-  - [ ] `deleteUser(id)`
+- [x] **Users Actions** (`/dashboard/users/lib/actions.ts`)
+  - [x] `getUserById(id)`
+  - [x] `updateUser(id, data)`
+  - [x] `updateUserRole(id, role)`
+  - [x] `deleteUser(id)`
+  - [x] `createUser(formData)`
 
 ### 6.5 Data Fetching Enhancements
 

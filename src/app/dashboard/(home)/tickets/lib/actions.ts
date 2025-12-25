@@ -43,3 +43,32 @@ export async function getTicketById(ticketId: string) {
     return null;
   }
 }
+
+export async function deleteTicket(ticketId: string) {
+  try {
+    // First, update the seat to be available again
+    const ticket = await prisma.ticket.findUnique({
+      where: { id: ticketId },
+      select: { seatId: true },
+    });
+
+    if (ticket?.seatId) {
+      await prisma.flightSeat.update({
+        where: { id: ticket.seatId },
+        data: { isBooked: false },
+      });
+    }
+
+    // Then delete the ticket
+    await prisma.ticket.delete({
+      where: { id: ticketId },
+    });
+
+    revalidatePath("/dashboard/tickets");
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to delete ticket:", error);
+    return { success: false, error: "Failed to delete ticket" };
+  }
+}
+
