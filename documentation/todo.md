@@ -179,13 +179,15 @@ Semua phase utama sudah selesai. Tersisa beberapa optimization tasks untuk masa 
   - [x] `deleteUser(id)`
   - [x] `createUser(formData)`
 
-### 6.5 Data Fetching Enhancements
+### 6.5 Data Fetching Enhancements ✅
 
-- [ ] **Fetcher Functions with Filters**
-  - [ ] `getAirplanes({ search, type, status, page, limit })`
-  - [ ] `getFlights({ search, status, route, date, page, limit })`
-  - [ ] `getTickets({ search, status, flightId, date, page, limit })`
-  - [ ] `getUsers({ search, status, role, date, page, limit })`
+> Already implemented during Phase 6.1
+
+- [x] **Fetcher Functions with Filters**
+  - [x] `getAirplanes({ search, type, status, page, limit })`
+  - [x] `getFlights({ search, status, route, date, page, limit })`
+  - [x] `getTickets({ search, status, flightId, date, page, limit })`
+  - [x] `getUsers({ search, role, page, limit })`
 
 ### 6.6 UI Feedback & Loading States
 
