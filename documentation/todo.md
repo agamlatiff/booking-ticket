@@ -195,12 +195,15 @@ Semua phase utama sudah selesai. Tersisa beberapa optimization tasks untuk masa 
 - [x] Toast notifications untuk success/error (`Toaster` added to dashboard layout)
 - [x] Confirmation modals untuk destructive actions (`ConfirmModal` component)
 
-### 6.7 Form Validation
+### 6.7 Form Validation ✅
 
-- [ ] Zod schemas untuk semua forms
-- [ ] Client-side validation
-- [ ] Server-side validation
-- [ ] Error message display
+- [x] Zod schemas untuk semua forms
+  - [x] Airplanes: `airplaneFormSchema` (existing)
+  - [x] Flights: `formFlightSchema` (existing)
+  - [x] Tickets: `ticketStatusSchema`, `ticketFilterSchema` (new)
+  - [x] Users: `createUserSchema`, `updateUserSchema`, `updateRoleSchema` (new)
+- [x] Server-side validation (integrated in actions)
+- [x] Error message display (return { error } pattern)
 
 ---
 
