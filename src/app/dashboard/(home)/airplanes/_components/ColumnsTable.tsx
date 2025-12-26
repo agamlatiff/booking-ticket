@@ -72,9 +72,24 @@ export const columns: ColumnDef<Airplane>[] = [
   {
     id: "capacity",
     header: "Capacity",
-    cell: () => {
-      // Mock capacity - in real app, add this field to database
-      const capacity = Math.floor(Math.random() * 200) + 100;
+    cell: ({ row }) => {
+      const plane = row.original;
+      // Deterministic capacity based on plane name (not random to avoid hydration error)
+      const capacities: Record<string, number> = {
+        "Boeing 737": 156,
+        "Boeing 777": 252,
+        "Airbus A320": 163,
+        "Airbus A330": 277,
+        "Airbus A350": 210,
+      };
+      // Get base capacity from plane type or default
+      let capacity = 156;
+      for (const [type, cap] of Object.entries(capacities)) {
+        if (plane.name.includes(type.split(" ")[1])) {
+          capacity = cap;
+          break;
+        }
+      }
       return (
         <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
           <span className="material-symbols-outlined text-sm text-gray-400">group</span>
@@ -86,10 +101,12 @@ export const columns: ColumnDef<Airplane>[] = [
   {
     id: "status",
     header: "Status",
-    cell: () => {
-      // Mock status - in real app, add this field to database
-      const statuses = ["Active", "Active", "Maintenance", "Active", "Inactive"];
-      const status = statuses[Math.floor(Math.random() * statuses.length)];
+    cell: ({ row }) => {
+      const plane = row.original;
+      // Deterministic status based on plane code (not random to avoid hydration error)
+      const codeSum = plane.code.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
+      const statuses = ["Active", "Active", "Maintenance", "Active", "Inactive"] as const;
+      const status = statuses[codeSum % statuses.length];
 
       const statusStyles = {
         Active: {
@@ -112,7 +129,7 @@ export const columns: ColumnDef<Airplane>[] = [
         },
       };
 
-      const style = statusStyles[status as keyof typeof statusStyles];
+      const style = statusStyles[status];
 
       return (
         <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${style.bg} ${style.text} ${style.border}`}>
