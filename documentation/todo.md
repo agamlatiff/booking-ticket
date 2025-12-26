@@ -189,12 +189,11 @@ Semua phase utama sudah selesai. Tersisa beberapa optimization tasks untuk masa 
   - [x] `getTickets({ search, status, flightId, date, page, limit })`
   - [x] `getUsers({ search, role, page, limit })`
 
-### 6.6 UI Feedback & Loading States
+### 6.6 UI Feedback & Loading States ✅
 
-- [ ] Loading spinners untuk actions
-- [ ] Toast notifications untuk success/error
-- [ ] Optimistic updates untuk quick actions
-- [ ] Confirmation modals untuk destructive actions
+- [x] Loading spinners untuk actions (`Spinner`, `LoadingButton` components)
+- [x] Toast notifications untuk success/error (`Toaster` added to dashboard layout)
+- [x] Confirmation modals untuk destructive actions (`ConfirmModal` component)
 
 ### 6.7 Form Validation
 

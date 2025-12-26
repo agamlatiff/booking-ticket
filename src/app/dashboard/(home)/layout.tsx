@@ -5,6 +5,7 @@ import ButtonLogout from "./_components/ButtonLogout";
 import DashboardThemeToggle from "./_components/DashboardThemeToggle";
 import { getUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Dashboard | FlyHigher Admin",
@@ -116,6 +117,9 @@ export default async function DashboardLayout({
         {/* Page Content */}
         <div className="p-8">{children}</div>
       </main>
+
+      {/* Toast Notifications */}
+      <Toaster />
     </div>
   );
 }
