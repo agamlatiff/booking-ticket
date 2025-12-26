@@ -88,13 +88,15 @@ const getSeatAmenities = (seatNumber: string, isExitRow: boolean, seatType: Type
 };
 
 const SeatItem = ({ seat, isExitRow = false, isHighlighted = true, price }: SeatItemProps) => {
-  const { selectedSeat, setSelectedSeat } = useContext(
+  const { selectedSeat, setSelectedSeat, addToCompare, isComparing, removeFromCompare } = useContext(
     seatContext
   ) as SeatContextType;
   const [showTooltip, setShowTooltip] = useState(false);
+  const [longPressTimer, setLongPressTimer] = useState<NodeJS.Timeout | null>(null);
 
   const isSelected = selectedSeat?.id === seat.id;
   const isBooked = seat.isBooked ?? false;
+  const isInCompare = isComparing(seat.id);
   const seatPosition = getSeatPosition(seat.seatNumber);
   const classTheme = getClassTheme(seat.type);
   const amenities = getSeatAmenities(seat.seatNumber, isExitRow, seat.type);
@@ -102,14 +104,50 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true, price }: Seat
   // Dim non-highlighted seats when filtering
   const dimmedClass = !isHighlighted && !isSelected ? "opacity-30 scale-90" : "";
 
+  // Long press handlers for compare
+  const handleTouchStart = () => {
+    setShowTooltip(true);
+    if (!isBooked) {
+      const timer = setTimeout(() => {
+        if (isInCompare) {
+          removeFromCompare(seat.id);
+        } else {
+          addToCompare(seat);
+        }
+      }, 500); // 500ms long press
+      setLongPressTimer(timer);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (longPressTimer) {
+      clearTimeout(longPressTimer);
+      setLongPressTimer(null);
+    }
+    setTimeout(() => setShowTooltip(false), 2000);
+  };
+
+  // Right click to toggle compare (desktop)
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!isBooked) {
+      if (isInCompare) {
+        removeFromCompare(seat.id);
+      } else {
+        addToCompare(seat);
+      }
+    }
+  };
+
   return (
     <div className={`relative transition-all duration-300 ${dimmedClass}`}>
       <label
         className="group cursor-pointer relative"
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
-        onTouchStart={() => setShowTooltip(true)}
-        onTouchEnd={() => setTimeout(() => setShowTooltip(false), 2000)}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onContextMenu={handleContextMenu}
       >
         <input
           type="radio"
@@ -127,9 +165,11 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true, price }: Seat
               ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
               : isSelected
                 ? `${classTheme.selected} text-white shadow-lg scale-105`
-                : isExitRow
-                  ? `border-2 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 ${classTheme.hover} hover:scale-105`
-                  : `border-2 ${classTheme.border} ${classTheme.bg} ${classTheme.text} ${classTheme.hover} hover:scale-105`
+                : isInCompare
+                  ? "border-2 border-orange-400 dark:border-orange-500 bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 ring-2 ring-orange-400/50 scale-105"
+                  : isExitRow
+                    ? `border-2 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 ${classTheme.hover} hover:scale-105`
+                    : `border-2 ${classTheme.border} ${classTheme.bg} ${classTheme.text} ${classTheme.hover} hover:scale-105`
             }
             ${!isBooked && !isSelected ? "active:scale-95" : ""}
           `}
@@ -140,6 +180,13 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true, price }: Seat
             <Check className="w-4 h-4" />
           ) : (
             <span>{seat.seatNumber}</span>
+          )}
+
+          {/* Compare indicator badge */}
+          {isInCompare && !isSelected && (
+            <div className="absolute -top-1.5 -left-1.5 w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center text-[8px] font-bold text-white">
+              C
+            </div>
           )}
 
           {/* Extra legroom badge for exit row */}
@@ -184,10 +231,10 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true, price }: Seat
             {/* Position Badge */}
             <div className="flex items-center gap-1.5 mb-2">
               <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${seatPosition === "Window"
-                  ? "bg-blue-500/20 text-blue-300"
-                  : seatPosition === "Aisle"
-                    ? "bg-green-500/20 text-green-300"
-                    : "bg-gray-500/20 text-gray-300"
+                ? "bg-blue-500/20 text-blue-300"
+                : seatPosition === "Aisle"
+                  ? "bg-green-500/20 text-green-300"
+                  : "bg-gray-500/20 text-gray-300"
                 }`}>
                 {seatPosition} Seat
               </span>

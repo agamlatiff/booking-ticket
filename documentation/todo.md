@@ -236,9 +236,35 @@ Semua phase utama sudah selesai. Tersisa beberapa optimization tasks untuk masa 
 
 - [x] Touch-friendly tap targets (44x44 min)
 
-### 7.6 Seat Comparison (Stretch - Skipped)
+### 7.6 Seat Comparison ✅
 
-- [~] Not implemented
+- [x] Update SeatProvider with compare state (max 3 seats)
+- [x] Create SeatComparePanel component
+- [x] Add compare toggle to SeatItem (long press / right-click)
+- [x] Visual indicators for compared seats (orange highlight)
+
+---
+
+## Phase 8: Midtrans Payment Gateway ✅
+
+### 8.1 Setup & Configuration ✅
+
+- [x] Install `midtrans-client` package
+- [x] Create `lib/midtrans.ts` configuration
+- [x] Create `types/midtrans-client.d.ts` type declarations
+- [ ] Add environment variables (requires Midtrans account)
+
+### 8.2 API Routes ✅
+
+- [x] `/api/payment/create` - Generate Snap token
+- [x] `/api/payment/notification` - Webhook handler
+
+### 8.3 Checkout Integration ✅
+
+- [x] Load Snap.js script in useTransaction hook
+- [x] Integrate payment popup
+- [x] Handle payment callbacks (success/pending/error)
+- [x] Update ticket status on webhook
 
 ---
 

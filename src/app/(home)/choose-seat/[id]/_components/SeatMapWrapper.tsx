@@ -5,6 +5,7 @@ import type { FlightSeat } from "@prisma/client";
 import SeatLegend, { type LegendFilter } from "./SeatLegend";
 import SeatList from "./SeatList";
 import QuickSelectBar from "./QuickSelectBar";
+import SeatComparePanel from "./SeatComparePanel";
 import { useContext } from "react";
 import { seatContext, type SeatContextType } from "../providers/SeatProvider";
 import { Plane } from "lucide-react";
@@ -110,6 +111,9 @@ const SeatMapWrapper = ({ seats }: SeatMapWrapperProps) => {
         {/* Tail decoration */}
         <div className="w-16 h-16 bg-gradient-to-t from-gray-100 dark:from-gray-700 to-transparent rounded-b-full absolute -bottom-8 left-1/2 -translate-x-1/2 z-0 opacity-60" />
       </div>
+
+      {/* Seat Compare Panel - Fixed at bottom */}
+      <SeatComparePanel />
     </div>
   );
 };

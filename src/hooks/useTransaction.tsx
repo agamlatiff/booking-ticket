@@ -1,11 +1,28 @@
 "use client";
 import type { User } from "lucia";
 import useCheckoutData from "./useCheckoutData";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { SEAT_VALUES, type SeatValuesType } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+
+// Declare snap on window for TypeScript
+declare global {
+  interface Window {
+    snap?: {
+      pay: (
+        token: string,
+        callbacks: {
+          onSuccess?: (result: unknown) => void;
+          onPending?: (result: unknown) => void;
+          onError?: (result: unknown) => void;
+          onClose?: () => void;
+        }
+      ) => void;
+    };
+  }
+}
 
 type Props = {
   user: User | null;
@@ -14,6 +31,7 @@ type Props = {
 const useTransaction = ({ user }: Props) => {
   const { data } = useCheckoutData();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [snapLoaded, setSnapLoaded] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -21,51 +39,75 @@ const useTransaction = ({ user }: Props) => {
     return SEAT_VALUES[(data?.seat as SeatValuesType) ?? "ECONOMY"];
   }, [data?.seat]);
 
+  // Load Snap.js script
+  useEffect(() => {
+    const clientKey = process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY;
+    const isProduction = process.env.NEXT_PUBLIC_MIDTRANS_IS_PRODUCTION === "true";
+    const snapUrl = isProduction
+      ? "https://app.midtrans.com/snap/snap.js"
+      : "https://app.sandbox.midtrans.com/snap/snap.js";
+
+    if (!document.querySelector(`script[src="${snapUrl}"]`)) {
+      const script = document.createElement("script");
+      script.src = snapUrl;
+      script.setAttribute("data-client-key", clientKey || "");
+      script.onload = () => setSnapLoaded(true);
+      document.body.appendChild(script);
+    } else {
+      setSnapLoaded(true);
+    }
+  }, []);
+
   const transactionMutate = useMutation({
-    mutationFn: (data: unknown) =>
-      axios.post("/api/transactions/create", data).then((res) => res.data),
+    mutationFn: (paymentData: unknown) =>
+      axios.post("/api/payment/create", paymentData).then((res) => res.data),
   });
 
   const payTransaction = async () => {
-    if (data && user) {
-      return null;
+    // Check user and data
+    if (!data || !user) {
+      alert("Please log in to complete payment.");
+      return;
     }
 
-    const totalPrice = Number(
-      data?.flightDetail?.price ?? 0 + selectedSeat.additionalPrice
-    );
+    if (!data.flightDetail || !data.seatDetail) {
+      alert("Please select a flight and seat first.");
+      return;
+    }
+
+    if (!snapLoaded || !window.snap) {
+      alert("Payment system is loading. Please try again.");
+      return;
+    }
 
     const bodyData = {
-      bookingDate: new Date(),
-      customerId: user?.id,
-      flightId: data?.flightDetail?.id,
-      seatId: data?.seatDetail?.id,
-      departureCityCode: data?.flightDetail?.departureCityCode,
-      destinationCityCode: data?.flightDetail?.destinationCityCode,
+      flightId: data.flightDetail.id,
+      seatId: data.seatDetail.id,
+      seatType: data.seat || "ECONOMY",
     };
 
     try {
       setIsLoading(true);
       const transaction = await transactionMutate.mutateAsync(bodyData);
 
-      window.snap.pay(transaction.midtrans.token, {
-        onSuccess: function (result: unknown) {
+      window.snap.pay(transaction.token, {
+        onSuccess: function () {
           router.push("/success-checkout");
         },
-        onPending: function (result: unknown) {
+        onPending: function () {
           router.push("/success-checkout");
         },
-        onError: function (result: unknown) {
-          alert("payment failed!");
+        onError: function () {
+          alert("Payment failed! Please try again.");
         },
-        onClose: function (result: unknown) {
-          alert("you closed the popup without finishing the payment");
+        onClose: function () {
+          setIsLoading(false);
         },
       });
-      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       console.log(error);
+      alert("Failed to create payment. Please try again.");
     }
   };
 
@@ -76,3 +118,4 @@ const useTransaction = ({ user }: Props) => {
 };
 
 export default useTransaction;
+
