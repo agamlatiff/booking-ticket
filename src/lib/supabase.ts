@@ -5,13 +5,13 @@ const NEXT_PUBLIC_SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY || "";
 
 const supabase = createClient(
   NEXT_PUBLIC_SUPABASE_URL,
-  NEXT_PUBLIC_SUPABASE_KEY 
+  NEXT_PUBLIC_SUPABASE_KEY
 );
 
 export const uploadFile = async (file: File) => {
   try {
     const fileName = `${Date.now()}.png`;
- 
+
     const { error } = await supabase.storage
       .from("imageUpload")
       .upload(`public/airplanes/${fileName}`, file, {
@@ -31,6 +31,12 @@ export const uploadFile = async (file: File) => {
 };
 
 export const getUrlFile = (fileName: string) => {
+  // If already a full URL (http/https), return as-is
+  if (fileName.startsWith('http://') || fileName.startsWith('https://')) {
+    return fileName;
+  }
+
+  // Otherwise, generate Supabase URL
   const { data } = supabase.storage
     .from("imageUpload")
     .getPublicUrl(`public/airplanes/${fileName}`);

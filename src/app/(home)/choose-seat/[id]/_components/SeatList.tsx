@@ -21,10 +21,11 @@ const SeatList = ({ seats, filter = "all" }: SeatListProps) => {
   const { seatA, seatB, seatC, seatD } = useMemo(() => {
     const rawSeats = seats.filter((seat) => seat.type === selectedClass);
 
-    const seatA = rawSeats.filter((seat) => seat.seatNumber.startsWith("A"));
-    const seatB = rawSeats.filter((seat) => seat.seatNumber.startsWith("B"));
-    const seatC = rawSeats.filter((seat) => seat.seatNumber.startsWith("C"));
-    const seatD = rawSeats.filter((seat) => seat.seatNumber.startsWith("D"));
+    // Seat format is "10A" - number followed by letter
+    const seatA = rawSeats.filter((seat) => seat.seatNumber.endsWith("A"));
+    const seatB = rawSeats.filter((seat) => seat.seatNumber.endsWith("B"));
+    const seatC = rawSeats.filter((seat) => seat.seatNumber.endsWith("C"));
+    const seatD = rawSeats.filter((seat) => seat.seatNumber.endsWith("D"));
 
     return { seatA, seatB, seatC, seatD };
   }, [selectedClass, seats]);

@@ -44,16 +44,16 @@ function addHours(date: Date, hours: number): Date {
 // SEED DATA
 // ============================================
 
-// Airplanes data
+// Airplanes data - using external URLs for images
 const airplanesData = [
-  { code: "GA-738", name: "Boeing 737-800", image: "boeing-737.jpg" },
-  { code: "GA-320", name: "Airbus A320neo", image: "airbus-a320.jpg" },
-  { code: "SJ-195", name: "Boeing 737 MAX 8", image: "boeing-737-max.jpg" },
-  { code: "QG-320", name: "Airbus A320-200", image: "airbus-a320-200.jpg" },
-  { code: "JT-739", name: "Boeing 737-900ER", image: "boeing-737-900.jpg" },
-  { code: "ID-333", name: "Airbus A330-300", image: "airbus-a330.jpg" },
-  { code: "GA-773", name: "Boeing 777-300ER", image: "boeing-777.jpg" },
-  { code: "SQ-350", name: "Airbus A350-900", image: "airbus-a350.jpg" },
+  { code: "GA-738", name: "Boeing 737-800", image: "https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=400" },
+  { code: "GA-320", name: "Airbus A320neo", image: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=400" },
+  { code: "SJ-195", name: "Boeing 737 MAX 8", image: "https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?w=400" },
+  { code: "QG-320", name: "Airbus A320-200", image: "https://images.unsplash.com/photo-1583202075824-0229f7368fa9?w=400" },
+  { code: "JT-739", name: "Boeing 737-900ER", image: "https://images.unsplash.com/photo-1569629743817-70d8db6c323b?w=400" },
+  { code: "ID-333", name: "Airbus A330-300", image: "https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=400" },
+  { code: "GA-773", name: "Boeing 777-300ER", image: "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?w=400" },
+  { code: "SQ-350", name: "Airbus A350-900", image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400" },
 ];
 
 // Indonesian domestic routes

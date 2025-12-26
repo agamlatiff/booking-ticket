@@ -65,7 +65,7 @@ const FlightItem = ({ data, isBestValue = false }: FlightItemProps) => {
             <Image
               width={48}
               height={48}
-              src={getUrlFile(data.plane.image)}
+              src={data.plane.image.startsWith('http') ? data.plane.image : getUrlFile(data.plane.image)}
               className="w-full h-full object-contain"
               alt={data.plane.name}
             />
