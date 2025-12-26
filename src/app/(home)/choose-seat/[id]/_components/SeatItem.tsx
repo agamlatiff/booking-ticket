@@ -1,26 +1,65 @@
 "use client";
 
-import type { FlightSeat } from "@prisma/client";
+import type { FlightSeat, TypeSeat } from "@prisma/client";
 import { useContext, useState } from "react";
 import { seatContext, type SeatContextType } from "../providers/SeatProvider";
 import { X, Check, ArrowUpFromLine, Eye } from "lucide-react";
+import { rupiahFormat } from "@/lib/utils";
 
 interface SeatItemProps {
   seat: FlightSeat;
   isExitRow?: boolean;
   isHighlighted?: boolean;
+  price?: number;
 }
 
-// Determine seat position based on letter
+// Determine seat position based on letter (seat format: "10A")
 const getSeatPosition = (seatNumber: string): string => {
-  const letter = seatNumber.charAt(0);
-  if (letter === "A" || letter === "D") return "Window";
-  if (letter === "B" || letter === "C") return "Aisle";
-  return "Middle";
+  const letter = seatNumber.slice(-1);
+  if (letter === "A" || letter === "F") return "Window";
+  if (letter === "B" || letter === "E") return "Middle";
+  if (letter === "C" || letter === "D") return "Aisle";
+  return "Standard";
+};
+
+// Get class-based color theme
+const getClassTheme = (seatType: TypeSeat) => {
+  switch (seatType) {
+    case "FIRST":
+      return {
+        border: "border-amber-400 dark:border-amber-500",
+        bg: "bg-amber-50 dark:bg-amber-900/20",
+        text: "text-amber-700 dark:text-amber-400",
+        hover: "hover:border-amber-500 hover:bg-amber-100 dark:hover:bg-amber-900/40",
+        selected: "bg-gradient-to-br from-amber-400 to-amber-600 shadow-amber-300/50",
+        badge: "bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-400",
+        label: "First Class",
+      };
+    case "BUSSINESS":
+      return {
+        border: "border-purple-400 dark:border-purple-500",
+        bg: "bg-purple-50 dark:bg-purple-900/20",
+        text: "text-purple-700 dark:text-purple-400",
+        hover: "hover:border-purple-500 hover:bg-purple-100 dark:hover:bg-purple-900/40",
+        selected: "bg-gradient-to-br from-purple-400 to-purple-600 shadow-purple-300/50",
+        badge: "bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-400",
+        label: "Business",
+      };
+    default: // ECONOMY
+      return {
+        border: "border-sky-300 dark:border-sky-500",
+        bg: "bg-sky-50 dark:bg-sky-900/20",
+        text: "text-sky-700 dark:text-sky-400",
+        hover: "hover:border-sky-500 hover:bg-sky-100 dark:hover:bg-sky-900/40",
+        selected: "bg-gradient-to-br from-sky-400 to-sky-600 shadow-sky-300/50",
+        badge: "bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-400",
+        label: "Economy",
+      };
+  }
 };
 
 // Get seat amenities based on position and row
-const getSeatAmenities = (seatNumber: string, isExitRow: boolean): string[] => {
+const getSeatAmenities = (seatNumber: string, isExitRow: boolean, seatType: TypeSeat): string[] => {
   const position = getSeatPosition(seatNumber);
   const amenities: string[] = [];
 
@@ -34,13 +73,21 @@ const getSeatAmenities = (seatNumber: string, isExitRow: boolean): string[] => {
     amenities.push("🦵 Extra Legroom");
     amenities.push("⚠️ Emergency Exit");
   }
-  amenities.push("💺 Reclinable Seat");
+  if (seatType === "FIRST") {
+    amenities.push("🍾 Premium Service");
+    amenities.push("🛏️ Lie-flat Seat");
+  } else if (seatType === "BUSSINESS") {
+    amenities.push("🍷 Priority Service");
+    amenities.push("💼 Extra Recline");
+  } else {
+    amenities.push("💺 Reclinable Seat");
+  }
   amenities.push("🔌 Power Outlet");
 
   return amenities;
 };
 
-const SeatItem = ({ seat, isExitRow = false, isHighlighted = true }: SeatItemProps) => {
+const SeatItem = ({ seat, isExitRow = false, isHighlighted = true, price }: SeatItemProps) => {
   const { selectedSeat, setSelectedSeat } = useContext(
     seatContext
   ) as SeatContextType;
@@ -49,7 +96,8 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true }: SeatItemPro
   const isSelected = selectedSeat?.id === seat.id;
   const isBooked = seat.isBooked ?? false;
   const seatPosition = getSeatPosition(seat.seatNumber);
-  const amenities = getSeatAmenities(seat.seatNumber, isExitRow);
+  const classTheme = getClassTheme(seat.type);
+  const amenities = getSeatAmenities(seat.seatNumber, isExitRow, seat.type);
 
   // Dim non-highlighted seats when filtering
   const dimmedClass = !isHighlighted && !isSelected ? "opacity-30 scale-90" : "";
@@ -78,10 +126,10 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true }: SeatItemPro
             ${isBooked
               ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
               : isSelected
-                ? "bg-sky-primary text-white shadow-lg shadow-blue-300/50 dark:shadow-blue-500/30 scale-105"
+                ? `${classTheme.selected} text-white shadow-lg scale-105`
                 : isExitRow
-                  ? "border-2 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 hover:border-sky-primary hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-sky-primary hover:scale-105"
-                  : "border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:border-sky-primary hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-sky-primary hover:scale-105"
+                  ? `border-2 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 ${classTheme.hover} hover:scale-105`
+                  : `border-2 ${classTheme.border} ${classTheme.bg} ${classTheme.text} ${classTheme.hover} hover:scale-105`
             }
             ${!isBooked && !isSelected ? "active:scale-95" : ""}
           `}
@@ -118,7 +166,7 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true }: SeatItemPro
       {/* Enhanced Tooltip */}
       {showTooltip && !isBooked && isHighlighted && (
         <div
-          className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-44 animate-in fade-in-0 zoom-in-95 duration-200"
+          className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 animate-in fade-in-0 zoom-in-95 duration-200"
           style={{ pointerEvents: 'none' }}
         >
           <div className="bg-gray-900 text-white rounded-xl shadow-xl p-3 relative">
@@ -128,22 +176,41 @@ const SeatItem = ({ seat, isExitRow = false, isHighlighted = true }: SeatItemPro
             {/* Header */}
             <div className="flex items-center justify-between mb-2 pb-2 border-b border-gray-700">
               <span className="font-bold text-sm">Seat {seat.seatNumber}</span>
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${classTheme.badge}`}>
+                {classTheme.label}
+              </span>
+            </div>
+
+            {/* Position Badge */}
+            <div className="flex items-center gap-1.5 mb-2">
               <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${seatPosition === "Window"
-                ? "bg-blue-500/20 text-blue-300"
-                : "bg-green-500/20 text-green-300"
+                  ? "bg-blue-500/20 text-blue-300"
+                  : seatPosition === "Aisle"
+                    ? "bg-green-500/20 text-green-300"
+                    : "bg-gray-500/20 text-gray-300"
                 }`}>
-                {seatPosition}
+                {seatPosition} Seat
               </span>
             </div>
 
             {/* Amenities List */}
             <div className="space-y-1">
-              {amenities.map((amenity, index) => (
+              {amenities.slice(0, 4).map((amenity, index) => (
                 <div key={index} className="flex items-center gap-1.5 text-[11px] text-gray-300">
                   <span>{amenity}</span>
                 </div>
               ))}
             </div>
+
+            {/* Price */}
+            {price && (
+              <div className="mt-2 pt-2 border-t border-gray-700">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-gray-400">Seat Price</span>
+                  <span className="text-sm font-bold text-accent">{rupiahFormat(price)}</span>
+                </div>
+              </div>
+            )}
 
             {/* Select hint */}
             <div className="mt-2 pt-2 border-t border-gray-700 text-center">

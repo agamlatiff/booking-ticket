@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import type { FlightSeat } from "@prisma/client";
 import SeatLegend, { type LegendFilter } from "./SeatLegend";
 import SeatList from "./SeatList";
+import QuickSelectBar from "./QuickSelectBar";
 import { useContext } from "react";
 import { seatContext, type SeatContextType } from "../providers/SeatProvider";
 import { Plane } from "lucide-react";
@@ -31,6 +32,9 @@ const SeatMapWrapper = ({ seats }: SeatMapWrapperProps) => {
 
   return (
     <div className="space-y-6">
+      {/* Quick Select Buttons */}
+      <QuickSelectBar seats={seats} />
+
       {/* Interactive Legend */}
       <SeatLegend
         onFilterChange={setFilter}
