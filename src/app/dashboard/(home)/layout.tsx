@@ -3,6 +3,7 @@ import "../../globals.css";
 import Link from "next/link";
 import ButtonLogout from "./_components/ButtonLogout";
 import DashboardThemeToggle from "./_components/DashboardThemeToggle";
+import { SidebarNav } from "./_components/SidebarNav";
 import { getUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Toaster } from "@/components/ui/toaster";
@@ -52,20 +53,7 @@ export default async function DashboardLayout({
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors group"
-            >
-              <span className="material-symbols-outlined text-xl group-hover:text-accent transition-colors">
-                {item.icon}
-              </span>
-              <span className="font-medium">{item.label}</span>
-            </Link>
-          ))}
-        </nav>
+        <SidebarNav items={navItems} />
 
         {/* User & Logout */}
         <div className="p-4 border-t border-gray-100 dark:border-gray-800">

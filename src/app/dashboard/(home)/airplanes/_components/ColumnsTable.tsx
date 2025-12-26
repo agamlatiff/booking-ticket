@@ -34,22 +34,15 @@ export const columns: ColumnDef<Airplane>[] = [
     header: "Aircraft Info",
     cell: ({ row }) => {
       const plane = row.original;
+      // Determine icon based on aircraft type
+      const isAirbus = plane.name.toLowerCase().includes("airbus");
+
       return (
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400 overflow-hidden">
-            {plane.image ? (
-              <Image
-                src={getUrlFile(plane.image)}
-                alt={plane.name}
-                width={40}
-                height={40}
-                className="object-cover"
-              />
-            ) : (
-              <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-                flight
-              </span>
-            )}
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-100 to-sky-50 dark:from-sky-900/30 dark:to-sky-800/20 flex items-center justify-center text-sky-500 overflow-hidden">
+            <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+              {isAirbus ? "flight" : "flight_takeoff"}
+            </span>
           </div>
           <div>
             <p className="font-bold text-gray-900 dark:text-white text-sm">{plane.code || "N/A"}</p>
