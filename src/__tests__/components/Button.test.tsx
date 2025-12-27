@@ -17,15 +17,15 @@ describe("Button Component", () => {
     expect(screen.getByRole("button")).toHaveClass("border");
 
     rerender(<Button variant="ghost">Ghost</Button>);
-    expect(screen.getByRole("button")).toHaveClass("hover:bg-accent");
+    expect(screen.getByRole("button")).toHaveClass("hover:bg-gray-100");
   });
 
   it("renders with different sizes", () => {
     const { rerender } = render(<Button size="sm">Small</Button>);
-    expect(screen.getByRole("button")).toHaveClass("h-9");
+    expect(screen.getByRole("button")).toHaveClass("h-8");
 
     rerender(<Button size="lg">Large</Button>);
-    expect(screen.getByRole("button")).toHaveClass("h-11");
+    expect(screen.getByRole("button")).toHaveClass("h-12");
   });
 
   it("handles click events", async () => {

@@ -22,9 +22,10 @@ vi.mock("next/navigation", () => ({
 
 // Mock Next.js Image component
 vi.mock("next/image", () => ({
-  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img { ...props } alt = { props.alt || "" } />;
+  default: (props: Record<string, unknown>) => {
+    // Use createElement instead of JSX for .ts file
+    const React = require("react");
+    return React.createElement("img", { ...props, alt: props.alt || "" });
   },
 }));
 
