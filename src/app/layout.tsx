@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { WebVitals } from "@/components/performance";
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-inter",
+  display: "swap", // Performance: prevent FOIT
 });
 
 export const metadata: Metadata = {
@@ -40,7 +42,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} antialiased bg-background dark:bg-background-dark transition-colors`}>{children}</body>
+      <body className={`${inter.className} antialiased bg-background dark:bg-background-dark transition-colors`}>
+        <WebVitals />
+        {children}
+      </body>
     </html>
   );
 }
+
