@@ -7,22 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-// Declare snap on window for TypeScript
-declare global {
-  interface Window {
-    snap?: {
-      pay: (
-        token: string,
-        callbacks: {
-          onSuccess?: (result: unknown) => void;
-          onPending?: (result: unknown) => void;
-          onError?: (result: unknown) => void;
-          onClose?: () => void;
-        }
-      ) => void;
-    };
-  }
-}
+
 
 type Props = {
   user: User | null;

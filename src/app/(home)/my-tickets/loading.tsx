@@ -1,41 +1,42 @@
-import Navbar from "@/app/_components/Navbar";
-import React from "react";
-
+import { NavbarAuth } from "@/components/ui/navbar-auth";
+import { Footer } from "@/components/ui/footer";
+import { Skeleton } from "@/components/ui/skeleton";
 import LoadingTicketCard from "./_components/LoadingTicketCard";
 
 const Loading = () => {
   return (
-    <>
-      {" "}
-      <section
-        id="Header"
-        className="bg-[url('/assets/images/background/airplane.png')] bg-no-repeat bg-cover bg-left-top h-[290px] relative"
-      >
-        <div className="Header-content bg-gradient-to-r from-[#080318] to-[rgba(8,3,24,0)] h-[290px]">
-          <Navbar />
-          <div className="title container max-w-[1130px] mx-auto flex flex-col gap-1 pt-[50px] pb-[68px]">
-            <h1 className="font-bold text-[32px] leading-[48px]">My Tickets</h1>
-            <p className="font-medium text-lg leading-[27px]">
-              183,042 flights avaiable
-            </p>
+    <div className="bg-background dark:bg-background-dark min-h-screen flex flex-col transition-colors duration-300">
+      {/* Navigation */}
+      <header className="sticky top-0 z-50 bg-white/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+        <NavbarAuth user={null} isLoading={true} />
+      </header>
+
+      {/* Header Skeleton */}
+      <div className="bg-white dark:bg-surface-dark border-b border-gray-100 dark:border-gray-800 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        <div className="max-w-[1200px] mx-auto px-4 md:px-10 py-8 relative z-10">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center">
+              <span className="material-symbols-outlined text-xl text-accent">confirmation_number</span>
+            </div>
+            <Skeleton className="h-10 w-48" />
           </div>
-          <div className="w-full h-[15px] bg-gradient-to-t from-[#080318] to-[rgba(8,3,24,0)] absolute bottom-0" />
+          <Skeleton className="h-6 w-32 mt-2" />
         </div>
-      </section>
-      <section
-        id="Content"
-        className="container max-w-[1130px] mx-auto flex justify-end -mt-[60px] pb-[100px] z-10 relative"
-      >
-        <div className="ticket-container flex flex-col w-[900px] gap-6">
+      </div>
+
+      {/* Content Skeleton */}
+      <main className="flex-1 max-w-[1200px] mx-auto px-4 md:px-10 py-8 w-full">
+        <div className="flex flex-col gap-4">
           <LoadingTicketCard />
           <LoadingTicketCard />
           <LoadingTicketCard />
-          <p className="text-center text-sm text-[#A0A0AC] h-fit">
-            You’ve reached the end of results.
-          </p>
         </div>
-      </section>
-    </>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 };
 

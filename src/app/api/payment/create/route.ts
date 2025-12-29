@@ -6,8 +6,9 @@ import { createSnapTransaction } from "@/lib/midtrans";
 export async function POST(request: NextRequest) {
   try {
     // Get authenticated user
-    const { session } = await getUser();
-    if (!session) {
+    const { session, user } = await getUser();
+
+    if (!session || !user) {
       return NextResponse.json(
         { error: "Authentication required" },
         { status: 401 }
@@ -57,6 +58,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check for existing ticket on this seat
+    const existingTicket = await prisma.ticket.findUnique({
+      where: { seatId },
+    });
+
+    if (existingTicket) {
+      // If ticket exists and is SUCCESS, seat is already booked
+      if (existingTicket.status === "SUCCESS") {
+        return NextResponse.json(
+          { error: "Seat is already booked" },
+          { status: 400 }
+        );
+      }
+      // Delete old PENDING or FAILED tickets to allow rebooking
+      await prisma.ticket.delete({
+        where: { id: existingTicket.id },
+      });
+    }
+
     // Calculate price based on seat type
     const seatMultipliers: Record<string, number> = {
       ECONOMY: 1,
@@ -69,14 +89,19 @@ export async function POST(request: NextRequest) {
     // Generate unique order ID
     const orderId = `FH-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
+    // Validate and prepare customer email
+    const customerEmail = user.email && user.email.includes("@")
+      ? user.email
+      : `customer-${user.id}@flyhigher.com`;
+
     // Create Snap transaction
     const transaction = await createSnapTransaction({
       orderId,
       grossAmount: totalPrice,
       customerDetails: {
-        firstName: session.name?.split(" ")[0] || "Customer",
-        lastName: session.name?.split(" ").slice(1).join(" ") || "",
-        email: session.email || "",
+        firstName: user.name?.split(" ")[0] || "Customer",
+        lastName: user.name?.split(" ").slice(1).join(" ") || "",
+        email: customerEmail,
       },
       itemDetails: [
         {
@@ -94,8 +119,10 @@ export async function POST(request: NextRequest) {
         code: orderId,
         flightId,
         seatId,
-        customerId: session.id,
+        customerId: user.id,
         status: "PENDING",
+        bookingDate: new Date(),
+        price: totalPrice,
       },
     });
 

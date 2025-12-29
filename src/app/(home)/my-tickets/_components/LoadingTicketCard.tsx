@@ -1,39 +1,55 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
 
 const LoadingTicketCard = () => {
   return (
-    <>
-      <div className="ticket-card flex justify-between items-center rounded-[20px] p-5 bg-flysha-bg-purple">
-        <div className="flex gap-[16px] items-center">
-          <div className="flex shrink-0 w-[90px] h-[70px] rounded-[14px] overflow-hidden">
-            <Skeleton className="bg-white w-[90px] h-[70px] rounded-[14px] overflow-hidden" />
+    <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-gray-200">
+      <div className="flex flex-col md:flex-row gap-6 items-center">
+        {/* Airline Info Skeleton */}
+        <div className="flex items-center gap-4 w-full md:w-48">
+          <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center p-2 shadow-sm border border-gray-100 overflow-hidden">
+            <Skeleton className="w-full h-full rounded-md" />
           </div>
-          <div className="flex flex-col justify-center-center gap-[2px]">
-            <Skeleton className="bg-white w-[60px] h-5" />
-            <Skeleton className="bg-white w-[90px] h-5" />
-          </div>
-        </div>
-        <Skeleton className="w-[120px] h-5 bg-white"/>
-        <div className="flex items-center gap-[30px]">
-          <div className="flex flex-col gap-[2px] text-center">
-            <Skeleton className="bg-white w-[60px] h-5" />
-            <Skeleton className="bg-white w-[90px] h-5" />
-          </div>
-          <Image
-            height={100}
-            width={100}
-            src="/assets/images/icons/plane-dotted.svg"
-            alt="icon"
-          />
-          <div className="flex flex-col gap-[2px] text-center">
-            <Skeleton className="bg-white w-[60px] h-5" />
-            <Skeleton className="bg-white w-[90px] h-5" />
+          <div className="flex flex-col gap-1">
+            <Skeleton className="w-24 h-4" />
+            <Skeleton className="w-16 h-3" />
           </div>
         </div>
-        <Skeleton className="bg-white w-[120px] h-[48px] rounded-full"/>
+
+        {/* Date Skeleton */}
+        <div className="hidden md:block">
+          <Skeleton className="w-24 h-5" />
+        </div>
+
+        {/* Flight Route Visual Skeleton */}
+        <div className="flex-1 w-full flex items-center justify-between gap-4 text-center">
+          {/* Departure */}
+          <div className="flex flex-col items-center gap-1">
+            <Skeleton className="w-16 h-7" />
+            <Skeleton className="w-10 h-4 rounded-md" />
+          </div>
+
+          {/* Route Line */}
+          <div className="flex flex-col items-center flex-1 px-2 relative gap-1">
+            <Skeleton className="w-16 h-3" />
+            <div className="w-full h-[2px] bg-gray-100 relative rounded-full overflow-hidden">
+              <div className="absolute left-0 top-0 bottom-0 w-full bg-gray-200" />
+            </div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-1 rounded-full border border-gray-100 shadow-sm">
+              <Skeleton className="w-4 h-4 rounded-full" />
+            </div>
+          </div>
+
+          {/* Arrival */}
+          <div className="flex flex-col items-center gap-1">
+            <Skeleton className="w-16 h-7" />
+            <Skeleton className="w-10 h-4 rounded-md" />
+          </div>
+        </div>
+
+        {/* CTA Skeleton */}
+        <Skeleton className="h-12 w-full md:w-32 rounded-xl" />
       </div>
-    </>
+    </div>
   );
 };
 

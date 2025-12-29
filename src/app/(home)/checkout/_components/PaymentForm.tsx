@@ -102,7 +102,7 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
         type="button"
         onClick={payTransaction}
         disabled={isLoading}
-        className="group relative w-full h-16 bg-sky-primary hover:bg-sky-600 text-white rounded-full font-bold text-xl shadow-lg shadow-sky-primary/30 hover:shadow-xl hover:shadow-sky-primary/40 transition-all transform hover:-translate-y-1 active:translate-y-0 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+        className="group relative w-full h-16 bg-sky-primary hover:bg-sky-600 bg-sky-500 text-white rounded-full font-bold text-xl shadow-lg shadow-sky-primary/30 hover:shadow-xl hover:shadow-sky-primary/40 transition-all transform hover:-translate-y-1 active:translate-y-0 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <span className="relative z-10 flex items-center justify-center gap-3">
           {isLoading ? (
