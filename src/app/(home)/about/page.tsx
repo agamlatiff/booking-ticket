@@ -1,4 +1,4 @@
-import NavbarLight from "@/app/_components/NavbarLight";
+import { Navbar } from "@/components/ui/navbar";
 import Image from "next/image";
 import {
   Plane,
@@ -56,7 +56,7 @@ const AboutPage = () => {
     <div className="bg-background-light min-h-screen font-display">
       {/* Navigation */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <NavbarLight />
+        <Navbar />
       </header>
 
       {/* Hero Section */}

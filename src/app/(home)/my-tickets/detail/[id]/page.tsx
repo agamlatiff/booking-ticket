@@ -1,4 +1,4 @@
-import NavbarLight from "@/app/_components/NavbarLight";
+import { Navbar } from "@/components/ui/navbar";
 import { getDetailTicket } from "../../lib/data";
 import { dateFormat, rupiahFormat } from "@/lib/utils";
 import { getUrlFile } from "@/lib/supabase";
@@ -54,7 +54,7 @@ const DetailTicketPage = async ({ params }: DetailTicketProps) => {
     <div className="bg-background-light min-h-screen font-display">
       {/* Navigation */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <NavbarLight />
+        <Navbar />
       </header>
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-10 py-5">

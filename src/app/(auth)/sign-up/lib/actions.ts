@@ -1,6 +1,9 @@
 'use server'
 
-import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
+export interface ActionResult {
+  errorTitle: string | null;
+  errorDesc: string[] | null;
+}
 import { userSchema } from "./validation";
 import bcrypt from "bcrypt";
 
@@ -37,6 +40,6 @@ export async function signUpUser(
       role: 'CUSTOMER'
     },
   });
-  
+
   return redirect('/sign-in')
 }

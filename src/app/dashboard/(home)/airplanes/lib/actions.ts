@@ -1,6 +1,6 @@
 "use server";
 
-import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
+import type { ActionResult } from "@/app/(auth)/sign-in/lib/actions";
 import { airplaneFormSchema } from "./validation";
 import { redirect } from "next/navigation";
 import { deleteFile, uploadFile } from "@/lib/supabase";
@@ -149,7 +149,7 @@ export async function updateAirplane(
   return redirect("/dashboard/airplanes");
 }
 
-export async function deleteAirplane(id: string): Promise<ActionResult> {
+export async function deleteAirplane(id: string, _formData: FormData): Promise<ActionResult> {
   const data = await prisma.airplane.findFirst({ where: { id } });
 
   if (!data) {
@@ -182,6 +182,10 @@ export async function deleteAirplane(id: string): Promise<ActionResult> {
       errorDesc: ["Connection Error", "Please try again later"],
     };
   }
-  
-  revalidatePath('/dashboard/airplanes')
+
+  revalidatePath('/dashboard/airplanes');
+  return {
+    errorTitle: null,
+    errorDesc: []
+  };
 }

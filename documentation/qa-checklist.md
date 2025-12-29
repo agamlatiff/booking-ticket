@@ -5,13 +5,13 @@
 ```bash
 # Automated Tests
 npm run lint          # ESLint check
-npm test              # Unit tests (Vitest)
+npm test              # Unit tests (Vitest)              [x]
 npm run test:coverage # Coverage report
-npm run e2e           # E2E tests (Playwright)
+npm run e2e           # E2E tests (Playwright)           [x]
 npm run e2e:headed    # E2E with browser visible
 
 # Build Check
-npm run build         # Production build
+npm run build         # Production build                 [x]
 ```
 
 ---
@@ -22,7 +22,7 @@ npm run build         # Production build
 
 | #   | Test Case               | Expected Result                    | Pass |
 | --- | ----------------------- | ---------------------------------- | ---- |
-| 1   | Navigate to `/sign-up`  | Registration form displayed        | [ ]  |
+| 1   | Navigate to `/sign-up`  | Registration form displayed        | [x]  |
 | 2   | Submit empty form       | Validation errors shown            | [ ]  |
 | 3   | Submit invalid email    | Email validation error             | [ ]  |
 | 4   | Submit weak password    | Password requirements shown        | [ ]  |
@@ -33,8 +33,8 @@ npm run build         # Production build
 
 | #   | Test Case                   | Expected Result             | Pass |
 | --- | --------------------------- | --------------------------- | ---- |
-| 1   | Navigate to `/sign-in`      | Login form displayed        | [ ]  |
-| 2   | Submit empty form           | Validation errors shown     | [ ]  |
+| 1   | Navigate to `/sign-in`      | Login form displayed        | [x]  |
+| 2   | Submit empty form           | Validation errors shown     | [x]  |
 | 3   | Submit wrong credentials    | Error message shown         | [ ]  |
 | 4   | Submit valid credentials    | Logged in, redirect to home | [ ]  |
 | 5   | Click "Sign in with Google" | Google OAuth flow works     | [ ]  |

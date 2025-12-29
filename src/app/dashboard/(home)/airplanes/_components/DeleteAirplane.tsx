@@ -1,11 +1,17 @@
 "use client";
 
 import type { FC } from "react";
-import { useFormStatus } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { deleteAirplane } from "../lib/actions";
+import type { ActionResult } from "@/app/(auth)/sign-in/lib/actions";
 
 interface DeleteAirplaneProps {
   id: string;
+}
+
+const initialState: ActionResult = {
+  errorTitle: null,
+  errorDesc: []
 }
 
 const SubmitButton = () => {
@@ -26,10 +32,14 @@ const SubmitButton = () => {
 };
 
 const DeleteAirplane: FC<DeleteAirplaneProps> = ({ id }) => {
-  const deleteAirplaneWithId = deleteAirplane.bind(null, id);
+  const deleteAirplaneWithId = async (_: unknown, formData: FormData) => {
+    return await deleteAirplane(id, formData);
+  };
+
+  const [_, dispatch] = useFormState(deleteAirplaneWithId, initialState);
 
   return (
-    <form action={deleteAirplaneWithId}>
+    <form action={dispatch}>
       <SubmitButton />
     </form>
   );

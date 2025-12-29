@@ -106,7 +106,7 @@ const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
               <div className="flex justify-between items-end mb-4 px-2">
                 <div className="text-left">
                   <div className="text-3xl font-bold text-primary dark:text-white">
-                    {flight.departureTime}
+                    {dateFormat(flight.departureDate, "HH:mm")}
                   </div>
                   <div className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
                     {flight.departureCity}
@@ -120,7 +120,7 @@ const ChooseSeatPage = async ({ params }: ChooseSeatProps) => {
                 </div>
                 <div className="text-right">
                   <div className="text-3xl font-bold text-primary dark:text-white">
-                    {flight.arrivalTime}
+                    {dateFormat(flight.arrivalDate, "HH:mm")}
                   </div>
                   <div className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
                     {flight.destinationCity}

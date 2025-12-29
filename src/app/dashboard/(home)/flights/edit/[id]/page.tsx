@@ -25,7 +25,7 @@ const EditFlightPage: FC<EditFlightPageProps> = async ({ params }) => {
       <div className="flex flex-row items-center justify-between">
         <div className="my-5 text-2xl font-bold"> Edit Data Flight</div>
       </div>
-      <FormFlight type="EDIT" airplane={airplane} defaultValues={flight} />
+      <FormFlight type="EDIT" airplane={airplane.data} defaultValues={flight} />
     </div>
   );
 };

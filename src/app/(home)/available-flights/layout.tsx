@@ -1,4 +1,4 @@
-import React, { type FC, type ReactNode } from "react";
+import React, { type FC, type ReactNode, Suspense } from "react";
 import QCProvider from "./providers/QueryProvider";
 import FlightProvider from "./providers/FlightProvider";
 import type { Metadata } from "next";
@@ -16,7 +16,9 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <QCProvider>
-      <FlightProvider>{children}</FlightProvider>
+      <Suspense>
+        <FlightProvider>{children}</FlightProvider>
+      </Suspense>
     </QCProvider>
   );
 };

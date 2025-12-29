@@ -13,7 +13,7 @@ import SubmitButtonForm from "../../_components/SubmitFormButton";
 import type { Airplane, Flight } from "@prisma/client";
 import { useFormState } from "react-dom";
 import { saveFlight, updateFlight } from "../lib/actions";
-import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
+import type { ActionResult } from "@/app/(auth)/sign-in/lib/actions";
 import { dateFormat } from "@/lib/utils";
 
 interface FormFlightProps {
@@ -136,7 +136,7 @@ const FormFlight = ({ airplane, defaultValues = null, type }: FormFlightProps) =
             defaultValue={defaultValues?.arrivalDate ? dateFormat(
               defaultValues?.arrivalDate,
               "YYYY-MM-DDTHH:MM"
-            ): undefined}
+            ) : undefined}
             placeholder="Arrival Date..."
             name="arrivalDate"
             id="arrivalDate"

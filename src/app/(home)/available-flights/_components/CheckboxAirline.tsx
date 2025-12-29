@@ -27,7 +27,6 @@ const CheckboxAirline = ({ item }: CheckboxAirlineProps) => {
         : FilterActionKind.REMOVE_PLANE,
       payload: {
         planeId: value,
-        planeIds: [],
       },
     });
   };

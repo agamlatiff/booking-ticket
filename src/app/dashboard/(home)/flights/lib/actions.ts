@@ -1,6 +1,6 @@
 "use server";
 
-import type { ActionResult } from "@/app/dashboard/(auth)/signin/lib/actions";
+import type { ActionResult } from "@/app/(auth)/sign-in/lib/actions";
 import { redirect } from "next/navigation";
 import { formFLightSchema } from "./validation";
 
@@ -57,14 +57,14 @@ export async function updateFlight(
   formData: FormData,
   id: string | null
 ): Promise<ActionResult> {
-  
-  if(!id) {
+
+  if (!id) {
     return {
-      errorTitle : 'Parma ID Missing',
+      errorTitle: 'Parma ID Missing',
       errorDesc: []
     }
   }
-  
+
   const departureDate = new Date(formData.get("departureDate") as string);
   const arrivalDate = new Date(formData.get("arrivalDate") as string);
 
@@ -87,7 +87,7 @@ export async function updateFlight(
       errorDesc,
     };
   }
-  
+
   if (!id) {
     return {
       errorTitle: "Update Error",
@@ -98,7 +98,7 @@ export async function updateFlight(
 
   await prisma.flight.update({
     where: {
-      id : id,
+      id: id,
     },
     data: {
       ...validate.data,

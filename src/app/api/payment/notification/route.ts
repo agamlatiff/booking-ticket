@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     // Find ticket by order_id (which is the ticket code)
     const ticket = await prisma.ticket.findFirst({
       where: { code: order_id },
-      include: { flightSeat: true },
+      include: { seat: true },
     });
 
     if (!ticket) {
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Determine new status based on Midtrans response
-    let newStatus: "SUCCESS" | "PENDING" | "CANCELED" = "PENDING";
+    let newStatus: "SUCCESS" | "PENDING" | "FAILED" = "PENDING";
 
     if (transaction_status === "capture") {
       // For credit card payment
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       transaction_status === "deny" ||
       transaction_status === "expire"
     ) {
-      newStatus = "CANCELED";
+      newStatus = "FAILED";
     } else if (transaction_status === "pending") {
       newStatus = "PENDING";
     }
@@ -79,12 +79,12 @@ export async function POST(request: NextRequest) {
         data: { isBooked: true },
       });
       console.log(`Payment SUCCESS for order: ${order_id}`);
-    } else if (newStatus === "CANCELED") {
+    } else if (newStatus === "FAILED") {
       // Delete the pending ticket on cancel
       await prisma.ticket.delete({
         where: { id: ticket.id },
       });
-      console.log(`Payment CANCELED for order: ${order_id}`);
+      console.log(`Payment FAILED for order: ${order_id}`);
     }
 
     return NextResponse.json({ status: "ok" });
