@@ -52,9 +52,9 @@ npm run build         # Production build                 [x]
 
 | #   | Test Case              | Expected Result           | Pass |
 | --- | ---------------------- | ------------------------- | ---- |
-| 1   | Load homepage `/`      | Hero section visible      | [ ]  |
-| 2   | Toggle dark mode       | Theme switches correctly  | [ ]  |
-| 3   | Click navigation links | Navigate to correct pages | [ ]  |
+| 1   | Load homepage `/`      | Hero section visible      | [x]  |
+| 2   | Toggle dark mode       | Theme switches correctly  | [x]  |
+| 3   | Click navigation links | Navigate to correct pages | [x]  |
 | 4   | View on mobile (375px) | Responsive layout works   | [ ]  |
 | 5   | View on tablet (768px) | Responsive layout works   | [ ]  |
 
@@ -66,7 +66,7 @@ npm run build         # Production build                 [x]
 
 | #   | Test Case                        | Expected Result        | Pass |
 | --- | -------------------------------- | ---------------------- | ---- |
-| 1   | Navigate to `/available-flights` | Flight list displayed  | [ ]  |
+| 1   | Navigate to `/available-flights` | Flight list displayed  | [x]  |
 | 2   | Flights show departure/arrival   | Route info visible     | [ ]  |
 | 3   | Flights show price               | Price in Rupiah format | [ ]  |
 | 4   | Flights show airline/plane       | Plane info visible     | [ ]  |
@@ -89,7 +89,7 @@ npm run build         # Production build                 [x]
 
 | #   | Test Case                       | Expected Result                   | Pass |
 | --- | ------------------------------- | --------------------------------- | ---- |
-| 1   | Navigate to `/choose-seat/[id]` | Seat map displayed                | [ ]  |
+| 1   | Navigate to `/choose-seat/[id]` | Seat map displayed                | [x]  |
 | 2   | Flight info shown               | Departure/arrival/date visible    | [ ]  |
 | 3   | Seat legend displayed           | Available/Occupied/Legroom legend | [ ]  |
 | 4   | Class toggle works              | Economy/Business/First toggle     | [ ]  |

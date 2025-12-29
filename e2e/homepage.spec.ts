@@ -1,17 +1,25 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Homepage", () => {
-  test("should display the hero section", async ({ page }) => {
+  test("should display main heading", async ({ page }) => {
     await page.goto("/");
-
-    // Check for main heading
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  });
 
-    // Check for navigation
-    await expect(page.getByRole("navigation")).toBeVisible();
+  test("should display navigation", async ({ page }) => {
+    await page.goto("/");
+    const navCount = await page.getByRole("navigation").count();
+    console.log("Nav count:", navCount);
+    if (navCount === 0) {
+      console.log("Body:", await page.content());
+      console.log("No nav found");
+    }
+    await expect(page.getByRole("navigation").first()).toBeVisible();
+  });
 
-    // Check for search form or CTA
-    await expect(page.getByRole("button")).toBeVisible();
+  test("should display search button", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("button", { name: /search/i })).toBeVisible();
   });
 
   test("should have working navigation links", async ({ page }) => {
