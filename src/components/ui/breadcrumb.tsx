@@ -7,7 +7,7 @@ const Breadcrumb = React.forwardRef<
   React.ComponentPropsWithoutRef<"nav"> & {
     separator?: React.ReactNode
   }
->(({ className, separator, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <nav
     ref={ref}
     aria-label="breadcrumb"
@@ -46,7 +46,7 @@ const BreadcrumbLink = React.forwardRef<
   React.ComponentPropsWithoutRef<"a"> & {
     asChild?: boolean
   }
->(({ asChild, className, ...props }, ref) => {
+>(({ className, ...props }, ref) => {
   return (
     <a
       ref={ref}

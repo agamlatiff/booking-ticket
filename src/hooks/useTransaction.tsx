@@ -1,8 +1,8 @@
 "use client";
 import type { User } from "lucia";
 import useCheckoutData from "./useCheckoutData";
-import { useMemo, useState, useEffect } from "react";
-import { SEAT_VALUES, type SeatValuesType } from "@/lib/utils";
+import { useState, useEffect } from "react";
+
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -20,9 +20,7 @@ const useTransaction = ({ user }: Props) => {
 
   const router = useRouter();
 
-  const selectedSeat = useMemo(() => {
-    return SEAT_VALUES[(data?.seat as SeatValuesType) ?? "ECONOMY"];
-  }, [data?.seat]);
+
 
   // Load Snap.js script
   useEffect(() => {

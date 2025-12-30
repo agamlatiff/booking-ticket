@@ -8,7 +8,7 @@ import {
   ArrowLeft,
   Calendar,
   Clock,
-  MapPin,
+
   Plane,
   User,
   Mail,

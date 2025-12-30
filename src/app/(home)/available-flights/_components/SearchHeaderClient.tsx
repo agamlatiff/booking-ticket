@@ -20,7 +20,7 @@ const SearchHeaderClient = ({
   return (
     <>
       {/* Search Summary with Filter Pills */}
-      <SearchSummary onEditSearch={() => setShowEditModal(true)} />
+      <SearchSummary />
 
       {/* Edit Modal */}
       {showEditModal && (

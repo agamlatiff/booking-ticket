@@ -8,11 +8,9 @@ import {
   type FContext,
 } from "../providers/FlightProvider";
 
-interface SearchSummaryProps {
-  onEditSearch: () => void;
-}
 
-const SearchSummary = ({ onEditSearch }: SearchSummaryProps) => {
+
+const SearchSummary = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { state, dispatch } = useContext(flightContext) as FContext;
@@ -25,12 +23,7 @@ const SearchSummary = ({ onEditSearch }: SearchSummaryProps) => {
   const isValidArrival = arrival && arrival !== "Select City";
 
   // Format date nicely
-  const formattedDate = date
-    ? new Date(date).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    })
-    : "";
+
 
   // Count active filters
   const activeFilterCount = [
@@ -41,11 +34,7 @@ const SearchSummary = ({ onEditSearch }: SearchSummaryProps) => {
     state.planeIds.length > 0,
   ].filter(Boolean).length;
 
-  const clearFilter = (param: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete(param);
-    router.push(`/available-flights?${params.toString()}`);
-  };
+
 
   const clearAllFilters = () => {
     router.push("/available-flights");

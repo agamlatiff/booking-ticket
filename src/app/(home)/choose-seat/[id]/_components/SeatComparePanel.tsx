@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import { seatContext, type SeatContextType } from "../providers/SeatProvider";
-import { X, Check, Trash2, ArrowUpFromLine } from "lucide-react";
+import { X, Check, Trash2 } from "lucide-react";
 
 // Helper to get seat position
 const getSeatPosition = (seatNumber: string): string => {

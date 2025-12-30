@@ -76,7 +76,7 @@ const AboutPage = () => {
               <span className="text-sky-primary">Simple & Joyful</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-              We believe everyone deserves to explore the world. That's why we've built
+              We believe everyone deserves to explore the world. That&apos;s why we&apos;ve built
               FlyHigher — to make booking flights as easy as dreaming about your next destination.
             </p>
           </div>
@@ -115,7 +115,7 @@ const AboutPage = () => {
               </h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 To make air travel accessible, affordable, and enjoyable for everyone.
-                We're building technology that removes the complexity from travel planning,
+                We&apos;re building technology that removes the complexity from travel planning,
                 so you can focus on what matters — the adventure ahead.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">

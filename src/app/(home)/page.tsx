@@ -4,7 +4,7 @@ import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import FlightSearchWidget from "./_components/FlightSearchWidget";
 import Link from "next/link";
-import Image from "next/image";
+
 
 const HomePage = async () => {
   const filter = await getCityFilter();

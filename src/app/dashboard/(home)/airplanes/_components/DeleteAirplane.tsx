@@ -32,11 +32,11 @@ const SubmitButton = () => {
 };
 
 const DeleteAirplane: FC<DeleteAirplaneProps> = ({ id }) => {
-  const deleteAirplaneWithId = async (_: unknown, formData: FormData) => {
-    return await deleteAirplane(id, formData);
+  const deleteAirplaneWithId = async () => {
+    return await deleteAirplane(id);
   };
 
-  const [_, dispatch] = useFormState(deleteAirplaneWithId, initialState);
+  const [, dispatch] = useFormState(deleteAirplaneWithId, initialState);
 
   return (
     <form action={dispatch}>

@@ -5,7 +5,7 @@ import type { ActionResult } from "@/app/(auth)/sign-in/lib/actions";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function logout(_formData?: FormData): Promise<ActionResult> {
+export async function logout(): Promise<ActionResult> {
   const { session } = await getUser()
 
   if (!session) {

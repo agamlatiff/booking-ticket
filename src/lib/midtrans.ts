@@ -1,5 +1,7 @@
 import midtransClient from "midtrans-client";
 
+import { createHash } from "crypto";
+
 // Midtrans Snap client for generating tokens
 export const snap = new midtransClient.Snap({
   isProduction: process.env.MIDTRANS_IS_PRODUCTION === "true",
@@ -68,10 +70,8 @@ export function verifySignature(
   grossAmount: string,
   signatureKey: string
 ): boolean {
-  const crypto = require("crypto");
   const serverKey = process.env.MIDTRANS_SERVER_KEY || "";
-  const hash = crypto
-    .createHash("sha512")
+  const hash = createHash("sha512")
     .update(`${orderId}${statusCode}${grossAmount}${serverKey}`)
     .digest("hex");
   return hash === signatureKey;

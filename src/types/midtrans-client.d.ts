@@ -54,5 +54,6 @@ declare module 'midtrans-client' {
   }
 
   export { Snap, CoreApi };
-  export default { Snap, CoreApi };
+  const midtransClient = { Snap, CoreApi };
+  export default midtransClient;
 }

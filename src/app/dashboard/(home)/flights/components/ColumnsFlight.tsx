@@ -3,7 +3,7 @@
 import type { Airplane, Flight, FlightSeat } from "@prisma/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { getUrlFile } from "@/lib/supabase";
+
 import DeleteFlight from "./DeleteFlight";
 import { differenceInMinutes, format } from "date-fns";
 

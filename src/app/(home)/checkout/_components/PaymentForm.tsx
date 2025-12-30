@@ -65,14 +65,14 @@ const PaymentForm = ({ user }: PaymentFormProps) => {
           </div>
         </div>
         <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-4">
-          You'll select your payment method in the secure payment window
+          You&apos;ll select your payment method in the secure payment window
         </p>
       </div>
 
       {/* What's Included */}
       <div className="space-y-3 mb-8">
         <h3 className="text-sm font-bold text-text-dark dark:text-white uppercase tracking-wider">
-          What's Included
+          What&apos;s Included
         </h3>
         <div className="space-y-2">
           {[

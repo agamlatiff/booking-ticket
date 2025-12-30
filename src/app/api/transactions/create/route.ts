@@ -3,7 +3,7 @@ import prisma from "../../../../../lib/prisma";
 import { makeid } from "@/lib/utils";
 
 const MIDTRANS_URL = process.env.NEXT_PUBLIC_MIDTRANS_TRANSACTION_URL ?? "";
-const MIDTRANS_AUTH_KEY = process.env.NEXT_PUBLIC_MIDTRANS_AUTH_KEY ?? "";
+
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return Response.json({midtrans, transaction_id: transaction.id });
+    return Response.json({ midtrans, transaction_id: transaction.id });
   } catch (error) {
     console.log(error);
     return Response.json({ error }, { status: 500 });

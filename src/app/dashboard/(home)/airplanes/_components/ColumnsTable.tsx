@@ -2,10 +2,10 @@
 
 import type { Airplane } from "@prisma/client";
 import type { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
+
 import Link from "next/link";
 import DeleteAirplane from "./DeleteAirplane";
-import { getUrlFile } from "@/lib/supabase";
+
 
 export const columns: ColumnDef<Airplane>[] = [
   {

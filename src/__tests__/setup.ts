@@ -1,3 +1,4 @@
+import React from "react";
 import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
 import { afterEach, vi } from "vitest";
@@ -24,7 +25,6 @@ vi.mock("next/navigation", () => ({
 vi.mock("next/image", () => ({
   default: (props: Record<string, unknown>) => {
     // Use createElement instead of JSX for .ts file
-    const React = require("react");
     return React.createElement("img", { ...props, alt: props.alt || "" });
   },
 }));

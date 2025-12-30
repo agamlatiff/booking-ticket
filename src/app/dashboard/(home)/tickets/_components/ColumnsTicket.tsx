@@ -4,9 +4,8 @@ import type { Flight, FlightSeat, Ticket, User, Airplane } from "@prisma/client"
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { format } from "date-fns";
-import { updateTicketStatus } from "../lib/actions";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+
+
 
 type TicketType = Ticket & {
   flight: Flight & { plane: Airplane };
@@ -15,8 +14,7 @@ type TicketType = Ticket & {
 };
 
 const StatusBadge = ({ ticket }: { ticket: TicketType }) => {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
+
 
   // Status mapping to design statuses where applicable
   // Ticket Model: PENDING, SUCCESS, FAILED
