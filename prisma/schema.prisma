@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x", "linux-arm64-openssl-3.0.x"]
 }
 
 datasource db {
@@ -61,7 +62,7 @@ model Airplane {
 
 model Flight {
   id                  String       @id @default(cuid())
-  slug                String?      @unique  // SEO-friendly URL: e.g., "jkt-dps-2025-01-15"
+  slug                String?      @unique // SEO-friendly URL: e.g., "jkt-dps-2025-01-15"
   planeId             String
   plane               Airplane     @relation(fields: [planeId], references: [id])
   departureDate       DateTime
@@ -91,7 +92,7 @@ model FlightSeat {
 model Ticket {
   id            String       @id @default(cuid())
   code          String       @unique
-  slug          String?      @unique  // SEO-friendly URL: e.g., "booking-flyh-abc123"
+  slug          String?      @unique // SEO-friendly URL: e.g., "booking-flyh-abc123"
   flightId      String
   flight        Flight       @relation(fields: [flightId], references: [id])
   customerId    String
