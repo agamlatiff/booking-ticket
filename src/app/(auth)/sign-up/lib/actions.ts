@@ -5,7 +5,7 @@ export interface ActionResult {
   errorDesc: string[] | null;
 }
 import { userSchema } from "./validation";
-import { hash } from "@node-rs/bcrypt";
+import bcrypt from "bcryptjs";
 
 import { redirect } from "next/navigation";
 import prisma from "../../../../../lib/prisma";
@@ -30,7 +30,7 @@ export async function signUpUser(
     };
   }
 
-  const hashingPassword = await hash(validate.data.password, 10);
+  const hashingPassword = await bcrypt.hash(validate.data.password, 10);
   await prisma.user.create({
     data: {
       email: validate.data.email,
