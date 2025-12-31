@@ -22,29 +22,13 @@ export function WebVitals() {
       });
     }
 
-    // Send to analytics in production
-    if (process.env.NODE_ENV === "production") {
-      // You can send to your analytics service here
-      // Example: Google Analytics, Vercel Analytics, custom endpoint
-
-      // For Vercel Analytics (if using)
-      // window.va?.track(metric.name, { value: metric.value });
-
-      // For custom endpoint
-      const body = JSON.stringify({
-        name: metric.name,
-        value: metric.value,
-        rating: metric.rating,
-        id: metric.id,
-        page: window.location.pathname,
-        timestamp: Date.now(),
-      });
-
-      // Use sendBeacon for reliable delivery
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon("/api/analytics/vitals", body);
-      }
-    }
+    // In production, Web Vitals can be sent to analytics services
+    // Vercel Analytics automatically collects these if you have it enabled
+    // For custom analytics, add your tracking code here
+    // Example: 
+    // if (process.env.NODE_ENV === "production" && window.va) {
+    //   window.va.track(metric.name, { value: metric.value });
+    // }
   });
 
   return null;
