@@ -6,7 +6,7 @@ export interface ActionResult {
 }
 import { userSchema } from "../../sign-up/lib/validation";
 
-import bcrypt from "bcrypt";
+import { compare } from "@node-rs/bcrypt";
 import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -48,7 +48,7 @@ export async function SignInUser(
     };
   }
 
-  const validPassword = await bcrypt.compare(
+  const validPassword = await compare(
     validate.data.password,
     existingUser.password
   );

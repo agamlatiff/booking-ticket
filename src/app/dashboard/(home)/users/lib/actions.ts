@@ -3,7 +3,7 @@
 import prisma from "../../../../../../lib/prisma";
 import type { RoleUser } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import * as bcrypt from "bcrypt";
+import { hash } from "@node-rs/bcrypt";
 
 export async function getUserById(userId: string) {
   try {
@@ -108,7 +108,7 @@ export async function createUser(formData: FormData) {
       return { success: false, error: "Email already exists" };
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hash(password, 10);
 
     await prisma.user.create({
       data: {
