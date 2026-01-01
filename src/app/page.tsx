@@ -1,41 +1,18 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { NavbarAuth } from "@/components/ui/navbar-auth";
+import { Footer } from "@/components/ui/footer";
+import { auth } from "@/auth";
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const session = await auth();
+
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="border-b bg-white dark:bg-gray-900 sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">🦷</span>
-            <span className="font-bold text-xl text-teal-600 dark:text-teal-400">
-              Senyum Sejahtera
-            </span>
-          </div>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <Link href="#" className="hover:text-teal-600">Beranda</Link>
-            <Link href="#layanan" className="hover:text-teal-600">Layanan</Link>
-            <Link href="#dokter" className="hover:text-teal-600">Dokter</Link>
-            <Link href="/dashboard" className="hover:text-teal-600">Dashboard</Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Link href="/sign-in">
-              <Button variant="ghost" className="text-gray-600 hover:text-teal-600">
-                Masuk
-              </Button>
-            </Link>
-            <Link href="/booking">
-              <Button className="bg-teal-600 hover:bg-teal-700 text-white rounded-full px-6">
-                Booking Sekarang
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <NavbarAuth user={session?.user || null} />
 
-      {/* Hero Section */}
       <main className="flex-1">
+        {/* Hero Section */}
         <section className="relative py-20 lg:py-32 bg-gradient-to-br from-teal-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl">
@@ -55,13 +32,13 @@ export default function LandingPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/booking">
-                  <Button size="lg" className="bg-teal-600 hover:bg-teal-700 h-12 px-8 rounded-full text-lg w-full sm:w-auto">
+                  <Button size="lg" className="bg-teal-600 hover:bg-teal-700 h-12 px-8 rounded-full text-lg w-full sm:w-auto shadow-lg shadow-teal-600/20">
                     Buat Janji Temu
                   </Button>
                 </Link>
-                <Link href="/schedule">
+                <Link href="/#dokter">
                   <Button size="lg" variant="outline" className="h-12 px-8 rounded-full text-lg border-gray-300 hover:bg-gray-50 w-full sm:w-auto">
-                    Lihat Jadwal
+                    Lihat Dokter
                   </Button>
                 </Link>
               </div>
@@ -74,35 +51,67 @@ export default function LandingPage() {
         </section>
 
         {/* Services Highlight */}
-        <section id="layanan" className="py-20 bg-white dark:bg-gray-900">
+        <section id="layanan" className="py-24 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Layanan Unggulan</h2>
-              <p className="text-gray-500">Solusi lengkap untuk kesehatan gigi dan mulut Anda</p>
+              <p className="text-gray-500 max-w-2xl mx-auto">
+                Kami menyediakan layanan perawatan gigi komprehensif dengan standar medis tertinggi untuk memastikan kesehatan senyum Anda.
+              </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { icon: "🦷", title: "Pemeriksaan Rutin", desc: "Cek kesehatan gigi menyeluruh untuk pencegahan dini." },
-                { icon: "✨", title: "Pemutihan Gigi", desc: "Kembalikan cerah alami senyum Anda dengan aman." },
-                { icon: "🔧", title: "Kawat Gigi", desc: "Perbaiki struktur gigi untuk estetika dan fungsi optimal." },
+                {
+                  icon: "🦷",
+                  title: "Pemeriksaan & Scaling",
+                  desc: "Pembersihan karang gigi menyeluruh dan pemeriksaan rutin untuk mencegah masalah gigi.",
+                  link: "/booking?service=scaling"
+                },
+                {
+                  icon: "✨",
+                  title: "Estetika & Bleaching",
+                  desc: "Layanan pemutihan gigi dan veneer untuk senyum yang lebih cerah dan percaya diri.",
+                  link: "/booking?service=bleaching"
+                },
+                {
+                  icon: "🔧",
+                  title: "Kawat Gigi (Orthodonti)",
+                  desc: "Perbaikan struktur gigi yang tidak rapi dengan berbagai pilihan kawat gigi modern.",
+                  link: "/booking?service=ortho"
+                },
               ].map((service, i) => (
-                <div key={i} className="p-8 rounded-2xl bg-gray-50 dark:bg-gray-800 hover:-translate-y-1 transition-transform border border-gray-100 dark:border-gray-700">
-                  <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{service.title}</h3>
-                  <p className="text-gray-500 dark:text-gray-400">{service.desc}</p>
+                <div key={i} className="group p-8 rounded-2xl bg-gray-50 dark:bg-gray-800 hover:bg-white dark:hover:bg-gray-750 hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-100 dark:border-gray-700">
+                  <div className="text-4xl mb-6 bg-white dark:bg-gray-900 w-16 h-16 flex items-center justify-center rounded-2xl shadow-sm group-hover:scale-110 transition-transform">{service.icon}</div>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">{service.title}</h3>
+                  <p className="text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">{service.desc}</p>
+                  <Link href={service.link} className="text-teal-600 font-medium hover:text-teal-700 flex items-center gap-2 group-hover:gap-3 transition-all">
+                    Booking Layanan ini <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  </Link>
                 </div>
               ))}
             </div>
           </div>
         </section>
+
+        {/* CTA Section */}
+        <section className="py-20 bg-teal-600 text-white relative overflow-hidden">
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Siap untuk Senyum Lebih Segar?</h2>
+            <p className="text-teal-100 mb-8 max-w-2xl mx-auto text-lg">
+              Jangan tunda kesehatan gigi Anda. Jadwalkan konsultasi hari ini dan rasakan perbedaannya.
+            </p>
+            <Link href="/booking">
+              <Button size="lg" className="bg-white text-teal-600 hover:bg-gray-100 h-14 px-10 rounded-full text-lg font-bold shadow-xl">
+                Booking Sekarang
+              </Button>
+            </Link>
+          </div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+        </section>
       </main>
 
-      {/* Footer */}
-      <footer className="py-8 border-t bg-gray-50 dark:bg-gray-950">
-        <div className="container mx-auto px-4 text-center text-gray-500 text-sm">
-          <p>© {new Date().getFullYear()} Klinik Gigi Senyum Sejahtera. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
