@@ -41,10 +41,24 @@ Dokumen ini mendetailkan setiap halaman yang ada di aplikasi, berserta section d
 **Path:** `/sign-in`, `/sign-up` (src/app/(auth)/...)
 **Access:** Guest only
 
-- **Sign In / Sign Up Form**
-  - Input Email & Password (atau Google OAuth jika diaktifkan).
-  - Validasi form (Zod).
-  - Link to Switch (Daftar -> Masuk, dan sebaliknya).
+- **Sign In Page**
+
+  - **Hero Image Section (Kiri/Atas):** Ilustrasi/Foto klinik yang estetik. Quote "Start Your Smile Journey".
+  - **Form Section (Kanan/Bawah):**
+    - Judul "Masuk ke Akun Anda".
+    - Field Input: Email, Password.
+    - Tombol "Masuk".
+    - Tombol "Masuk dengan Google".
+    - Link "Lupa Password?".
+    - Link "Belum punya akun? Daftar".
+
+- **Sign Up Page**
+  - **Hero Image Section:** Visual yang konsisten dengan Sign In.
+  - **Form Section:**
+    - Judul "Buat Akun Baru".
+    - Field Input: Nama Lengkap, Email, Password.
+    - Tombol "Daftar".
+    - Link "Sudah punya akun? Masuk".
 
 ---
 
