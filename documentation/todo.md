@@ -260,27 +260,27 @@
 
 ---
 
-## Phase 7: WhatsApp Integration 📱
+## Phase 7: WhatsApp Integration 📱 ✅
 
-### 7.1 Fonnte Setup
+### 7.1 Fonnte Setup ✅
 
-- [ ] Configure API key di .env
-- [ ] Create sendWhatsApp helper function
-- [ ] Test dengan sandbox
+- [x] Configure API key di .env (FONNTE_TOKEN)
+- [x] Create sendWhatsApp helper function (`src/lib/whatsapp.ts`)
+- [x] Message formatters (confirmation, reminder, cancellation)
 
-### 7.2 Booking Confirmation
+### 7.2 Booking Confirmation ✅
 
-- [ ] Send setelah payment sukses (webhook)
-- [ ] Message template dengan booking details
-- [ ] Mark confirmationSent = true
+- [x] Send setelah payment sukses (in Midtrans webhook)
+- [x] Message template dengan booking details
+- [x] Mark confirmationSent = true
 
-### 7.3 H-1 Reminder
+### 7.3 H-1 Reminder ✅
 
-- [ ] Cron job setiap hari jam 10:00
-- [ ] Query bookings untuk besok
-- [ ] Filter yang belum dikirim reminder
-- [ ] Send reminder message
-- [ ] Mark reminderSent = true
+- [x] Cron job (`/api/cron/send-reminders`)
+- [x] Query bookings untuk besok
+- [x] Filter yang belum dikirim reminder
+- [x] Send reminder message
+- [x] Mark reminderSent = true
 
 ---
 

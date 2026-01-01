@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import crypto from "crypto";
+import { sendWhatsApp, formatBookingConfirmation } from "@/lib/whatsapp";
 
 // Midtrans webhook notification handler
 export async function POST(request: NextRequest) {
@@ -30,6 +31,10 @@ export async function POST(request: NextRequest) {
     // Find booking by code (order_id format: DENT-XXXXXX)
     const booking = await prisma.booking.findUnique({
       where: { code: order_id },
+      include: {
+        service: { select: { name: true, price: true } },
+        doctor: { select: { name: true } },
+      },
     });
 
     if (!booking) {
@@ -61,8 +66,29 @@ export async function POST(request: NextRequest) {
       if (newStatus === "PAID") {
         updateData.paidAt = new Date();
         updateData.dpPaid = booking.dpAmount;
+        updateData.confirmationSent = true;
 
-        // TODO: Send WhatsApp confirmation via Fonnte
+        // Send WhatsApp confirmation
+        const message = formatBookingConfirmation({
+          code: booking.code,
+          patientName: booking.patientName,
+          serviceName: booking.service.name,
+          doctorName: booking.doctor.name,
+          appointmentDate: booking.appointmentDate,
+          appointmentTime: booking.appointmentTime,
+          dpAmount: booking.dpAmount,
+          totalPrice: booking.service.price,
+        });
+
+        const result = await sendWhatsApp({
+          to: booking.patientPhone,
+          message,
+        });
+
+        if (!result.success) {
+          console.error(`Failed to send WhatsApp confirmation for ${order_id}:`, result.error);
+          updateData.confirmationSent = false;
+        }
       } else if (newStatus === "CANCELLED" || newStatus === "EXPIRED") {
         // Release slot
         await prisma.timeSlot.update({
@@ -92,3 +118,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
