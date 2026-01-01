@@ -18,11 +18,18 @@ Dokumen ini mendetailkan setiap halaman yang ada di aplikasi, berserta section d
   - Sub-headline/Description.
   - CTA Buttons: "Buat Janji Temu" (Primary), "Lihat Jadwal" (Secondary).
   - Visual: Decorative gradients/blobs.
-- **Features / Keunggulan Section (New)**
+- **Features / Keunggulan (Why Choose Us)**
   - Point-point keunggulan klinis: "Teknologi Modern", "Dokter Berpengalaman", "Higienis & Steril".
-- **Services Highlight Section**
+
+* **How It Works / Cara Booking Section (New)**
+  - Step 1: Pilih Layanan & Dokter.
+  - Step 2: Pilih Jadwal yang Cocok.
+  - Step 3: Isi Data & Konfirmasi.
+  - Step 4: Datang ke Klinik (E-Ticket).
+* **Services Highlight Section**
   - Grid 3 kartu layanan unggulan (Pemeriksaan, Estetika, Orthodonti).
   - Tiap kartu punya icon, judul, deskripsi, dan link langsung ke booking service tersebut.
+
 - **Doctors Preview Section (New)**
   - Tampilan singkat profil dokter-dokter unggulan.
   - Link "Lihat Semua Dokter".
