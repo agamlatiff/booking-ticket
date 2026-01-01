@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import type { User } from "lucia";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,74 +11,88 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, Ticket, User as UserIcon } from "lucide-react";
-import { logout } from "@/app/(home)/lib/actions";
+import { LogOut, Calendar, User as UserIcon, LayoutDashboard } from "lucide-react";
+import { signOutUser } from "@/app/(auth)/sign-in/lib/actions";
 
-import { Skeleton } from "@/components/ui/skeleton";
+interface User {
+  id?: string;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  role?: string;
+}
 
 interface NavbarAuthProps {
   user: User | null;
   showAuth?: boolean;
-  isLoading?: boolean;
 }
 
-export function NavbarAuth({
-  user,
-  showAuth = true,
-  isLoading = false,
-}: NavbarAuthProps) {
+export function NavbarAuth({ user, showAuth = true }: NavbarAuthProps) {
   return (
     <nav className="w-full py-6 px-6 max-w-7xl mx-auto flex items-center justify-between z-50 relative">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2">
-        <div className="bg-primary dark:bg-accent text-white dark:text-primary p-1.5 rounded-lg">
-          <span className="material-symbols-outlined text-xl">flight_takeoff</span>
+        <div className="bg-teal-600 text-white p-2 rounded-xl">
+          <span className="text-xl">🦷</span>
         </div>
-        <span className="font-bold text-xl tracking-tight text-primary dark:text-white">
-          FlyHigher
-        </span>
+        <div className="hidden sm:block">
+          <span className="font-bold text-lg tracking-tight text-gray-900 dark:text-white">
+            Senyum Sejahtera
+          </span>
+          <span className="block text-[10px] text-teal-600 dark:text-teal-400 -mt-1">
+            Klinik Gigi
+          </span>
+        </div>
       </Link>
 
       {/* Navigation Links */}
       <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300">
-        <Link href="/available-flights" className="hover:text-primary dark:hover:text-accent transition">
-          Flights
+        <Link href="/#layanan" className="hover:text-teal-600 dark:hover:text-teal-400 transition">
+          Layanan
         </Link>
-        <Link href="/destinations" className="hover:text-primary dark:hover:text-accent transition">
-          Destinations
+        <Link href="/#dokter" className="hover:text-teal-600 dark:hover:text-teal-400 transition">
+          Dokter
         </Link>
-        <Link href="/partners" className="hover:text-primary dark:hover:text-accent transition">
-          Partners
+        <Link href="/booking" className="hover:text-teal-600 dark:hover:text-teal-400 transition">
+          Booking
         </Link>
-        <Link href="/support" className="hover:text-primary dark:hover:text-accent transition">
-          Support
-        </Link>
+        <a
+          href="https://wa.me/6281234567890"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-teal-600 dark:hover:text-teal-400 transition"
+        >
+          Kontak
+        </a>
       </div>
 
       {/* Auth Buttons & Theme Toggle */}
       <div className="flex items-center gap-3">
         {showAuth && (
           <>
-            {isLoading ? (
-              <div className="flex items-center gap-3">
-                <Skeleton className="w-24 h-5 hidden sm:block bg-white/20" />
-                <Skeleton className="w-10 h-10 rounded-full bg-white/20" />
-              </div>
-            ) : user ? (
+            {user ? (
               <div className="flex items-center gap-3">
                 <Link
-                  href="/my-tickets"
-                  className="hidden sm:flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition"
+                  href="/my-bookings"
+                  className="hidden sm:flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition"
                 >
-                  <Ticket className="w-4 h-4" />
-                  My Tickets
+                  <Calendar className="w-4 h-4" />
+                  Booking Saya
                 </Link>
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold cursor-pointer hover:bg-primary/20 transition-colors">
-                      {user.name.charAt(0).toUpperCase()}
-                    </div>
+                    {user.image ? (
+                      <img
+                        src={user.image}
+                        alt={user.name || "User"}
+                        className="w-10 h-10 rounded-full cursor-pointer hover:ring-2 hover:ring-teal-500 transition"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900 flex items-center justify-center text-teal-600 dark:text-teal-400 font-bold cursor-pointer hover:bg-teal-200 dark:hover:bg-teal-800 transition-colors">
+                        {user.name?.charAt(0).toUpperCase() || "U"}
+                      </div>
+                    )}
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">
                     <DropdownMenuLabel>
@@ -91,25 +104,35 @@ export function NavbarAuth({
                       </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
+
+                    {user.role === "ADMIN" && (
+                      <DropdownMenuItem asChild>
+                        <Link href="/dashboard" className="cursor-pointer">
+                          <LayoutDashboard className="mr-2 h-4 w-4" />
+                          <span>Dashboard Admin</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    )}
+
                     <DropdownMenuItem asChild>
-                      <Link href="/dashboard" className="cursor-pointer">
-                        <UserIcon className="mr-2 h-4 w-4" />
-                        <span>Profile & Settings</span>
+                      <Link href="/my-bookings" className="cursor-pointer">
+                        <Calendar className="mr-2 h-4 w-4" />
+                        <span>Booking Saya</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/my-tickets" className="cursor-pointer">
-                        <Ticket className="mr-2 h-4 w-4" />
-                        <span>My Tickets</span>
+                      <Link href="/complete-profile" className="cursor-pointer">
+                        <UserIcon className="mr-2 h-4 w-4" />
+                        <span>Edit Profil</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       className="text-red-600 focus:text-red-500 cursor-pointer"
-                      onClick={async () => await logout()}
+                      onClick={async () => await signOutUser()}
                     >
                       <LogOut className="mr-2 h-4 w-4" />
-                      <span>Log out</span>
+                      <span>Keluar</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -120,10 +143,10 @@ export function NavbarAuth({
                   href="/sign-in"
                   className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition hidden sm:block"
                 >
-                  Log In
+                  Masuk
                 </Link>
-                <Button asChild size="sm">
-                  <Link href="/sign-up">Get Started</Link>
+                <Button asChild size="sm" className="bg-teal-600 hover:bg-teal-700">
+                  <Link href="/booking">Booking</Link>
                 </Button>
               </>
             )}

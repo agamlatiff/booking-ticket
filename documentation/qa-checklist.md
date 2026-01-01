@@ -1,257 +1,304 @@
-# FlyHigher QA Test Checklist
+# Klinik Gigi Senyum Sejahtera - QA Checklist
 
-## Quick Test Commands
-
-```bash
-# Automated Tests
-npm run lint          # ESLint check
-npm test              # Unit tests (Vitest)              [x]
-npm run test:coverage # Coverage report
-npm run e2e           # E2E tests (Playwright)           [x]
-npm run e2e:headed    # E2E with browser visible
-
-# Build Check
-npm run build         # Production build                 [x]
-```
+> **The Quality Gate** — Checklist untuk memastikan sistem siap produksi.
 
 ---
 
-## 1. Authentication Tests
+## Pre-Launch Checklist
 
-### 1.1 Registration
+### 🔐 Authentication & Authorization
 
-| #   | Test Case               | Expected Result                    | Pass |
-| --- | ----------------------- | ---------------------------------- | ---- |
-| 1   | Navigate to `/sign-up`  | Registration form displayed        | [x]  |
-| 2   | Submit empty form       | Validation errors shown            | [ ]  |
-| 3   | Submit invalid email    | Email validation error             | [ ]  |
-| 4   | Submit weak password    | Password requirements shown        | [ ]  |
-| 5   | Submit valid form       | Account created, redirect to login | [ ]  |
-| 6   | Register existing email | Error "Email already exists"       | [ ]  |
+- [ ] Sign up form validasi (nama, email, WhatsApp, password)
+- [ ] Sign in dengan email & password
+- [ ] Sign out properly (clear session)
+- [ ] Password hashing dengan bcrypt
+- [ ] Role-based routing:
+  - [ ] PATIENT dapat akses `/booking/*`, `/my-bookings/*`
+  - [ ] DOCTOR dapat akses `/doctor/*`
+  - [ ] ADMIN dapat akses `/dashboard/*`
+- [ ] Protected routes redirect ke sign-in jika tidak auth
+- [ ] Session expiry handling
 
-### 1.2 Login
+### 📅 Booking Flow (Patient)
 
-| #   | Test Case                   | Expected Result             | Pass |
-| --- | --------------------------- | --------------------------- | ---- |
-| 1   | Navigate to `/sign-in`      | Login form displayed        | [x]  |
-| 2   | Submit empty form           | Validation errors shown     | [x]  |
-| 3   | Submit wrong credentials    | Error message shown         | [ ]  |
-| 4   | Submit valid credentials    | Logged in, redirect to home | [ ]  |
-| 5   | Click "Sign in with Google" | Google OAuth flow works     | [ ]  |
+#### Step 1: Pilih Layanan
 
-### 1.3 Logout
+- [ ] Services load dengan benar
+- [ ] Card menampilkan: nama, harga, DP, durasi
+- [ ] Click card → selected state visible
+- [ ] Button "Lanjut" enabled setelah select
+- [ ] State tersimpan saat pindah step
 
-| #   | Test Case                     | Expected Result                 | Pass |
-| --- | ----------------------------- | ------------------------------- | ---- |
-| 1   | Click logout button           | Session ended, redirect to home | [ ]  |
-| 2   | Try accessing protected route | Redirect to login               | [ ]  |
+#### Step 2: Pilih Dokter
+
+- [ ] Doctors load dengan benar
+- [ ] Card menampilkan: foto, nama, spesialisasi
+- [ ] Availability indicator akurat
+- [ ] Click card → selected state visible
+- [ ] Button "Lanjut" enabled setelah select
+- [ ] State tersimpan saat pindah step
+- [ ] Button "Kembali" berfungsi
+
+#### Step 3: Pilih Jadwal
+
+- [ ] Calendar menampilkan tanggal yang tersedia
+- [ ] Tanggal lampau disabled
+- [ ] Selected date → load time slots
+- [ ] Time slots menampilkan jam yang tersedia
+- [ ] Slot yang sudah dibooking tidak tampil/disabled
+- [ ] Click slot → selected state visible
+- [ ] Button "Lanjut ke Checkout" enabled setelah select
+- [ ] State tersimpan saat pindah step
+
+#### Checkout
+
+- [ ] Booking summary akurat (layanan, dokter, jadwal)
+- [ ] Form pasien: nama (prefilled jika login), WhatsApp, catatan
+- [ ] Validasi WhatsApp format Indonesia
+- [ ] Countdown timer 15 menit tampil
+- [ ] Midtrans Snap pop-up muncul
+- [ ] Loading state saat proses pembayaran
+- [ ] Error handling jika payment gagal
+
+#### Booking Success
+
+- [ ] Halaman tampil setelah payment sukses
+- [ ] Kode booking ditampilkan
+- [ ] QR code ter-generate
+- [ ] Detail booking lengkap (dokter, layanan, jadwal)
+- [ ] Alamat klinik tampil
+- [ ] Mobile-friendly untuk screenshot
+
+### 💳 Payment (Midtrans)
+
+- [ ] Token Midtrans ter-generate dengan benar
+- [ ] Snap pop-up menampilkan metode pembayaran
+- [ ] QRIS berfungsi
+- [ ] Bank Transfer berfungsi
+- [ ] E-Wallet berfungsi
+- [ ] Webhook menerima callback dengan benar
+- [ ] Signature verification pada webhook
+- [ ] Status booking update ke PAID setelah payment
+- [ ] Slot ter-mark sebagai unavailable
+
+### ⏰ Business Logic
+
+#### Payment Timeout
+
+- [ ] expiresAt di-set saat booking dibuat (now + 15 min)
+- [ ] Cron job expire bookings berjalan
+- [ ] Status berubah ke EXPIRED setelah timeout
+- [ ] Slot ter-release (isAvailable = true)
+- [ ] User tidak bisa bayar setelah expired
+
+#### Cancel Policy
+
+- [ ] Cancel button tampil jika > 24 jam
+- [ ] Cancel button hidden/disabled jika < 24 jam
+- [ ] Cancel action update status ke CANCELLED
+- [ ] Slot ter-release setelah cancel
+- [ ] Confirmation modal sebelum cancel
+
+#### Conflict Prevention
+
+- [ ] Tidak bisa book slot yang sama 2x
+- [ ] Error handling jika slot sudah diambil
+- [ ] Race condition prevention
+
+### 📱 WhatsApp Notifications
+
+- [ ] Fonnte API key configured
+- [ ] Booking confirmation terkirim setelah payment
+- [ ] Message template benar (kode, layanan, dokter, jadwal)
+- [ ] H-1 reminder terkirim
+- [ ] confirmationSent & reminderSent flags updated
+- [ ] Error logging jika gagal kirim
+
+### 👨‍⚕️ Doctor Portal
+
+- [ ] Doctor dashboard menampilkan jadwal hari ini
+- [ ] Schedule page menampilkan kalender personal
+- [ ] Booking details accessible
+- [ ] Patient history viewable
+
+### 📊 Admin Dashboard
+
+#### Dashboard Home
+
+- [ ] Stats cards akurat:
+  - [ ] Booking hari ini
+  - [ ] Pending payment
+  - [ ] DP revenue hari ini
+  - [ ] Total pasien
+- [ ] Today's schedule timeline
+- [ ] Recent bookings table
+- [ ] Quick actions berfungsi
+
+#### Schedule Page
+
+- [ ] Daily view default
+- [ ] Weekly view toggle
+- [ ] Filter by doctor berfungsi
+- [ ] Status color coding benar
+- [ ] Click slot → detail modal
+- [ ] Quick status update berfungsi
+
+#### Bookings Management
+
+- [ ] Data table load dengan benar
+- [ ] Pagination berfungsi
+- [ ] Search by nama/kode berfungsi
+- [ ] Filter by status berfungsi
+- [ ] Filter by doctor berfungsi
+- [ ] Filter by date range berfungsi
+- [ ] Status update dropdown berfungsi
+- [ ] Cancel booking action berfungsi
+- [ ] View detail berfungsi
+
+#### Doctors Management
+
+- [ ] List doctors tampil
+- [ ] Add doctor form berfungsi
+- [ ] Edit doctor berfungsi
+- [ ] Upload/change photo berfungsi
+- [ ] Toggle active/inactive berfungsi
+- [ ] Schedule template management berfungsi
+- [ ] Blocked dates management berfungsi
+
+#### Services Management
+
+- [ ] List services tampil
+- [ ] Add service form berfungsi
+- [ ] Edit service berfungsi
+- [ ] Price, DP, duration editable
+- [ ] Toggle active/inactive berfungsi
+- [ ] Reorder berfungsi (optional)
+
+#### Patients Database
+
+- [ ] Patient list tampil
+- [ ] Search berfungsi
+- [ ] Booking history per patient
+- [ ] WhatsApp number tampil
+
+#### Reports
+
+- [ ] DP revenue chart tampil
+- [ ] Bookings per service chart tampil
+- [ ] Bookings per doctor chart tampil
+- [ ] Date range filter berfungsi
+
+#### Settings
+
+- [ ] Clinic info editable
+- [ ] Payment timeout configurable
+- [ ] Reminder hours configurable
+- [ ] Save settings berfungsi
+
+### 🎨 UI/UX
+
+- [ ] Teal & White color scheme applied
+- [ ] Consistent typography
+- [ ] Loading states pada semua async operations
+- [ ] Error states dengan message yang jelas
+- [ ] Empty states dengan helpful message
+- [ ] Toast notifications untuk actions
+- [ ] Modal confirmations untuk destructive actions
+
+### 📱 Responsive Design
+
+- [ ] Landing page responsive (mobile, tablet, desktop)
+- [ ] Booking flow usable on mobile
+- [ ] Checkout form usable on mobile
+- [ ] E-Ticket mobile-friendly (screenshot-able)
+- [ ] Admin dashboard usable on tablet
+- [ ] Touch targets minimal 44x44px
+
+### ⚡ Performance
+
+- [ ] Lighthouse Performance score > 90
+- [ ] Lighthouse Accessibility score > 90
+- [ ] Lighthouse Best Practices score > 90
+- [ ] Lighthouse SEO score > 90
+- [ ] First Contentful Paint < 1.5s
+- [ ] Time to Interactive < 3s
+- [ ] Images optimized (Next.js Image)
+- [ ] Database queries optimized (no N+1)
+
+### 🔒 Security
+
+- [ ] All inputs validated (Zod)
+- [ ] SQL injection prevented (Prisma)
+- [ ] XSS prevented (React default)
+- [ ] CSRF protection (SameSite cookies)
+- [ ] Rate limiting on booking API
+- [ ] Midtrans webhook signature verified
+- [ ] Sensitive data not exposed to client
+- [ ] Environment variables secured
+
+### 🧪 Testing
+
+#### Unit Tests
+
+- [ ] Booking creation logic
+- [ ] Schedule generation logic
+- [ ] Cancellation policy logic
+- [ ] Payment timeout logic
+- [ ] Utility functions
+
+#### E2E Tests
+
+- [ ] Complete booking flow (guest)
+- [ ] Complete booking flow (logged in)
+- [ ] Cancel booking flow
+- [ ] Admin: create doctor
+- [ ] Admin: create service
+- [ ] Admin: update booking status
+- [ ] Doctor: view schedule
+
+### 📝 Documentation
+
+- [ ] README.md updated
+- [ ] .env.example updated
+- [ ] API documentation complete
+- [ ] Admin user guide (basic)
+
+### 🚀 Deployment
+
+- [ ] Production database setup
+- [ ] Vercel project created
+- [ ] Environment variables configured
+- [ ] Midtrans production credentials
+- [ ] Fonnte production credentials
+- [ ] Cron jobs configured
+- [ ] Domain configured (optional)
+- [ ] SSL active
 
 ---
 
-## 2. Homepage & Navigation
+## Post-Launch Monitoring
 
-| #   | Test Case              | Expected Result           | Pass |
-| --- | ---------------------- | ------------------------- | ---- |
-| 1   | Load homepage `/`      | Hero section visible      | [x]  |
-| 2   | Toggle dark mode       | Theme switches correctly  | [x]  |
-| 3   | Click navigation links | Navigate to correct pages | [x]  |
-| 4   | View on mobile (375px) | Responsive layout works   | [ ]  |
-| 5   | View on tablet (768px) | Responsive layout works   | [ ]  |
+### Week 1
 
----
+- [ ] Monitor error logs
+- [ ] Check payment success rate
+- [ ] Verify WhatsApp delivery
+- [ ] Check no-show rate
+- [ ] Gather user feedback
 
-## 3. Flight Search & Browsing
+### Month 1
 
-### 3.1 Available Flights Page
-
-| #   | Test Case                        | Expected Result        | Pass |
-| --- | -------------------------------- | ---------------------- | ---- |
-| 1   | Navigate to `/available-flights` | Flight list displayed  | [x]  |
-| 2   | Flights show departure/arrival   | Route info visible     | [ ]  |
-| 3   | Flights show price               | Price in Rupiah format | [ ]  |
-| 4   | Flights show airline/plane       | Plane info visible     | [ ]  |
-| 5   | Pagination works                 | Navigate between pages | [ ]  |
-
-### 3.2 Flight Filtering
-
-| #   | Test Case                  | Expected Result            | Pass |
-| --- | -------------------------- | -------------------------- | ---- |
-| 1   | Filter by departure city   | Results filtered correctly | [ ]  |
-| 2   | Filter by destination city | Results filtered correctly | [ ]  |
-| 3   | Filter by date             | Results filtered correctly | [ ]  |
-| 4   | Clear filters              | All flights shown          | [ ]  |
+- [ ] Analyze booking patterns
+- [ ] Check DP collection rate
+- [ ] Review admin efficiency
+- [ ] Plan feature improvements
 
 ---
 
-## 4. Seat Selection
+## Known Issues / TODO
 
-### 4.1 Seat Map
+_List any known issues or pending improvements here_
 
-| #   | Test Case                       | Expected Result                   | Pass |
-| --- | ------------------------------- | --------------------------------- | ---- |
-| 1   | Navigate to `/choose-seat/[id]` | Seat map displayed                | [x]  |
-| 2   | Flight info shown               | Departure/arrival/date visible    | [ ]  |
-| 3   | Seat legend displayed           | Available/Occupied/Legroom legend | [ ]  |
-| 4   | Class toggle works              | Economy/Business/First toggle     | [ ]  |
-
-### 4.2 Seat Selection
-
-| #   | Test Case             | Expected Result                | Pass |
-| --- | --------------------- | ------------------------------ | ---- |
-| 1   | Click available seat  | Seat selected (highlighted)    | [ ]  |
-| 2   | Click occupied seat   | Cannot select                  | [ ]  |
-| 3   | Seat tooltip on hover | Class/position/price shown     | [ ]  |
-| 4   | Summary updates       | Selected seat shown in summary | [ ]  |
-
-### 4.3 Quick Select
-
-| #   | Test Case              | Expected Result               | Pass |
-| --- | ---------------------- | ----------------------------- | ---- |
-| 1   | Click "Best Available" | First available seat selected | [ ]  |
-| 2   | Click "Window"         | Window seat selected          | [ ]  |
-| 3   | Click "Aisle"          | Aisle seat selected           | [ ]  |
-
-### 4.4 Seat Comparison
-
-| #   | Test Case                  | Expected Result        | Pass |
-| --- | -------------------------- | ---------------------- | ---- |
-| 1   | Long press seat (mobile)   | Seat added to compare  | [ ]  |
-| 2   | Right-click seat (desktop) | Seat added to compare  | [ ]  |
-| 3   | Compare panel shows        | Up to 3 seats compared | [ ]  |
-| 4   | Click "Select" in compare  | Seat selected          | [ ]  |
-| 5   | Click "Clear All"          | Compare panel cleared  | [ ]  |
-
----
-
-## 5. Checkout & Payment
-
-### 5.1 Checkout Page
-
-| #   | Test Case               | Expected Result           | Pass |
-| --- | ----------------------- | ------------------------- | ---- |
-| 1   | Navigate to `/checkout` | Checkout page displayed   | [ ]  |
-| 2   | Booking summary shown   | Flight/seat/price visible | [ ]  |
-| 3   | Payment methods shown   | Credit Card/E-Wallet/QRIS | [ ]  |
-| 4   | User not logged in      | Redirect to login         | [ ]  |
-
-### 5.2 Payment (Midtrans)
-
-| #   | Test Case          | Expected Result                | Pass |
-| --- | ------------------ | ------------------------------ | ---- |
-| 1   | Click "Pay" button | Midtrans popup opens           | [ ]  |
-| 2   | Complete payment   | Redirect to success page       | [ ]  |
-| 3   | Cancel payment     | Popup closes, stay on checkout | [ ]  |
-| 4   | Payment fails      | Error message shown            | [ ]  |
-
----
-
-## 6. My Tickets
-
-| #   | Test Case                 | Expected Result           | Pass |
-| --- | ------------------------- | ------------------------- | ---- |
-| 1   | Navigate to `/my-tickets` | Ticket list displayed     | [ ]  |
-| 2   | Tickets show status       | PENDING/SUCCESS/CANCELED  | [ ]  |
-| 3   | Click ticket              | Navigate to ticket detail | [ ]  |
-| 4   | Ticket detail shows QR    | QR code visible           | [ ]  |
-| 5   | Download/print ticket     | Download works            | [ ]  |
-
----
-
-## 7. Admin Dashboard
-
-### 7.1 Dashboard Access
-
-| #   | Test Case          | Expected Result        | Pass |
-| --- | ------------------ | ---------------------- | ---- |
-| 1   | Login as admin     | Access to `/dashboard` | [ ]  |
-| 2   | Login as customer  | No access to dashboard | [ ]  |
-| 3   | Dashboard overview | Stats cards visible    | [ ]  |
-
-### 7.2 Flights Management
-
-| #   | Test Case         | Expected Result              | Pass |
-| --- | ----------------- | ---------------------------- | ---- |
-| 1   | View flights list | All flights displayed        | [ ]  |
-| 2   | Search flights    | Filter by route/date         | [ ]  |
-| 3   | Create new flight | Form submits, flight created | [ ]  |
-| 4   | Edit flight       | Changes saved                | [ ]  |
-| 5   | Delete flight     | Flight removed               | [ ]  |
-
-### 7.3 Airplanes Management
-
-| #   | Test Case           | Expected Result             | Pass |
-| --- | ------------------- | --------------------------- | ---- |
-| 1   | View airplanes list | All planes displayed        | [ ]  |
-| 2   | Create new airplane | Form submits, plane created | [ ]  |
-| 3   | Edit airplane       | Changes saved               | [ ]  |
-| 4   | Delete airplane     | Plane removed               | [ ]  |
-
-### 7.4 Users Management
-
-| #   | Test Case         | Expected Result      | Pass |
-| --- | ----------------- | -------------------- | ---- |
-| 1   | View users list   | All users displayed  | [ ]  |
-| 2   | Search users      | Filter by name/email | [ ]  |
-| 3   | View user details | User info displayed  | [ ]  |
-
-### 7.5 Tickets Management
-
-| #   | Test Case           | Expected Result          | Pass |
-| --- | ------------------- | ------------------------ | ---- |
-| 1   | View tickets list   | All tickets displayed    | [ ]  |
-| 2   | Filter by status    | PENDING/SUCCESS/CANCELED | [ ]  |
-| 3   | View ticket details | Full booking info        | [ ]  |
-
----
-
-## 8. Performance & Accessibility
-
-| #   | Test Case                  | Expected Result         | Pass |
-| --- | -------------------------- | ----------------------- | ---- |
-| 1   | Lighthouse score (mobile)  | Score > 70              | [ ]  |
-| 2   | Lighthouse score (desktop) | Score > 80              | [ ]  |
-| 3   | Web Vitals (LCP)           | < 2.5s                  | [ ]  |
-| 4   | Web Vitals (FID)           | < 100ms                 | [ ]  |
-| 5   | Web Vitals (CLS)           | < 0.1                   | [ ]  |
-| 6   | Keyboard navigation        | All elements accessible | [ ]  |
-| 7   | Screen reader              | Proper ARIA labels      | [ ]  |
-
----
-
-## 9. Cross-Browser Testing
-
-| Browser | Desktop | Mobile | Pass |
-| ------- | ------- | ------ | ---- |
-| Chrome  | [ ]     | [ ]    | [ ]  |
-| Firefox | [ ]     | [ ]    | [ ]  |
-| Safari  | [ ]     | [ ]    | [ ]  |
-| Edge    | [ ]     | [ ]    | [ ]  |
-
----
-
-## 10. Error Handling
-
-| #   | Test Case       | Expected Result      | Pass |
-| --- | --------------- | -------------------- | ---- |
-| 1   | Invalid URL     | 404 page displayed   | [ ]  |
-| 2   | Server error    | 500 error page       | [ ]  |
-| 3   | Network offline | Offline indicator    | [ ]  |
-| 4   | Form validation | Clear error messages | [ ]  |
-| 5   | API errors      | Toast notification   | [ ]  |
-
----
-
-## Test Execution Log
-
-| Date | Tester | Version | Tests Passed | Tests Failed | Notes |
-| ---- | ------ | ------- | ------------ | ------------ | ----- |
-|      |        |         |              |              |       |
-
----
-
-## Environment Info
-
-- **URL**: http://localhost:3000
-- **Node**: v18+
-- **Browser**: Chrome latest
-- **Test Data**: `npx prisma db seed`
+1. ...
+2. ...
+3. ...

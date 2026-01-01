@@ -2,152 +2,137 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-white">
-      {/* CTA Section */}
-      <div className="border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="max-w-lg text-center md:text-left">
-            <h2 className="text-3xl font-bold mb-2">
-              Ready for takeoff with <span className="text-accent">FlyHigher</span>?
-            </h2>
-          </div>
-          <div className="flex gap-4">
-            <Link
-              href="/available-flights"
-              className="bg-white/10 text-white border border-white/20 px-6 py-3 rounded-full text-sm font-bold transition hover:bg-white/20"
-            >
-              View Deals
-            </Link>
-            <Link
-              href="/sign-up"
-              className="bg-accent text-primary px-6 py-3 rounded-full text-sm font-bold transition hover:bg-sky-400 shadow-[0_0_20px_rgba(56,189,248,0.3)]"
-            >
-              Sign up Free
-            </Link>
-          </div>
-        </div>
-      </div>
-
+    <footer className="bg-gray-900 text-white">
       {/* Footer Links */}
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Brand */}
-        <div className="col-span-1">
+        <div className="col-span-1 md:col-span-2">
           <div className="flex items-center gap-2 mb-6">
-            <div className="bg-accent text-primary p-1 rounded-md">
-              <span className="material-symbols-outlined text-lg">flight_takeoff</span>
+            <div className="bg-teal-600 text-white p-2 rounded-xl">
+              <span className="text-xl">🦷</span>
             </div>
-            <span className="font-bold text-lg">FlyHigher</span>
+            <div>
+              <span className="font-bold text-lg">Senyum Sejahtera</span>
+              <span className="block text-xs text-teal-400">Klinik Gigi</span>
+            </div>
           </div>
+          <p className="text-gray-400 text-sm max-w-sm mb-6">
+            Klinik gigi terpercaya dengan dokter berpengalaman dan teknologi modern.
+            Melayani dengan sepenuh hati untuk senyum yang lebih sehat.
+          </p>
           <div className="flex flex-col gap-3 text-sm text-gray-400">
             <a
               className="hover:text-white transition flex items-center gap-2"
-              href="mailto:booking@flyhigher.com"
+              href="https://wa.me/6281234567890"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <span className="material-symbols-outlined text-sm">email</span>
-              booking@flyhigher.com
+              <span>💬</span>
+              0812-3456-7890 (WhatsApp)
             </a>
             <a
               className="hover:text-white transition flex items-center gap-2"
-              href="tel:+016075550123"
+              href="mailto:info@senyumsejahtera.com"
             >
-              <span className="material-symbols-outlined text-sm">phone</span>
-              +01 607 555-0123
+              <span>✉️</span>
+              info@senyumsejahtera.com
             </a>
+            <div className="flex items-start gap-2">
+              <span>📍</span>
+              <span>
+                Jl. Kesehatan No. 123<br />
+                Jakarta Selatan, 12345
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Explore */}
+        {/* Layanan */}
         <div>
           <h4 className="font-bold text-white mb-6 text-sm uppercase tracking-wider">
-            Explore
+            Layanan
           </h4>
           <ul className="space-y-4 text-sm text-gray-400">
             <li>
-              <Link href="/destinations" className="hover:text-accent transition">
-                Destinations
+              <Link href="/booking?service=scaling-polishing" className="hover:text-teal-400 transition">
+                Scaling & Polishing
               </Link>
             </li>
             <li>
-              <Link href="/available-flights" className="hover:text-accent transition">
-                Airlines
+              <Link href="/booking?service=cabut-gigi" className="hover:text-teal-400 transition">
+                Cabut Gigi
               </Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-accent transition">
-                Hotels
+              <Link href="/booking?service=tambal-gigi" className="hover:text-teal-400 transition">
+                Tambal Gigi
               </Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-accent transition">
-                Car Rentals
+              <Link href="/booking?service=veneer-gigi" className="hover:text-teal-400 transition">
+                Veneer Gigi
+              </Link>
+            </li>
+            <li>
+              <Link href="/booking?service=behel-kawat" className="hover:text-teal-400 transition">
+                Behel / Kawat Gigi
               </Link>
             </li>
           </ul>
         </div>
 
-        {/* Support */}
+        {/* Informasi */}
         <div>
           <h4 className="font-bold text-white mb-6 text-sm uppercase tracking-wider">
-            Support
+            Informasi
           </h4>
           <ul className="space-y-4 text-sm text-gray-400">
             <li>
-              <Link href="/support" className="hover:text-accent transition">
-                Help Center
+              <Link href="/booking" className="hover:text-teal-400 transition">
+                Booking Online
               </Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-accent transition">
-                Cancellations
+              <Link href="/#dokter" className="hover:text-teal-400 transition">
+                Dokter Kami
               </Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-accent transition">
-                Baggage Rules
+              <Link href="/#layanan" className="hover:text-teal-400 transition">
+                Daftar Layanan
               </Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-accent transition">
-                Travel Safety
-              </Link>
+              <a href="https://wa.me/6281234567890" className="hover:text-teal-400 transition">
+                Hubungi Kami
+              </a>
             </li>
           </ul>
-        </div>
 
-        {/* Company */}
-        <div>
-          <h4 className="font-bold text-white mb-6 text-sm uppercase tracking-wider">
-            Company
+          {/* Jam Operasional */}
+          <h4 className="font-bold text-white mt-8 mb-4 text-sm uppercase tracking-wider">
+            Jam Buka
           </h4>
-          <ul className="space-y-4 text-sm text-gray-400">
-            <li>
-              <Link href="/about" className="hover:text-accent transition">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link href="/" className="hover:text-accent transition">
-                Careers
-              </Link>
-            </li>
-            <li>
-              <Link href="/" className="hover:text-accent transition">
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link href="/" className="hover:text-accent transition">
-                Press
-              </Link>
-            </li>
-          </ul>
+          <div className="text-sm text-gray-400 space-y-1">
+            <p>Senin - Jumat: 09:00 - 21:00</p>
+            <p>Sabtu: 09:00 - 17:00</p>
+            <p className="text-gray-500">Minggu: Libur</p>
+          </div>
         </div>
       </div>
 
       {/* Copyright */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-6 text-center text-sm text-gray-400">
-          © 2024 FlyHigher. All rights reserved.
+        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+          <p>© 2024 Klinik Gigi Senyum Sejahtera. Hak cipta dilindungi.</p>
+          <div className="flex gap-6">
+            <Link href="/privacy" className="hover:text-white transition">
+              Kebijakan Privasi
+            </Link>
+            <Link href="/terms" className="hover:text-white transition">
+              Syarat & Ketentuan
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

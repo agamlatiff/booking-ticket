@@ -1,4 +1,4 @@
-import { getUser } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { NavbarAuth } from "./navbar-auth";
 
 interface NavbarProps {
@@ -6,7 +6,7 @@ interface NavbarProps {
 }
 
 export async function Navbar({ showAuth = true }: NavbarProps) {
-  const { user } = await getUser();
+  const session = await auth();
 
-  return <NavbarAuth user={user} showAuth={showAuth} />;
+  return <NavbarAuth user={session?.user ?? null} showAuth={showAuth} />;
 }

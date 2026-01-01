@@ -1,350 +1,394 @@
-import bcrypt from "bcryptjs";
-import { PrismaClient, TypeSeat, StatusTicket, RoleUser } from "@prisma/client";
+import { PrismaClient, RoleUser, DayOfWeek } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// ============================================
-// CONFIGURATION
-// ============================================
-const CLEAR_EXISTING_DATA = true; // Set to false to append data
+async function main() {
+  console.log("🌱 Starting seed...");
 
-// ============================================
-// HELPER FUNCTIONS
-// ============================================
-function randomInt(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+  // ============================================
+  // 1. Create Admin User
+  // ============================================
+  console.log("👤 Creating admin user...");
+  const admin = await prisma.user.upsert({
+    where: { email: "admin@klinik.com" },
+    update: {},
+    create: {
+      email: "admin@klinik.com",
+      name: "Admin Klinik",
+      role: RoleUser.ADMIN,
+      phone: "081234567890",
+    },
+  });
+  console.log(`   ✅ Admin created: ${admin.email}`);
 
-function randomElement<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
+  // ============================================
+  // 2. Create Doctors
+  // ============================================
+  console.log("👨‍⚕️ Creating doctors...");
 
-function generateTicketCode(): string {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let code = "FH-";
-  for (let i = 0; i < 6; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return code;
-}
+  const doctors = await Promise.all([
+    prisma.doctor.upsert({
+      where: { id: "doctor-1" },
+      update: {},
+      create: {
+        id: "doctor-1",
+        name: "drg. Handoko, Sp.KG",
+        speciality: "Spesialis Konservasi Gigi",
+        bio: "Berpengalaman lebih dari 15 tahun dalam perawatan gigi konservatif dan estetik.",
+        image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400",
+        phone: "081234567891",
+        isActive: true,
+      },
+    }),
+    prisma.doctor.upsert({
+      where: { id: "doctor-2" },
+      update: {},
+      create: {
+        id: "doctor-2",
+        name: "drg. Sinta Dewi",
+        speciality: "Dokter Gigi Umum",
+        bio: "Fokus pada perawatan gigi anak dan dewasa dengan pendekatan yang ramah.",
+        image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400",
+        phone: "081234567892",
+        isActive: true,
+      },
+    }),
+    prisma.doctor.upsert({
+      where: { id: "doctor-3" },
+      update: {},
+      create: {
+        id: "doctor-3",
+        name: "drg. Budi Santoso, Sp.Ort",
+        speciality: "Spesialis Ortodonti",
+        bio: "Ahli dalam pemasangan behel dan koreksi susunan gigi.",
+        image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400",
+        phone: "081234567893",
+        isActive: true,
+      },
+    }),
+  ]);
+  console.log(`   ✅ Created ${doctors.length} doctors`);
 
-function addDays(date: Date, days: number): Date {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-}
+  // ============================================
+  // 3. Create Services
+  // ============================================
+  console.log("🦷 Creating services...");
 
-function addHours(date: Date, hours: number): Date {
-  const result = new Date(date);
-  result.setHours(result.getHours() + hours);
-  return result;
-}
+  const services = await Promise.all([
+    prisma.service.upsert({
+      where: { slug: "scaling-polishing" },
+      update: {},
+      create: {
+        name: "Scaling & Polishing",
+        slug: "scaling-polishing",
+        description: "Pembersihan karang gigi dan pemolesan untuk gigi yang lebih bersih dan sehat.",
+        price: 350000,
+        dpAmount: 100000,
+        duration: 60,
+        order: 1,
+        isActive: true,
+      },
+    }),
+    prisma.service.upsert({
+      where: { slug: "cabut-gigi" },
+      update: {},
+      create: {
+        name: "Cabut Gigi",
+        slug: "cabut-gigi",
+        description: "Pencabutan gigi dengan teknik modern dan minim rasa sakit.",
+        price: 500000,
+        dpAmount: 150000,
+        duration: 60,
+        order: 2,
+        isActive: true,
+      },
+    }),
+    prisma.service.upsert({
+      where: { slug: "tambal-gigi" },
+      update: {},
+      create: {
+        name: "Tambal Gigi",
+        slug: "tambal-gigi",
+        description: "Penambalan gigi berlubang dengan bahan berkualitas tinggi.",
+        price: 300000,
+        dpAmount: 100000,
+        duration: 60,
+        order: 3,
+        isActive: true,
+      },
+    }),
+    prisma.service.upsert({
+      where: { slug: "veneer-gigi" },
+      update: {},
+      create: {
+        name: "Veneer Gigi",
+        slug: "veneer-gigi",
+        description: "Pelapisan gigi untuk tampilan lebih putih dan rapi.",
+        price: 3500000,
+        dpAmount: 1000000,
+        duration: 120,
+        order: 4,
+        isActive: true,
+      },
+    }),
+    prisma.service.upsert({
+      where: { slug: "behel-kawat" },
+      update: {},
+      create: {
+        name: "Pasang Behel / Kawat Gigi",
+        slug: "behel-kawat",
+        description: "Pemasangan behel untuk merapikan susunan gigi.",
+        price: 8000000,
+        dpAmount: 2000000,
+        duration: 120,
+        order: 5,
+        isActive: true,
+      },
+    }),
+    prisma.service.upsert({
+      where: { slug: "bleaching" },
+      update: {},
+      create: {
+        name: "Bleaching / Pemutihan Gigi",
+        slug: "bleaching",
+        description: "Pemutihan gigi profesional untuk senyum yang lebih cerah.",
+        price: 2500000,
+        dpAmount: 750000,
+        duration: 90,
+        order: 6,
+        isActive: true,
+      },
+    }),
+    prisma.service.upsert({
+      where: { slug: "konsultasi" },
+      update: {},
+      create: {
+        name: "Konsultasi",
+        slug: "konsultasi",
+        description: "Konsultasi dan pemeriksaan kesehatan gigi secara menyeluruh.",
+        price: 150000,
+        dpAmount: 50000,
+        duration: 30,
+        order: 0,
+        isActive: true,
+      },
+    }),
+  ]);
+  console.log(`   ✅ Created ${services.length} services`);
 
-// ============================================
-// SEED DATA
-// ============================================
+  // ============================================
+  // 4. Create Schedule Templates
+  // ============================================
+  console.log("📅 Creating schedule templates...");
 
-// Airplanes data - using external URLs for images
-const airplanesData = [
-  { code: "GA-738", name: "Boeing 737-800", image: "https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=400" },
-  { code: "GA-320", name: "Airbus A320neo", image: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=400" },
-  { code: "SJ-195", name: "Boeing 737 MAX 8", image: "https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?w=400" },
-  { code: "QG-320", name: "Airbus A320-200", image: "https://images.unsplash.com/photo-1583202075824-0229f7368fa9?w=400" },
-  { code: "JT-739", name: "Boeing 737-900ER", image: "https://images.unsplash.com/photo-1569629743817-70d8db6c323b?w=400" },
-  { code: "ID-333", name: "Airbus A330-300", image: "https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=400" },
-  { code: "GA-773", name: "Boeing 777-300ER", image: "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?w=400" },
-  { code: "SQ-350", name: "Airbus A350-900", image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400" },
-];
-
-// Indonesian domestic routes
-const routes = [
-  { from: "Jakarta", fromCode: "CGK", to: "Bali", toCode: "DPS", duration: 2 },
-  { from: "Jakarta", fromCode: "CGK", to: "Surabaya", toCode: "SUB", duration: 1.5 },
-  { from: "Jakarta", fromCode: "CGK", to: "Yogyakarta", toCode: "JOG", duration: 1 },
-  { from: "Jakarta", fromCode: "CGK", to: "Makassar", toCode: "UPG", duration: 2.5 },
-  { from: "Jakarta", fromCode: "CGK", to: "Medan", toCode: "KNO", duration: 2 },
-  { from: "Surabaya", fromCode: "SUB", to: "Bali", toCode: "DPS", duration: 0.5 },
-  { from: "Bali", fromCode: "DPS", to: "Lombok", toCode: "LOP", duration: 0.5 },
-  { from: "Jakarta", fromCode: "CGK", to: "Bandung", toCode: "BDO", duration: 0.75 },
-  { from: "Jakarta", fromCode: "CGK", to: "Semarang", toCode: "SRG", duration: 1 },
-  { from: "Surabaya", fromCode: "SUB", to: "Makassar", toCode: "UPG", duration: 1.5 },
-];
-
-// Customer names
-const customerNames = [
-  "Budi Santoso",
-  "Siti Rahayu",
-  "Ahmad Hidayat",
-  "Dewi Lestari",
-  "Rizky Pratama",
-  "Putri Wulandari",
-  "Agus Setiawan",
-  "Maya Sari",
-  "Doni Kurniawan",
-  "Ratna Dewi",
-  "Eko Prasetyo",
-  "Linda Permata",
-  "Hendra Wijaya",
-  "Novi Anggraini",
-  "Fajar Nugroho",
-];
-
-// ============================================
-// SEEDER FUNCTIONS
-// ============================================
-
-async function clearDatabase() {
-  console.log("🗑️  Clearing existing data...");
-  await prisma.ticket.deleteMany();
-  await prisma.flightSeat.deleteMany();
-  await prisma.flight.deleteMany();
-  await prisma.airplane.deleteMany();
-  await prisma.session.deleteMany();
-  await prisma.user.deleteMany();
-  console.log("✅ Database cleared");
-}
-
-async function seedUsers() {
-  console.log("\n👥 Seeding users...");
-  const password = bcrypt.hashSync("password123", 10);
-  const adminPassword = bcrypt.hashSync("admin123", 10);
-
-  // Admin users
-  const admins = [
-    { email: "admin@flyhigher.com", name: "Super Admin", role: RoleUser.ADMIN, password: adminPassword },
-    { email: "manager@flyhigher.com", name: "Flight Manager", role: RoleUser.ADMIN, password: adminPassword },
+  const weekdays = [
+    DayOfWeek.MONDAY,
+    DayOfWeek.TUESDAY,
+    DayOfWeek.WEDNESDAY,
+    DayOfWeek.THURSDAY,
+    DayOfWeek.FRIDAY,
   ];
 
-  // Customer users
-  const customers = customerNames.map((name, i) => ({
-    email: `${name.toLowerCase().replace(" ", ".")}@gmail.com`,
-    name,
-    role: RoleUser.CUSTOMER,
-    password,
-    passport: i % 3 === 0 ? `A${randomInt(10000000, 99999999)}` : null,
-  }));
-
-  const createdUsers = await prisma.user.createMany({
-    data: [...admins, ...customers],
+  // Doctor 1: Mon-Fri 09:00-17:00, Sat 09:00-14:00
+  for (const day of weekdays) {
+    await prisma.scheduleTemplate.upsert({
+      where: { doctorId_dayOfWeek: { doctorId: "doctor-1", dayOfWeek: day } },
+      update: {},
+      create: {
+        doctorId: "doctor-1",
+        dayOfWeek: day,
+        startTime: "09:00",
+        endTime: "17:00",
+        slotDuration: 60,
+        isActive: true,
+      },
+    });
+  }
+  await prisma.scheduleTemplate.upsert({
+    where: { doctorId_dayOfWeek: { doctorId: "doctor-1", dayOfWeek: DayOfWeek.SATURDAY } },
+    update: {},
+    create: {
+      doctorId: "doctor-1",
+      dayOfWeek: DayOfWeek.SATURDAY,
+      startTime: "09:00",
+      endTime: "14:00",
+      slotDuration: 60,
+      isActive: true,
+    },
   });
 
-  console.log(`✅ Created ${createdUsers.count} users`);
-  return prisma.user.findMany();
-}
+  // Doctor 2: Mon-Fri 10:00-18:00
+  for (const day of weekdays) {
+    await prisma.scheduleTemplate.upsert({
+      where: { doctorId_dayOfWeek: { doctorId: "doctor-2", dayOfWeek: day } },
+      update: {},
+      create: {
+        doctorId: "doctor-2",
+        dayOfWeek: day,
+        startTime: "10:00",
+        endTime: "18:00",
+        slotDuration: 60,
+        isActive: true,
+      },
+    });
+  }
 
-async function seedAirplanes() {
-  console.log("\n✈️  Seeding airplanes...");
+  // Doctor 3: Mon, Wed, Fri 09:00-17:00
+  const doctor3Days = [DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY];
+  for (const day of doctor3Days) {
+    await prisma.scheduleTemplate.upsert({
+      where: { doctorId_dayOfWeek: { doctorId: "doctor-3", dayOfWeek: day } },
+      update: {},
+      create: {
+        doctorId: "doctor-3",
+        dayOfWeek: day,
+        startTime: "09:00",
+        endTime: "17:00",
+        slotDuration: 60,
+        isActive: true,
+      },
+    });
+  }
 
-  const createdAirplanes = await prisma.airplane.createMany({
-    data: airplanesData,
-  });
+  console.log("   ✅ Created schedule templates for all doctors");
 
-  console.log(`✅ Created ${createdAirplanes.count} airplanes`);
-  return prisma.airplane.findMany();
-}
+  // ============================================
+  // 5. Generate Time Slots for Next 2 Weeks
+  // ============================================
+  console.log("⏰ Generating time slots for next 2 weeks...");
 
-async function seedFlights(airplanes: Awaited<ReturnType<typeof seedAirplanes>>) {
-  console.log("\n🛫 Seeding flights...");
-
-  const flights = [];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Generate 30 flights with varying dates
-  for (let i = 0; i < 30; i++) {
-    const route = randomElement(routes);
-    const airplane = randomElement(airplanes);
-    const dayOffset = randomInt(-7, 14); // Past week to 2 weeks ahead
-    const departureDate = addDays(today, dayOffset);
-    departureDate.setHours(randomInt(6, 22), randomInt(0, 59), 0, 0);
-    const arrivalDate = addHours(departureDate, route.duration);
-    const basePrice = randomInt(500000, 2500000);
+  const dayOfWeekMap: Record<number, DayOfWeek> = {
+    0: DayOfWeek.SUNDAY,
+    1: DayOfWeek.MONDAY,
+    2: DayOfWeek.TUESDAY,
+    3: DayOfWeek.WEDNESDAY,
+    4: DayOfWeek.THURSDAY,
+    5: DayOfWeek.FRIDAY,
+    6: DayOfWeek.SATURDAY,
+  };
 
-    const slug = `${route.fromCode.toLowerCase()}-${route.toCode.toLowerCase()}-${departureDate.toISOString().split("T")[0]}`;
-
-    flights.push({
-      slug: `${slug}-${i}`,
-      planeId: airplane.id,
-      departureCity: route.from,
-      departureCityCode: route.fromCode,
-      destinationCity: route.to,
-      destinationCityCode: route.toCode,
-      departureDate,
-      arrivalDate,
-      price: basePrice,
-    });
-  }
-
-  const createdFlights = await prisma.flight.createMany({
-    data: flights,
+  const templates = await prisma.scheduleTemplate.findMany({
+    where: { isActive: true },
   });
 
-  console.log(`✅ Created ${createdFlights.count} flights`);
-  return prisma.flight.findMany();
-}
+  let slotsCreated = 0;
 
-async function seedFlightSeats(flights: Awaited<ReturnType<typeof seedFlights>>) {
-  console.log("\n💺 Seeding flight seats...");
+  for (let dayOffset = 0; dayOffset < 14; dayOffset++) {
+    const date = new Date(today);
+    date.setDate(date.getDate() + dayOffset);
+    const dayOfWeek = dayOfWeekMap[date.getDay()];
 
-  const allSeats = [];
+    const dayTemplates = templates.filter((t) => t.dayOfWeek === dayOfWeek);
 
-  for (const flight of flights) {
-    // Generate seats per flight
-    // Economy: Rows 10-30, Seats A-F (126 seats)
-    // Business: Rows 4-9, Seats A-D (24 seats)
-    // First: Rows 1-3, Seats A-B (6 seats)
+    for (const template of dayTemplates) {
+      const [startHour, startMin] = template.startTime.split(":").map(Number);
+      const [endHour, endMin] = template.endTime.split(":").map(Number);
 
-    // First Class
-    for (let row = 1; row <= 3; row++) {
-      for (const seat of ["A", "B"]) {
-        allSeats.push({
-          flightId: flight.id,
-          seatNumber: `${row}${seat}`,
-          type: TypeSeat.FIRST,
-          isBooked: false,
+      let currentHour = startHour;
+      let currentMin = startMin;
+
+      while (
+        currentHour < endHour ||
+        (currentHour === endHour && currentMin < endMin)
+      ) {
+        const slotStartTime = `${String(currentHour).padStart(2, "0")}:${String(currentMin).padStart(2, "0")}`;
+
+        // Calculate end time
+        let slotEndHour = currentHour;
+        let slotEndMin = currentMin + template.slotDuration;
+        if (slotEndMin >= 60) {
+          slotEndHour += Math.floor(slotEndMin / 60);
+          slotEndMin = slotEndMin % 60;
+        }
+
+        // Don't create slot if it exceeds end time
+        if (
+          slotEndHour > endHour ||
+          (slotEndHour === endHour && slotEndMin > endMin)
+        ) {
+          break;
+        }
+
+        const slotEndTime = `${String(slotEndHour).padStart(2, "0")}:${String(slotEndMin).padStart(2, "0")}`;
+
+        await prisma.timeSlot.upsert({
+          where: {
+            doctorId_date_startTime: {
+              doctorId: template.doctorId,
+              date: date,
+              startTime: slotStartTime,
+            },
+          },
+          update: {},
+          create: {
+            doctorId: template.doctorId,
+            date: date,
+            startTime: slotStartTime,
+            endTime: slotEndTime,
+            isAvailable: true,
+          },
         });
+
+        slotsCreated++;
+
+        // Move to next slot
+        currentMin += template.slotDuration;
+        if (currentMin >= 60) {
+          currentHour += Math.floor(currentMin / 60);
+          currentMin = currentMin % 60;
+        }
       }
     }
-
-    // Business Class
-    for (let row = 4; row <= 9; row++) {
-      for (const seat of ["A", "B", "C", "D"]) {
-        allSeats.push({
-          flightId: flight.id,
-          seatNumber: `${row}${seat}`,
-          type: TypeSeat.BUSSINESS,
-          isBooked: false,
-        });
-      }
-    }
-
-    // Economy Class
-    for (let row = 10; row <= 30; row++) {
-      for (const seat of ["A", "B", "C", "D", "E", "F"]) {
-        allSeats.push({
-          flightId: flight.id,
-          seatNumber: `${row}${seat}`,
-          type: TypeSeat.ECONOMY,
-          isBooked: false,
-        });
-      }
-    }
   }
 
-  // Batch insert in chunks to avoid timeout
-  const chunkSize = 500;
-  for (let i = 0; i < allSeats.length; i += chunkSize) {
-    const chunk = allSeats.slice(i, i + chunkSize);
-    await prisma.flightSeat.createMany({ data: chunk });
-  }
+  console.log(`   ✅ Created ${slotsCreated} time slots`);
 
-  console.log(`✅ Created ${allSeats.length} flight seats`);
-  return prisma.flightSeat.findMany();
-}
+  // ============================================
+  // 6. Create Clinic Settings
+  // ============================================
+  console.log("⚙️ Creating clinic settings...");
 
-async function seedTickets(
-  users: Awaited<ReturnType<typeof seedUsers>>,
-  flights: Awaited<ReturnType<typeof seedFlights>>
-) {
-  console.log("\n🎫 Seeding tickets...");
+  await prisma.clinicSettings.upsert({
+    where: { id: "default" },
+    update: {},
+    create: {
+      id: "default",
+      clinicName: "Klinik Gigi Senyum Sejahtera",
+      address: "Jl. Kesehatan No. 123, Jakarta Selatan",
+      phone: "021-12345678",
+      email: "info@senyumsejahtera.com",
+      whatsappNumber: "6281234567890",
+      operationalHours: JSON.stringify({
+        monday: { open: "09:00", close: "17:00" },
+        tuesday: { open: "09:00", close: "17:00" },
+        wednesday: { open: "09:00", close: "17:00" },
+        thursday: { open: "09:00", close: "17:00" },
+        friday: { open: "09:00", close: "17:00" },
+        saturday: { open: "09:00", close: "14:00" },
+        sunday: { open: null, close: null },
+      }),
+      paymentTimeout: 15,
+      reminderHours: 24,
+    },
+  });
+  console.log("   ✅ Clinic settings created");
 
-  const customers = users.filter((u) => u.role === "CUSTOMER");
-  const tickets = [];
-  const statuses = [StatusTicket.SUCCESS, StatusTicket.SUCCESS, StatusTicket.PENDING, StatusTicket.FAILED];
-
-  // Get available seats per flight
-  for (let i = 0; i < 40; i++) {
-    const flight = randomElement(flights);
-    const customer = randomElement(customers);
-    const status = randomElement(statuses);
-
-    // Find an available seat for this flight
-    const availableSeat = await prisma.flightSeat.findFirst({
-      where: {
-        flightId: flight.id,
-        isBooked: false,
-      },
-    });
-
-    if (!availableSeat) continue;
-
-    // Mark seat as booked
-    await prisma.flightSeat.update({
-      where: { id: availableSeat.id },
-      data: { isBooked: true },
-    });
-
-    // Calculate price based on seat type
-    let price = flight.price;
-    if (availableSeat.type === "BUSSINESS") price = Math.round(price * 1.5);
-    if (availableSeat.type === "FIRST") price = Math.round(price * 2.5);
-
-    const bookingDate = addDays(new Date(), randomInt(-30, -1));
-
-    tickets.push({
-      code: generateTicketCode(),
-      slug: `booking-${generateTicketCode().toLowerCase()}`,
-      flightId: flight.id,
-      customerId: customer.id,
-      seatId: availableSeat.id,
-      bookingDate,
-      price: BigInt(price),
-      status,
-    });
-  }
-
-  for (const ticket of tickets) {
-    await prisma.ticket.create({ data: ticket });
-  }
-
-  console.log(`✅ Created ${tickets.length} tickets`);
-}
-
-// ============================================
-// MAIN FUNCTION
-// ============================================
-
-async function main() {
-  console.log("🌱 Starting database seeding...\n");
-  console.log("==========================================");
-
-  if (CLEAR_EXISTING_DATA) {
-    await clearDatabase();
-  }
-
-  const users = await seedUsers();
-  const airplanes = await seedAirplanes();
-  const flights = await seedFlights(airplanes);
-  await seedFlightSeats(flights);
-  await seedTickets(users, flights);
-
-  console.log("\n==========================================");
-  console.log("🎉 Seeding completed successfully!");
-  console.log("==========================================");
-
-  // Summary
-  const summary = await Promise.all([
-    prisma.user.count(),
-    prisma.airplane.count(),
-    prisma.flight.count(),
-    prisma.flightSeat.count(),
-    prisma.ticket.count(),
-  ]);
-
-  console.log("\n📊 Database Summary:");
-  console.log(`   Users:        ${summary[0]}`);
-  console.log(`   Airplanes:    ${summary[1]}`);
-  console.log(`   Flights:      ${summary[2]}`);
-  console.log(`   Flight Seats: ${summary[3]}`);
-  console.log(`   Tickets:      ${summary[4]}`);
+  console.log("\n🎉 Seed completed successfully!");
+  console.log("================================");
+  console.log("📧 Admin login: admin@klinik.com (use Google OAuth)");
+  console.log(`👨‍⚕️ Doctors: ${doctors.length}`);
+  console.log(`🦷 Services: ${services.length}`);
+  console.log(`⏰ Time Slots: ${slotsCreated}`);
 }
 
 main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error("❌ Seeding failed:", e);
-    await prisma.$disconnect();
+  .catch((e) => {
+    console.error("❌ Seed error:", e);
     process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
   });

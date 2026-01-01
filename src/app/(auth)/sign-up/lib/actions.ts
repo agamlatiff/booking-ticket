@@ -1,45 +1,9 @@
-'use server'
-
-export interface ActionResult {
-  errorTitle: string | null;
-  errorDesc: string[] | null;
-}
-import { userSchema } from "./validation";
-import bcrypt from "bcryptjs";
+"use server";
 
 import { redirect } from "next/navigation";
-import prisma from "../../../../../lib/prisma";
 
-export async function signUpUser(
-  _: unknown,
-  formData: FormData
-): Promise<ActionResult> {
-  const validate = userSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-    passport: formData.get("passport"),
-  });
-
-  if (!validate.success) {
-    const errorDesc = validate.error.issues.map((issue) => issue.message);
-
-    return {
-      errorTitle: "Error Validataion",
-      errorDesc,
-    };
-  }
-
-  const hashingPassword = await bcrypt.hash(validate.data.password, 10);
-  await prisma.user.create({
-    data: {
-      email: validate.data.email,
-      name: validate.data.name,
-      password: hashingPassword,
-      passport: validate.data.passport,
-      role: 'CUSTOMER'
-    },
-  });
-
-  return redirect('/sign-in')
+// With Google OAuth, users don't need to manually sign up
+// This action redirects them to the sign-in page
+export async function signUpUser() {
+  return redirect("/sign-in");
 }

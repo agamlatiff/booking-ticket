@@ -1,8 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Prisma Schema for Klinik Gigi Senyum Sejahtera
+// Dental Clinic Booking System
 
 generator client {
   provider      = "prisma-client-js"
@@ -15,96 +12,250 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// ============================================
+// ENUMS
+// ============================================
+
 enum RoleUser {
-  CUSTOMER
+  PATIENT
+  DOCTOR
   ADMIN
 }
 
-enum TypeSeat {
-  ECONOMY
-  BUSSINESS
-  FIRST
+enum BookingStatus {
+  PENDING // Menunggu pembayaran DP
+  PAID // DP sudah dibayar
+  CHECKED_IN // Pasien sudah datang
+  COMPLETED // Perawatan selesai
+  CANCELLED // Dibatalkan
+  EXPIRED // Timeout pembayaran
 }
 
-enum StatusTicket {
-  PENDING
-  SUCCESS
-  FAILED
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
 }
+
+// ============================================
+// AUTH MODELS (Auth.js compatible)
+// ============================================
 
 model User {
-  id       String   @id @default(cuid())
-  name     String
-  email    String   @unique
-  password String
-  passport String?
-  role     RoleUser
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  phone         String? // WhatsApp number for notifications
+  role          RoleUser  @default(PATIENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  tickets  Ticket[]
-  Sessions Session[]
+  // Auth.js relations
+  accounts Account[]
+  sessions Session[]
+
+  // App relations
+  bookings      Booking[]
+  doctorProfile Doctor?
+
+  @@index([email])
+  @@index([role])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
-  id        String   @id
-  userId    String
-  expiresAt DateTime
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
 
-  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
-model Airplane {
-  id     String   @id @default(cuid())
-  code   String   @default("ABC-123")
-  name   String
-  image  String
-  flight Flight[]
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
-model Flight {
-  id                  String       @id @default(cuid())
-  slug                String?      @unique // SEO-friendly URL: e.g., "jkt-dps-2025-01-15"
-  planeId             String
-  plane               Airplane     @relation(fields: [planeId], references: [id])
-  departureDate       DateTime
-  departureCity       String
-  departureCityCode   String
-  destinationCity     String
-  destinationCityCode String
-  arrivalDate         DateTime
-  price               Int
-  seats               FlightSeat[]
-  tickets             Ticket[]
+// ============================================
+// CLINIC MODELS
+// ============================================
 
-  @@index([departureCityCode, destinationCityCode, departureDate])
-  @@index([departureDate])
-}
-
-model FlightSeat {
+model Doctor {
   id         String   @id @default(cuid())
-  flightId   String
-  flight     Flight   @relation(fields: [flightId], references: [id])
-  seatNumber String
-  isBooked   Boolean  @default(false)
-  type       TypeSeat
-  ticket     Ticket?
+  userId     String?  @unique // Link to User account (optional)
+  user       User?    @relation(fields: [userId], references: [id])
+  name       String // e.g., "drg. Handoko"
+  speciality String // e.g., "Dokter Gigi Umum"
+  bio        String? // Short description
+  image      String // Photo URL (Supabase Storage)
+  phone      String? // Contact number
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  scheduleTemplates ScheduleTemplate[]
+  timeSlots         TimeSlot[]
+  bookings          Booking[]
+  blockedDates      BlockedDate[]
+
+  @@index([isActive])
 }
 
-model Ticket {
-  id            String       @id @default(cuid())
-  code          String       @unique
-  slug          String?      @unique // SEO-friendly URL: e.g., "booking-flyh-abc123"
-  flightId      String
-  flight        Flight       @relation(fields: [flightId], references: [id])
-  customerId    String
-  customer      User         @relation(fields: [customerId], references: [id])
-  seatId        String       @unique
-  seat          FlightSeat   @relation(fields: [seatId], references: [id])
-  bookingDate   DateTime
-  price         BigInt
-  status        StatusTicket
-  tokenMidtrans String?
+model Service {
+  id          String   @id @default(cuid())
+  name        String // e.g., "Scaling & Polishing"
+  slug        String   @unique // e.g., "scaling-polishing"
+  description String? // Detailed description
+  price       Int // Full price in IDR
+  dpAmount    Int // Down payment amount in IDR
+  duration    Int      @default(60) // Duration in minutes
+  image       String? // Service image (Supabase Storage)
+  isActive    Boolean  @default(true)
+  order       Int      @default(0) // Display order
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  @@index([customerId])
+  // Relations
+  bookings Booking[]
+
+  @@index([isActive, order])
+}
+
+model ScheduleTemplate {
+  id           String    @id @default(cuid())
+  doctorId     String
+  doctor       Doctor    @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  dayOfWeek    DayOfWeek
+  startTime    String // "09:00"
+  endTime      String // "17:00"
+  slotDuration Int       @default(60) // minutes per slot
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([doctorId, dayOfWeek])
+  @@index([doctorId])
+}
+
+model BlockedDate {
+  id        String   @id @default(cuid())
+  doctorId  String
+  doctor    Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  date      DateTime @db.Date
+  reason    String? // e.g., "Cuti", "Training"
+  createdAt DateTime @default(now())
+
+  @@unique([doctorId, date])
+  @@index([doctorId, date])
+}
+
+model TimeSlot {
+  id          String   @id @default(cuid())
+  doctorId    String
+  doctor      Doctor   @relation(fields: [doctorId], references: [id])
+  date        DateTime @db.Date
+  startTime   String // "09:00"
+  endTime     String // "10:00"
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  // Relations
+  booking Booking?
+
+  @@unique([doctorId, date, startTime])
+  @@index([doctorId, date, isAvailable])
+  @@index([date, isAvailable])
+}
+
+model Booking {
+  id   String @id @default(cuid())
+  code String @unique // e.g., "DENT-ABC123"
+
+  // Patient info
+  patientId    String
+  patient      User   @relation(fields: [patientId], references: [id])
+  patientName  String // Denormalized for quick access
+  patientPhone String // WhatsApp number for notifications
+
+  // Appointment info
+  doctorId        String
+  doctor          Doctor   @relation(fields: [doctorId], references: [id])
+  serviceId       String
+  service         Service  @relation(fields: [serviceId], references: [id])
+  slotId          String   @unique
+  slot            TimeSlot @relation(fields: [slotId], references: [id])
+  appointmentDate DateTime @db.Date
+  appointmentTime String // "09:00"
+
+  // Payment info
+  dpAmount   Int @default(0) // DP yang harus dibayar
+  dpPaid     Int @default(0) // DP yang sudah dibayar
+  totalPrice Int // Harga penuh layanan
+
+  // Status & timestamps
+  status        BookingStatus @default(PENDING)
+  notes         String? // Keluhan pasien
+  tokenMidtrans String?
+  paidAt        DateTime?
+  checkedInAt   DateTime?
+  completedAt   DateTime?
+  cancelledAt   DateTime?
+  expiresAt     DateTime // Payment timeout (15 min from creation)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  // Notifications tracking
+  confirmationSent Boolean @default(false)
+  reminderSent     Boolean @default(false)
+
+  @@index([patientId])
+  @@index([doctorId, appointmentDate])
   @@index([status])
-  @@index([bookingDate])
+  @@index([appointmentDate])
+  @@index([expiresAt, status])
+}
+
+model ClinicSettings {
+  id               String   @id @default("default")
+  clinicName       String   @default("Klinik Gigi Senyum Sejahtera")
+  address          String?
+  phone            String?
+  email            String?
+  whatsappNumber   String? // For Fonnte
+  operationalHours String? // JSON string
+  paymentTimeout   Int      @default(15) // minutes
+  reminderHours    Int      @default(24) // hours before appointment
+  updatedAt        DateTime @updatedAt
 }

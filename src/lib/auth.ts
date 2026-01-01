@@ -1,70 +1,45 @@
-import prisma from "../../lib/prisma";
-import { Lucia, type Session, type User } from "lucia";
-import type { RoleUser } from "@prisma/client";
-import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
-import { cache } from "react";
-import { cookies } from "next/headers";
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from "./prisma";
 
-const adapter = new PrismaAdapter(prisma.session, prisma.user);
-
-export const lucia = new Lucia(adapter, {
-  sessionCookie: {
-    expires: false,
-    attributes: {
-      secure: process.env.NODE_ENV === "production",
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+  ],
+  callbacks: {
+    async session({ session, user }) {
+      // Add custom user fields to session
+      if (session.user) {
+        session.user.id = user.id;
+        session.user.role = user.role;
+        session.user.phone = user.phone;
+      }
+      return session;
+    },
+    async signIn({ user, account, profile }) {
+      // Allow sign in
+      return true;
     },
   },
-  getUserAttributes: (attributes) => {
-    return {
-      name: attributes.name,
-      role: attributes.role,
-      email: attributes.email,
-      passport: attributes.passport,
-    };
+  pages: {
+    signIn: "/sign-in",
+    newUser: "/complete-profile", // Redirect new users to complete profile
+  },
+  session: {
+    strategy: "database",
+  },
+  events: {
+    async createUser({ user }) {
+      // Set default role for new users
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { role: "PATIENT" },
+      });
+    },
   },
 });
-
-export const getUser = cache(
-  async (): Promise<
-    { user: User; session: Session } | { user: null; session: null }
-  > => {
-    const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
-    if (!sessionId) {
-      return { user: null, session: null };
-    }
-    const result = await lucia.validateSession(sessionId);
-    try {
-      if (result.session && result.session.fresh) {
-        const sessionCookie = lucia.createSessionCookie(result.session.id);
-        cookies().set(
-          sessionCookie.name,
-          sessionCookie.value,
-          sessionCookie.attributes
-        );
-      }
-      if (!result.session) {
-        const sessionCookie = lucia.createBlankSessionCookie();
-        cookies().set(
-          sessionCookie.name,
-          sessionCookie.value,
-          sessionCookie.attributes
-        );
-      }
-    } catch {
-      // Next.js throws error when attempting to set cookies when rendering page
-    }
-    return result;
-  }
-);
-
-declare module "lucia" {
-  interface Register {
-    Lucia: typeof lucia;
-    DatabaseUserAttributes: {
-      name: string;
-      email: string;
-      role: RoleUser;
-      passport: string | null;
-    };
-  }
-}
