@@ -79,51 +79,94 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* Services Highlight */}
+        {/* Services Highlight - Bento Grid */}
         <section id="layanan" className="py-24 bg-gray-50 dark:bg-gray-800/50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <span className="text-teal-600 font-semibold uppercase tracking-wider text-sm">Layanan Kami</span>
               <h2 className="text-3xl font-bold mt-2 mb-4 text-gray-900 dark:text-white">Solusi Lengkap Kesehatan Gigi</h2>
               <p className="text-gray-500 max-w-2xl mx-auto">
-                Dari perawatan rutin hingga bedah kompleks, kami siap melayani kebutuhan Anda.
+                Dari perawatan rutin hingga bedah kompleks, kami siap melayani kebutuhan Anda dengan teknologi terbaik.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: "🦷",
-                  title: "Pemeriksaan & Scaling",
-                  desc: "Pembersihan karang gigi menyeluruh dan pemeriksaan rutin untuk mencegah masalah gigi.",
-                  link: "/booking?service=scaling"
-                },
-                {
-                  icon: "✨",
-                  title: "Estetika & Bleaching",
-                  desc: "Layanan pemutihan gigi dan veneer untuk senyum yang lebih cerah dan percaya diri.",
-                  link: "/booking?service=bleaching"
-                },
-                {
-                  icon: "🔧",
-                  title: "Kawat Gigi (Orthodonti)",
-                  desc: "Perbaikan struktur gigi yang tidak rapi dengan berbagai pilihan kawat gigi modern.",
-                  link: "/booking?service=ortho"
-                },
-              ].map((service, i) => (
-                <div key={i} className="group p-8 rounded-2xl bg-white dark:bg-gray-800 hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-100 dark:border-gray-700">
-                  <div className="text-4xl mb-6 bg-teal-50 dark:bg-teal-900/20 w-16 h-16 flex items-center justify-center rounded-2xl group-hover:bg-teal-100 transition-colors">{service.icon}</div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">{service.title}</h3>
-                  <p className="text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">{service.desc}</p>
-                  <Link href={service.link} className="text-teal-600 font-medium hover:text-teal-700 flex items-center gap-2 group-hover:gap-3 transition-all">
-                    Booking sekarang <span className="material-symbols-outlined text-sm">arrow_forward</span>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(180px,auto)]">
+              {/* Service 1: Implan & Bedah (Large) */}
+              <div className="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 p-8 shadow-sm hover:shadow-xl transition-all border border-gray-100 dark:border-gray-700">
+                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <Stethoscope className="w-48 h-48 text-teal-600" />
+                </div>
+                <div className="relative z-10 flex flex-col h-full justify-between">
+                  <div>
+                    <div className="w-14 h-14 bg-teal-100 dark:bg-teal-900/40 text-teal-600 rounded-2xl flex items-center justify-center mb-6 text-2xl">
+                      🔧
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Bedah Mulut & Implan</h3>
+                    <p className="text-gray-500 dark:text-gray-400 max-w-md text-lg leading-relaxed">
+                      Solusi permanen untuk gigi yang hilang dengan teknologi implan titanium terbaru. Prosedur bedah yang aman dan minim rasa sakit oleh spesialis bedah mulut berpengalaman.
+                    </p>
+                  </div>
+                  <Link href="/booking?service=implan" className="inline-flex items-center gap-2 text-teal-600 font-bold mt-8 hover:gap-3 transition-all">
+                    Konsultasi Bedah <span className="material-symbols-outlined">arrow_forward</span>
                   </Link>
                 </div>
-              ))}
-            </div>
-            <div className="text-center mt-12">
-              <Link href="/services">
-                <Button variant="outline" className="rounded-full">Lihat Semua Layanan</Button>
-              </Link>
+              </div>
+
+              {/* Service 2: Checkup (Regular) */}
+              <div className="group rounded-3xl bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-700">
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-xl flex items-center justify-center mb-4 text-xl">
+                  🦷
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Scalling & Polishing</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  Pembersihan karang gigi menyeluruh untuk nafas segar dan gusi sehat.
+                </p>
+                <Link href="/booking?service=scaling" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+                  Booking <span className="material-symbols-outlined text-sm">chevron_right</span>
+                </Link>
+              </div>
+
+              {/* Service 3: Ortho (Regular) */}
+              <div className="group rounded-3xl bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-700">
+                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-xl flex items-center justify-center mb-4 text-xl">
+                  ✨
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Kawat Gigi (Ortho)</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  Rapikan struktur gigi Anda dengan berbagai pilihan behel modern.
+                </p>
+                <Link href="/booking?service=ortho" className="text-sm font-semibold text-purple-600 hover:text-purple-700 flex items-center gap-1">
+                  Booking <span className="material-symbols-outlined text-sm">chevron_right</span>
+                </Link>
+              </div>
+
+              {/* Service 4: Bleaching (Regular) */}
+              <div className="group rounded-3xl bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-700">
+                <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 rounded-xl flex items-center justify-center mb-4 text-xl">
+                  💎
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Bleaching Gigi</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  Putihkan gigi secara instan dan aman untuk senyum cemerlang.
+                </p>
+                <Link href="/booking?service=bleaching" className="text-sm font-semibold text-yellow-600 hover:text-yellow-700 flex items-center gap-1">
+                  Booking <span className="material-symbols-outlined text-sm">chevron_right</span>
+                </Link>
+              </div>
+
+              {/* Service 5: Kids (Regular) */}
+              <div className="group rounded-3xl bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-700">
+                <div className="w-12 h-12 bg-pink-100 dark:bg-pink-900/30 text-pink-600 rounded-xl flex items-center justify-center mb-4 text-xl">
+                  🎈
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Gigi Anak</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  Pendekatan ramah anak untuk pengalaman ke dokter gigi yang menyenangkan.
+                </p>
+                <Link href="/booking?service=kids" className="text-sm font-semibold text-pink-600 hover:text-pink-700 flex items-center gap-1">
+                  Booking <span className="material-symbols-outlined text-sm">chevron_right</span>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
