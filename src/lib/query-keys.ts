@@ -2,90 +2,76 @@
  * Centralized Query Keys for TanStack Query
  * 
  * Use these keys for consistent caching and invalidation across the app.
- * 
- * @example
- * // In a component
- * const { data } = useQuery({
- *   queryKey: queryKeys.flights.search({ from: 'JKT', to: 'DPS', date: '2025-01-15' }),
- *   queryFn: () => fetchFlights(params)
- * })
- * 
- * // Invalidating after mutation
- * queryClient.invalidateQueries({ queryKey: queryKeys.flights.all })
  */
 
 // Type definitions for query parameters
-export interface FlightSearchParams {
-  from?: string
-  to?: string
-  date?: string
-  class?: 'ECONOMY' | 'BUSINESS' | 'FIRST'
-  passengers?: number
-}
-
 export interface BookingFilterParams {
-  status?: 'PENDING' | 'SUCCESS' | 'FAILED'
-  userId?: string
+  status?: 'PENDING' | 'PAID' | 'CHECKED_IN' | 'COMPLETED' | 'CANCELLED' | 'EXPIRED'
   startDate?: string
   endDate?: string
+  doctorId?: string
+}
+
+export interface DoctorFilterParams {
+  query?: string
+  active?: boolean
 }
 
 export const queryKeys = {
   // ============================================
-  // FLIGHTS
+  // DOCTORS
   // ============================================
-  flights: {
-    all: ['flights'] as const,
-    search: (params: FlightSearchParams) => ['flights', 'search', params] as const,
-    detail: (id: string) => ['flights', id] as const,
-    bySlug: (slug: string) => ['flights', 'slug', slug] as const,
+  doctors: {
+    all: ['doctors'] as const,
+    list: (params?: DoctorFilterParams) => ['doctors', 'list', params] as const,
+    detail: (id: string) => ['doctors', id] as const,
   },
 
   // ============================================
-  // SEATS
+  // SERVICES
   // ============================================
-  seats: {
-    all: ['seats'] as const,
-    byFlight: (flightId: string) => ['seats', flightId] as const,
-    byFlightAndClass: (flightId: string, classType: string) =>
-      ['seats', flightId, classType] as const,
+  services: {
+    all: ['services'] as const,
+    detail: (id: string) => ['services', id] as const,
   },
 
   // ============================================
-  // BOOKINGS / TICKETS
+  // SCHEDULES / SLOTS
+  // ============================================
+  schedules: {
+    all: ['schedules'] as const,
+    byDate: (date: string) => ['schedules', 'date', date] as const,
+    byDoctor: (doctorId: string) => ['schedules', 'doctor', doctorId] as const,
+    availableSlots: (date: string, doctorId?: string) =>
+      ['schedules', 'slots', date, doctorId] as const,
+  },
+
+  // ============================================
+  // BOOKINGS
   // ============================================
   bookings: {
     all: ['bookings'] as const,
     list: (params?: BookingFilterParams) => ['bookings', 'list', params] as const,
-    mine: (userId: string) => ['bookings', 'user', userId] as const,
+    mine: () => ['bookings', 'mine'] as const,
     detail: (id: string) => ['bookings', id] as const,
-    byCode: (code: string) => ['bookings', 'code', code] as const,
+    check: (code: string) => ['bookings', 'check', code] as const,
   },
 
   // ============================================
-  // USER
+  // USER / PATIENTS
   // ============================================
   user: {
     current: ['user', 'current'] as const,
     profile: (id: string) => ['user', id] as const,
-    all: ['users'] as const,
+    list: ['users'] as const,
   },
 
   // ============================================
-  // ADMIN STATS
+  // ADMIN DASHBOARD
   // ============================================
   admin: {
     stats: ['admin', 'stats'] as const,
-    recentBookings: ['admin', 'recent-bookings'] as const,
-    revenue: (period: 'day' | 'week' | 'month') => ['admin', 'revenue', period] as const,
-  },
-
-  // ============================================
-  // AIRPLANES
-  // ============================================
-  airplanes: {
-    all: ['airplanes'] as const,
-    detail: (id: string) => ['airplanes', id] as const,
+    reports: (period?: string) => ['admin', 'reports', period] as const,
   },
 } as const
 
