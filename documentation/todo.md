@@ -230,34 +230,33 @@
 
 ---
 
-## Phase 6: Business Logic 🧠
+## Phase 6: Business Logic 🧠 ✅
 
-### 6.1 Payment Timeout
+### 6.1 Payment Timeout ✅
 
-- [ ] Set expiresAt saat booking dibuat (now + 15 min)
-- [ ] Cron job untuk expire bookings
-- [ ] Release slot when expired
-- [ ] Update status to EXPIRED
+- [x] Set expiresAt saat booking dibuat (now + 15 min)
+- [x] Cron job untuk expire bookings (`/api/cron/expire-bookings`)
+- [x] Release slot when expired (transaction)
+- [x] Update status to EXPIRED
 
-### 6.2 Conflict Prevention
+### 6.2 Conflict Prevention ✅
 
-- [ ] Database unique constraint pada TimeSlot
-- [ ] Check availability sebelum booking
-- [ ] Transaction-safe booking creation
-- [ ] Optimistic locking (optional)
+- [x] Database unique constraint pada TimeSlot (doctorId_date_startTime)
+- [x] Check availability sebelum booking
+- [x] Transaction-safe booking creation (`prisma.$transaction`)
 
-### 6.3 Cancellation Policy
+### 6.3 Cancellation Policy ✅
 
-- [ ] Calculate hours until appointment
-- [ ] Allow cancel if > 24 hours
-- [ ] Block cancel if < 24 hours
-- [ ] Admin override untuk refund manual
+- [x] Calculate hours until appointment
+- [x] Allow cancel if > 24 hours
+- [x] Block cancel if < 24 hours
+- [x] Admin override (role check)
 
-### 6.4 Schedule Generation
+### 6.4 Schedule Generation ✅
 
-- [ ] Generate slots dari ScheduleTemplate
-- [ ] Skip blocked dates
-- [ ] Auto-generate untuk minggu depan (cron)
+- [x] Generate slots dari ScheduleTemplate (`/api/cron/generate-slots`)
+- [x] Skip blocked dates
+- [x] Auto-generate untuk 14 hari ke depan (cron)
 
 ---
 
