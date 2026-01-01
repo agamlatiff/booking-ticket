@@ -1,79 +1,151 @@
-import prisma from "../../../../../lib/prisma";
+import prisma from "@/lib/prisma";
 
-export interface DashboardStats {
-  totalRevenue: number;
-  totalBookings: number;
-  activeFlights: number;
-  totalUsers: number;
-}
+// Get dashboard stats for dental clinic
+export async function getDashboardStats() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-export async function getDashboardStats(): Promise<DashboardStats> {
-  const [revenueResult, bookingsCount, flightsCount, usersCount] =
-    await Promise.all([
-      // Total revenue from all completed tickets
-      prisma.ticket.aggregate({
-        _sum: {
-          price: true,
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+  const [
+    todayBookings,
+    pendingBookings,
+    monthlyRevenue,
+    totalPatients,
+    completedToday,
+  ] = await Promise.all([
+    // Today's bookings
+    prisma.booking.count({
+      where: {
+        appointmentDate: {
+          gte: today,
+          lt: tomorrow,
         },
-        where: {
-          status: "SUCCESS",
+        status: { in: ["PAID", "CHECKED_IN"] },
+      },
+    }),
+
+    // Pending payments
+    prisma.booking.count({
+      where: { status: "PENDING" },
+    }),
+
+    // Monthly DP revenue
+    prisma.booking.aggregate({
+      _sum: { dpPaid: true },
+      where: {
+        paidAt: { gte: startOfMonth },
+        status: { in: ["PAID", "CHECKED_IN", "COMPLETED"] },
+      },
+    }),
+
+    // Total unique patients
+    prisma.user.count({
+      where: { role: "PATIENT" },
+    }),
+
+    // Completed today
+    prisma.booking.count({
+      where: {
+        appointmentDate: {
+          gte: today,
+          lt: tomorrow,
         },
-      }),
-      // Total bookings (tickets)
-      prisma.ticket.count(),
-      // Active flights (departure date >= today)
-      prisma.flight.count({
-        where: {
-          departureDate: {
-            gte: new Date(),
-          },
-        },
-      }),
-      // Total users
-      prisma.user.count(),
-    ]);
+        status: "COMPLETED",
+      },
+    }),
+  ]);
 
   return {
-    totalRevenue: Number(revenueResult._sum?.price || 0),
-    totalBookings: bookingsCount,
-    activeFlights: flightsCount,
-    totalUsers: usersCount,
+    todayBookings,
+    pendingBookings,
+    monthlyRevenue: monthlyRevenue._sum.dpPaid || 0,
+    totalPatients,
+    completedToday,
   };
 }
 
-export interface RecentBooking {
-  id: string;
-  customerName: string;
-  customerEmail: string;
-  route: string;
-  departureDate: Date;
-  status: string;
-  price: number;
-  bookingDate: Date;
+// Get recent bookings
+export async function getRecentBookings(limit: number = 10) {
+  return prisma.booking.findMany({
+    include: {
+      service: { select: { name: true } },
+      doctor: { select: { name: true, image: true } },
+    },
+    orderBy: { createdAt: "desc" },
+    take: limit,
+  });
 }
 
-export async function getRecentBookings(
-  limit: number = 5
-): Promise<RecentBooking[]> {
-  const tickets = await prisma.ticket.findMany({
-    take: limit,
-    orderBy: {
-      bookingDate: "desc",
+// Get today's schedule
+export async function getTodaySchedule() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  return prisma.booking.findMany({
+    where: {
+      appointmentDate: {
+        gte: today,
+        lt: tomorrow,
+      },
+      status: { in: ["PAID", "CHECKED_IN", "COMPLETED"] },
     },
     include: {
-      customer: true,
-      flight: true,
+      service: { select: { name: true, duration: true } },
+      doctor: { select: { name: true, image: true } },
+    },
+    orderBy: { appointmentTime: "asc" },
+  });
+}
+
+// Get bookings by status for chart
+export async function getBookingsByStatus() {
+  const results = await prisma.booking.groupBy({
+    by: ["status"],
+    _count: true,
+  });
+
+  return results.map((r) => ({
+    status: r.status,
+    count: r._count,
+  }));
+}
+
+// Get revenue by date for chart
+export async function getRevenueByDate(days: number = 7) {
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - days);
+  startDate.setHours(0, 0, 0, 0);
+
+  const bookings = await prisma.booking.findMany({
+    where: {
+      paidAt: { gte: startDate },
+      status: { in: ["PAID", "CHECKED_IN", "COMPLETED"] },
+    },
+    select: {
+      paidAt: true,
+      dpPaid: true,
     },
   });
 
-  return tickets.map((ticket) => ({
-    id: ticket.id,
-    customerName: ticket.customer.name,
-    customerEmail: ticket.customer.email,
-    route: `${ticket.flight.departureCity} → ${ticket.flight.destinationCity}`,
-    departureDate: ticket.flight.departureDate,
-    status: ticket.status,
-    price: Number(ticket.price),
-    bookingDate: ticket.bookingDate,
+  // Group by date
+  const revenueByDate: Record<string, number> = {};
+
+  bookings.forEach((booking) => {
+    if (booking.paidAt) {
+      const dateStr = booking.paidAt.toISOString().split("T")[0];
+      revenueByDate[dateStr] = (revenueByDate[dateStr] || 0) + (booking.dpPaid || 0);
+    }
+  });
+
+  return Object.entries(revenueByDate).map(([date, revenue]) => ({
+    date,
+    revenue,
   }));
 }
