@@ -205,24 +205,28 @@
 
 ---
 
-## Phase 5: Doctor Portal 👨‍⚕️
+## Phase 5: Doctor Portal 👨‍⚕️ ✅
 
-### 5.1 Doctor Dashboard
+### 5.1 Doctor Dashboard ✅
 
-- [ ] Today's appointments
-- [ ] Upcoming appointments
-- [ ] Patient count stats
+- [x] Today's appointments
+- [x] Upcoming appointments (7 days)
+- [x] Patient count stats
+- [x] Completed this month
 
-### 5.2 Doctor Schedule
+### 5.2 Doctor Schedule ✅
 
-- [ ] Personal calendar view
-- [ ] Mark slot as blocked
-- [ ] View patient details
+- [x] Weekly calendar view
+- [x] Time slot grid
+- [x] Color-coded status
+- [x] Date navigation
 
-### 5.3 Doctor Patient History
+### 5.3 Doctor Patient History ✅
 
-- [ ] List pasien yang pernah ditangani
-- [ ] Booking history per pasien
+- [x] List pasien yang pernah ditangani
+- [x] Booking history per pasien
+- [x] WhatsApp links
+- [x] Search functionality
 
 ---
 
