@@ -27,8 +27,8 @@ export default auth((req) => {
     }
   }
 
-  // Protect patient routes (booking, my-bookings)
-  const patientProtectedRoutes = ["/my-bookings", "/checkout", "/booking"];
+  // Protect patient routes (my-bookings, checkout - NOT booking, let them browse first)
+  const patientProtectedRoutes = ["/my-bookings", "/checkout"];
   if (patientProtectedRoutes.some((route) => pathname.startsWith(route))) {
     if (!isLoggedIn) {
       const signInUrl = new URL("/sign-in", nextUrl);
@@ -60,7 +60,6 @@ export const config = {
     "/doctor/:path*",
     "/my-bookings/:path*",
     "/checkout/:path*",
-    "/booking/:path*",
     "/sign-in",
     "/sign-up",
     "/complete-profile",

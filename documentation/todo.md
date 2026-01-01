@@ -86,26 +86,28 @@
 - [x] Footer updated (clinic info, services links)
 - [x] Mobile responsive
 
-### 3.2 Booking Flow - Step 1: Pilih Layanan
+### 3.2 Booking Flow - Step 1: Pilih Layanan ✅
 
-- [ ] Service card component
-- [ ] Grid layout responsif
-- [ ] Price & DP display
-- [ ] Duration badge
-- [ ] Click to select → Next step
+- [x] Service card component
+- [x] Grid layout responsif
+- [x] Price & DP display
+- [x] Duration badge
+- [x] Click to select → Next step
 
-### 3.3 Booking Flow - Step 2: Pilih Dokter
+### 3.3 Booking Flow - Step 2: Pilih Dokter ✅
 
-- [ ] Doctor card component (foto, nama, spesialisasi)
-- [ ] Availability indicator
-- [ ] Click to select → Next step
+- [x] Doctor card component (foto, nama, spesialisasi)
+- [x] Date picker (horizontal calendar)
+- [x] Time slot grid from API
+- [x] Available/unavailable state
+- [x] Click to select → Checkout
 
-### 3.4 Booking Flow - Step 3: Pilih Jadwal
+### 3.4 Booking Flow - Step 3: Pembayaran ✅
 
-- [ ] Date picker (kalender)
-- [ ] Time slot grid
-- [ ] Available/unavailable state
-- [ ] Click to select → Checkout
+- [x] Patient info form (nama, WhatsApp)
+- [x] Booking summary
+- [x] Pricing breakdown (DP, sisa bayar)
+- [x] API submission to create booking
 
 ### 3.5 Booking Provider (State Management)
 

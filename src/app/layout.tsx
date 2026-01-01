@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { WebVitals } from "@/components/performance";
+import { Providers } from "@/components/providers";
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-inter",
-  display: "swap", // Performance: prevent FOIT
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "FlyHigher - Flight Booking",
-  description: "Elevate your travel with seamless connections - FlyHigher",
+  title: "Klinik Gigi Senyum Sejahtera",
+  description: "Perawatan gigi berkualitas dengan dokter berpengalaman dan teknologi modern",
 };
 
 export default function RootLayout({
@@ -21,9 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang="id" className={inter.variable} suppressHydrationWarning>
       <head>
-
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -40,10 +40,11 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased bg-background dark:bg-background-dark transition-colors`}>
-        <WebVitals />
-        {children}
+        <Providers>
+          <WebVitals />
+          {children}
+        </Providers>
       </body>
     </html>
   );
 }
-
