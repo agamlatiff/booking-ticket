@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { NavbarAuth } from "@/components/ui/navbar-auth";
 import { Footer } from "@/components/ui/footer";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 
 export default async function LandingPage() {
   const session = await auth();
