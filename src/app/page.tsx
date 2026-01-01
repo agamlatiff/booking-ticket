@@ -3,6 +3,15 @@ import { Button } from "@/components/ui/button";
 import { NavbarAuth } from "@/components/ui/navbar-auth";
 import { Footer } from "@/components/ui/footer";
 import { auth } from "@/lib/auth";
+import {
+  CalendarCheck,
+  MapPin,
+  ShieldCheck,
+  Sparkles,
+  Stethoscope,
+  Clock,
+  UserCheck
+} from "lucide-react";
 
 export default async function LandingPage() {
   const session = await auth();
@@ -27,8 +36,7 @@ export default async function LandingPage() {
                 </span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl leading-relaxed">
-                Dapatkan perawatan gigi terbaik dengan teknologi modern dan dokter berpengalaman.
-                Booking jadwal konsultasi Anda sekarang dengan mudah.
+                Dapatkan perawatan gigi terbaik dengan teknologi modern, dokter berpengalaman, dan pengalaman yang nyaman.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/booking">
@@ -36,8 +44,8 @@ export default async function LandingPage() {
                     Buat Janji Temu
                   </Button>
                 </Link>
-                <Link href="/#dokter">
-                  <Button size="lg" variant="outline" className="h-12 px-8 rounded-full text-lg border-gray-300 hover:bg-gray-50 w-full sm:w-auto">
+                <Link href="#doctors">
+                  <Button size="lg" variant="outline" className="h-12 px-8 rounded-full text-lg border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 w-full sm:w-auto">
                     Lihat Dokter
                   </Button>
                 </Link>
@@ -45,18 +53,40 @@ export default async function LandingPage() {
             </div>
           </div>
 
-          {/* Decorative Elements */}
           <div className="absolute top-1/2 -right-20 -translate-y-1/2 w-[600px] h-[600px] bg-teal-200/20 blur-[100px] rounded-full pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-200/20 blur-[100px] rounded-full pointer-events-none" />
         </section>
 
+        {/* Features / Keunggulan Section */}
+        <section className="py-20 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {[
+                { icon: ShieldCheck, title: "Steril & Higienis", desc: "Protokol sterilisasi tingkat tinggi demi keamanan pasien." },
+                { icon: Stethoscope, title: "Dokter Ahli", desc: "Ditangani langsung oleh dokter spesialis berpengalaman." },
+                { icon: Sparkles, title: "Teknologi Modern", desc: "Peralatan canggih untuk perawatan presisi & minim rasa sakit." },
+                { icon: MapPin, title: "Lokasi Strategis", desc: "Akses mudah di pusat kota dengan parkir luas." },
+              ].map((feature, i) => (
+                <div key={i} className="flex flex-col items-center text-center p-4">
+                  <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/50 text-teal-600 dark:text-teal-400 rounded-xl flex items-center justify-center mb-4">
+                    <feature.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">{feature.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{feature.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Services Highlight */}
-        <section id="layanan" className="py-24 bg-white dark:bg-gray-900">
+        <section id="layanan" className="py-24 bg-gray-50 dark:bg-gray-800/50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Layanan Unggulan</h2>
+              <span className="text-teal-600 font-semibold uppercase tracking-wider text-sm">Layanan Kami</span>
+              <h2 className="text-3xl font-bold mt-2 mb-4 text-gray-900 dark:text-white">Solusi Lengkap Kesehatan Gigi</h2>
               <p className="text-gray-500 max-w-2xl mx-auto">
-                Kami menyediakan layanan perawatan gigi komprehensif dengan standar medis tertinggi untuk memastikan kesehatan senyum Anda.
+                Dari perawatan rutin hingga bedah kompleks, kami siap melayani kebutuhan Anda.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -80,13 +110,92 @@ export default async function LandingPage() {
                   link: "/booking?service=ortho"
                 },
               ].map((service, i) => (
-                <div key={i} className="group p-8 rounded-2xl bg-gray-50 dark:bg-gray-800 hover:bg-white dark:hover:bg-gray-750 hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-100 dark:border-gray-700">
-                  <div className="text-4xl mb-6 bg-white dark:bg-gray-900 w-16 h-16 flex items-center justify-center rounded-2xl shadow-sm group-hover:scale-110 transition-transform">{service.icon}</div>
+                <div key={i} className="group p-8 rounded-2xl bg-white dark:bg-gray-800 hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-100 dark:border-gray-700">
+                  <div className="text-4xl mb-6 bg-teal-50 dark:bg-teal-900/20 w-16 h-16 flex items-center justify-center rounded-2xl group-hover:bg-teal-100 transition-colors">{service.icon}</div>
                   <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">{service.title}</h3>
                   <p className="text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">{service.desc}</p>
                   <Link href={service.link} className="text-teal-600 font-medium hover:text-teal-700 flex items-center gap-2 group-hover:gap-3 transition-all">
-                    Booking Layanan ini <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                    Booking sekarang <span className="material-symbols-outlined text-sm">arrow_forward</span>
                   </Link>
+                </div>
+              ))}
+            </div>
+            <div className="text-center mt-12">
+              <Link href="/services">
+                <Button variant="outline" className="rounded-full">Lihat Semua Layanan</Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section className="py-24 bg-white dark:bg-gray-900">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row gap-12 items-center">
+              <div className="w-full md:w-1/2">
+                <span className="text-teal-600 font-semibold uppercase tracking-wider text-sm">Mudah & Cepat</span>
+                <h2 className="text-3xl font-bold mt-2 mb-6 text-gray-900 dark:text-white">Cara Booking Antrian</h2>
+                <p className="text-gray-500 mb-8 text-lg">Tidak perlu antri lama di klinik. Cukup 4 langkah mudah dari handphone Anda.</p>
+
+                <div className="space-y-8">
+                  {[
+                    { step: "01", title: "Pilih Layanan & Dokter", desc: "Cari layanan yang Anda butuhkan dan pilih dokter favorit Anda." },
+                    { step: "02", title: "Pilih Waktu", desc: "Lihat slot waktu yang tersedia dan pilih yang cocok dengan jadwalmu." },
+                    { step: "03", title: "Isi Data Diri", desc: "Lengkapi data pasien untuk rekam medis (otomatis jika sudah login)." },
+                    { step: "04", title: "Datang ke Klinik", desc: "Dapatkan E-Ticket dan tunjukkan saat datang ke klinik." }
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold font-mono">
+                        {item.step}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-gray-900 dark:text-white">{item.title}</h4>
+                        <p className="text-gray-500 dark:text-gray-400 text-sm">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="w-full md:w-1/2 bg-gray-100 dark:bg-gray-800 rounded-3xl min-h-[400px] flex items-center justify-center relative overflow-hidden">
+                {/* Placeholder illustration */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-blue-500/20" />
+                <div className="text-center p-8 relative z-10">
+                  <CalendarCheck className="w-24 h-24 text-teal-600 mx-auto mb-4 opacity-80" />
+                  <p className="font-medium text-gray-600 dark:text-gray-300">Ilustrasi Booking App Interface</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Doctors Preview */}
+        <section id="doctors" className="py-24 bg-teal-50/50 dark:bg-gray-800/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Dokter Kami</h2>
+              <p className="text-gray-500">Tim dokter gigi profesional yang siap merawat senyum Anda</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {[1, 2, 3, 4].map((_, i) => (
+                <div key={i} className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700">
+                  <div className="h-48 bg-gray-200 dark:bg-gray-700 relative">
+                    {/* Placeholder Image */}
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                      <UserCheck className="w-12 h-12" />
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-bold text-gray-900 dark:text-white">Drg. Nama Dokter</h3>
+                    <p className="text-teal-600 text-sm font-medium mb-2">Spesialis Orthodonti</p>
+                    <div className="flex items-center gap-2 text-xs text-gray-500 mb-4">
+                      <Clock className="w-3 h-3" /> 5 Tahun Pengalaman
+                    </div>
+                    <Link href={`/booking?doctor=${i}`} className="block w-full">
+                      <Button variant="secondary" className="w-full h-8 text-xs bg-teal-50 text-teal-700 hover:bg-teal-100">
+                        Lihat Jadwal
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
