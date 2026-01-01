@@ -22,18 +22,18 @@ export default async function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-20 lg:py-28 bg-gradient-to-br from-teal-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+        <section className="relative py-20 lg:py-28 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 overflow-hidden">
           <div className="container mx-auto px-4 relative z-10">
             <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
               {/* Text Content */}
               <div className="flex-1 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-sm font-medium mb-6">
-                  <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-teal-600 animate-pulse" />
                   Klinik Gigi Terpercaya Keluarga Anda
                 </div>
                 <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-gray-900 dark:text-white mb-6">
                   Senyum Sehat, <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400">
+                  <span className="text-teal-600">
                     Hidup Lebih Bahagia
                   </span>
                 </h1>
@@ -42,12 +42,12 @@ export default async function LandingPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Link href="/booking">
-                    <Button size="lg" className="bg-teal-600 hover:bg-teal-700 text-white dark:text-white font-bold h-12 px-8 rounded-full text-lg w-full sm:w-auto shadow-lg shadow-teal-600/20">
+                    <Button size="lg" className="bg-teal-600 hover:bg-teal-700 text-white dark:text-white font-bold h-12 px-8 rounded-full text-lg w-full sm:w-auto shadow-lg shadow-teal-600/20 border-none ring-0">
                       Buat Janji Temu
                     </Button>
                   </Link>
                   <Link href="#doctors">
-                    <Button size="lg" variant="outline" className="h-12 px-8 rounded-full text-lg border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-white w-full sm:w-auto">
+                    <Button size="lg" variant="outline" className="h-12 px-8 rounded-full text-lg border-2 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white w-full sm:w-auto">
                       Lihat Dokter
                     </Button>
                   </Link>
@@ -57,14 +57,14 @@ export default async function LandingPage() {
               {/* Hero Image */}
               <div className="flex-1 relative">
                 <div className="relative w-full max-w-[500px] aspect-square mx-auto">
-                  <div className="absolute inset-0 bg-teal-200 rounded-full blur-[80px] opacity-40 dark:opacity-20 animate-pulse" />
+                  <div className="absolute inset-0 bg-teal-100 dark:bg-teal-900/20 rounded-full blur-[80px] opacity-60 animate-pulse" />
                   <img
                     src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80"
                     alt="Happy Patient Smiling"
                     className="relative w-full h-full object-cover rounded-[3rem] shadow-2xl z-10 border-4 border-white dark:border-gray-800"
                   />
                   <div className="absolute -bottom-6 -left-6 z-20 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce" style={{ animationDuration: '3s' }}>
-                    <div className="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center">
                       <ShieldCheck className="w-6 h-6" />
                     </div>
                     <div>
@@ -76,9 +76,6 @@ export default async function LandingPage() {
               </div>
             </div>
           </div>
-
-          <div className="absolute top-1/2 -right-20 -translate-y-1/2 w-[600px] h-[600px] bg-teal-200/20 blur-[100px] rounded-full pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-200/20 blur-[100px] rounded-full pointer-events-none" />
         </section>
 
         {/* Features / Keunggulan Section */}
@@ -92,7 +89,7 @@ export default async function LandingPage() {
                 { icon: MapPin, title: "Lokasi Strategis", desc: "Akses mudah di pusat kota dengan parkir luas." },
               ].map((feature, i) => (
                 <div key={i} className="flex flex-col items-center text-center p-4">
-                  <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/50 text-teal-600 dark:text-teal-400 rounded-xl flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 rounded-xl flex items-center justify-center mb-4">
                     <feature.icon className="w-6 h-6" />
                   </div>
                   <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">{feature.title}</h3>
@@ -278,7 +275,7 @@ export default async function LandingPage() {
                     <img
                       src={doc.image}
                       alt={doc.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-5">
