@@ -145,4 +145,45 @@ Dokumen ini mendetailkan setiap halaman yang ada di aplikasi, berserta section d
 - **Settings** (`/dashboard/settings`)
   - Konfigurasi Klinik (Nama, Alamat, Kontak).
   - Payment Gateway Config (Midtrans Key).
-  - WhatsApp Config (Fonnte Token).
+  * WhatsApp Config (Fonnte Token).
+
+---
+
+## 7. Additional / Potential Pages (Future Expansion)
+
+Halaman-halaman berikut belum diimplementasikan di core flow, namun mungkin diperlukan untuk pengalaman pengguna yang lengkap:
+
+### Guest / Public User
+
+- **Tentang Kami (`/about`)**:
+  - **Story Section**: Sejarah singkat klinik.
+  - **Team Section**: Grid lengkap profil semua dokter & staf.
+  - **Facilities Section**: Galeri foto interior & alat klinik.
+- **Halaman Detail Layanan (`/services/[slug]`)**:
+  - Penjelasan mendalam tentang prosedur (misal: "Apa itu Root Canal?").
+  - FAQ per layanan.
+  - Pricing range detail.
+- **Halaman Profil Dokter Lengkap (`/doctors/[id]`)**:
+  - Bio lengkap, pendidikan, statistik pasien (misal: "500+ Senyum Diperbaiki").
+  - Testimoni khusus dokter tersebut.
+- **Blog / Artikel Kesehatan (`/blog`)**:
+  - Tips kesehatan gigi.
+  - News & Promo klinik.
+
+### Doctor
+
+- **Halaman Konsultasi Online (`/doctor/consultation`)**:
+  - Chat / Video call interface dengan pasien.
+- **Halaman Resep Digital (`/doctor/prescriptions`)**:
+  - Form buat resep obat yang terkoneksi ke apotek.
+
+### Admin
+
+- **Inventory / Stok Obat (`/dashboard/inventory`)**:
+  - List stok bahan habis pakai (kapas, sarung tangan, dll).
+  - Alert stok menipis.
+- **Marketing Tools (`/dashboard/marketing`)**:
+  - Blast email / WA promo ke database pasien.
+  - Diskon & Coupon management.
+- **Feedback & Reviews (`/dashboard/reviews`)**:
+  - Moderasi testimoni dari pasien setelah visit.
