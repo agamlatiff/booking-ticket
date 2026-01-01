@@ -42,12 +42,12 @@ export default async function LandingPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Link href="/booking">
-                    <Button size="lg" className="bg-teal-600 hover:bg-teal-700 text-white h-12 px-8 rounded-full text-lg w-full sm:w-auto shadow-lg shadow-teal-600/20">
+                    <Button size="lg" className="bg-teal-600 hover:bg-teal-700 text-white dark:text-white font-bold h-12 px-8 rounded-full text-lg w-full sm:w-auto shadow-lg shadow-teal-600/20">
                       Buat Janji Temu
                     </Button>
                   </Link>
                   <Link href="#doctors">
-                    <Button size="lg" variant="outline" className="h-12 px-8 rounded-full text-lg border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300 w-full sm:w-auto">
+                    <Button size="lg" variant="outline" className="h-12 px-8 rounded-full text-lg border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-white w-full sm:w-auto">
                       Lihat Dokter
                     </Button>
                   </Link>
@@ -57,26 +57,26 @@ export default async function LandingPage() {
               {/* Hero Image */}
               <div className="flex-1 relative">
                 <div className="relative w-full max-w-[500px] aspect-square mx-auto">
-                   <div className="absolute inset-0 bg-teal-200 rounded-full blur-[80px] opacity-40 dark:opacity-20 animate-pulse" />
-                   <img 
-                      src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80" 
-                      alt="Happy Patient Smiling" 
-                      className="relative w-full h-full object-cover rounded-[3rem] shadow-2xl z-10 border-4 border-white dark:border-gray-800"
-                   />
-                   <div className="absolute -bottom-6 -left-6 z-20 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce" style={{ animationDuration: '3s' }}>
-                      <div className="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
-                        <ShieldCheck className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 font-medium">Terpercaya</p>
-                        <p className="text-sm font-bold text-gray-900 dark:text-white">5000+ Pasien</p>
-                      </div>
-                   </div>
+                  <div className="absolute inset-0 bg-teal-200 rounded-full blur-[80px] opacity-40 dark:opacity-20 animate-pulse" />
+                  <img
+                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80"
+                    alt="Happy Patient Smiling"
+                    className="relative w-full h-full object-cover rounded-[3rem] shadow-2xl z-10 border-4 border-white dark:border-gray-800"
+                  />
+                  <div className="absolute -bottom-6 -left-6 z-20 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce" style={{ animationDuration: '3s' }}>
+                    <div className="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                      <ShieldCheck className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium">Terpercaya</p>
+                      <p className="text-sm font-bold text-gray-900 dark:text-white">5000+ Pasien</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          
+
           <div className="absolute top-1/2 -right-20 -translate-y-1/2 w-[600px] h-[600px] bg-teal-200/20 blur-[100px] rounded-full pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-200/20 blur-[100px] rounded-full pointer-events-none" />
         </section>
