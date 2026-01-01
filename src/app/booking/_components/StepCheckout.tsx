@@ -132,9 +132,8 @@ export default function StepCheckout({
         return;
       }
 
-      // Success - redirect to payment or confirmation
-      // For now, redirect to my-bookings
-      router.push(`/my-bookings?success=true&code=${data.booking.code}`);
+      // Success - redirect to success page with QR code
+      router.push(`/booking/success?code=${data.booking.code}`);
     } catch (err) {
       setError("Terjadi kesalahan. Silakan coba lagi.");
       setLoading(false);
