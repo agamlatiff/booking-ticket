@@ -156,12 +156,16 @@ export default async function LandingPage() {
                   ))}
                 </div>
               </div>
-              <div className="w-full md:w-1/2 bg-gray-100 dark:bg-gray-800 rounded-3xl min-h-[400px] flex items-center justify-center relative overflow-hidden">
-                {/* Placeholder illustration */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/20 to-blue-500/20" />
-                <div className="text-center p-8 relative z-10">
-                  <CalendarCheck className="w-24 h-24 text-teal-600 mx-auto mb-4 opacity-80" />
-                  <p className="font-medium text-gray-600 dark:text-gray-300">Ilustrasi Booking App Interface</p>
+              <div className="w-full md:w-1/2 bg-gray-100 dark:bg-gray-800 rounded-3xl min-h-[400px] flex items-center justify-center relative overflow-hidden group">
+                <img
+                  src="https://images.unsplash.com/photo-1550831107-1553da8c8464?w=800&q=80"
+                  alt="Mobile Booking Illustration"
+                  className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="text-center p-8 relative z-10 text-white">
+                  <CalendarCheck className="w-16 h-16 mx-auto mb-4" />
+                  <p className="font-medium text-lg">Booking Kapan Saja, Di Mana Saja</p>
                 </div>
               </div>
             </div>
@@ -176,28 +180,60 @@ export default async function LandingPage() {
               <p className="text-gray-500">Tim dokter gigi profesional yang siap merawat senyum Anda</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {[1, 2, 3, 4].map((_, i) => (
-                <div key={i} className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700">
-                  <div className="h-48 bg-gray-200 dark:bg-gray-700 relative">
-                    {/* Placeholder Image */}
-                    <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                      <UserCheck className="w-12 h-12" />
-                    </div>
+              {[
+                {
+                  name: "Drg. Sarah Amalia",
+                  role: "Spesialis Orthodonti",
+                  exp: "8 Tahun",
+                  image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80"
+                },
+                {
+                  name: "Drg. Budi Santoso",
+                  role: "Bedah Mulut",
+                  exp: "12 Tahun",
+                  image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80"
+                },
+                {
+                  name: "Drg. Jessica Tan",
+                  role: "Estetika Gigi",
+                  exp: "5 Tahun",
+                  image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&q=80"
+                },
+                {
+                  name: "Drg. Ahmad Rizki",
+                  role: "Konservasi Gigi",
+                  exp: "7 Tahun",
+                  image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&q=80"
+                }
+              ].map((doc, i) => (
+                <div key={i} className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-700 group">
+                  <div className="h-64 bg-gray-200 dark:bg-gray-700 relative overflow-hidden">
+                    <img
+                      src={doc.image}
+                      alt={doc.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-gray-900 dark:text-white">Drg. Nama Dokter</h3>
-                    <p className="text-teal-600 text-sm font-medium mb-2">Spesialis Orthodonti</p>
+                  <div className="p-5">
+                    <h3 className="font-bold text-gray-900 dark:text-white text-lg">{doc.name}</h3>
+                    <p className="text-teal-600 text-sm font-medium mb-3">{doc.role}</p>
                     <div className="flex items-center gap-2 text-xs text-gray-500 mb-4">
-                      <Clock className="w-3 h-3" /> 5 Tahun Pengalaman
+                      <Clock className="w-3 h-3" /> {doc.exp} Pengalaman
                     </div>
-                    <Link href={`/booking?doctor=${i}`} className="block w-full">
-                      <Button variant="secondary" className="w-full h-8 text-xs bg-teal-50 text-teal-700 hover:bg-teal-100">
+                    <Link href={`/booking`} className="block w-full">
+                      <Button variant="secondary" className="w-full h-9 text-xs bg-teal-50 text-teal-700 hover:bg-teal-100 font-medium">
                         Lihat Jadwal
                       </Button>
                     </Link>
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div className="text-center mt-12 block md:hidden">
+              <Link href="/doctors">
+                <Button variant="link" className="text-teal-600">Lihat Semua Dokter &rarr;</Button>
+              </Link>
             </div>
           </div>
         </section>
