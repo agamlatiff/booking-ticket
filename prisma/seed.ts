@@ -37,6 +37,9 @@ async function main() {
         bio: "Berpengalaman lebih dari 15 tahun dalam perawatan gigi konservatif dan estetik.",
         image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400",
         phone: "081234567891",
+        yearsExperience: 15,
+        rating: 4.9,
+        totalPatients: 450,
         isActive: true,
       },
     }),
@@ -50,6 +53,9 @@ async function main() {
         bio: "Fokus pada perawatan gigi anak dan dewasa dengan pendekatan yang ramah.",
         image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400",
         phone: "081234567892",
+        yearsExperience: 8,
+        rating: 4.8,
+        totalPatients: 320,
         isActive: true,
       },
     }),
@@ -63,6 +69,9 @@ async function main() {
         bio: "Ahli dalam pemasangan behel dan koreksi susunan gigi.",
         image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400",
         phone: "081234567893",
+        yearsExperience: 12,
+        rating: 5.0,
+        totalPatients: 280,
         isActive: true,
       },
     }),
@@ -84,6 +93,7 @@ async function main() {
         description: "Pembersihan karang gigi dan pemolesan untuk gigi yang lebih bersih dan sehat.",
         price: 350000,
         dpAmount: 100000,
+        category: "general",
         duration: 60,
         order: 1,
         isActive: true,
@@ -98,6 +108,7 @@ async function main() {
         description: "Pencabutan gigi dengan teknik modern dan minim rasa sakit.",
         price: 500000,
         dpAmount: 150000,
+        category: "general",
         duration: 60,
         order: 2,
         isActive: true,
@@ -112,6 +123,7 @@ async function main() {
         description: "Penambalan gigi berlubang dengan bahan berkualitas tinggi.",
         price: 300000,
         dpAmount: 100000,
+        category: "general",
         duration: 60,
         order: 3,
         isActive: true,
@@ -126,6 +138,7 @@ async function main() {
         description: "Pelapisan gigi untuk tampilan lebih putih dan rapi.",
         price: 3500000,
         dpAmount: 1000000,
+        category: "cosmetic",
         duration: 120,
         order: 4,
         isActive: true,
@@ -140,6 +153,7 @@ async function main() {
         description: "Pemasangan behel untuk merapikan susunan gigi.",
         price: 8000000,
         dpAmount: 2000000,
+        category: "orthodontic",
         duration: 120,
         order: 5,
         isActive: true,
@@ -154,6 +168,7 @@ async function main() {
         description: "Pemutihan gigi profesional untuk senyum yang lebih cerah.",
         price: 2500000,
         dpAmount: 750000,
+        category: "cosmetic",
         duration: 90,
         order: 6,
         isActive: true,
@@ -168,6 +183,7 @@ async function main() {
         description: "Konsultasi dan pemeriksaan kesehatan gigi secara menyeluruh.",
         price: 150000,
         dpAmount: 50000,
+        category: "general",
         duration: 30,
         order: 0,
         isActive: true,
@@ -347,7 +363,64 @@ async function main() {
   console.log(`   ✅ Created ${slotsCreated} time slots`);
 
   // ============================================
-  // 6. Create Clinic Settings
+  // 6. Create Gallery Images
+  // ============================================
+  console.log("📸 Creating gallery images...");
+
+  const galleryImages = await Promise.all([
+    prisma.galleryImage.upsert({
+      where: { id: "gallery-1" },
+      update: {},
+      create: {
+        id: "gallery-1",
+        title: "Before After Scaling",
+        imageUrl: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800",
+        category: "BEFORE_AFTER",
+        order: 1,
+        isActive: true,
+      },
+    }),
+    prisma.galleryImage.upsert({
+      where: { id: "gallery-2" },
+      update: {},
+      create: {
+        id: "gallery-2",
+        title: "Ruang Praktik Modern",
+        imageUrl: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800",
+        category: "CLINIC",
+        order: 2,
+        isActive: true,
+      },
+    }),
+    prisma.galleryImage.upsert({
+      where: { id: "gallery-3" },
+      update: {},
+      create: {
+        id: "gallery-3",
+        title: "Tim Dokter Kami",
+        imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800",
+        category: "TEAM",
+        order: 3,
+        isActive: true,
+      },
+    }),
+    prisma.galleryImage.upsert({
+      where: { id: "gallery-4" },
+      update: {},
+      create: {
+        id: "gallery-4",
+        title: "Before After Veneer",
+        imageUrl: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800",
+        category: "BEFORE_AFTER",
+        order: 4,
+        isActive: true,
+      },
+    }),
+  ]);
+  console.log(`   ✅ Created ${galleryImages.length} gallery images`);
+
+  // ============================================
+  // 7. Create Clinic Settings
   // ============================================
   console.log("⚙️ Creating clinic settings...");
 

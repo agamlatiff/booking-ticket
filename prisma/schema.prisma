@@ -41,6 +41,24 @@ enum DayOfWeek {
   SUNDAY
 }
 
+enum GalleryCategory {
+  BEFORE_AFTER
+  CLINIC
+  TEAM
+}
+
+enum BookingSource {
+  PATIENT_ONLINE
+  DOCTOR_PORTAL
+  ADMIN_DASHBOARD
+}
+
+enum BookingType {
+  WALK_IN
+  PHONE
+  REFERRAL
+}
+
 // ============================================
 // AUTH MODELS (Auth.js compatible)
 // ============================================
@@ -52,6 +70,8 @@ model User {
   emailVerified DateTime?
   image         String?
   phone         String? // WhatsApp number for notifications
+  address       String? // Alamat pasien
+  avatar        String? // URL foto profil (Supabase Storage)
   role          RoleUser  @default(PATIENT)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -63,6 +83,7 @@ model User {
   // App relations
   bookings      Booking[]
   doctorProfile Doctor?
+  blogPosts     BlogPost[]
 
   @@index([email])
   @@index([role])
@@ -112,17 +133,20 @@ model VerificationToken {
 // ============================================
 
 model Doctor {
-  id         String   @id @default(cuid())
-  userId     String?  @unique // Link to User account (optional)
-  user       User?    @relation(fields: [userId], references: [id])
-  name       String // e.g., "drg. Handoko"
-  speciality String // e.g., "Dokter Gigi Umum"
-  bio        String? // Short description
-  image      String // Photo URL (Supabase Storage)
-  phone      String? // Contact number
-  isActive   Boolean  @default(true)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id              String   @id @default(cuid())
+  userId          String?  @unique // Link to User account (optional)
+  user            User?    @relation(fields: [userId], references: [id])
+  name            String // e.g., "drg. Handoko"
+  speciality      String // e.g., "Dokter Gigi Umum"
+  bio             String? // Short description
+  image           String // Photo URL (Supabase Storage)
+  phone           String? // Contact number
+  yearsExperience Int      @default(0) // Tahun pengalaman dokter
+  rating          Decimal  @default(5.0) @db.Decimal(2, 1) // Rating dokter
+  totalPatients   Int      @default(0) // Counter pasien yang ditangani
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   // Relations
   scheduleTemplates ScheduleTemplate[]
@@ -142,6 +166,8 @@ model Service {
   dpAmount    Int // Down payment amount in IDR
   duration    Int      @default(60) // Duration in minutes
   image       String? // Service image (Supabase Storage)
+  category    String   @default("general") // general, cosmetic, orthodontic
+  faq         Json? // FAQ specific untuk layanan ini
   isActive    Boolean  @default(true)
   order       Int      @default(0) // Display order
   createdAt   DateTime @default(now())
@@ -151,6 +177,7 @@ model Service {
   bookings Booking[]
 
   @@index([isActive, order])
+  @@index([category])
 }
 
 model ScheduleTemplate {
@@ -219,6 +246,10 @@ model Booking {
   appointmentDate DateTime @db.Date
   appointmentTime String // "09:00"
 
+  // Booking source info
+  bookingSource BookingSource @default(PATIENT_ONLINE)
+  bookingType   BookingType? // For DOCTOR_PORTAL / ADMIN bookings
+
   // Payment info
   dpAmount   Int @default(0) // DP yang harus dibayar
   dpPaid     Int @default(0) // DP yang sudah dibayar
@@ -241,6 +272,7 @@ model Booking {
   reminderSent     Boolean @default(false)
 
   @@index([patientId])
+  @@index([patientId, status])
   @@index([doctorId, appointmentDate])
   @@index([status])
   @@index([appointmentDate])
@@ -258,4 +290,55 @@ model ClinicSettings {
   paymentTimeout   Int      @default(15) // minutes
   reminderHours    Int      @default(24) // hours before appointment
   updatedAt        DateTime @updatedAt
+}
+
+// ============================================
+// CONTENT MODELS
+// ============================================
+
+model GalleryImage {
+  id        String          @id @default(cuid())
+  title     String?
+  imageUrl  String
+  category  GalleryCategory
+  order     Int             @default(0)
+  isActive  Boolean         @default(true)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@index([category, isActive])
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String
+  content     String    @db.Text
+  thumbnail   String?
+  category    String
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+  publishedAt DateTime?
+  isPublished Boolean   @default(false)
+  viewCount   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([isPublished, publishedAt])
+  @@index([category])
+  @@index([slug])
+}
+
+model ContactSubmission {
+  id        String    @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String    @db.Text
+  isRead    Boolean   @default(false)
+  repliedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([isRead])
 }
