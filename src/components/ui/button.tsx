@@ -8,32 +8,34 @@ import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/20 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-bold transition-all duration-100 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border-2 border-foreground",
   {
     variants: {
       variant: {
-        // FlyHigher Primary Variants
+        // Dental Care Primary Variants (Pop/Sticker Style)
         default:
-          "bg-primary text-white shadow-lg shadow-primary/10 hover:bg-slate-800 dark:bg-accent dark:hover:bg-sky-300 dark:text-primary rounded-full",
+          "bg-primary text-white shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] rounded-xl",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 rounded-full",
+          "bg-red-500 text-white shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] rounded-xl",
         outline:
-          "border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full",
+          "bg-white text-foreground shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-gray-50 rounded-xl",
         secondary:
-          "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl",
+          "bg-secondary text-white shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] rounded-xl",
         ghost:
-          "hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl",
+          "border-transparent shadow-none hover:bg-gray-100 hover:border-foreground rounded-xl",
         link:
-          "text-primary dark:text-accent underline-offset-4 hover:underline",
-        // Accent Variant
+          "border-transparent shadow-none text-primary underline-offset-4 hover:underline",
+        // Accent Variants
         accent:
-          "bg-accent hover:bg-sky-400 text-primary font-bold rounded-full shadow-lg shadow-accent/30",
-        // Glass Variant
+          "bg-accent-yellow text-foreground shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] rounded-xl",
+        purple:
+          "bg-accent-purple text-foreground shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] rounded-xl",
+        // Glass variant for navigation
         glass:
-          "bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 rounded-full",
+          "bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 rounded-full",
       },
       size: {
-        default: "h-10 px-5 py-2.5",
+        default: "h-10 px-5 py-2.5 text-sm",
         sm: "h-8 px-4 text-xs",
         lg: "h-12 px-8 text-base",
         xl: "h-14 px-10 text-lg",

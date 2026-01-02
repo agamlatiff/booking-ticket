@@ -3,28 +3,30 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold transition-colors",
+  "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold transition-colors border",
   {
     variants: {
       variant: {
         default:
-          "bg-primary/10 text-primary dark:bg-accent/20 dark:text-accent",
+          "bg-primary/10 text-primary border-primary/20",
         accent:
-          "bg-accent text-primary",
+          "bg-accent-yellow text-foreground border-foreground",
         success:
-          "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+          "bg-green-100 text-green-700 border-green-200",
         warning:
-          "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+          "bg-yellow-100 text-yellow-800 border-yellow-200",
         error:
-          "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+          "bg-red-100 text-red-700 border-red-200",
+        info:
+          "bg-blue-100 text-blue-700 border-blue-200",
         outline:
-          "border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400",
-        glass:
-          "bg-white/20 backdrop-blur-sm text-white border border-white/20",
+          "bg-white text-foreground border-foreground",
         secondary:
-          "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
-        destructive:
-          "bg-red-500 text-white",
+          "bg-gray-100 text-gray-700 border-gray-200",
+        purple:
+          "bg-accent-purple/20 text-accent-purple border-accent-purple/30",
+        coral:
+          "bg-secondary/10 text-secondary border-secondary/20",
       },
       size: {
         sm: "text-[10px] px-2 py-0.5",

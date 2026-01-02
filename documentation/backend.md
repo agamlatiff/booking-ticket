@@ -1359,3 +1359,477 @@ src/lib/validations/
 | [ ]  | Cron endpoints protected with secret header         |
 | [ ]  | Environment variables not exposed to client         |
 | [ ]  | Supabase RLS policies configured                    |
+
+---
+
+## 8. Database Seeders
+
+### 8.1 Seeder Setup
+
+| Task | Description                                     |
+| ---- | ----------------------------------------------- |
+| [ ]  | Create `prisma/seed.ts` file                    |
+| [ ]  | Add seed script to `package.json`               |
+| [ ]  | Configure `prisma` seed command in package.json |
+
+```json
+// package.json
+{
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
+  "scripts": {
+    "db:seed": "prisma db seed",
+    "db:reset": "prisma migrate reset"
+  }
+}
+```
+
+---
+
+### 8.2 User Seeder
+
+| Task | Description                               |
+| ---- | ----------------------------------------- |
+| [ ]  | Create admin user (role: ADMIN)           |
+| [ ]  | Create test patient users (role: PATIENT) |
+| [ ]  | Hash passwords using bcrypt               |
+
+```typescript
+// prisma/seeders/users.ts
+import { PrismaClient, UserRole } from "@prisma/client";
+import bcrypt from "bcryptjs";
+
+export async function seedUsers(prisma: PrismaClient) {
+  const hashedPassword = await bcrypt.hash("password123", 10);
+
+  // Admin
+  await prisma.user.upsert({
+    where: { email: "admin@dentalcare.com" },
+    update: {},
+    create: {
+      email: "admin@dentalcare.com",
+      name: "Admin Klinik",
+      password: hashedPassword,
+      phone: "+628123456789",
+      role: UserRole.ADMIN,
+    },
+  });
+
+  // Test Patient
+  await prisma.user.upsert({
+    where: { email: "pasien@test.com" },
+    update: {},
+    create: {
+      email: "pasien@test.com",
+      name: "Budi Santoso",
+      password: hashedPassword,
+      phone: "+628123456790",
+      role: UserRole.PATIENT,
+    },
+  });
+
+  console.log("✅ Users seeded");
+}
+```
+
+---
+
+### 8.3 Doctor Seeder
+
+| Task | Description                               |
+| ---- | ----------------------------------------- |
+| [ ]  | Create doctor users (role: DOCTOR)        |
+| [ ]  | Create Doctor records with bio, specialty |
+| [ ]  | Link doctors to their user accounts       |
+
+```typescript
+// prisma/seeders/doctors.ts
+import { PrismaClient, UserRole } from "@prisma/client";
+import bcrypt from "bcryptjs";
+
+const doctorsData = [
+  {
+    email: "drg.siti@dentalcare.com",
+    name: "drg. Siti Aminah, Sp.Ort",
+    specialty: "Spesialis Ortodonti",
+    bio: "Dokter gigi spesialis ortodonti dengan pengalaman 10+ tahun dalam perawatan behel dan aligner.",
+    yearsExperience: 12,
+    rating: 4.9,
+  },
+  {
+    email: "drg.budi@dentalcare.com",
+    name: "drg. Budi Santoso",
+    specialty: "Dokter Gigi Umum",
+    bio: "Dokter gigi umum yang berpengalaman dalam scaling, tambal gigi, dan perawatan gigi anak.",
+    yearsExperience: 8,
+    rating: 4.8,
+  },
+  {
+    email: "drg.rina@dentalcare.com",
+    name: "drg. Rina Wati, Sp.KG",
+    specialty: "Spesialis Konservasi Gigi",
+    bio: "Ahli dalam perawatan saluran akar dan restorasi gigi estetik.",
+    yearsExperience: 15,
+    rating: 5.0,
+  },
+];
+
+export async function seedDoctors(prisma: PrismaClient) {
+  const hashedPassword = await bcrypt.hash("doctor123", 10);
+
+  for (const doc of doctorsData) {
+    const user = await prisma.user.upsert({
+      where: { email: doc.email },
+      update: {},
+      create: {
+        email: doc.email,
+        name: doc.name,
+        password: hashedPassword,
+        phone: "+628" + Math.floor(Math.random() * 1000000000),
+        role: UserRole.DOCTOR,
+      },
+    });
+
+    await prisma.doctor.upsert({
+      where: { userId: user.id },
+      update: {},
+      create: {
+        userId: user.id,
+        specialty: doc.specialty,
+        bio: doc.bio,
+        yearsExperience: doc.yearsExperience,
+        rating: doc.rating,
+        totalPatients: Math.floor(Math.random() * 500),
+        isActive: true,
+      },
+    });
+  }
+
+  console.log("✅ Doctors seeded");
+}
+```
+
+---
+
+### 8.4 Service Seeder
+
+| Task | Description                        |
+| ---- | ---------------------------------- |
+| [ ]  | Create dental services with prices |
+| [ ]  | Set DP amounts (30% of price)      |
+| [ ]  | Add categories and duration        |
+
+```typescript
+// prisma/seeders/services.ts
+import { PrismaClient } from "@prisma/client";
+
+const servicesData = [
+  {
+    name: "Scaling Gigi",
+    slug: "scaling",
+    price: 350000,
+    duration: 30,
+    category: "general",
+    description:
+      "Pembersihan karang gigi dan plak menggunakan alat ultrasonik.",
+  },
+  {
+    name: "Tambal Gigi",
+    slug: "tambal-gigi",
+    price: 250000,
+    duration: 45,
+    category: "general",
+    description: "Penambalan gigi berlubang dengan bahan komposit estetik.",
+  },
+  {
+    name: "Cabut Gigi",
+    slug: "cabut-gigi",
+    price: 200000,
+    duration: 30,
+    category: "general",
+    description: "Pencabutan gigi dengan anestesi lokal.",
+  },
+  {
+    name: "Bleaching",
+    slug: "bleaching",
+    price: 1500000,
+    duration: 60,
+    category: "cosmetic",
+    description: "Pemutihan gigi untuk senyum lebih cerah.",
+  },
+  {
+    name: "Veneer Gigi",
+    slug: "veneer",
+    price: 3500000,
+    duration: 90,
+    category: "cosmetic",
+    description: "Lapisan tipis untuk memperbaiki bentuk dan warna gigi.",
+  },
+  {
+    name: "Behel / Kawat Gigi",
+    slug: "behel",
+    price: 15000000,
+    duration: 60,
+    category: "orthodontic",
+    description: "Pemasangan behel untuk meratakan susunan gigi.",
+  },
+  {
+    name: "Perawatan Saluran Akar",
+    slug: "root-canal",
+    price: 1200000,
+    duration: 90,
+    category: "general",
+    description: "Perawatan gigi yang terinfeksi untuk menghindari pencabutan.",
+  },
+  {
+    name: "Gigi Palsu / Crown",
+    slug: "crown",
+    price: 2500000,
+    duration: 60,
+    category: "cosmetic",
+    description: "Pemasangan mahkota gigi untuk gigi yang rusak.",
+  },
+];
+
+export async function seedServices(prisma: PrismaClient) {
+  for (const service of servicesData) {
+    await prisma.service.upsert({
+      where: { slug: service.slug },
+      update: {},
+      create: {
+        name: service.name,
+        slug: service.slug,
+        description: service.description,
+        price: service.price,
+        dpAmount: Math.round(service.price * 0.3), // 30% DP
+        duration: service.duration,
+        category: service.category,
+        isActive: true,
+      },
+    });
+  }
+
+  console.log("✅ Services seeded");
+}
+```
+
+---
+
+### 8.5 Schedule Template Seeder
+
+| Task | Description                               |
+| ---- | ----------------------------------------- |
+| [ ]  | Create schedule templates for each doctor |
+| [ ]  | Define working days (Mon-Sat)             |
+| [ ]  | Set working hours (09:00-17:00)           |
+
+```typescript
+// prisma/seeders/scheduleTemplates.ts
+import { PrismaClient, DayOfWeek } from "@prisma/client";
+
+export async function seedScheduleTemplates(prisma: PrismaClient) {
+  const doctors = await prisma.doctor.findMany();
+
+  const days = [
+    DayOfWeek.MONDAY,
+    DayOfWeek.TUESDAY,
+    DayOfWeek.WEDNESDAY,
+    DayOfWeek.THURSDAY,
+    DayOfWeek.FRIDAY,
+    DayOfWeek.SATURDAY,
+  ];
+
+  for (const doctor of doctors) {
+    for (const day of days) {
+      await prisma.scheduleTemplate.upsert({
+        where: {
+          doctorId_dayOfWeek: {
+            doctorId: doctor.id,
+            dayOfWeek: day,
+          },
+        },
+        update: {},
+        create: {
+          doctorId: doctor.id,
+          dayOfWeek: day,
+          startTime: "09:00",
+          endTime: "17:00",
+          slotDuration: 30,
+          isActive: true,
+        },
+      });
+    }
+  }
+
+  console.log("✅ Schedule templates seeded");
+}
+```
+
+---
+
+### 8.6 Time Slots Seeder
+
+| Task | Description                          |
+| ---- | ------------------------------------ |
+| [ ]  | Generate time slots for next 14 days |
+| [ ]  | Based on schedule templates          |
+| [ ]  | 30-minute intervals                  |
+
+```typescript
+// prisma/seeders/timeSlots.ts
+import { PrismaClient } from "@prisma/client";
+import { addDays, format, parse, addMinutes } from "date-fns";
+
+export async function seedTimeSlots(prisma: PrismaClient) {
+  const doctors = await prisma.doctor.findMany({
+    include: { scheduleTemplates: true },
+  });
+
+  const today = new Date();
+
+  for (const doctor of doctors) {
+    for (let i = 0; i < 14; i++) {
+      const date = addDays(today, i);
+      const dayOfWeek = format(date, "EEEE").toUpperCase();
+
+      const template = doctor.scheduleTemplates.find(
+        (t) => t.dayOfWeek === dayOfWeek && t.isActive
+      );
+
+      if (!template) continue;
+
+      let currentTime = parse(template.startTime, "HH:mm", date);
+      const endTime = parse(template.endTime, "HH:mm", date);
+
+      while (currentTime < endTime) {
+        const startTimeStr = format(currentTime, "HH:mm");
+        const endTimeStr = format(
+          addMinutes(currentTime, template.slotDuration),
+          "HH:mm"
+        );
+
+        await prisma.timeSlot.upsert({
+          where: {
+            doctorId_date_startTime: {
+              doctorId: doctor.id,
+              date: date,
+              startTime: startTimeStr,
+            },
+          },
+          update: {},
+          create: {
+            doctorId: doctor.id,
+            date: date,
+            startTime: startTimeStr,
+            endTime: endTimeStr,
+            isAvailable: true,
+            isBlocked: false,
+          },
+        });
+
+        currentTime = addMinutes(currentTime, template.slotDuration);
+      }
+    }
+  }
+
+  console.log("✅ Time slots seeded (14 days)");
+}
+```
+
+---
+
+### 8.7 Gallery & Blog Seeder (Optional)
+
+| Task | Description                |
+| ---- | -------------------------- |
+| [ ]  | Seed sample gallery images |
+| [ ]  | Seed sample blog posts     |
+
+```typescript
+// prisma/seeders/content.ts
+import { PrismaClient, GalleryCategory } from "@prisma/client";
+
+export async function seedContent(prisma: PrismaClient) {
+  // Gallery
+  const galleryImages = [
+    {
+      title: "Before After Scaling",
+      category: GalleryCategory.BEFORE_AFTER,
+      imageUrl: "/images/gallery/ba-scaling.jpg",
+    },
+    {
+      title: "Ruang Tunggu",
+      category: GalleryCategory.CLINIC,
+      imageUrl: "/images/gallery/waiting-room.jpg",
+    },
+    {
+      title: "Tim Dokter",
+      category: GalleryCategory.TEAM,
+      imageUrl: "/images/gallery/team.jpg",
+    },
+  ];
+
+  for (let i = 0; i < galleryImages.length; i++) {
+    await prisma.galleryImage.create({
+      data: {
+        ...galleryImages[i],
+        order: i,
+        isActive: true,
+      },
+    });
+  }
+
+  console.log("✅ Gallery seeded");
+}
+```
+
+---
+
+### 8.8 Main Seed File
+
+```typescript
+// prisma/seed.ts
+import { PrismaClient } from "@prisma/client";
+import { seedUsers } from "./seeders/users";
+import { seedDoctors } from "./seeders/doctors";
+import { seedServices } from "./seeders/services";
+import { seedScheduleTemplates } from "./seeders/scheduleTemplates";
+import { seedTimeSlots } from "./seeders/timeSlots";
+import { seedContent } from "./seeders/content";
+
+const prisma = new PrismaClient();
+
+async function main() {
+  console.log("🌱 Starting seed...\n");
+
+  await seedUsers(prisma);
+  await seedDoctors(prisma);
+  await seedServices(prisma);
+  await seedScheduleTemplates(prisma);
+  await seedTimeSlots(prisma);
+  await seedContent(prisma);
+
+  console.log("\n✅ Seed completed!");
+}
+
+main()
+  .catch((e) => {
+    console.error("❌ Seed failed:", e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
+```
+
+---
+
+### 8.9 Seed Commands
+
+| Command                    | Description                      |
+| -------------------------- | -------------------------------- |
+| `npx prisma db seed`       | Run seeders                      |
+| `npx prisma migrate reset` | Reset DB + run seeders           |
+| `npm run db:seed`          | Run seeders (via npm script)     |
+| `npm run db:reset`         | Reset DB + seed (via npm script) |
