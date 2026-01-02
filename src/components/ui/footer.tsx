@@ -23,7 +23,7 @@ export function Footer() {
           <div className="flex flex-col gap-3 text-sm text-gray-400">
             <a
               className="hover:text-white transition flex items-center gap-2"
-              href="https://wa.me/6281234567890"
+              href="https://wa.me/6285922430828"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -103,7 +103,7 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <a href="https://wa.me/6281234567890" className="hover:text-teal-400 transition">
+              <a href="https://wa.me/6285922430828" className="hover:text-teal-400 transition">
                 Hubungi Kami
               </a>
             </li>

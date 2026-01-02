@@ -57,7 +57,7 @@ export function NavbarAuth({ user, showAuth = true }: NavbarAuthProps) {
           Booking
         </Link>
         <a
-          href="https://wa.me/6281234567890"
+          href="https://wa.me/6285922430828"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-teal-600 dark:hover:text-teal-400 transition"

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pasien - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .nav-link {
+            position: relative
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scalex(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0d9488;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out
+        }
+        .nav-link:hover::after {
+            transform: scalex(1);
+            transform-origin: bottom left
+        }.scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<nav class="fixed top-0 z-50 w-full px-4 py-4 md:px-10">
+<div class="mx-auto max-w-7xl">
+<div class="relative flex items-center justify-between rounded-full border-2 border-[#111817] bg-white px-6 py-3 shadow-pop">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border-2 border-[#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#111817]">Dental Clinic</span>
+</div>
+<div class="hidden items-center gap-8 xl:flex">
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Dashboard</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Jadwal</a>
+<a class="nav-link text-sm font-bold text-primary transition-colors" href="#">Pasien</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Laporan</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Settings</a>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<button class="h-10 w-10 flex items-center justify-center rounded-full border-2 border-[#111817] bg-white hover:bg-gray-100 transition-colors">
+<span class="material-symbols-outlined text-[#111817]">notifications</span>
+</button>
+<div class="flex items-center gap-3 rounded-full border-2 border-[#111817] bg-white pl-1 pr-4 py-1 hover:shadow-md cursor-pointer transition-all">
+<img alt="Doctor Profile" class="h-8 w-8 rounded-full border border-[#111817] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+<span class="text-sm font-bold text-[#111817]">drg. Siti Aminah</span>
+</div>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-[#111817] shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-4 md:px-10 min-h-screen">
+<div class="mx-auto max-w-7xl">
+<div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<div class="inline-flex items-center gap-2 mb-2">
+<span class="text-2xl">📂</span>
+<span class="font-bold text-gray-500 uppercase tracking-wider text-xs">Patient Management</span>
+</div>
+<h1 class="font-display text-4xl font-black text-[#111817]">Daftar Pasien</h1>
+<p class="text-lg text-gray-600 mt-2">Kelola data pasien, riwayat, dan jadwal kunjungan.</p>
+</div>
+<div class="flex gap-3">
+<button class="btn-outline-pop flex h-12 items-center justify-center rounded-full px-6 font-bold text-sm bg-white">
+<span class="material-symbols-outlined mr-2 text-lg">download</span>
+                        Export Data
+                    </button>
+<button class="btn-pop flex h-12 items-center justify-center rounded-full bg-primary px-6 font-bold text-white text-sm">
+<span class="material-symbols-outlined mr-2 text-lg">person_add</span>
+                        Tambah Pasien
+                    </button>
+</div>
+</div>
+<div class="mb-8 rounded-[2rem] border-2 border-[#111817] bg-white p-4 shadow-card">
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="relative w-full md:w-1/2 lg:w-1/3">
+<span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+<span class="material-symbols-outlined">search</span>
+</span>
+<input class="w-full rounded-full border-2 border-gray-200 py-3 pl-12 pr-4 text-sm font-medium focus:border-[#111817] focus:ring-0 placeholder:text-gray-400" placeholder="Cari nama, no. telepon, atau ID pasien..." type="text"/>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+<button class="whitespace-nowrap rounded-full bg-[#111817] px-6 py-2.5 text-sm font-bold text-white transition-transform hover:scale-105">
+                            Semua
+                        </button>
+<button class="whitespace-nowrap rounded-full border-2 border-gray-200 bg-white px-6 py-2.5 text-sm font-bold text-gray-500 hover:border-primary hover:text-primary transition-colors">
+                            Pasien Baru
+                        </button>
+<button class="whitespace-nowrap rounded-full border-2 border-gray-200 bg-white px-6 py-2.5 text-sm font-bold text-gray-500 hover:border-primary hover:text-primary transition-colors">
+                            Berlangganan
+                        </button>
+<div class="h-8 w-px bg-gray-300 mx-2 hidden md:block"></div>
+<button class="flex items-center gap-2 whitespace-nowrap rounded-full border-2 border-gray-200 bg-white px-4 py-2.5 text-sm font-bold text-[#111817] hover:bg-gray-50">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                            Filter Lanjutan
+                        </button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="group relative flex flex-col lg:flex-row items-center justify-between gap-6 rounded-[1.5rem] border-2 border-[#111817] bg-white p-5 shadow-sm hover:shadow-pop transition-all hover:translate-x-1 duration-200">
+<div class="flex w-full lg:w-auto items-center gap-4">
+<div class="relative h-16 w-16 flex-shrink-0">
+<img alt="Patient Avatar" class="h-full w-full rounded-2xl border-2 border-[#111817] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnYPSaUrEDPtuf5OAcSeDoL6Pal3cD4zXfjeKnUbC4geiCbfZEzTLeWdiIuedQhm-I7ihUEz4M9hM6bVu825iruWE3kZ3KiD-G1D_Bfkyw9s1cEGzK4z2dUuIzOMV9Oo6JqjJPYTuIgRe6daiSa1AqvRNlFXUKQNKVjVBkxdhK965Ar5qRzyqMsF-UdiJsq-eZQsYGFJbSlO1g2AzQxmR4gbipRMW_uf0AxQdWOZ7NYaBjuaGG58aPDDYRrU7ZWU_WQSzeY3sLQ1-G"/>
+<div class="absolute -bottom-1 -right-1 h-5 w-5 rounded-full border-2 border-white bg-green-500"></div>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-black text-[#111817]">Budi Santoso</h3>
+<span class="rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-bold text-gray-500">ID: P-0291</span>
+</div>
+<div class="mt-1 flex flex-wrap gap-2 text-xs font-medium text-gray-500">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">call</span>
+                                    0812-3456-7890
+                                </span>
+<span class="hidden md:inline">•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                    32 Tahun
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex w-full lg:flex-1 items-center justify-between lg:justify-start lg:gap-12 border-t lg:border-t-0 border-dashed border-gray-200 pt-4 lg:pt-0">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Terakhir Berkunjung</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-[#111817]">Hari Ini</span>
+<span class="rounded-full bg-purple-100 px-2 py-0.5 text-xs font-bold text-purple-700 border border-purple-200">Orthodontic</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Status Pembayaran</span>
+<div class="flex items-center gap-1 text-green-600 font-bold text-sm">
+<span class="material-symbols-outlined text-base">check_circle</span>
+                                Lunas
+                            </div>
+</div>
+</div>
+<div class="flex w-full lg:w-auto items-center gap-2">
+<button class="flex-1 lg:flex-none h-10 w-10 rounded-xl border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-accent-purple hover:bg-accent-purple hover:text-white transition-colors" title="Chat WhatsApp">
+<span class="material-symbols-outlined">chat</span>
+</button>
+<button class="flex-1 lg:flex-none btn-pop h-10 rounded-xl bg-white px-4 text-sm font-bold text-[#111817] hover:bg-background-light">
+                            Lihat Detail
+                        </button>
+</div>
+</div>
+<div class="group relative flex flex-col lg:flex-row items-center justify-between gap-6 rounded-[1.5rem] border-2 border-[#111817] bg-white p-5 shadow-sm hover:shadow-pop transition-all hover:translate-x-1 duration-200">
+<div class="flex w-full lg:w-auto items-center gap-4">
+<div class="relative h-16 w-16 flex-shrink-0">
+<img alt="Patient Avatar" class="h-full w-full rounded-2xl border-2 border-[#111817] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKTUpw08GsLqqNdH_LEUuGUAaQqQO7iO2hEWNFoVmfXfucEqmWRRpZG8ILNv2boNN8orHR8LyFRAgd9PzsDuydfBWDBI9JN2BAj2XaokGXVdkJzc437-JoOhRMvbXnJqlJVKZuz19DnAPTgvtZkULPU2cTuA--cMN3St-S7XUf0KT95Q7TsTr-KU3CszuBBMAHeIjJQwC2XCbh_G6Cvcr2TEuc1tzdRFCFPUti8uNh0HiB0VvfCHmiojqbyxWPet9SjYc7BEfGi_uU"/>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-black text-[#111817]">Siti Nurhaliza</h3>
+<span class="rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-bold text-gray-500">ID: P-0292</span>
+</div>
+<div class="mt-1 flex flex-wrap gap-2 text-xs font-medium text-gray-500">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">call</span>
+                                    0811-2233-4455
+                                </span>
+<span class="hidden md:inline">•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                    28 Tahun
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex w-full lg:flex-1 items-center justify-between lg:justify-start lg:gap-12 border-t lg:border-t-0 border-dashed border-gray-200 pt-4 lg:pt-0">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Terakhir Berkunjung</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-[#111817]">12 Okt 2023</span>
+<span class="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-bold text-blue-700 border border-blue-200">Scaling</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Kunjungan Berikutnya</span>
+<div class="flex items-center gap-1 text-gray-700 font-bold text-sm">
+<span class="material-symbols-outlined text-base text-secondary">event</span>
+                                12 Apr 2024
+                            </div>
+</div>
+</div>
+<div class="flex w-full lg:w-auto items-center gap-2">
+<button class="flex-1 lg:flex-none h-10 w-10 rounded-xl border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-accent-purple hover:bg-accent-purple hover:text-white transition-colors" title="Chat WhatsApp">
+<span class="material-symbols-outlined">chat</span>
+</button>
+<button class="flex-1 lg:flex-none btn-pop h-10 rounded-xl bg-white px-4 text-sm font-bold text-[#111817] hover:bg-background-light">
+                            Lihat Detail
+                        </button>
+</div>
+</div>
+<div class="group relative flex flex-col lg:flex-row items-center justify-between gap-6 rounded-[1.5rem] border-2 border-[#111817] bg-white p-5 shadow-sm hover:shadow-pop transition-all hover:translate-x-1 duration-200">
+<div class="flex w-full lg:w-auto items-center gap-4">
+<div class="relative h-16 w-16 flex-shrink-0">
+<img alt="Patient Avatar" class="h-full w-full rounded-2xl border-2 border-[#111817] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVCbM5VArTlMHWPJCG9peHSy5KMLXiIYqoak3QMoPYP6I4mv-zHGZF8R-vXntIvg5LWwhGr-GGPfoWG2AKyQwZs6k0TP7ALSR5MV2p_NgETmfgSoKApyV_Xwilt4qscDJ-TQNtoDtGQG0tu0mquNDoPK0rdpgVSKMAX_ov3XmA6XUKMfAQQWmKVcbhV7e_rUCXmFIW8QvucRtVE29cmeWdjaP2ldu_djAeuEZwzoaiVoae_8N23rf2xOfhrY84SuUPNsZrwrR4R7l7"/>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-black text-[#111817]">Andi Pratama</h3>
+<span class="rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-bold text-gray-500">ID: P-0293</span>
+</div>
+<div class="mt-1 flex flex-wrap gap-2 text-xs font-medium text-gray-500">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">call</span>
+                                    0857-9988-7766
+                                </span>
+<span class="hidden md:inline">•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                    45 Tahun
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex w-full lg:flex-1 items-center justify-between lg:justify-start lg:gap-12 border-t lg:border-t-0 border-dashed border-gray-200 pt-4 lg:pt-0">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Terakhir Berkunjung</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-[#111817]">Hari Ini</span>
+<span class="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-bold text-orange-700 border border-orange-200">Tambal</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Status Pembayaran</span>
+<div class="flex items-center gap-1 text-red-500 font-bold text-sm">
+<span class="material-symbols-outlined text-base">pending</span>
+                                Belum Lunas
+                            </div>
+</div>
+</div>
+<div class="flex w-full lg:w-auto items-center gap-2">
+<button class="flex-1 lg:flex-none h-10 w-10 rounded-xl border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-accent-purple hover:bg-accent-purple hover:text-white transition-colors" title="Chat WhatsApp">
+<span class="material-symbols-outlined">chat</span>
+</button>
+<button class="flex-1 lg:flex-none btn-pop h-10 rounded-xl bg-white px-4 text-sm font-bold text-[#111817] hover:bg-background-light">
+                            Lihat Detail
+                        </button>
+</div>
+</div>
+<div class="group relative flex flex-col lg:flex-row items-center justify-between gap-6 rounded-[1.5rem] border-2 border-[#111817] bg-white p-5 shadow-sm hover:shadow-pop transition-all hover:translate-x-1 duration-200">
+<div class="flex w-full lg:w-auto items-center gap-4">
+<div class="relative h-16 w-16 flex-shrink-0">
+<img alt="Patient Avatar" class="h-full w-full rounded-2xl border-2 border-[#111817] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYHWv0RhJC7TFSVWto0f7pvaTKyTin08qOSoj42f4SdE7R_ouAXXAzQN08XuNwl8VT9CYzURmIqLVzzZY9_v0KoS7o7CpkfBcMHCPAIltrDnsS4Q10buyYuKULjE0GZPTPprKx-FG1TrhqjzuNNOqbAneqqCVBUedfl29A_iYiOclUc8mojOB0DXUWGOVKB2Y9ZoDK8cdAGJdsLkcqfQ1WR8FeIvaKAqAlJQweWPB4JFInUVwoo-H-JUY1IVH2VRb3XgewNRLQIyi_"/>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-black text-[#111817]">Rina Mulyani</h3>
+<span class="rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-bold text-gray-500">ID: P-0294</span>
+</div>
+<div class="mt-1 flex flex-wrap gap-2 text-xs font-medium text-gray-500">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">call</span>
+                                    0813-5555-1234
+                                </span>
+<span class="hidden md:inline">•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                    35 Tahun
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex w-full lg:flex-1 items-center justify-between lg:justify-start lg:gap-12 border-t lg:border-t-0 border-dashed border-gray-200 pt-4 lg:pt-0">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Terakhir Berkunjung</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-[#111817]">Hari Ini</span>
+<span class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-bold text-red-700 border border-red-200">Cabut</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Status Pembayaran</span>
+<div class="flex items-center gap-1 text-green-600 font-bold text-sm">
+<span class="material-symbols-outlined text-base">check_circle</span>
+                                Lunas
+                            </div>
+</div>
+</div>
+<div class="flex w-full lg:w-auto items-center gap-2">
+<button class="flex-1 lg:flex-none h-10 w-10 rounded-xl border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-accent-purple hover:bg-accent-purple hover:text-white transition-colors" title="Chat WhatsApp">
+<span class="material-symbols-outlined">chat</span>
+</button>
+<button class="flex-1 lg:flex-none btn-pop h-10 rounded-xl bg-white px-4 text-sm font-bold text-[#111817] hover:bg-background-light">
+                            Lihat Detail
+                        </button>
+</div>
+</div>
+<div class="group relative flex flex-col lg:flex-row items-center justify-between gap-6 rounded-[1.5rem] border-2 border-[#111817] bg-white p-5 shadow-sm hover:shadow-pop transition-all hover:translate-x-1 duration-200">
+<div class="flex w-full lg:w-auto items-center gap-4">
+<div class="relative h-16 w-16 flex-shrink-0">
+<div class="h-full w-full rounded-2xl border-2 border-[#111817] bg-gray-100 flex items-center justify-center text-gray-400">
+<span class="material-symbols-outlined text-3xl">person</span>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-black text-[#111817]">Dewi Sartika</h3>
+<span class="rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-bold text-gray-500">ID: P-0295</span>
+</div>
+<div class="mt-1 flex flex-wrap gap-2 text-xs font-medium text-gray-500">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">call</span>
+                                    0819-1234-5678
+                                </span>
+<span class="hidden md:inline">•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                    22 Tahun
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex w-full lg:flex-1 items-center justify-between lg:justify-start lg:gap-12 border-t lg:border-t-0 border-dashed border-gray-200 pt-4 lg:pt-0">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Terakhir Berkunjung</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-[#111817]">20 Sep 2023</span>
+<span class="rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-bold text-yellow-700 border border-yellow-200">Bleaching</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Catatan</span>
+<div class="flex items-center gap-1 text-gray-700 text-sm">
+                                Pasien Baru
+                            </div>
+</div>
+</div>
+<div class="flex w-full lg:w-auto items-center gap-2">
+<button class="flex-1 lg:flex-none h-10 w-10 rounded-xl border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-accent-purple hover:bg-accent-purple hover:text-white transition-colors" title="Chat WhatsApp">
+<span class="material-symbols-outlined">chat</span>
+</button>
+<button class="flex-1 lg:flex-none btn-pop h-10 rounded-xl bg-white px-4 text-sm font-bold text-[#111817] hover:bg-background-light">
+                            Lihat Detail
+                        </button>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<div class="flex items-center gap-2 rounded-full border-2 border-[#111817] bg-white p-2 shadow-pop">
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-[#111817] hover:bg-gray-100 disabled:opacity-50">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-[#111817] font-bold text-white shadow-sm">1</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-full font-bold text-[#111817] hover:bg-gray-100">2</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-full font-bold text-[#111817] hover:bg-gray-100">3</button>
+<span class="px-2 text-gray-400">...</span>
+<button class="flex h-10 w-10 items-center justify-center rounded-full font-bold text-[#111817] hover:bg-gray-100">12</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-[#111817] hover:bg-gray-100">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-[#111817] pt-16 pb-8 text-white" id="contact">
+<div class="container mx-auto px-6 max-w-6xl">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border border-white/20">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold">Dental Clinic</span>
+</div>
+<p class="text-sm text-gray-400">Klinik gigi modern dengan pendekatan yang menyenangkan dan bersahabat untuk semua usia.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="mb-4 text-lg font-bold text-accent-yellow">Hubungi Kami</h4>
+<ul class="space-y-3 text-sm text-gray-400">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">call</span>
+                            +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">chat</span>
+                            WhatsApp: +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">mail</span>
+                            hello@dentalclinic.id
+                        </li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-accent-purple">Jam Operasional</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li class="flex justify-between border-b border-gray-800 pb-2"><span>Senin - Sabtu</span> <span class="text-white">09:00 - 21:00</span></li>
+<li class="flex justify-between pt-2"><span>Minggu</span> <span class="text-secondary">Tutup</span></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-secondary">Lokasi</h4>
+<p class="text-sm text-gray-400 mb-4">
+                        Jl. Kesehatan No. 123,<br/>
+                        Jakarta Selatan, DKI Jakarta 12345
+                    </p>
+<button class="w-full rounded-xl bg-gray-800 py-2 text-xs font-bold text-white hover:bg-primary transition-colors">
+                        Lihat di Google Maps
+                    </button>
+</div>
+</div>
+<div class="mt-16 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+<p>© 2026 Dental Clinic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+</body></html>

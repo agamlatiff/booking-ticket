@@ -14,7 +14,7 @@ export const uploadFile = async (file: File) => {
 
     const { error } = await supabase.storage
       .from("imageUpload")
-      .upload(`public/airplanes/${fileName}`, file, {
+      .upload(`public/doctor/${fileName}`, file, {
         cacheControl: "3600",
         upsert: false,
       });
@@ -39,7 +39,7 @@ export const getUrlFile = (fileName: string) => {
   // Otherwise, generate Supabase URL
   const { data } = supabase.storage
     .from("imageUpload")
-    .getPublicUrl(`public/airplanes/${fileName}`);
+    .getPublicUrl(`public/doctor/${fileName}`);
   return data.publicUrl;
 };
 
@@ -47,7 +47,7 @@ export const deleteFile = async (filename: string) => {
   try {
     const { data, error } = await supabase.storage
       .from("imageUpload")
-      .remove([`public/airplanes/${filename}`]);
+      .remove([`public/doctor/${filename}`]);
 
     if (error) {
       throw new Error(error?.message);

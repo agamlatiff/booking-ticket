@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                        "card-hover": "4px 4px 0px 0px rgba(13, 148, 136, 0.25)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden;
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            cursor: pointer;
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+            cursor: pointer;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .menu-item {
+            transition: all 0.2s ease;
+        }
+        .menu-item:hover, .menu-item.active {
+            background-color: #FFD54F;
+            border-color: #111817;
+            box-shadow: 2px 2px 0 0 #111817;
+            transform: translate(-2px, -2px);
+            font-weight: 700;
+            color: #111817;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }.toggle-checkbox:checked {
+            right: 0;
+            border-color: #0d9488;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0d9488;
+        }
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(100%);
+        }
+        .form-input-pop {
+            width: 100%;
+            border: 2px solid #111817;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            outline: none;
+            transition: all 0.2s;
+            background-color: #f9fafb;
+        }
+        .form-input-pop:focus {
+            background-color: #fff;
+            box-shadow: 4px 4px 0 0 #111817;
+            transform: translate(-2px, -2px);
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<div class="flex h-screen overflow-hidden">
+<aside class="hidden w-72 flex-col justify-between border-r-2 border-[#111817] bg-white p-6 md:flex z-20 shadow-card">
+<div class="flex-1 overflow-y-auto custom-scroll -mr-2 pr-2">
+<div class="mb-10 flex items-center gap-3">
+<div class="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#111817] bg-primary text-white shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<div>
+<span class="block text-xl font-black tracking-tight text-[#111817]">Dental Clinic</span>
+<span class="text-xs font-bold text-gray-500">Dashboard Admin</span>
+</div>
+</div>
+<nav class="space-y-3 pb-4">
+<a class="menu-item flex items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Dashboard Home
+                </a>
+<a class="menu-item flex items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                    Bookings Management
+                </a>
+<a class="menu-item flex items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">event_note</span>
+                    Schedule Master
+                </a>
+<a class="menu-item flex items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">stethoscope</span>
+                    Doctor Management
+                </a>
+<a class="menu-item flex items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+                    Services Management
+                </a>
+<a class="menu-item flex items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">groups</span>
+                    Patients Database
+                </a>
+<a class="menu-item flex items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+                    Reports
+                </a>
+<a class="menu-item active flex items-center gap-3 rounded-xl border-2 border-[#111817] bg-white px-4 py-3 font-medium text-[#111817]" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+</nav>
+</div>
+<div class="rounded-2xl border-2 border-[#111817] bg-background-light p-4 mt-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 overflow-hidden rounded-full border-2 border-[#111817] bg-white">
+<img alt="Profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="truncate text-sm font-bold">drg. Siti Aminah</p>
+<p class="truncate text-xs text-gray-500">Dokter Gigi Utama</p>
+</div>
+<button class="text-gray-500 hover:text-red-500">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-background-light">
+<header class="sticky top-0 z-10 flex items-center justify-between border-b-2 border-[#111817] bg-white/90 px-8 py-5 backdrop-blur-md">
+<div>
+<h1 class="font-display text-2xl font-black text-[#111817]">Settings</h1>
+<p class="text-sm font-medium text-gray-500">Manage your clinic preferences and integrations.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="btn-pop flex items-center gap-2 rounded-xl bg-accent-yellow px-4 py-2 text-sm font-bold text-[#111817]">
+<span class="material-symbols-outlined text-base">save</span>
+                    Save Changes
+                </button>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-white shadow-[2px_2px_0px_0px_#111817] transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-[#111817]">notifications</span>
+<span class="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-red-500 border border-white"></span>
+</button>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-accent-yellow shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<div class="p-6 md:p-10">
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+<div class="lg:col-span-2 space-y-8">
+<div class="group relative overflow-hidden rounded-[2.5rem] border-2 border-[#111817] bg-white p-8 shadow-card transition-all hover:shadow-pop">
+<div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent-purple/20 blur-2xl"></div>
+<div class="mb-8 flex items-center gap-4">
+<div class="flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-[#111817] bg-accent-purple text-[#111817] shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined text-2xl">storefront</span>
+</div>
+<div>
+<h2 class="text-2xl font-black text-[#111817]">Clinic Info</h2>
+<p class="text-sm font-bold text-gray-500">General details about your practice</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-6 rounded-2xl border-2 border-dashed border-gray-300 p-6">
+<div class="h-20 w-20 overflow-hidden rounded-full border-2 border-[#111817] bg-gray-100">
+<div class="flex h-full w-full items-center justify-center text-gray-400">
+<span class="material-symbols-outlined text-3xl">add_a_photo</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="font-bold text-[#111817]">Clinic Logo</h3>
+<p class="mb-3 text-xs text-gray-500">Recommended size: 500x500px. JPG, PNG.</p>
+<button class="btn-outline-pop rounded-lg px-4 py-2 text-xs font-bold">Upload New</button>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+<div class="col-span-2 md:col-span-1">
+<label class="mb-2 block text-sm font-bold text-[#111817]">Clinic Name</label>
+<input class="form-input-pop" placeholder="Enter clinic name" type="text" value="Dental Clinic Sehat Selalu"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="mb-2 block text-sm font-bold text-[#111817]">Registration Number</label>
+<input class="form-input-pop" placeholder="Enter reg number" type="text" value="SIP. 123/DINKES/2023"/>
+</div>
+<div class="col-span-2">
+<label class="mb-2 block text-sm font-bold text-[#111817]">Street Address</label>
+<input class="form-input-pop" placeholder="e.g. Jl. Kebahagiaan No. 88" type="text" value="Jl. Kebahagiaan No. 88"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="mb-2 block text-sm font-bold text-[#111817]">City</label>
+<input class="form-input-pop" placeholder="e.g. Jakarta Selatan" type="text" value="Jakarta Selatan"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="mb-2 block text-sm font-bold text-[#111817]">Postal Code / Zip</label>
+<input class="form-input-pop" placeholder="e.g. 12430" type="text" value="12430"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="mb-2 block text-sm font-bold text-[#111817]">Email Resmi</label>
+<input class="form-input-pop" type="email" value="contact@dentalclinic.com"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="mb-2 block text-sm font-bold text-[#111817]">Nomor Telepon</label>
+<input class="form-input-pop" type="tel" value="+62 812 3456 7890"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-8">
+<div class="group relative overflow-hidden rounded-[2.5rem] border-2 border-[#111817] bg-white p-8 shadow-card hover:shadow-pop transition-all">
+<div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent-yellow/20 blur-2xl"></div>
+<div class="mb-6 flex items-center justify-between relative z-10">
+<h3 class="text-xl font-black text-[#111817]">Opening Hours</h3>
+<button class="text-primary font-bold text-sm hover:underline">Edit Hours</button>
+</div>
+<div class="flex flex-col gap-3 relative z-10">
+<div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-background-light border-2 border-transparent hover:border-[#111817] transition-all">
+<span class="font-bold text-gray-600 text-sm">Monday - Friday</span>
+<span class="font-black text-[#111817] text-sm whitespace-nowrap">09:00 - 20:00</span>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-background-light border-2 border-transparent hover:border-[#111817] transition-all">
+<span class="font-bold text-gray-600 text-sm">Saturday</span>
+<span class="font-black text-[#111817] text-sm whitespace-nowrap">09:00 - 15:00</span>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-red-50 border-2 border-transparent hover:border-red-200 transition-all opacity-70">
+<span class="font-bold text-red-500 text-sm">Sunday</span>
+<span class="font-black text-red-500 text-sm whitespace-nowrap">Closed</span>
+</div>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-[2.5rem] border-2 border-[#111817] bg-white p-8 shadow-card transition-all hover:shadow-pop">
+<div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/20 blur-2xl"></div>
+<div class="mb-6 flex items-center gap-4">
+<div class="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#111817] bg-primary text-white shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<h2 class="text-xl font-black text-[#111817]">Payment Gateway</h2>
+</div>
+<div class="space-y-4">
+<div class="rounded-xl border-2 border-[#111817] bg-white p-4 transition-transform hover:-translate-y-1">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<div class="h-8 w-8 rounded bg-slate-800 flex items-center justify-center text-white font-bold text-xs">S</div>
+<span class="font-bold">Stripe</span>
+</div>
+<div class="relative inline-block w-10 h-6 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-[#111817] appearance-none cursor-pointer transition-all duration-300 top-0.5 left-0.5 z-10 checked:translate-x-full" id="toggle-stripe" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-200 border-2 border-[#111817] cursor-pointer" for="toggle-stripe"></label>
+</div>
+</div>
+<input class="w-full text-xs font-mono bg-gray-50 border border-gray-300 rounded-lg p-2 text-gray-500" disabled="" type="password" value="sk_test_51Mz..."/>
+</div>
+<div class="rounded-xl border-2 border-gray-200 bg-gray-50 p-4 opacity-75 hover:opacity-100 hover:border-[#111817] transition-all">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<div class="h-8 w-8 rounded bg-blue-600 flex items-center justify-center text-white font-bold text-xs">P</div>
+<span class="font-bold">PayPal</span>
+</div>
+<div class="relative inline-block w-10 h-6 align-middle select-none">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-[#111817] appearance-none cursor-pointer transition-all duration-300 top-0.5 left-0.5 z-10" id="toggle-paypal" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-200 border-2 border-[#111817] cursor-pointer" for="toggle-paypal"></label>
+</div>
+</div>
+<button class="text-xs font-bold text-primary hover:underline">Connect Account</button>
+</div>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-[2.5rem] border-2 border-[#111817] bg-white p-8 shadow-card transition-all hover:shadow-pop">
+<div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-green-200 blur-2xl opacity-50"></div>
+<div class="mb-6 flex items-center gap-4">
+<div class="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#111817] bg-green-500 text-white shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined">chat</span>
+</div>
+<h2 class="text-xl font-black text-[#111817]">WhatsApp</h2>
+</div>
+<div class="mb-6 rounded-xl bg-green-50 border-2 border-green-200 p-4">
+<div class="flex items-center gap-3 mb-2">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+</span>
+<span class="font-bold text-green-800 text-sm">Connected</span>
+</div>
+<p class="text-xs text-green-700 mb-3">Integrated with +62 812-3456-7890</p>
+<button class="btn-outline-pop w-full py-2 rounded-lg text-xs font-bold text-red-500 border-red-200 hover:bg-red-50">Disconnect</button>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between border-b border-dashed border-gray-200 pb-3">
+<span class="text-sm font-bold text-[#111817]">Appointment Reminders</span>
+<div class="relative inline-block w-10 h-6">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-[#111817] appearance-none cursor-pointer transition-all duration-300 top-0.5 left-0.5 z-10 checked:translate-x-full" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-200 border-2 border-[#111817] cursor-pointer"></label>
+</div>
+</div>
+<div class="flex items-center justify-between border-b border-dashed border-gray-200 pb-3">
+<span class="text-sm font-bold text-[#111817]">Birthday Wishes</span>
+<div class="relative inline-block w-10 h-6">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-[#111817] appearance-none cursor-pointer transition-all duration-300 top-0.5 left-0.5 z-10 checked:translate-x-full" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-200 border-2 border-[#111817] cursor-pointer"></label>
+</div>
+</div>
+<button class="w-full mt-2 text-center text-sm font-bold text-primary hover:underline">Edit Message Templates</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Services Management - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#0d9488", 
+                    "secondary": "#FF8A65", 
+                    "accent-yellow": "#FFD54F", 
+                    "accent-purple": "#B39DDB", 
+                    "background-light": "#FFFAEB", 
+                    "background-dark": "#102220",
+                },
+                fontFamily: {
+                    "display": ["Spline Sans", "sans-serif"]
+                },
+                borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                boxShadow: {
+                    "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                    "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                    "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                    "card-hover": "4px 4px 0px 0px rgba(13, 148, 136, 0.25)",
+                }
+            },
+        },
+    }
+</script>
+<style>
+    body {
+        font-family: "Spline Sans", sans-serif;
+        background-color: #FFFAEB;
+        overflow-x: hidden;
+    }
+    .btn-pop {
+        transition: all 0.1s ease;
+        box-shadow: 4px 4px 0 0 #111817;
+        border: 2px solid #111817;
+    }
+    .btn-pop:hover {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 0 #111817;
+    }
+    .btn-outline-pop {
+        transition: all 0.1s ease;
+        box-shadow: 4px 4px 0 0 #111817;
+        border: 2px solid #111817;
+        background-color: white;
+        color: #111817;
+    }
+    .btn-outline-pop:hover {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 0 #111817;
+        background-color: #f3f4f6;
+    }
+    .menu-item {
+        transition: all 0.2s ease;
+    }
+    .menu-item:hover, .menu-item.active {
+        background-color: #FFD54F;
+        box-shadow: 2px 2px 0 0 #111817;
+        transform: translate(-2px, -2px);
+        font-weight: 700;
+        border-color: #111817;
+    }
+    .menu-item.active {
+        background-color: #FFD54F;
+        border: 2px solid #111817;
+        box-shadow: 2px 2px 0 0 #111817; 
+    }
+    .custom-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background: #0d9488;
+        border-radius: 4px;
+    }
+</style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center bg-[#111817]/50 backdrop-blur-sm p-4" id="serviceModal">
+<div class="w-full max-w-lg transform rounded-[2rem] border-2 border-[#111817] bg-white p-8 shadow-pop transition-all">
+<div class="mb-6 flex items-center justify-between">
+<h2 class="text-2xl font-black text-[#111817]">Add New Service</h2>
+<button class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] hover:bg-red-100 transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-4">
+<div>
+<label class="mb-2 block text-sm font-bold text-[#111817]">Service Name</label>
+<input class="w-full rounded-xl border-2 border-[#111817] bg-gray-50 px-4 py-3 font-medium focus:bg-white focus:shadow-pop focus:outline-none transition-all placeholder:text-gray-400" placeholder="e.g. Root Canal Treatment" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="mb-2 block text-sm font-bold text-[#111817]">Price (Rp)</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-gray-500">Rp</span>
+<input class="w-full rounded-xl border-2 border-[#111817] bg-gray-50 px-4 py-3 pl-10 font-medium focus:bg-white focus:shadow-pop focus:outline-none transition-all placeholder:text-gray-400" placeholder="500.000" type="text"/>
+</div>
+</div>
+<div>
+<label class="mb-2 block text-sm font-bold text-[#111817]">Duration (Min)</label>
+<input class="w-full rounded-xl border-2 border-[#111817] bg-gray-50 px-4 py-3 font-medium focus:bg-white focus:shadow-pop focus:outline-none transition-all placeholder:text-gray-400" placeholder="60" type="number"/>
+</div>
+</div>
+<div>
+<label class="mb-2 block text-sm font-bold text-[#111817]">Description</label>
+<textarea class="w-full rounded-xl border-2 border-[#111817] bg-gray-50 px-4 py-3 font-medium focus:bg-white focus:shadow-pop focus:outline-none transition-all placeholder:text-gray-400" placeholder="Brief description of the service..." rows="3"></textarea>
+</div>
+<div>
+<label class="mb-2 block text-sm font-bold text-[#111817]">Category</label>
+<select class="w-full rounded-xl border-2 border-[#111817] bg-gray-50 px-4 py-3 font-medium focus:bg-white focus:shadow-pop focus:outline-none transition-all text-[#111817]">
+<option>General Dentistry</option>
+<option>Cosmetic</option>
+<option>Pediatric</option>
+<option>Orthodontics</option>
+</select>
+</div>
+<div class="pt-4 flex gap-3">
+<button class="btn-outline-pop flex-1 rounded-xl py-3 font-bold" type="button">Cancel</button>
+<button class="btn-pop flex-1 rounded-xl bg-primary py-3 font-bold text-white" type="button">Save Service</button>
+</div>
+</form>
+</div>
+</div>
+<div class="flex h-screen overflow-hidden">
+<aside class="hidden w-72 flex-col justify-between border-r-2 border-[#111817] bg-white p-6 md:flex z-20 shadow-card">
+<div class="flex flex-col h-full min-h-0">
+<div class="mb-8 flex items-center gap-3 shrink-0">
+<div class="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#111817] bg-primary text-white shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<div>
+<span class="block text-xl font-black tracking-tight text-[#111817]">Dental Clinic</span>
+<span class="text-xs font-bold text-gray-500">Dashboard Admin</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto custom-scroll pr-2 -mr-2 pb-2">
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Main</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                            Dashboard Home
+                        </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Management</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">book_online</span>
+                            Bookings Management
+                        </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                            Schedule Master
+                        </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+                            Doctor Management
+                        </a>
+<a class="menu-item active flex w-full items-center gap-3 rounded-full border-2 border-[#111817] bg-accent-yellow pl-4 pr-4 py-3 font-bold text-[#111817] shadow-[2px_2px_0px_0px_#111817]" href="#">
+<span class="material-symbols-outlined">dentistry</span>
+                            Services Management
+                        </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+                            Patients Database
+                        </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Analytics</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">lab_profile</span>
+                            Reports
+                        </a>
+</div>
+</div>
+<div>
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Configuration</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">settings</span>
+                            Settings
+                        </a>
+</div>
+</div>
+</nav>
+</div>
+<div class="rounded-2xl border-2 border-[#111817] bg-background-light p-4 mt-4 shrink-0">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 overflow-hidden rounded-full border-2 border-[#111817] bg-white">
+<img alt="Profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="truncate text-sm font-bold">drg. Siti Aminah</p>
+<p class="truncate text-xs text-gray-500">Dokter Gigi Utama</p>
+</div>
+<button class="text-gray-500 hover:text-red-500">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-background-light">
+<header class="sticky top-0 z-10 flex items-center justify-between border-b-2 border-[#111817] bg-white/90 px-8 py-5 backdrop-blur-md">
+<div>
+<h1 class="font-display text-2xl font-black text-[#111817]">Services Management</h1>
+<p class="text-sm font-medium text-gray-500">Manage dental services, prices, and details.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<input class="h-11 w-64 rounded-full border-2 border-[#111817] bg-white px-4 py-2 text-sm font-bold shadow-[2px_2px_0px_0px_#111817] focus:border-primary focus:outline-none focus:ring-0" placeholder="Search services..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+</div>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-white shadow-[2px_2px_0px_0px_#111817] transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-[#111817]">notifications</span>
+<span class="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-red-500 border border-white"></span>
+</button>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-accent-yellow shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<div class="p-6 md:p-10">
+<div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+<div class="flex items-center gap-2">
+<span class="rounded-lg border-2 border-[#111817] bg-white px-3 py-1 text-sm font-bold text-[#111817]">Total: 24 Services</span>
+<span class="rounded-lg border-2 border-[#111817] bg-green-100 px-3 py-1 text-sm font-bold text-green-700">Active</span>
+</div>
+<button class="btn-pop flex items-center gap-2 rounded-xl bg-primary px-5 py-3 font-bold text-white" onclick="document.getElementById('serviceModal').classList.remove('hidden')">
+<span class="material-symbols-outlined">add_circle</span>
+                    Add New Service
+                </button>
+</div>
+<div class="mb-8 flex gap-3 overflow-x-auto pb-2 custom-scroll">
+<button class="whitespace-nowrap rounded-full border-2 border-[#111817] bg-[#111817] px-5 py-2 text-sm font-bold text-white shadow-pop-hover">
+                    All Services
+                </button>
+<button class="whitespace-nowrap rounded-full border-2 border-[#111817] bg-white px-5 py-2 text-sm font-bold text-[#111817] hover:bg-gray-50">
+                    General Dentistry
+                </button>
+<button class="whitespace-nowrap rounded-full border-2 border-[#111817] bg-white px-5 py-2 text-sm font-bold text-[#111817] hover:bg-gray-50">
+                    Cosmetic
+                </button>
+<button class="whitespace-nowrap rounded-full border-2 border-[#111817] bg-white px-5 py-2 text-sm font-bold text-[#111817] hover:bg-gray-50">
+                    Pediatric
+                </button>
+<button class="whitespace-nowrap rounded-full border-2 border-[#111817] bg-white px-5 py-2 text-sm font-bold text-[#111817] hover:bg-gray-50">
+                    Orthodontics
+                </button>
+</div>
+<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+<div class="group relative flex flex-col gap-4 overflow-hidden rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-accent-yellow/20 blur-xl"></div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-[#111817] bg-accent-yellow text-[#111817]">
+<span class="material-symbols-outlined text-3xl">dentistry</span>
+</div>
+<div>
+<h3 class="text-xl font-black text-[#111817]">Scaling &amp; Polishing</h3>
+<span class="inline-block rounded-md bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-500">General</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="btn-outline-pop flex h-9 w-9 items-center justify-center rounded-lg bg-white p-0">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-[#111817] text-gray-400 hover:bg-red-50 hover:text-red-500 hover:border-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+<p class="text-sm font-medium text-gray-600">Comprehensive cleaning procedure to remove plaque and tartar, followed by polishing for a smooth finish.</p>
+<div class="mt-auto flex items-center justify-between border-t-2 border-dashed border-gray-100 pt-4">
+<div class="flex items-center gap-2 text-[#111817]">
+<span class="material-symbols-outlined text-primary">payments</span>
+<span class="font-bold">Rp 350.000</span>
+</div>
+<div class="flex items-center gap-2 text-gray-500">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs font-bold">45 Mins</span>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-4 overflow-hidden rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-primary/20 blur-xl"></div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-[#111817] bg-primary text-white">
+<span class="material-symbols-outlined text-3xl">auto_awesome</span>
+</div>
+<div>
+<h3 class="text-xl font-black text-[#111817]">Teeth Whitening</h3>
+<span class="inline-block rounded-md bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-500">Cosmetic</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="btn-outline-pop flex h-9 w-9 items-center justify-center rounded-lg bg-white p-0">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-[#111817] text-gray-400 hover:bg-red-50 hover:text-red-500 hover:border-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+<p class="text-sm font-medium text-gray-600">Professional bleaching treatment to brighten your smile up to 5 shades lighter safely.</p>
+<div class="mt-auto flex items-center justify-between border-t-2 border-dashed border-gray-100 pt-4">
+<div class="flex items-center gap-2 text-[#111817]">
+<span class="material-symbols-outlined text-primary">payments</span>
+<span class="font-bold">Rp 2.500.000</span>
+</div>
+<div class="flex items-center gap-2 text-gray-500">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs font-bold">60 Mins</span>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-4 overflow-hidden rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-accent-purple/20 blur-xl"></div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-[#111817] bg-accent-purple text-[#111817]">
+<span class="material-symbols-outlined text-3xl">medical_services</span>
+</div>
+<div>
+<h3 class="text-xl font-black text-[#111817]">Root Canal</h3>
+<span class="inline-block rounded-md bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-500">General</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="btn-outline-pop flex h-9 w-9 items-center justify-center rounded-lg bg-white p-0">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-[#111817] text-gray-400 hover:bg-red-50 hover:text-red-500 hover:border-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+<p class="text-sm font-medium text-gray-600">Endodontic therapy to remove infection from inside the tooth and protect it from future infections.</p>
+<div class="mt-auto flex items-center justify-between border-t-2 border-dashed border-gray-100 pt-4">
+<div class="flex items-center gap-2 text-[#111817]">
+<span class="material-symbols-outlined text-primary">payments</span>
+<span class="font-bold">Rp 1.500.000</span>
+</div>
+<div class="flex items-center gap-2 text-gray-500">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs font-bold">90 Mins</span>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-4 overflow-hidden rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-secondary/20 blur-xl"></div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-[#111817] bg-secondary text-white">
+<span class="material-symbols-outlined text-3xl">child_care</span>
+</div>
+<div>
+<h3 class="text-xl font-black text-[#111817]">Kids Dental Checkup</h3>
+<span class="inline-block rounded-md bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-500">Pediatric</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="btn-outline-pop flex h-9 w-9 items-center justify-center rounded-lg bg-white p-0">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-[#111817] text-gray-400 hover:bg-red-50 hover:text-red-500 hover:border-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+<p class="text-sm font-medium text-gray-600">Fun and friendly dental examination for children, including fluoride application.</p>
+<div class="mt-auto flex items-center justify-between border-t-2 border-dashed border-gray-100 pt-4">
+<div class="flex items-center gap-2 text-[#111817]">
+<span class="material-symbols-outlined text-primary">payments</span>
+<span class="font-bold">Rp 200.000</span>
+</div>
+<div class="flex items-center gap-2 text-gray-500">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs font-bold">30 Mins</span>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-4 overflow-hidden rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gray-100 blur-xl"></div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-[#111817] bg-gray-100 text-[#111817]">
+<span class="material-symbols-outlined text-3xl">grid_on</span>
+</div>
+<div>
+<h3 class="text-xl font-black text-[#111817]">Braces Consultation</h3>
+<span class="inline-block rounded-md bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-500">Orthodontics</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="btn-outline-pop flex h-9 w-9 items-center justify-center rounded-lg bg-white p-0">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-[#111817] text-gray-400 hover:bg-red-50 hover:text-red-500 hover:border-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+<p class="text-sm font-medium text-gray-600">Initial assessment for orthodontic treatment and braces planning.</p>
+<div class="mt-auto flex items-center justify-between border-t-2 border-dashed border-gray-100 pt-4">
+<div class="flex items-center gap-2 text-[#111817]">
+<span class="material-symbols-outlined text-primary">payments</span>
+<span class="font-bold">Rp 150.000</span>
+</div>
+<div class="flex items-center gap-2 text-gray-500">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs font-bold">30 Mins</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

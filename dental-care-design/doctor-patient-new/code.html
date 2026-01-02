@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tambah Pasien - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden
+        }
+        .blob-shape {
+            border-radius: 60% 40% 30% 70%/60% 30% 70% 40%
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817
+        }
+        .btn-pop:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0 0 #111817
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .btn-outline-pop:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0 0 #111817
+        }
+        .nav-link {
+            position: relative
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scalex(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0d9488;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out
+        }
+        .nav-link:hover::after {
+            transform: scalex(1);
+            transform-origin: bottom left
+        }.form-input-pop {
+            transition: all 0.2s ease;
+        }
+        .form-input-pop:focus {
+            box-shadow: 4px 4px 0 0 #111817;
+            transform: translate(-2px, -2px);
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<nav class="fixed top-0 z-50 w-full px-4 py-4 md:px-10">
+<div class="mx-auto max-w-7xl">
+<div class="relative flex items-center justify-between rounded-full border-2 border-[#111817] bg-white px-6 py-3 shadow-pop">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border-2 border-[#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#111817]">Dental Clinic</span>
+</div>
+<div class="hidden items-center gap-8 xl:flex">
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Dashboard</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Jadwal</a>
+<a class="nav-link text-sm font-bold text-primary transition-colors" href="#">Pasien</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Laporan</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Settings</a>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<button class="h-10 w-10 flex items-center justify-center rounded-full border-2 border-[#111817] bg-white hover:bg-gray-100 transition-colors">
+<span class="material-symbols-outlined text-[#111817]">notifications</span>
+</button>
+<div class="flex items-center gap-3 rounded-full border-2 border-[#111817] bg-white pl-1 pr-4 py-1 hover:shadow-md cursor-pointer transition-all">
+<img alt="Doctor Profile" class="h-8 w-8 rounded-full border border-[#111817] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+<span class="text-sm font-bold text-[#111817]">drg. Siti Aminah</span>
+</div>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-[#111817] shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-4 md:px-10 min-h-screen">
+<div class="mx-auto max-w-4xl">
+<div class="mb-8">
+<div class="inline-flex items-center gap-2 mb-4">
+<a class="group flex items-center gap-1 text-sm font-bold text-gray-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                        Kembali ke Dashboard
+                    </a>
+</div>
+<div class="flex items-center gap-3 mb-2">
+<div class="flex h-12 w-12 items-center justify-center rounded-full bg-accent-yellow border-2 border-[#111817]">
+<span class="material-symbols-outlined text-2xl text-[#111817]">person_add</span>
+</div>
+<h1 class="font-display text-4xl font-black text-[#111817]">Tambah Pasien</h1>
+</div>
+<p class="text-lg text-gray-600 ml-16 max-w-xl">Lengkapi formulir di bawah ini untuk mendaftarkan pasien baru ke dalam sistem klinik.</p>
+</div>
+<div class="relative overflow-hidden rounded-[2rem] border-2 border-[#111817] bg-white p-6 md:p-10 shadow-card">
+<div class="absolute right-0 top-0 h-40 w-40 rounded-bl-[4rem] bg-accent-purple/20 -mr-8 -mt-8 pointer-events-none"></div>
+<div class="absolute left-0 bottom-0 h-24 w-24 rounded-tr-[3rem] bg-primary/10 -ml-6 -mb-6 pointer-events-none"></div>
+<form class="relative z-10 space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-3">
+<label class="font-black text-[#111817] ml-1 text-lg flex items-center gap-2">
+                                Nama Lengkap
+                                <span class="text-red-500 text-sm">*</span>
+</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 material-symbols-outlined group-focus-within:text-primary transition-colors">person</span>
+<input class="form-input-pop w-full rounded-xl border-2 border-gray-200 bg-gray-50 pl-12 pr-4 py-3.5 font-bold text-[#111817] focus:border-[#111817] focus:bg-white focus:ring-0 placeholder:font-normal placeholder:text-gray-400 outline-none" placeholder="Contoh: Budi Santoso" type="text"/>
+</div>
+</div>
+<div class="space-y-3">
+<label class="font-black text-[#111817] ml-1 text-lg flex items-center gap-2">
+                                No WhatsApp
+                                <span class="text-red-500 text-sm">*</span>
+</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 material-symbols-outlined group-focus-within:text-green-600 transition-colors">chat</span>
+<input class="form-input-pop w-full rounded-xl border-2 border-gray-200 bg-gray-50 pl-12 pr-4 py-3.5 font-bold text-[#111817] focus:border-[#111817] focus:bg-white focus:ring-0 placeholder:font-normal placeholder:text-gray-400 outline-none" placeholder="Contoh: 081234567890" type="tel"/>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<label class="font-black text-[#111817] ml-1 text-lg">Email Address</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 material-symbols-outlined group-focus-within:text-accent-purple transition-colors">mail</span>
+<input class="form-input-pop w-full rounded-xl border-2 border-gray-200 bg-gray-50 pl-12 pr-4 py-3.5 font-bold text-[#111817] focus:border-[#111817] focus:bg-white focus:ring-0 placeholder:font-normal placeholder:text-gray-400 outline-none" placeholder="Contoh: budi@email.com" type="email"/>
+</div>
+</div>
+<div class="space-y-3">
+<label class="font-black text-[#111817] ml-1 text-lg flex items-center gap-2">
+                            Alamat Domisili
+                            <span class="text-red-500 text-sm">*</span>
+</label>
+<div class="relative group">
+<span class="absolute left-4 top-6 text-gray-400 material-symbols-outlined group-focus-within:text-secondary transition-colors">home_pin</span>
+<textarea class="form-input-pop w-full rounded-xl border-2 border-gray-200 bg-gray-50 pl-12 pr-4 py-3.5 font-bold text-[#111817] focus:border-[#111817] focus:bg-white focus:ring-0 placeholder:font-normal placeholder:text-gray-400 outline-none resize-none" placeholder="Masukkan alamat lengkap pasien..." rows="4"></textarea>
+</div>
+</div>
+<div class="flex flex-col-reverse md:flex-row items-center gap-4 pt-4 border-t border-dashed border-gray-200 mt-4">
+<button class="btn-outline-pop flex h-14 w-full md:w-auto md:min-w-[160px] items-center justify-center rounded-full bg-white px-8 font-black text-[#111817]" type="button">
+                            Batal
+                        </button>
+<button class="btn-pop flex h-14 w-full md:w-auto md:flex-1 items-center justify-center rounded-full bg-primary px-8 font-black text-white text-lg" type="button">
+<span class="material-symbols-outlined mr-2 font-bold">save</span>
+                            Simpan Data Pasien
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</main>
+<footer class="bg-[#111817] pt-16 pb-8 text-white" id="contact">
+<div class="container mx-auto px-6 max-w-6xl">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border border-white/20">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold">Dental Clinic</span>
+</div>
+<p class="text-sm text-gray-400">Klinik gigi modern dengan pendekatan yang menyenangkan dan bersahabat untuk semua usia.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="mb-4 text-lg font-bold text-accent-yellow">Hubungi Kami</h4>
+<ul class="space-y-3 text-sm text-gray-400">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">call</span>
+                            +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">chat</span>
+                            WhatsApp: +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">mail</span>
+                            hello@dentalclinic.id
+                        </li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-accent-purple">Jam Operasional</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li class="flex justify-between border-b border-gray-800 pb-2"><span>Senin - Sabtu</span> <span class="text-white">09:00 - 21:00</span></li>
+<li class="flex justify-between pt-2"><span>Minggu</span> <span class="text-secondary">Tutup</span></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-secondary">Lokasi</h4>
+<p class="text-sm text-gray-400 mb-4">
+                        Jl. Kesehatan No. 123,<br/>
+                        Jakarta Selatan, DKI Jakarta 12345
+                    </p>
+<button class="w-full rounded-xl bg-gray-800 py-2 text-xs font-bold text-white hover:bg-primary transition-colors">
+                        Lihat di Google Maps
+                    </button>
+</div>
+</div>
+<div class="mt-16 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+<p>© 2026 Dental Clinic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+</body></html>

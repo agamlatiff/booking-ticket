@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patients Database - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                        "card-hover": "4px 4px 0px 0px rgba(13, 148, 136, 0.25)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden;
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .menu-item {
+            transition: all 0.2s ease;
+        }
+        .menu-item:hover, .menu-item.active {
+            background-color: #FFD54F;
+            box-shadow: 2px 2px 0 0 #111817;
+            border-color: #111817;
+            transform: translate(-2px, -2px);
+            font-weight: 700;
+            color: #111817;
+        }.menu-item.active {
+            border-radius: 0.75rem;}
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<div class="flex h-screen overflow-hidden">
+<aside class="hidden w-72 flex-col justify-between border-r-2 border-[#111817] bg-white p-6 md:flex z-20 shadow-card">
+<div class="flex flex-col h-full min-h-0">
+<div class="mb-8 flex items-center gap-3 shrink-0">
+<div class="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#111817] bg-primary text-white shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<div>
+<span class="block text-xl font-black tracking-tight text-[#111817]">Dental Clinic</span>
+<span class="text-xs font-bold text-gray-500">Dashboard Admin</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto custom-scroll pr-2 -mr-2 pb-2">
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Main</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                                Dashboard Home
+                            </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Management</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">book_online</span>
+                                Bookings Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                                Schedule Master
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+                                Doctor Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dentistry</span>
+                                Services Management
+                            </a>
+<a class="menu-item active flex w-full items-center gap-3 rounded-xl border-2 border-[#111817] bg-accent-yellow px-4 py-3 font-bold text-[#111817] shadow-[2px_2px_0px_0px_#111817]" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+                                Patients Database
+                            </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Analytics</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">lab_profile</span>
+                                Reports
+                            </a>
+</div>
+</div>
+<div>
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Configuration</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">settings</span>
+                                Settings
+                            </a>
+</div>
+</div>
+</nav>
+</div>
+<div class="rounded-2xl border-2 border-[#111817] bg-background-light p-4 mt-4 shrink-0">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 overflow-hidden rounded-full border-2 border-[#111817] bg-white">
+<img alt="Profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="truncate text-sm font-bold">drg. Siti Aminah</p>
+<p class="truncate text-xs text-gray-500">Dokter Gigi Utama</p>
+</div>
+<button class="text-gray-500 hover:text-red-500">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-background-light">
+<header class="sticky top-0 z-10 flex items-center justify-between border-b-2 border-[#111817] bg-white/90 px-8 py-5 backdrop-blur-md">
+<div>
+<h1 class="font-display text-2xl font-black text-[#111817]">🗂️ Patients Database</h1>
+<p class="text-sm font-medium text-gray-500">Manage patient records and medical history</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-white shadow-[2px_2px_0px_0px_#111817] transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-[#111817]">notifications</span>
+<span class="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-red-500 border border-white"></span>
+</button>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-accent-yellow shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<div class="p-6 md:p-10 min-h-[calc(100vh-88px)]">
+<div class="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+<div class="relative w-full md:w-96">
+<input class="h-12 w-full rounded-2xl border-2 border-[#111817] bg-white pl-12 pr-4 text-sm font-bold shadow-card focus:border-primary focus:outline-none focus:ring-0 placeholder:text-gray-400" placeholder="Search by name, ID, or phone..." type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+</div>
+<div class="flex w-full items-center gap-3 md:w-auto">
+<button class="btn-outline-pop flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold md:flex-none">
+<span class="material-symbols-outlined">filter_list</span>
+                    Filter
+                </button>
+<button class="btn-pop flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white md:flex-none">
+<span class="material-symbols-outlined">person_add</span>
+                    Add Patient
+                </button>
+</div>
+</div>
+<div class="flex flex-col gap-6 xl:flex-row items-start">
+<div class="flex-1 w-full flex flex-col rounded-[2.5rem] border-2 border-[#111817] bg-white shadow-card overflow-hidden">
+<div class="border-b-2 border-[#111817] bg-gray-50 px-6 py-4 flex justify-between items-center">
+<h2 class="text-lg font-black text-[#111817]">All Patients (1,248)</h2>
+<button class="text-xs font-bold text-gray-500 hover:text-[#111817] flex items-center gap-1">
+                    Sort by: Recent <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full min-w-[600px] text-left">
+<thead>
+<tr class="border-b-2 border-[#111817] bg-accent-yellow/10 text-xs uppercase tracking-wider text-gray-600">
+<th class="px-6 py-4 font-black">Patient Name</th>
+<th class="px-6 py-4 font-black">Contact</th>
+<th class="px-6 py-4 font-black">Last Visit</th>
+<th class="px-6 py-4 font-black">Status</th>
+<th class="px-6 py-4 font-black text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 text-sm font-medium">
+<tr class="bg-accent-yellow/10 transition-colors hover:bg-gray-50 cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#111817] bg-white">
+<img alt="Budi" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYBEXEdZWuY_-PsBrMrbm5NQehjeWO5wlv3ERuDqNSzxrF9xqX8YrKKAyleryjMIr3HIaYDIfYNtd00syMt14awXfQyOuVdPfT1q90OTXz3cEg7BSAJgNKU3On31Tv5augZk_ejTmXSDcvnDSQLw6VMlrGyEYUmY5-IozutND5Pe5Qpc-BXSHqMhH6TF6FqO1Ph034uMpS-YC9HZX_zTG0aR2IcQpvMjsJ8jLJuQhIdnDDVfdRPjx4F3Sw44rRmibgFl4u61cK-g09"/>
+</div>
+<div>
+<p class="font-bold text-[#111817]">Budi Santoso</p>
+<p class="text-xs text-gray-500">ID: #P-2023-001</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-[#111817]">+62 812-3456-7890</p>
+<p class="text-xs text-gray-500">budi.san@email.com</p>
+</td>
+<td class="px-6 py-4">
+<span class="block text-[#111817]">24 Oct 2023</span>
+<span class="text-xs text-gray-500">Scaling Gigi</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full border border-green-200 bg-green-100 px-2.5 py-0.5 text-xs font-bold text-green-700">
+                                            Active
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-[#111817]">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="transition-colors hover:bg-gray-50 cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#111817] bg-accent-purple">
+<span class="flex h-full w-full items-center justify-center font-bold text-white">AR</span>
+</div>
+<div>
+<p class="font-bold text-[#111817]">Anisa Rahma</p>
+<p class="text-xs text-gray-500">ID: #P-2023-042</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-[#111817]">+62 819-0022-3344</p>
+<p class="text-xs text-gray-500">anisa.rahma@email.com</p>
+</td>
+<td class="px-6 py-4">
+<span class="block text-[#111817]">10 Sep 2023</span>
+<span class="text-xs text-gray-500">Kontrol Behel</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full border border-blue-200 bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-blue-700">
+                                            New
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-[#111817]">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="transition-colors hover:bg-gray-50 cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#111817] bg-white">
+<img alt="Michael" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqGTigEiJjzIq4UpFXcr9S80fN2cOcvN3HZB_MoGNwHDVtF95NspWnvDYaBFlK40PyB_l7CJMg42Zqokt2FtC6_P66IDNG_zWGPu9_l3KISdABQn0LU7JBRnbvlUE8BXw-GNqwTAIG5JY3SK_mBFmfUUouMX4pMKtb1-vELpaMYcdZyXWCjCdY6q_juQlWIaQTqiiHWm4xnhJo-bMjFKIdZ7JDl80qkJnR19YDD4Uwdugd3dqvf3dEdSNMz0ST3td4L-VPxLS2fwAv"/>
+</div>
+<div>
+<p class="font-bold text-[#111817]">Michael Tan</p>
+<p class="text-xs text-gray-500">ID: #P-2023-089</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-[#111817]">+62 813-9988-7766</p>
+<p class="text-xs text-gray-500">michael.t@email.com</p>
+</td>
+<td class="px-6 py-4">
+<span class="block text-[#111817]">02 Aug 2023</span>
+<span class="text-xs text-gray-500">Tambal Gigi</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full border border-yellow-200 bg-yellow-100 px-2.5 py-0.5 text-xs font-bold text-yellow-800">
+                                            Pending
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-[#111817]">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="transition-colors hover:bg-gray-50 cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#111817] bg-secondary">
+<span class="flex h-full w-full items-center justify-center font-bold text-white">SN</span>
+</div>
+<div>
+<p class="font-bold text-[#111817]">Siti Nurhaliza</p>
+<p class="text-xs text-gray-500">ID: #P-2023-112</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-[#111817]">+62 821-4455-6677</p>
+<p class="text-xs text-gray-500">siti.nur@email.com</p>
+</td>
+<td class="px-6 py-4">
+<span class="block text-[#111817]">15 Oct 2023</span>
+<span class="text-xs text-gray-500">Bleaching</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full border border-green-200 bg-green-100 px-2.5 py-0.5 text-xs font-bold text-green-700">
+                                            Active
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-[#111817]">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="transition-colors hover:bg-gray-50 cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#111817] bg-white">
+<img alt="David" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBG4xsnyXtYCtdJS_C1Z1zD5UvQm1Z6SLcjl-0iG7XkdpHymGBt5NPW_ktNzKX5CHgMPZBF_dwA3kehA5ObNy40mGG_ydXQ8QDyi102U6Dqa7iyFwefuiZfKeMbSFpLCCMJ7Gcq9_IzPvujMsQ3lYnmkq1SZ0EEHE1TZQVyJaIBCwfS_Ku1d-dG9PFrb2K89uC_WUYRslfxu8JEMyjGVj2zp-okp59QU6ZnnA1UTvmrJZtnThvRvMB42AiVGz7MGqx-ACThdycYsAl"/>
+</div>
+<div>
+<p class="font-bold text-[#111817]">David Santoso</p>
+<p class="text-xs text-gray-500">ID: #P-2023-156</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-[#111817]">+62 856-7890-1234</p>
+<p class="text-xs text-gray-500">david.s@email.com</p>
+</td>
+<td class="px-6 py-4">
+<span class="block text-[#111817]">--</span>
+<span class="text-xs text-gray-500">Never visited</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full border border-blue-200 bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-blue-700">
+                                            New
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-[#111817]">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex items-center justify-between border-t-2 border-[#111817] p-4">
+<p class="text-sm font-bold text-gray-500">Showing 1-5 of 1,248</p>
+<div class="flex gap-2">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-gray-100">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-[#111817] bg-accent-yellow font-bold text-[#111817]">1</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent font-bold text-gray-500 hover:border-[#111817]">2</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent font-bold text-gray-500 hover:border-[#111817]">3</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-gray-100">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<div class="hidden w-80 shrink-0 flex-col gap-6 xl:flex">
+<div class="relative overflow-hidden rounded-[2.5rem] border-2 border-[#111817] bg-white p-6 shadow-card">
+<div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-accent-yellow/30 blur-xl"></div>
+<div class="relative flex flex-col items-center text-center">
+<div class="mb-4 h-24 w-24 overflow-hidden rounded-full border-2 border-[#111817] shadow-pop">
+<img alt="Budi Detail" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwoaTRDFMuD8YFdMhH-V6WomrCqU6F_npYMGdtN-nMHiedaUQGR3OuMnvt-osQtD1GlHOJ6L6BheOoypz4KRJNjkowq6B-VlMcDZuVE-kAtMoGPSdZwZDMtdIbQBhhwTZAJkwMbsnStg0pe-j9yDD7M_j7JrrJ35GFP6QOPWV9jaIkNNFIthvnVpq64FrUI6QfD8ejWKJ7U2Ck-TU4NqsY-eQaO2hav332r1Rec7oeC21DIql6T2X9Gco_eJ7KqXN--jfyg2mppPtF"/>
+</div>
+<h3 class="text-xl font-black text-[#111817]">Budi Santoso</h3>
+<p class="text-sm font-bold text-gray-500">32 Tahun • Pria</p>
+<div class="mt-4 flex w-full gap-2">
+<button class="btn-pop flex-1 rounded-xl bg-primary py-2 text-xs font-bold text-white">
+<span class="material-symbols-outlined align-middle text-sm">call</span> Call
+                                </button>
+<button class="btn-outline-pop flex-1 rounded-xl py-2 text-xs font-bold">
+<span class="material-symbols-outlined align-middle text-sm">mail</span> Email
+                                </button>
+</div>
+</div>
+</div>
+<div class="flex-1 rounded-[2.5rem] border-2 border-[#111817] bg-white p-6 shadow-card">
+<h4 class="mb-4 font-black text-[#111817]">Patient Info</h4>
+<div class="space-y-4">
+<div class="rounded-xl border border-gray-100 bg-gray-50 p-3">
+<p class="text-xs font-bold text-gray-400 uppercase">Next Appointment</p>
+<div class="mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">calendar_month</span>
+<span class="font-bold text-[#111817]">02 Nov 2023, 10:00</span>
+</div>
+</div>
+<div class="rounded-xl border border-gray-100 bg-gray-50 p-3">
+<p class="text-xs font-bold text-gray-400 uppercase">Medical Alert</p>
+<div class="mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500">warning</span>
+<span class="font-bold text-[#111817]">Alergi Penicillin</span>
+</div>
+</div>
+<div class="rounded-xl border border-gray-100 bg-gray-50 p-3">
+<p class="text-xs font-bold text-gray-400 uppercase">Notes</p>
+<p class="mt-1 text-sm font-medium text-gray-600">
+                                    Patient prefers morning appointments. Needs extra anesthesia for deep cleaning.
+                                </p>
+</div>
+</div>
+<button class="mt-6 w-full rounded-xl border-2 border-dashed border-[#111817] py-3 text-sm font-bold text-gray-500 hover:border-solid hover:bg-gray-50">
+                            View Full History
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

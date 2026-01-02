@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Management - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                        "card-hover": "4px 4px 0px 0px rgba(13, 148, 136, 0.25)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden;
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .menu-item {
+            transition: all 0.2s ease;
+        }
+        .menu-item:hover {
+            background-color: #FFD54F;
+            box-shadow: 2px 2px 0 0 #111817;
+            transform: translate(-2px, -2px);
+            font-weight: 700;
+            border-color: #111817;
+            color: #111817;
+        }
+        .menu-item.active {
+            background-color: #FFD54F;
+            box-shadow: 2px 2px 0 0 #111817;
+            font-weight: 700;
+            border-color: #111817;
+            color: #111817;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<div class="flex h-screen overflow-hidden">
+<aside class="hidden w-72 flex-col justify-between border-r-2 border-[#111817] bg-white p-6 md:flex z-20 shadow-card">
+<div class="flex flex-col h-full min-h-0">
+<div class="mb-8 flex items-center gap-3 shrink-0">
+<div class="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#111817] bg-primary text-white shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<div>
+<span class="block text-xl font-black tracking-tight text-[#111817]">Dental Clinic</span>
+<span class="text-xs font-bold text-gray-500">Dashboard Admin</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto custom-scroll pr-2 -mr-2 pb-2">
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Main</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                                Dashboard Home
+                            </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Management</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">book_online</span>
+                                Bookings Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                                Schedule Master
+                            </a>
+<a class="menu-item active flex w-full items-center gap-3 rounded-xl border-2 border-[#111817] bg-accent-yellow px-4 py-3 font-bold text-[#111817] shadow-[2px_2px_0px_0px_#111817]" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+                                Doctor Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dentistry</span>
+                                Services Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+                                Patients Database
+                            </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Analytics</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">lab_profile</span>
+                                Reports
+                            </a>
+</div>
+</div>
+<div>
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Configuration</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">settings</span>
+                                Settings
+                            </a>
+</div>
+</div>
+</nav>
+</div>
+<div class="rounded-2xl border-2 border-[#111817] bg-background-light p-4 mt-4 shrink-0">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 overflow-hidden rounded-full border-2 border-[#111817] bg-white">
+<img alt="Profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="truncate text-sm font-bold">drg. Siti Aminah</p>
+<p class="truncate text-xs text-gray-500">Dokter Gigi Utama</p>
+</div>
+<button class="text-gray-500 hover:text-red-500">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-background-light">
+<header class="sticky top-0 z-10 flex items-center justify-between border-b-2 border-[#111817] bg-white/90 px-8 py-5 backdrop-blur-md">
+<div>
+<h1 class="font-display text-2xl font-black text-[#111817]">Doctor Management</h1>
+<p class="text-sm font-medium text-gray-500">Manage your clinic's medical specialists</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex btn-pop h-11 items-center gap-2 rounded-full bg-primary px-4 text-white font-bold hover:text-white">
+<span class="material-symbols-outlined text-xl">add</span>
+<span class="text-sm">Add Doctor</span>
+</button>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-white shadow-[2px_2px_0px_0px_#111817] transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-[#111817]">notifications</span>
+<span class="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-red-500 border border-white"></span>
+</button>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-accent-yellow shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<div class="p-6 md:p-10">
+<div class="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+<div class="relative w-full md:w-96">
+<input class="w-full h-12 rounded-xl border-2 border-[#111817] bg-white px-4 py-2 pl-11 text-sm font-bold shadow-card focus:border-primary focus:outline-none focus:ring-0 focus:shadow-pop transition-all" placeholder="Search doctor by name or ID..." type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+</div>
+<div class="flex gap-3 overflow-x-auto pb-2 md:pb-0">
+<button class="btn-outline-pop flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold bg-accent-yellow whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                            All Specialists
+                        </button>
+<button class="btn-outline-pop flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">dentistry</span>
+                            Dentists
+                        </button>
+<button class="btn-outline-pop flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold whitespace-nowrap">
+<span class="material-symbols-outlined text-lg">medical_services</span>
+                            Surgeons
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+<div class="group relative flex flex-col rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="mb-4 flex justify-center">
+<div class="relative h-24 w-24 overflow-hidden rounded-full border-2 border-[#111817] bg-accent-yellow/20">
+<img alt="Dr. Siti" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+<span class="absolute bottom-0 right-0 block h-6 w-6 rounded-full border-2 border-white bg-green-500 ring-2 ring-[#111817]"></span>
+</div>
+</div>
+<div class="text-center mb-4">
+<h3 class="text-lg font-black text-[#111817]">drg. Siti Aminah</h3>
+<p class="text-sm font-bold text-primary">Orthodontist</p>
+</div>
+<div class="mb-6 grid grid-cols-2 divide-x-2 divide-[#111817]/10 border-y-2 border-[#111817]/10 py-3">
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Patients</p>
+<p class="text-lg font-black text-[#111817]">1.2k</p>
+</div>
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Exp.</p>
+<p class="text-lg font-black text-[#111817]">8 Yrs</p>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-auto">
+<button class="btn-outline-pop flex-1 rounded-xl py-2 text-sm font-bold hover:bg-gray-50">
+                                View Profile
+                            </button>
+<button class="btn-pop flex h-10 w-10 items-center justify-center rounded-xl bg-accent-purple text-[#111817]">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+</div>
+</div>
+<div class="group relative flex flex-col rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="mb-4 flex justify-center">
+<div class="relative flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#111817] bg-secondary/20 text-secondary">
+<span class="material-symbols-outlined text-5xl">person</span>
+<span class="absolute bottom-0 right-0 block h-6 w-6 rounded-full border-2 border-white bg-green-500 ring-2 ring-[#111817]"></span>
+</div>
+</div>
+<div class="text-center mb-4">
+<h3 class="text-lg font-black text-[#111817]">drg. Budi Santoso</h3>
+<p class="text-sm font-bold text-primary">Oral Surgeon</p>
+</div>
+<div class="mb-6 grid grid-cols-2 divide-x-2 divide-[#111817]/10 border-y-2 border-[#111817]/10 py-3">
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Patients</p>
+<p class="text-lg font-black text-[#111817]">850</p>
+</div>
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Exp.</p>
+<p class="text-lg font-black text-[#111817]">5 Yrs</p>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-auto">
+<button class="btn-outline-pop flex-1 rounded-xl py-2 text-sm font-bold hover:bg-gray-50">
+                                View Profile
+                            </button>
+<button class="btn-pop flex h-10 w-10 items-center justify-center rounded-xl bg-accent-purple text-[#111817]">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+</div>
+</div>
+<div class="group relative flex flex-col rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="mb-4 flex justify-center">
+<div class="relative flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#111817] bg-accent-purple/20 text-accent-purple">
+<span class="material-symbols-outlined text-5xl">face_3</span>
+<span class="absolute bottom-0 right-0 block h-6 w-6 rounded-full border-2 border-white bg-gray-400 ring-2 ring-[#111817]"></span>
+</div>
+</div>
+<div class="text-center mb-4">
+<h3 class="text-lg font-black text-[#111817]">drg. Sarah Jenkins</h3>
+<p class="text-sm font-bold text-primary">Pediatric Dentist</p>
+</div>
+<div class="mb-6 grid grid-cols-2 divide-x-2 divide-[#111817]/10 border-y-2 border-[#111817]/10 py-3">
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Patients</p>
+<p class="text-lg font-black text-[#111817]">2.1k</p>
+</div>
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Exp.</p>
+<p class="text-lg font-black text-[#111817]">12 Yrs</p>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-auto">
+<button class="btn-outline-pop flex-1 rounded-xl py-2 text-sm font-bold hover:bg-gray-50">
+                                View Profile
+                            </button>
+<button class="btn-pop flex h-10 w-10 items-center justify-center rounded-xl bg-accent-purple text-[#111817]">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+</div>
+</div>
+<div class="group relative flex flex-col rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="mb-4 flex justify-center">
+<div class="relative flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#111817] bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-5xl">face_6</span>
+<span class="absolute bottom-0 right-0 block h-6 w-6 rounded-full border-2 border-white bg-red-500 ring-2 ring-[#111817]"></span>
+</div>
+</div>
+<div class="text-center mb-4">
+<h3 class="text-lg font-black text-[#111817]">drg. Michael Tan</h3>
+<p class="text-sm font-bold text-primary">Prosthodontist</p>
+</div>
+<div class="mb-6 grid grid-cols-2 divide-x-2 divide-[#111817]/10 border-y-2 border-[#111817]/10 py-3">
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Patients</p>
+<p class="text-lg font-black text-[#111817]">540</p>
+</div>
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Exp.</p>
+<p class="text-lg font-black text-[#111817]">3 Yrs</p>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-auto">
+<button class="btn-outline-pop flex-1 rounded-xl py-2 text-sm font-bold hover:bg-gray-50">
+                                View Profile
+                            </button>
+<button class="btn-pop flex h-10 w-10 items-center justify-center rounded-xl bg-accent-purple text-[#111817]">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+</div>
+</div>
+<div class="group relative flex flex-col rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="mb-4 flex justify-center">
+<div class="relative flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#111817] bg-accent-yellow/30 text-[#111817]">
+<span class="material-symbols-outlined text-5xl">face_2</span>
+<span class="absolute bottom-0 right-0 block h-6 w-6 rounded-full border-2 border-white bg-green-500 ring-2 ring-[#111817]"></span>
+</div>
+</div>
+<div class="text-center mb-4">
+<h3 class="text-lg font-black text-[#111817]">drg. Lisa Wong</h3>
+<p class="text-sm font-bold text-primary">General Dentist</p>
+</div>
+<div class="mb-6 grid grid-cols-2 divide-x-2 divide-[#111817]/10 border-y-2 border-[#111817]/10 py-3">
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Patients</p>
+<p class="text-lg font-black text-[#111817]">1.8k</p>
+</div>
+<div class="text-center px-2">
+<p class="text-xs font-bold text-gray-400 uppercase">Exp.</p>
+<p class="text-lg font-black text-[#111817]">10 Yrs</p>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-auto">
+<button class="btn-outline-pop flex-1 rounded-xl py-2 text-sm font-bold hover:bg-gray-50">
+                                View Profile
+                            </button>
+<button class="btn-pop flex h-10 w-10 items-center justify-center rounded-xl bg-accent-purple text-[#111817]">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+</div>
+</div>
+<button class="group relative flex flex-col items-center justify-center rounded-[2rem] border-2 border-dashed border-[#111817] bg-transparent p-6 hover:bg-white hover:border-solid hover:shadow-card transition-all min-h-[300px]">
+<div class="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-white border-2 border-[#111817] group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-[#111817]">add</span>
+</div>
+<h3 class="text-xl font-black text-[#111817]">Add New Doctor</h3>
+<p class="text-sm font-medium text-gray-500 mt-2 text-center">Register a new specialist to the clinic database</p>
+</button>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

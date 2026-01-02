@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bookings Management - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                        "card-hover": "4px 4px 0px 0px rgba(13, 148, 136, 0.25)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden;
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .menu-item {
+            transition: all 0.2s ease;
+        }
+        .menu-item:hover, .menu-item.active {
+            background-color: #FFD54F;
+            box-shadow: 2px 2px 0 0 #111817;
+            transform: translate(-2px, -2px);
+            font-weight: 700;
+            color: #111817;
+            border-color: #111817;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }.tooltip-container {
+            position: relative;
+        }
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #111817;
+            color: white;
+            text-align: center;
+            padding: 4px 8px;
+            border-radius: 6px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #111817 transparent transparent transparent;
+        }
+        .tooltip-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<div class="flex h-screen overflow-hidden">
+<aside class="hidden w-72 flex-col justify-between border-r-2 border-[#111817] bg-white p-6 md:flex z-20 shadow-card">
+<div class="flex flex-col h-full min-h-0">
+<div class="mb-8 flex items-center gap-3 shrink-0">
+<div class="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#111817] bg-primary text-white shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<div>
+<span class="block text-xl font-black tracking-tight text-[#111817]">Dental Clinic</span>
+<span class="text-xs font-bold text-gray-500">Dashboard Admin</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto custom-scroll pr-2 -mr-2 pb-2">
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Main</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                                Dashboard Home
+                            </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Management</h3>
+<div class="space-y-2">
+<a class="menu-item active flex w-full items-center gap-3 rounded-full border-2 border-[#111817] bg-accent-yellow pl-4 pr-4 py-3 font-bold text-[#111817] shadow-[2px_2px_0px_0px_#111817]" href="#">
+<span class="material-symbols-outlined">book_online</span>
+                                Bookings Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                                Schedule Master
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+                                Doctor Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dentistry</span>
+                                Services Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+                                Patients Database
+                            </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Analytics</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">lab_profile</span>
+                                Reports
+                            </a>
+</div>
+</div>
+<div>
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Configuration</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">settings</span>
+                                Settings
+                            </a>
+</div>
+</div>
+</nav>
+</div>
+<div class="rounded-2xl border-2 border-[#111817] bg-background-light p-4 mt-4 shrink-0">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 overflow-hidden rounded-full border-2 border-[#111817] bg-white">
+<img alt="Profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="truncate text-sm font-bold">drg. Siti Aminah</p>
+<p class="truncate text-xs text-gray-500">Dokter Gigi Utama</p>
+</div>
+<button class="text-gray-500 hover:text-red-500">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-background-light">
+<header class="sticky top-0 z-10 flex items-center justify-between border-b-2 border-[#111817] bg-white/90 px-8 py-5 backdrop-blur-md">
+<div>
+<h1 class="font-display text-2xl font-black text-[#111817]">📅 Bookings Management</h1>
+<p class="text-sm font-medium text-gray-500">Kelola janji temu dan jadwal pasien dengan mudah.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="btn-pop flex items-center gap-2 rounded-xl bg-primary px-4 py-2 font-bold text-white shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined text-sm">add</span>
+                        Booking Baru
+                    </button>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-white shadow-[2px_2px_0px_0px_#111817] transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-[#111817]">notifications</span>
+<span class="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-red-500 border border-white"></span>
+</button>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-accent-yellow shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<div class="p-6 md:p-10 flex flex-col gap-8 h-auto min-h-full">
+<div class="rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-card">
+<div class="flex flex-col gap-4 lg:flex-row lg:items-end">
+<div class="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Search</label>
+<div class="relative">
+<input class="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-2.5 pl-10 text-sm font-semibold transition-all hover:border-[#111817] focus:border-[#111817] focus:bg-white focus:outline-none focus:ring-0 placeholder:text-gray-400" placeholder="ID or Patient Name" type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">search</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Doctor</label>
+<select class="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-2.5 text-sm font-semibold transition-all hover:border-[#111817] focus:border-[#111817] focus:bg-white focus:outline-none focus:ring-0">
+<option value="">All Doctors</option>
+<option value="1">drg. Siti Aminah</option>
+<option value="2">drg. Budi Santoso</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Service Type</label>
+<select class="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-2.5 text-sm font-semibold transition-all hover:border-[#111817] focus:border-[#111817] focus:bg-white focus:outline-none focus:ring-0">
+<option value="">All Services</option>
+<option value="scaling">Scaling</option>
+<option value="filling">Tambal Gigi</option>
+<option value="ortho">Orthodontic</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Status</label>
+<select class="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-2.5 text-sm font-semibold transition-all hover:border-[#111817] focus:border-[#111817] focus:bg-white focus:outline-none focus:ring-0">
+<option value="">All Status</option>
+<option value="confirmed">Confirmed</option>
+<option value="pending">Pending</option>
+<option value="cancelled">Cancelled</option>
+<option value="completed">Completed</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Date Range</label>
+<div class="relative">
+<input class="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-2.5 pl-10 text-sm font-semibold transition-all hover:border-[#111817] focus:border-[#111817] focus:bg-white focus:outline-none focus:ring-0 placeholder:text-gray-400" placeholder="Select dates" type="date"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">calendar_today</span>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="btn-outline-pop flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-bold whitespace-nowrap h-[46px]">
+<span class="material-symbols-outlined text-sm">refresh</span>
+                                Reset
+                            </button>
+<button class="btn-pop flex items-center justify-center gap-2 rounded-xl bg-accent-yellow px-5 py-2.5 font-bold text-[#111817] whitespace-nowrap h-[46px]">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                                Filter
+                            </button>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col rounded-[2.5rem] border-2 border-[#111817] bg-white p-8 shadow-card overflow-hidden min-h-[500px]">
+<div class="mb-6 flex items-center justify-between">
+<div>
+<h2 class="text-2xl font-black text-[#111817]">All Bookings</h2>
+<p class="text-sm font-medium text-gray-500">Showing 1-10 of 124 bookings</p>
+</div>
+<div class="flex gap-2">
+<button class="btn-outline-pop flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Export CSV
+                            </button>
+<button class="btn-outline-pop flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold">
+<span class="material-symbols-outlined text-sm">print</span>
+                                Print
+                            </button>
+</div>
+</div>
+<div class="w-full overflow-x-auto custom-scroll pb-4 flex-1">
+<table class="w-full min-w-[800px] border-collapse text-left">
+<thead>
+<tr class="border-b-2 border-[#111817]">
+<th class="py-4 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-500">ID Booking</th>
+<th class="py-4 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-500">Nama Pasien</th>
+<th class="py-4 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-500">Layanan</th>
+<th class="py-4 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-500">Dokter</th>
+<th class="py-4 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-500">Tanggal &amp; Jam</th>
+<th class="py-4 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-500">Status</th>
+<th class="py-4 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-500 text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="text-sm font-semibold text-[#111817]">
+<tr class="group border-b border-gray-100 hover:bg-background-light transition-colors">
+<td class="py-4 px-4 font-mono font-bold text-gray-600">#BK-2023-001</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-accent-yellow border border-[#111817] flex items-center justify-center">
+<span class="text-xs font-black">BS</span>
+</div>
+<span>Budi Santoso</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">medical_services</span>
+                                            Scaling Gigi
+                                        </div>
+</td>
+<td class="py-4 px-4">drg. Siti Aminah</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span>24 Okt 2023</span>
+<span class="text-xs text-gray-500">09:00 - 10:00</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="rounded-full border border-green-200 bg-green-100 px-3 py-1 text-xs font-bold text-green-700">
+                                            Confirmed
+                                        </span>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-blue-600">
+<span class="material-symbols-outlined text-[1.2rem]">visibility</span>
+</button>
+<span class="tooltip">View Details</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-orange-500">
+<span class="material-symbols-outlined text-[1.2rem]">edit</span>
+</button>
+<span class="tooltip">Edit</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-red-500">
+<span class="material-symbols-outlined text-[1.2rem]">delete</span>
+</button>
+<span class="tooltip">Cancel</span>
+</div>
+</div>
+</td>
+</tr>
+<tr class="group border-b border-gray-100 hover:bg-background-light transition-colors">
+<td class="py-4 px-4 font-mono font-bold text-gray-600">#BK-2023-002</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-accent-purple text-white border border-[#111817] flex items-center justify-center">
+<span class="text-xs font-black">AR</span>
+</div>
+<span>Anisa Rahma</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-accent-purple">grid_on</span>
+                                            Kontrol Behel
+                                        </div>
+</td>
+<td class="py-4 px-4">drg. Budi Santoso</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span>24 Okt 2023</span>
+<span class="text-xs text-gray-500">10:30 - 11:00</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="rounded-full border border-blue-200 bg-blue-100 px-3 py-1 text-xs font-bold text-blue-700">
+                                            Check-In
+                                        </span>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-blue-600">
+<span class="material-symbols-outlined text-[1.2rem]">visibility</span>
+</button>
+<span class="tooltip">View Details</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-orange-500">
+<span class="material-symbols-outlined text-[1.2rem]">edit</span>
+</button>
+<span class="tooltip">Edit</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-red-500">
+<span class="material-symbols-outlined text-[1.2rem]">delete</span>
+</button>
+<span class="tooltip">Cancel</span>
+</div>
+</div>
+</td>
+</tr>
+<tr class="group border-b border-gray-100 hover:bg-background-light transition-colors">
+<td class="py-4 px-4 font-mono font-bold text-gray-600">#BK-2023-003</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-secondary text-white border border-[#111817] flex items-center justify-center">
+<span class="text-xs font-black">MT</span>
+</div>
+<span>Michael Tan</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">healing</span>
+                                            Tambal Gigi
+                                        </div>
+</td>
+<td class="py-4 px-4">drg. Siti Aminah</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span>24 Okt 2023</span>
+<span class="text-xs text-gray-500">13:00 - 14:00</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="rounded-full border border-yellow-200 bg-yellow-100 px-3 py-1 text-xs font-bold text-yellow-800">
+                                            Pending
+                                        </span>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-blue-600">
+<span class="material-symbols-outlined text-[1.2rem]">visibility</span>
+</button>
+<span class="tooltip">View Details</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-orange-500">
+<span class="material-symbols-outlined text-[1.2rem]">edit</span>
+</button>
+<span class="tooltip">Edit</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-red-500">
+<span class="material-symbols-outlined text-[1.2rem]">delete</span>
+</button>
+<span class="tooltip">Cancel</span>
+</div>
+</div>
+</td>
+</tr>
+<tr class="group border-b border-gray-100 hover:bg-background-light transition-colors">
+<td class="py-4 px-4 font-mono font-bold text-gray-600">#BK-2023-004</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-primary text-white border border-[#111817] flex items-center justify-center">
+<span class="text-xs font-black">SN</span>
+</div>
+<span>Siti Nurhaliza</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">auto_awesome</span>
+                                            Bleaching
+                                        </div>
+</td>
+<td class="py-4 px-4">drg. Budi Santoso</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span>24 Okt 2023</span>
+<span class="text-xs text-gray-500">14:45 - 15:45</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="rounded-full border border-green-200 bg-green-100 px-3 py-1 text-xs font-bold text-green-700">
+                                            Confirmed
+                                        </span>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-blue-600">
+<span class="material-symbols-outlined text-[1.2rem]">visibility</span>
+</button>
+<span class="tooltip">View Details</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-orange-500">
+<span class="material-symbols-outlined text-[1.2rem]">edit</span>
+</button>
+<span class="tooltip">Edit</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-red-500">
+<span class="material-symbols-outlined text-[1.2rem]">delete</span>
+</button>
+<span class="tooltip">Cancel</span>
+</div>
+</div>
+</td>
+</tr>
+<tr class="group border-b border-gray-100 hover:bg-background-light transition-colors">
+<td class="py-4 px-4 font-mono font-bold text-gray-600">#BK-2023-005</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-red-400 text-white border border-[#111817] flex items-center justify-center">
+<span class="text-xs font-black">RW</span>
+</div>
+<span>Rina Wati</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-red-500">dentistry</span>
+                                            Cabut Gigi
+                                        </div>
+</td>
+<td class="py-4 px-4">drg. Siti Aminah</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span>25 Okt 2023</span>
+<span class="text-xs text-gray-500">10:00 - 10:30</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="rounded-full border border-red-200 bg-red-100 px-3 py-1 text-xs font-bold text-red-700">
+                                            Cancelled
+                                        </span>
+</td>
+<td class="py-4 px-4 text-center">
+<div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-blue-600">
+<span class="material-symbols-outlined text-[1.2rem]">visibility</span>
+</button>
+<span class="tooltip">View Details</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-orange-500">
+<span class="material-symbols-outlined text-[1.2rem]">edit</span>
+</button>
+<span class="tooltip">Edit</span>
+</div>
+<div class="tooltip-container">
+<button class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-transparent hover:border-[#111817] hover:bg-white text-gray-600 hover:text-red-500">
+<span class="material-symbols-outlined text-[1.2rem]">delete</span>
+</button>
+<span class="tooltip">Cancel</span>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-4 flex flex-col items-center justify-between gap-4 border-t-2 border-gray-100 pt-6 sm:flex-row">
+<p class="text-sm font-bold text-gray-500">Showing page 1 of 12</p>
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-transparent text-gray-600 hover:border-[#111817] hover:bg-white disabled:opacity-50">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-[#111817] bg-accent-yellow text-[#111817] font-bold shadow-[2px_2px_0px_0px_#111817]">1</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-transparent text-gray-600 hover:border-[#111817] hover:bg-white font-bold">2</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-transparent text-gray-600 hover:border-[#111817] hover:bg-white font-bold">3</button>
+<span class="text-gray-400 font-bold">...</span>
+<button class="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-transparent text-gray-600 hover:border-[#111817] hover:bg-white font-bold">12</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-transparent text-gray-600 hover:border-[#111817] hover:bg-white">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Schedule - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden
+        }
+        .blob-shape {
+            border-radius: 60% 40% 30% 70%/60% 30% 70% 40%
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .nav-link {
+            position: relative
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scalex(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0d9488;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out
+        }
+        .nav-link:hover::after {
+            transform: scalex(1);
+            transform-origin: bottom left
+        }.calendar-scroll::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .calendar-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 4px;
+        }
+        .calendar-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .calendar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<nav class="fixed top-0 z-50 w-full px-4 py-4 md:px-10">
+<div class="mx-auto max-w-7xl">
+<div class="relative flex items-center justify-between rounded-full border-2 border-[#111817] bg-white px-6 py-3 shadow-pop">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border-2 border-[#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#111817]">Dental Clinic</span>
+</div>
+<div class="hidden items-center gap-8 xl:flex">
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Dashboard</a>
+<a class="nav-link text-sm font-bold text-primary transition-colors" href="#">Jadwal</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Pasien</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Laporan</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Settings</a>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<button class="h-10 w-10 flex items-center justify-center rounded-full border-2 border-[#111817] bg-white hover:bg-gray-100 transition-colors">
+<span class="material-symbols-outlined text-[#111817]">notifications</span>
+</button>
+<div class="flex items-center gap-3 rounded-full border-2 border-[#111817] bg-white pl-1 pr-4 py-1 hover:shadow-md cursor-pointer transition-all">
+<img alt="Doctor Profile" class="h-8 w-8 rounded-full border border-[#111817] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+<span class="text-sm font-bold text-[#111817]">drg. Siti Aminah</span>
+</div>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-[#111817] shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-4 md:px-10 min-h-screen">
+<div class="mx-auto max-w-7xl">
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<div class="inline-flex items-center gap-2 mb-2">
+<span class="font-bold text-primary uppercase tracking-wider text-xs bg-teal-50 px-3 py-1 rounded-full border border-teal-100">Weekly Schedule</span>
+</div>
+<h1 class="font-display text-4xl font-black text-[#111817]">Jadwal Praktek</h1>
+<p class="text-lg text-gray-600 mt-2">Kelola waktu praktek dan janji temu pasien Anda minggu ini.</p>
+</div>
+<div class="flex gap-3">
+<button class="btn-outline-pop flex h-12 items-center justify-center rounded-full px-6 font-bold text-sm bg-white">
+<span class="material-symbols-outlined mr-2">print</span>
+                    Cetak Jadwal
+                </button>
+<button class="btn-pop flex h-12 items-center justify-center rounded-full bg-primary px-6 font-bold text-white text-sm">
+<span class="material-symbols-outlined mr-2">add</span>
+                    Buat Janji Temu
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-8 xl:col-span-9 order-2 lg:order-1">
+<div class="bg-white rounded-[2rem] border-2 border-[#111817] p-6 shadow-card min-h-[700px] flex flex-col">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+<div class="flex items-center gap-4">
+<div class="flex items-center rounded-full border-2 border-[#111817] bg-background-light p-1">
+<button class="h-8 w-8 flex items-center justify-center rounded-full hover:bg-white hover:shadow-sm transition-all">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="h-8 w-8 flex items-center justify-center rounded-full hover:bg-white hover:shadow-sm transition-all">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+<h2 class="text-2xl font-black text-[#111817]">Oktober 2023</h2>
+</div>
+<div class="flex items-center bg-gray-100 rounded-full p-1 border border-gray-200">
+<button class="px-4 py-1.5 rounded-full text-xs font-bold text-gray-500 hover:text-[#111817] transition-colors">Hari</button>
+<button class="px-4 py-1.5 rounded-full bg-white text-xs font-bold text-[#111817] shadow-sm border border-gray-200">Minggu</button>
+<button class="px-4 py-1.5 rounded-full text-xs font-bold text-gray-500 hover:text-[#111817] transition-colors">Bulan</button>
+</div>
+</div>
+<div class="flex-1 overflow-x-auto calendar-scroll pb-4">
+<div class="min-w-[800px]">
+<div class="grid grid-cols-[80px_repeat(6,1fr)] gap-0 mb-4">
+<div class="text-center pt-2">
+<span class="text-xs font-bold text-gray-400">GMT+7</span>
+</div>
+<div class="text-center group cursor-pointer p-2 rounded-xl hover:bg-teal-50 border border-transparent hover:border-teal-100 transition-all">
+<span class="block text-gray-400 text-xs font-bold uppercase mb-1">Sen</span>
+<div class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white font-black text-sm shadow-pop-hover border border-[#111817]">16</div>
+</div>
+<div class="text-center group cursor-pointer p-2 rounded-xl hover:bg-gray-50 transition-all">
+<span class="block text-gray-400 text-xs font-bold uppercase mb-1">Sel</span>
+<span class="block text-[#111817] font-bold text-lg">17</span>
+</div>
+<div class="text-center group cursor-pointer p-2 rounded-xl hover:bg-gray-50 transition-all">
+<span class="block text-gray-400 text-xs font-bold uppercase mb-1">Rab</span>
+<span class="block text-[#111817] font-bold text-lg">18</span>
+</div>
+<div class="text-center group cursor-pointer p-2 rounded-xl hover:bg-gray-50 transition-all">
+<span class="block text-gray-400 text-xs font-bold uppercase mb-1">Kam</span>
+<span class="block text-[#111817] font-bold text-lg">19</span>
+</div>
+<div class="text-center group cursor-pointer p-2 rounded-xl hover:bg-gray-50 transition-all">
+<span class="block text-gray-400 text-xs font-bold uppercase mb-1">Jum</span>
+<span class="block text-[#111817] font-bold text-lg">20</span>
+</div>
+<div class="text-center group cursor-pointer p-2 rounded-xl hover:bg-gray-50 transition-all">
+<span class="block text-gray-400 text-xs font-bold uppercase mb-1">Sab</span>
+<span class="block text-[#111817] font-bold text-lg">21</span>
+</div>
+</div>
+<div class="relative space-y-4">
+<div class="grid grid-cols-[80px_repeat(6,1fr)] gap-4 min-h-[90px]">
+<div class="text-xs font-bold text-gray-400 text-right pt-2 pr-4 relative">
+                                            09:00
+                                            <span class="absolute right-0 top-1/2 w-2 h-[2px] bg-gray-200"></span>
+</div>
+<div class="relative">
+<div class="absolute inset-0 top-2 bottom-2 left-0 right-0 bg-accent-purple/20 border-2 border-[#111817] rounded-xl p-3 shadow-sm hover:shadow-pop transition-all cursor-pointer group overflow-hidden">
+<div class="flex items-start justify-between">
+<h5 class="font-bold text-xs truncate w-20">Budi Santoso</h5>
+<span class="material-symbols-outlined text-[16px] text-[#111817] opacity-0 group-hover:opacity-100 transition-opacity">info</span>
+</div>
+<p class="text-[10px] text-purple-800 font-bold mt-1 bg-purple-100 inline-block px-1.5 py-0.5 rounded">Orthodontic</p>
+</div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full border-2 border-dashed border-gray-200 rounded-xl hover:border-primary hover:bg-teal-50/50 transition-all cursor-pointer flex flex-col items-center justify-center group opacity-50 hover:opacity-100">
+<span class="material-symbols-outlined text-gray-300 group-hover:text-primary text-lg">add</span>
+<span class="text-[10px] font-bold text-primary opacity-0 group-hover:opacity-100">Slot</span>
+</div>
+</div>
+<div class="relative">
+<div class="absolute inset-0 top-2 bottom-2 left-0 right-0 bg-secondary/20 border-2 border-[#111817] rounded-xl p-3 shadow-sm hover:shadow-pop transition-all cursor-pointer group overflow-hidden">
+<div class="flex items-start justify-between">
+<h5 class="font-bold text-xs truncate w-20">Ahmad Rizki</h5>
+</div>
+<p class="text-[10px] text-orange-800 font-bold mt-1 bg-orange-100 inline-block px-1.5 py-0.5 rounded">Cabut Gigi</p>
+</div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full border-2 border-dashed border-gray-200 rounded-xl hover:border-primary hover:bg-teal-50/50 transition-all cursor-pointer opacity-50 hover:opacity-100"></div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full border-2 border-dashed border-gray-200 rounded-xl hover:border-primary hover:bg-teal-50/50 transition-all cursor-pointer opacity-50 hover:opacity-100"></div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center">
+<span class="text-[10px] font-bold text-gray-300">Tutup</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-[80px_repeat(6,1fr)] gap-4 min-h-[90px]">
+<div class="text-xs font-bold text-gray-400 text-right pt-2 pr-4">10:00</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full border-2 border-dashed border-gray-200 rounded-xl hover:border-primary hover:bg-teal-50/50 transition-all cursor-pointer flex flex-col items-center justify-center group opacity-50 hover:opacity-100">
+<span class="material-symbols-outlined text-gray-300 group-hover:text-primary text-lg">add</span>
+</div>
+</div>
+<div class="relative">
+<div class="absolute inset-0 top-2 bottom-2 left-0 right-0 bg-accent-yellow/20 border-2 border-[#111817] rounded-xl p-3 shadow-sm hover:shadow-pop transition-all cursor-pointer group overflow-hidden">
+<div class="flex items-start justify-between">
+<h5 class="font-bold text-xs truncate w-20">Siti N.</h5>
+</div>
+<p class="text-[10px] text-yellow-800 font-bold mt-1 bg-yellow-100 inline-block px-1.5 py-0.5 rounded">Scaling</p>
+</div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full border-2 border-dashed border-gray-200 rounded-xl hover:border-primary hover:bg-teal-50/50 transition-all cursor-pointer opacity-50 hover:opacity-100"></div>
+</div>
+<div class="relative">
+<div class="absolute inset-0 top-2 bottom-2 left-0 right-0 bg-primary/10 border-2 border-[#111817] rounded-xl p-3 shadow-sm hover:shadow-pop transition-all cursor-pointer group overflow-hidden">
+<div class="flex items-start justify-between">
+<h5 class="font-bold text-xs truncate w-20">Dewi P.</h5>
+</div>
+<p class="text-[10px] text-teal-800 font-bold mt-1 bg-teal-100 inline-block px-1.5 py-0.5 rounded">Checkup</p>
+</div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full border-2 border-dashed border-gray-200 rounded-xl hover:border-primary hover:bg-teal-50/50 transition-all cursor-pointer opacity-50 hover:opacity-100"></div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center">
+<span class="text-[10px] font-bold text-gray-300">Tutup</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-[80px_repeat(6,1fr)] gap-4 min-h-[90px]">
+<div class="text-xs font-bold text-gray-400 text-right pt-2 pr-4">11:00</div>
+<div class="col-span-6 relative pt-2 pb-2">
+<div class="h-full border-2 border-gray-100 bg-gray-50/50 rounded-xl flex items-center justify-center">
+<span class="text-xs font-bold text-gray-400 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">coffee</span> Istirahat Siang
+                                        </span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-[80px_repeat(6,1fr)] gap-4 min-h-[90px]">
+<div class="text-xs font-bold text-gray-400 text-right pt-2 pr-4">13:00</div>
+<div class="relative">
+<div class="absolute inset-0 top-2 bottom-2 left-0 right-0 bg-accent-purple/20 border-2 border-[#111817] rounded-xl p-3 shadow-sm hover:shadow-pop transition-all cursor-pointer group overflow-hidden">
+<h5 class="font-bold text-xs truncate">Andi P.</h5>
+<p class="text-[10px] text-purple-800 font-bold mt-1 bg-purple-100 inline-block px-1.5 py-0.5 rounded">Tambal</p>
+</div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full border-2 border-dashed border-gray-200 rounded-xl hover:border-primary hover:bg-teal-50/50 transition-all cursor-pointer opacity-50 hover:opacity-100"></div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full border-2 border-dashed border-gray-200 rounded-xl hover:border-primary hover:bg-teal-50/50 transition-all cursor-pointer opacity-50 hover:opacity-100"></div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full border-2 border-dashed border-gray-200 rounded-xl hover:border-primary hover:bg-teal-50/50 transition-all cursor-pointer opacity-50 hover:opacity-100"></div>
+</div>
+<div class="relative">
+<div class="absolute inset-0 top-2 bottom-2 left-0 right-0 bg-secondary/20 border-2 border-[#111817] rounded-xl p-3 shadow-sm hover:shadow-pop transition-all cursor-pointer group overflow-hidden">
+<h5 class="font-bold text-xs truncate">Rina M.</h5>
+<p class="text-[10px] text-orange-800 font-bold mt-1 bg-orange-100 inline-block px-1.5 py-0.5 rounded">Cabut</p>
+</div>
+</div>
+<div class="relative pt-2 pb-2">
+<div class="h-full bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center">
+<span class="text-[10px] font-bold text-gray-300">Tutup</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 xl:col-span-3 order-1 lg:order-2">
+<div class="sticky top-32 space-y-6">
+<div class="bg-white rounded-[2rem] border-2 border-[#111817] p-6 shadow-card">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-black text-[#111817]">Kelola Slot</h3>
+<div class="h-8 w-8 rounded-full bg-background-light border border-[#111817] flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">edit_calendar</span>
+</div>
+</div>
+<div class="bg-teal-50 rounded-xl p-4 border border-teal-200 mb-6 text-center">
+<span class="block text-teal-600 text-xs font-bold uppercase tracking-wide mb-1">Tanggal Dipilih</span>
+<div class="flex items-center justify-center gap-2">
+<button class="text-gray-400 hover:text-[#111817]"><span class="material-symbols-outlined">chevron_left</span></button>
+<span class="block text-xl font-black text-[#111817]">Senin, 16 Okt</span>
+<button class="text-gray-400 hover:text-[#111817]"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="mb-6 relative">
+<div class="absolute -left-2 -right-2 top-0 h-px border-t border-dashed border-gray-200"></div>
+<div class="pt-6">
+<label class="text-xs font-bold text-gray-500 mb-2 block flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                                Tambah Slot Baru
+                            </label>
+<div class="flex gap-2 mb-3">
+<div class="w-1/2">
+<label class="text-[10px] font-bold text-gray-400 ml-1">Mulai</label>
+<input class="w-full rounded-xl border-2 border-gray-200 text-sm font-bold focus:border-[#111817] focus:ring-0 bg-gray-50" type="time" value="09:00"/>
+</div>
+<div class="w-1/2">
+<label class="text-[10px] font-bold text-gray-400 ml-1">Selesai</label>
+<input class="w-full rounded-xl border-2 border-gray-200 text-sm font-bold focus:border-[#111817] focus:ring-0 bg-gray-50" type="time" value="10:00"/>
+</div>
+</div>
+<button class="w-full btn-pop bg-[#111817] text-white py-3 rounded-xl font-bold text-sm hover:bg-primary border-2 border-[#111817] transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">save</span>
+                                Simpan Slot
+                            </button>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-3">
+<h4 class="font-bold text-sm text-[#111817]">Daftar Slot (4)</h4>
+<span class="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">2 Terisi</span>
+</div>
+<div class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
+<div class="group flex items-center justify-between p-3 rounded-xl border-2 border-gray-200 bg-white hover:border-[#111817] transition-all relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-red-400"></div>
+<div class="pl-2">
+<div class="font-black text-sm text-[#111817]">09:00 - 10:00</div>
+<div class="flex items-center gap-1 text-xs text-red-500 font-bold mt-0.5">
+<span class="material-symbols-outlined text-[14px]">person</span>
+                                        Budi Santoso
+                                    </div>
+</div>
+<button class="h-8 w-8 rounded-lg flex items-center justify-center text-gray-300 hover:bg-red-50 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-xl border-2 border-gray-200 bg-white hover:border-[#111817] transition-all relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-green-400"></div>
+<div class="pl-2">
+<div class="font-black text-sm text-[#111817]">10:00 - 11:00</div>
+<div class="flex items-center gap-1 text-xs text-green-600 font-bold mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                        Tersedia
+                                    </div>
+</div>
+<div class="flex gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="h-8 w-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-[#111817]">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="h-8 w-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-500">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-xl border-2 border-gray-200 bg-white hover:border-[#111817] transition-all relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-red-400"></div>
+<div class="pl-2">
+<div class="font-black text-sm text-[#111817]">13:00 - 14:00</div>
+<div class="flex items-center gap-1 text-xs text-red-500 font-bold mt-0.5">
+<span class="material-symbols-outlined text-[14px]">person</span>
+                                        Andi Pratama
+                                    </div>
+</div>
+<button class="h-8 w-8 rounded-lg flex items-center justify-center text-gray-300 hover:bg-red-50 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-xl border-2 border-gray-200 bg-white hover:border-[#111817] transition-all relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-green-400"></div>
+<div class="pl-2">
+<div class="font-black text-sm text-[#111817]">14:00 - 15:00</div>
+<div class="flex items-center gap-1 text-xs text-green-600 font-bold mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                        Tersedia
+                                    </div>
+</div>
+<div class="flex gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="h-8 w-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-[#111817]">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="h-8 w-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-500">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-accent-yellow/20 rounded-[2rem] border-2 border-[#111817] p-6 shadow-card mt-6">
+<div class="flex items-start gap-4">
+<div class="bg-accent-yellow rounded-xl p-2 border-2 border-[#111817] text-[#111817]">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div>
+<h4 class="font-black text-lg text-[#111817] mb-1">Tips Efisiensi</h4>
+<p class="text-sm text-gray-700 leading-relaxed">
+                            Atur slot istirahat di antara pasien prosedur panjang untuk menjaga performa tetap prima!
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-[#111817] pt-16 pb-8 text-white" id="contact">
+<div class="container mx-auto px-6 max-w-6xl">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border border-white/20">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold">Dental Clinic</span>
+</div>
+<p class="text-sm text-gray-400">Klinik gigi modern dengan pendekatan yang menyenangkan dan bersahabat untuk semua usia.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="mb-4 text-lg font-bold text-accent-yellow">Hubungi Kami</h4>
+<ul class="space-y-3 text-sm text-gray-400">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">call</span>
+                            +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">chat</span>
+                            WhatsApp: +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">mail</span>
+                            hello@dentalclinic.id
+                        </li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-accent-purple">Jam Operasional</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li class="flex justify-between border-b border-gray-800 pb-2"><span>Senin - Sabtu</span> <span class="text-white">09:00 - 21:00</span></li>
+<li class="flex justify-between pt-2"><span>Minggu</span> <span class="text-secondary">Tutup</span></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-secondary">Lokasi</h4>
+<p class="text-sm text-gray-400 mb-4">
+                        Jl. Kesehatan No. 123,<br/>
+                        Jakarta Selatan, DKI Jakarta 12345
+                    </p>
+<button class="w-full rounded-xl bg-gray-800 py-2 text-xs font-bold text-white hover:bg-primary transition-colors">
+                        Lihat di Google Maps
+                    </button>
+</div>
+</div>
+<div class="mt-16 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+<p>© 2026 Dental Clinic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>

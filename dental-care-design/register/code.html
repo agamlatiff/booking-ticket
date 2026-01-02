@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden
+        }
+        .blob-shape {
+            border-radius: 60% 40% 30% 70%/60% 30% 70% 40%
+        }
+        .sticker-card {
+            transition: transform 0.3s ease
+        }
+        .sticker-card:hover {
+            transform: translatey(-5px) !important
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .btn-ghost {
+            transition: all 0.2s ease;
+            background-color: transparent;
+            border: 2px solid #0d9488;
+            color: #0d9488;
+        }
+        .btn-ghost:hover {
+            background-color: #0d9488;
+            color: white;
+            box-shadow: 4px 4px 0 0 #111817;
+            border-color: #111817;
+            transform: translate(-2px, -2px);
+        }
+        .nav-link {
+            position: relative
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scalex(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0d9488;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out
+        }
+        .nav-link:hover::after {
+            transform: scalex(1);
+            transform-origin: bottom left
+        }
+        .form-input-pop {
+            width: 100%;
+            border: 2px solid #111817;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            outline: none;
+            transition: all 0.2s;
+            background-color: white;
+        }
+        .form-input-pop:focus {
+            border-color: #0d9488;
+            box-shadow: 2px 2px 0 0 #0d9488;
+        }
+        .checkbox-pop {
+            border: 2px solid #111817;
+            border-radius: 4px;
+            width: 1.2rem;
+            height: 1.2rem;
+            color: #0d9488;
+        }
+        .checkbox-pop:focus {
+            ring: 2px;
+            ring-color: #0d9488;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817] flex flex-col min-h-screen">
+<nav class="fixed top-0 z-50 w-full px-4 py-4 md:px-10">
+<div class="mx-auto max-w-7xl">
+<div class="relative flex items-center justify-between rounded-full border-2 border-[#111817] bg-white px-6 py-3 shadow-pop">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border-2 border-[#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#111817]">Dental Clinic</span>
+</div>
+<div class="hidden items-center gap-6 xl:flex">
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Home</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#services">Layanan</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#doctors">Dokter</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Gallery</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">FAQ</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#contact">Contact</a>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<button class="btn-outline-pop flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold">
+                        Cek Booking
+                    </button>
+<button class="btn-pop flex h-10 items-center justify-center rounded-full bg-primary px-6 text-sm font-bold text-white">
+                        Booking Sekarang
+                    </button>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-[#111817] shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="flex-grow flex items-center justify-center relative pt-32 pb-20 px-6 overflow-hidden">
+<div class="absolute left-[-5%] top-40 opacity-40 md:block pointer-events-none">
+<svg class="text-accent-yellow animate-[bounce_5s_infinite]" fill="currentColor" height="200" viewBox="0 0 200 200" width="200">
+<path d="M45.7,-76.3C58.9,-69.3,69.1,-55.6,76.5,-41.2C83.9,-26.8,88.5,-11.7,85.8,2.2C83.1,16.1,73.1,28.8,63.1,40.3C53.1,51.8,43.1,62.1,31.2,68.9C19.3,75.7,5.5,79,-8.9,79.8C-23.3,80.6,-38.3,78.9,-51.1,72.1C-63.9,65.3,-74.5,53.4,-81.4,39.7C-88.3,26,-91.5,10.5,-88.7,-3.7C-85.9,-17.9,-77.1,-30.8,-66.6,-41.2C-56.1,-51.6,-43.9,-59.5,-31.6,-67C-19.3,-74.5,-6.9,-81.6,4.6,-88.8C16.1,-96.1,32.5,-103.5,45.7,-76.3Z" transform="translate(100 100)"></path>
+</svg>
+</div>
+<div class="absolute right-[-2%] bottom-10 opacity-30 md:block pointer-events-none">
+<svg class="text-primary animate-[bounce_4s_infinite]" fill="currentColor" height="150" viewBox="0 0 200 200" width="150">
+<path d="M41.7,-68.6C54.8,-62.3,66.9,-53.4,76.4,-42.1C85.9,-30.8,92.8,-17.1,89.9,-4.8C87,7.5,74.3,18.4,63.9,28.6C53.5,38.8,45.4,48.3,35.6,56.7C25.8,65.1,14.3,72.4,1.4,70.2C-11.5,68,-25.1,56.3,-38.4,46.3C-51.7,36.3,-64.7,28,-72.1,16.3C-79.5,4.6,-81.3,-10.5,-75.6,-23.4C-69.9,-36.3,-56.7,-47,-43.8,-53.4C-30.9,-59.8,-18.3,-61.9,-4.9,-54.2C8.5,-46.5,28.6,-74.9,41.7,-68.6Z" transform="translate(100 100)"></path>
+</svg>
+</div>
+<div class="container mx-auto max-w-5xl relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-8 rounded-[2.5rem] bg-white border-2 border-[#111817] shadow-card overflow-hidden">
+<div class="p-8 md:p-12 lg:p-14 flex flex-col justify-center order-2 lg:order-1">
+<div class="mb-8">
+<div class="inline-flex items-center gap-2 rounded-full bg-accent-yellow/30 px-3 py-1 text-xs font-bold text-[#111817] mb-3 border border-[#111817]">
+                            👋 Halo Teman Baru
+                        </div>
+<h1 class="font-display text-4xl font-black text-[#111817] mb-2">Buat Akun Baru</h1>
+<p class="text-gray-600">Bergabunglah dengan kami untuk senyum yang lebih sehat.</p>
+</div>
+<button class="btn-outline-pop w-full flex items-center justify-center gap-3 py-3 rounded-xl font-bold mb-6 hover:bg-gray-50">
+<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+                        Daftar dengan Google
+                    </button>
+<div class="relative mb-6">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t-2 border-dashed border-gray-200"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="bg-white px-4 text-gray-500 font-medium">atau daftar manual</span>
+</div>
+</div>
+<form action="#" class="space-y-4">
+<div class="space-y-1">
+<label class="text-sm font-bold text-[#111817] ml-1" for="photo">Foto Profil</label>
+<div class="flex items-center gap-3 p-2 border-2 border-[#111817] border-dashed rounded-xl bg-gray-50/50">
+<div class="h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#111817] bg-white flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl text-gray-300">add_a_photo</span>
+</div>
+<input accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-2 file:border-[#111817] file:text-xs file:font-bold file:bg-white file:text-[#111817] file:shadow-[2px_2px_0px_0px_#111817] hover:file:bg-accent-yellow hover:file:shadow-none hover:file:translate-y-[1px] hover:file:translate-x-[1px] transition-all cursor-pointer focus:outline-none bg-transparent" id="photo" type="file"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-sm font-bold text-[#111817] ml-1" for="fullname">Nama Lengkap</label>
+<input class="form-input-pop" id="fullname" placeholder="Budi Santoso" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-sm font-bold text-[#111817] ml-1" for="email">Email Address</label>
+<input class="form-input-pop" id="email" placeholder="nama@email.com" type="email"/>
+</div>
+<div class="space-y-1">
+<label class="text-sm font-bold text-[#111817] ml-1" for="phone">Nomor Telepon</label>
+<input class="form-input-pop" id="phone" placeholder="0812 3456 7890" type="tel"/>
+</div>
+<div class="space-y-1">
+<label class="text-sm font-bold text-[#111817] ml-1" for="password">Password</label>
+<input class="form-input-pop" id="password" placeholder="••••••••" type="password"/>
+</div>
+<div class="flex items-start gap-2 pt-2">
+<div class="flex h-5 items-center">
+<input class="checkbox-pop rounded text-primary focus:ring-primary" id="terms" type="checkbox"/>
+</div>
+<label class="text-xs text-gray-600 font-medium leading-tight" for="terms">
+                                Saya menyetujui <a class="text-primary hover:underline" href="#">Syarat &amp; Ketentuan</a> serta <a class="text-primary hover:underline" href="#">Kebijakan Privasi</a> Dental Clinic.
+                            </label>
+</div>
+<button class="btn-pop w-full rounded-xl bg-primary py-3.5 text-white font-bold text-lg mt-4 flex items-center justify-center gap-2" type="submit">
+                            Daftar Sekarang
+                            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</form>
+<p class="mt-8 text-center text-gray-600 text-sm font-medium">
+                        Sudah punya akun? 
+                        <a class="text-secondary font-bold hover:underline" href="#">Masuk disini</a>
+</p>
+</div>
+<div class="relative bg-background-light border-b-2 lg:border-b-0 lg:border-l-2 border-[#111817] min-h-[300px] lg:min-h-full overflow-hidden flex items-center justify-center order-1 lg:order-2 group">
+<div class="absolute inset-0 bg-accent-purple/20"></div>
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-accent-yellow rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob"></div>
+<div class="absolute -bottom-20 -left-20 w-64 h-64 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
+<div class="relative z-10 w-full h-full p-8 flex flex-col justify-end lg:justify-center items-center">
+<div class="w-full max-w-sm rounded-[2rem] border-2 border-[#111817] overflow-hidden shadow-pop bg-white mb-6 lg:mb-0 transform transition-transform group-hover:scale-[1.02] duration-500">
+<img alt="Happy Patient" class="w-full h-64 lg:h-80 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxFfP2152B8te6_T27RN5Yb51ryWT1nWFweC28eksWExM1c2r--kIfa5MXxxCIW_aM-IwGzUY-TU1tUCNn-HKNm08F895sfzGPmfvbnbm7zuOLYDEwDSC3khWwCfiz1IqFqYa0YXMDasjSzavPo1lhW7Bs-Daq2_sxkY_evSQm1nHufTTK8KNV_f-37kUXdFXfwt5TzZfYmp02ZCcMZ9X6I43ad-ct1l6Wfgz8gekoJBqaB5Y6fKJ39BMGcvJ4RA9c2icBj65m6WvU"/>
+<div class="p-6 bg-white border-t-2 border-[#111817]">
+<h3 class="font-bold text-xl text-[#111817] mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-yellow bg-[#111817] rounded-full p-1 text-sm">star</span>
+                                    Kenapa Gabung Kami?
+                                </h3>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-sm text-gray-600">
+<div class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary border border-primary/20 shrink-0">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+</div>
+<span>Atur ulang jadwal tanpa ribet</span>
+</li>
+<li class="flex items-center gap-3 text-sm text-gray-600">
+<div class="w-6 h-6 rounded-full bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20 shrink-0">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+</div>
+<span>Akses riwayat perawatan digital</span>
+</li>
+<li class="flex items-center gap-3 text-sm text-gray-600">
+<div class="w-6 h-6 rounded-full bg-accent-purple/10 flex items-center justify-center text-accent-purple border border-accent-purple/20 shrink-0">
+<span class="material-symbols-outlined text-sm">notifications_active</span>
+</div>
+<span>Pengingat kontrol rutin otomatis</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-[#111817] pt-16 pb-8 text-white mt-auto" id="contact">
+<div class="container mx-auto px-6 max-w-6xl">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border border-white/20">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold">Dental Clinic</span>
+</div>
+<p class="text-sm text-gray-400">Klinik gigi modern dengan pendekatan yang menyenangkan dan bersahabat untuk semua usia.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="mb-4 text-lg font-bold text-accent-yellow">Hubungi Kami</h4>
+<ul class="space-y-3 text-sm text-gray-400">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">call</span>
+                            +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">chat</span>
+                            WhatsApp: +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">mail</span>
+                            hello@dentalclinic.id
+                        </li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-accent-purple">Jam Operasional</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li class="flex justify-between border-b border-gray-800 pb-2"><span>Senin - Sabtu</span> <span class="text-white">09:00 - 21:00</span></li>
+<li class="flex justify-between pt-2"><span>Minggu</span> <span class="text-secondary">Tutup</span></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-secondary">Lokasi</h4>
+<p class="text-sm text-gray-400 mb-4">
+                        Jl. Kesehatan No. 123,<br/>
+                        Jakarta Selatan, DKI Jakarta 12345
+                    </p>
+<button class="w-full rounded-xl bg-gray-800 py-2 text-xs font-bold text-white hover:bg-primary transition-colors">
+                        Lihat di Google Maps
+                    </button>
+</div>
+</div>
+<div class="mt-16 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+<p>© 2026 Dental Clinic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+</body></html>

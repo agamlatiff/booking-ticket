@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Booking - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden
+        }
+        .blob-shape {
+            border-radius: 60% 40% 30% 70%/60% 30% 70% 40%
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .nav-link {
+            position: relative
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scalex(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0d9488;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out
+        }
+        .nav-link:hover::after {
+            transform: scalex(1);
+            transform-origin: bottom left
+        }.radio-card:checked + div {
+            border-color: #0d9488;
+            background-color: #f0fdfa;
+            box-shadow: 2px 2px 0 0 #111817;
+            transform: translate(2px, 2px);
+        }
+        .radio-card:checked + div .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<nav class="fixed top-0 z-50 w-full px-4 py-4 md:px-10">
+<div class="mx-auto max-w-7xl">
+<div class="relative flex items-center justify-between rounded-full border-2 border-[#111817] bg-white px-6 py-3 shadow-pop">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border-2 border-[#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#111817]">Dental Clinic</span>
+</div>
+<div class="hidden items-center gap-6 xl:flex">
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Home</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#services">Layanan</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#doctors">Dokter</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Gallery</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">FAQ</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#contact">Contact</a>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<button class="btn-outline-pop flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold">
+                    Cek Booking
+                </button>
+<button class="btn-pop flex h-10 items-center justify-center rounded-full bg-primary px-6 text-sm font-bold text-white">
+                    Booking Sekarang
+                </button>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-[#111817] shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="min-h-screen pt-32 pb-20 px-6">
+<div class="container mx-auto max-w-6xl">
+<div class="mb-12 text-center relative">
+<div class="absolute top-0 right-10 hidden md:block">
+<svg class="text-accent-yellow animate-[bounce_4s_infinite]" fill="none" height="50" viewBox="0 0 100 100" width="50">
+<circle cx="50" cy="50" fill="currentColor" r="50"></circle>
+</svg>
+</div>
+<div class="inline-flex items-center rounded-full border-2 border-[#111817] bg-white px-4 py-1 text-sm font-bold shadow-pop mb-4 text-primary">
+                🗓️ Booking Online
+            </div>
+<h1 class="font-display text-4xl md:text-5xl font-black text-[#111817] mb-4">
+                Amankan Jadwal Senyummu!
+            </h1>
+<p class="text-lg text-gray-600">Isi formulir di bawah ini, simpel dan cepat.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-8 space-y-10">
+<div class="relative flex items-center justify-between mb-8 px-4">
+<div class="absolute left-0 top-1/2 h-1 w-full -translate-y-1/2 bg-gray-200"></div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-primary text-white font-bold shadow-pop">1</div>
+<span class="text-xs font-bold text-[#111817] bg-background-light px-1">Layanan</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-[#111817] font-bold shadow-pop">2</div>
+<span class="text-xs font-bold text-gray-500 bg-background-light px-1">Jadwal</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-gray-400 font-bold">3</div>
+<span class="text-xs font-bold text-gray-400 bg-background-light px-1">Data Diri</span>
+</div>
+</div>
+<section class="bg-white rounded-[2rem] border-2 border-[#111817] p-6 md:p-8 shadow-card relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-accent-yellow rounded-full border-2 border-[#111817] opacity-20"></div>
+<h2 class="text-2xl font-black text-[#111817] mb-6 flex items-center gap-3">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-accent-yellow border-2 border-[#111817] text-sm">1</span>
+                        Pilih Perawatan
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<label class="cursor-pointer group relative">
+<input checked="" class="peer sr-only radio-card" name="service" type="radio"/>
+<div class="h-full rounded-2xl border-2 border-[#111817] bg-white p-4 transition-all hover:shadow-pop peer-checked:bg-primary/5 peer-checked:border-primary peer-checked:shadow-pop">
+<div class="flex items-start justify-between mb-3">
+<div class="p-2 bg-accent-purple/20 rounded-lg border-2 border-[#111817]">
+<span class="material-symbols-outlined text-primary">grid_on</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 transition-all check-icon">check_circle</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Pemasangan Behel</h3>
+<p class="text-xs text-gray-500 mb-3">Orthodontic treatment untuk merapikan gigi.</p>
+<p class="text-sm font-black text-secondary">Rp 5.000.000</p>
+</div>
+</label>
+<label class="cursor-pointer group relative">
+<input class="peer sr-only radio-card" name="service" type="radio"/>
+<div class="h-full rounded-2xl border-2 border-[#111817] bg-white p-4 transition-all hover:shadow-pop peer-checked:bg-primary/5 peer-checked:border-primary peer-checked:shadow-pop">
+<div class="flex items-start justify-between mb-3">
+<div class="p-2 bg-accent-yellow/20 rounded-lg border-2 border-[#111817]">
+<span class="material-symbols-outlined text-[#111817]">healing</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 transition-all check-icon">check_circle</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Tambal Estetik</h3>
+<p class="text-xs text-gray-500 mb-3">Perbaikan gigi berlubang warna natural.</p>
+<p class="text-sm font-black text-secondary">Rp 400.000</p>
+</div>
+</label>
+<label class="cursor-pointer group relative">
+<input class="peer sr-only radio-card" name="service" type="radio"/>
+<div class="h-full rounded-2xl border-2 border-[#111817] bg-white p-4 transition-all hover:shadow-pop peer-checked:bg-primary/5 peer-checked:border-primary peer-checked:shadow-pop">
+<div class="flex items-start justify-between mb-3">
+<div class="p-2 bg-secondary/20 rounded-lg border-2 border-[#111817]">
+<span class="material-symbols-outlined text-secondary">dentistry</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 transition-all check-icon">check_circle</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Scaling Gigi</h3>
+<p class="text-xs text-gray-500 mb-3">Membersihkan karang gigi secara total.</p>
+<p class="text-sm font-black text-secondary">Rp 300.000</p>
+</div>
+</label>
+<label class="cursor-pointer group relative">
+<input class="peer sr-only radio-card" name="service" type="radio"/>
+<div class="h-full rounded-2xl border-2 border-[#111817] bg-white p-4 transition-all hover:shadow-pop peer-checked:bg-primary/5 peer-checked:border-primary peer-checked:shadow-pop">
+<div class="flex items-start justify-between mb-3">
+<div class="p-2 bg-gray-100 rounded-lg border-2 border-[#111817]">
+<span class="material-symbols-outlined text-gray-800">auto_awesome</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 transition-all check-icon">check_circle</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Bleaching</h3>
+<p class="text-xs text-gray-500 mb-3">Memutihkan gigi secara instan.</p>
+<p class="text-sm font-black text-secondary">Rp 2.500.000</p>
+</div>
+</label>
+</div>
+</section>
+<section class="bg-white rounded-[2rem] border-2 border-[#111817] p-6 md:p-8 shadow-card relative overflow-hidden">
+<div class="absolute -left-4 top-1/2 w-24 h-24 bg-accent-purple rounded-full border-2 border-[#111817] opacity-20"></div>
+<h2 class="text-2xl font-black text-[#111817] mb-6 flex items-center gap-3">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-accent-purple border-2 border-[#111817] text-sm">2</span>
+                        Dokter &amp; Jadwal
+                    </h2>
+<div class="mb-8">
+<label class="block text-sm font-bold text-gray-700 mb-3">Pilih Dokter</label>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<label class="cursor-pointer relative">
+<input checked="" class="peer sr-only radio-card" name="doctor" type="radio"/>
+<div class="flex items-center gap-4 rounded-2xl border-2 border-[#111817] bg-white p-3 transition-all hover:shadow-pop peer-checked:bg-accent-yellow/10 peer-checked:border-accent-yellow peer-checked:shadow-pop">
+<div class="h-14 w-14 rounded-full border-2 border-[#111817] overflow-hidden bg-gray-200">
+<img alt="Dr. Siti" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+</div>
+<div>
+<h4 class="font-bold text-[#111817]">drg. Siti Aminah</h4>
+<p class="text-xs text-gray-500">Spesialis Gigi Anak</p>
+</div>
+<div class="ml-auto">
+<div class="h-5 w-5 rounded-full border-2 border-gray-300 peer-checked:border-primary peer-checked:bg-primary"></div>
+</div>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only radio-card" name="doctor" type="radio"/>
+<div class="flex items-center gap-4 rounded-2xl border-2 border-[#111817] bg-white p-3 transition-all hover:shadow-pop peer-checked:bg-accent-yellow/10 peer-checked:border-accent-yellow peer-checked:shadow-pop">
+<div class="h-14 w-14 rounded-full border-2 border-[#111817] overflow-hidden bg-gray-200">
+<img alt="Dr. Budi" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAp7NuaMAupUq317XBzH3Qff6qnZh6hcwaw2iu1e-zCvwN8E-i5T3tQOnrToDxwKRq5xxPS-kCSN5Qok-ef_p48W6QbBfuYGfCwsPFxF8MyCXyHvN7KIzm7QeZR1dm8fT9awBOM-iU7dx9C2vQytU_1aMk1fhbZvE3CLSnrBDKAHErCFFcSCTYjaYMJShSdeO3hqWVmQZ5yQ5eELkQSGaBDbmJ2UDMu0Y851AaY_cGKW5ktyeOLVY7D29dL4g5Fwlmu1lbgXvA2Qk5o"/>
+</div>
+<div>
+<h4 class="font-bold text-[#111817]">drg. Budi Santoso</h4>
+<p class="text-xs text-gray-500">Spesialis Ortodonti</p>
+</div>
+<div class="ml-auto">
+<div class="h-5 w-5 rounded-full border-2 border-gray-300 peer-checked:border-primary peer-checked:bg-primary"></div>
+</div>
+</div>
+</label>
+</div>
+</div>
+<div class="mb-6">
+<label class="block text-sm font-bold text-gray-700 mb-3">Pilih Tanggal</label>
+<div class="flex gap-3 overflow-x-auto pb-4 hide-scrollbar">
+<label class="cursor-pointer shrink-0">
+<input checked="" class="peer sr-only" name="date" type="radio"/>
+<div class="w-20 rounded-xl border-2 border-[#111817] bg-white p-3 text-center transition-all hover:bg-gray-50 peer-checked:bg-[#111817] peer-checked:text-white peer-checked:shadow-pop">
+<span class="block text-xs font-medium">Senin</span>
+<span class="block text-xl font-black">12</span>
+<span class="block text-xs">Agt</span>
+</div>
+</label>
+<label class="cursor-pointer shrink-0">
+<input class="peer sr-only" name="date" type="radio"/>
+<div class="w-20 rounded-xl border-2 border-[#111817] bg-white p-3 text-center transition-all hover:bg-gray-50 peer-checked:bg-[#111817] peer-checked:text-white peer-checked:shadow-pop">
+<span class="block text-xs font-medium">Selasa</span>
+<span class="block text-xl font-black">13</span>
+<span class="block text-xs">Agt</span>
+</div>
+</label>
+<label class="cursor-pointer shrink-0">
+<input class="peer sr-only" name="date" type="radio"/>
+<div class="w-20 rounded-xl border-2 border-[#111817] bg-white p-3 text-center transition-all hover:bg-gray-50 peer-checked:bg-[#111817] peer-checked:text-white peer-checked:shadow-pop">
+<span class="block text-xs font-medium">Rabu</span>
+<span class="block text-xl font-black">14</span>
+<span class="block text-xs">Agt</span>
+</div>
+</label>
+<label class="cursor-pointer shrink-0">
+<input class="peer sr-only" name="date" type="radio"/>
+<div class="w-20 rounded-xl border-2 border-gray-200 bg-gray-50 p-3 text-center opacity-50 cursor-not-allowed">
+<span class="block text-xs font-medium">Kamis</span>
+<span class="block text-xl font-black">15</span>
+<span class="block text-xs">Tutup</span>
+</div>
+</label>
+<label class="cursor-pointer shrink-0">
+<input class="peer sr-only" name="date" type="radio"/>
+<div class="w-20 rounded-xl border-2 border-[#111817] bg-white p-3 text-center transition-all hover:bg-gray-50 peer-checked:bg-[#111817] peer-checked:text-white peer-checked:shadow-pop">
+<span class="block text-xs font-medium">Jumat</span>
+<span class="block text-xl font-black">16</span>
+<span class="block text-xs">Agt</span>
+</div>
+</label>
+</div>
+</div>
+<div>
+<label class="block text-sm font-bold text-gray-700 mb-3">Pilih Jam</label>
+<div class="grid grid-cols-3 md:grid-cols-4 gap-3">
+<label class="cursor-pointer">
+<input class="peer sr-only" disabled="" name="time" type="radio"/>
+<div class="rounded-lg border-2 border-gray-200 bg-gray-50 py-2 text-center text-sm font-bold text-gray-400 cursor-not-allowed decoration-slice">09:00</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="time" type="radio"/>
+<div class="rounded-lg border-2 border-[#111817] bg-white py-2 text-center text-sm font-bold text-[#111817] hover:bg-gray-50 peer-checked:bg-primary peer-checked:text-white peer-checked:border-[#111817] peer-checked:shadow-[2px_2px_0px_0px_#111817]">10:00</div>
+</label>
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="time" type="radio"/>
+<div class="rounded-lg border-2 border-[#111817] bg-white py-2 text-center text-sm font-bold text-[#111817] hover:bg-gray-50 peer-checked:bg-primary peer-checked:text-white peer-checked:border-[#111817] peer-checked:shadow-[2px_2px_0px_0px_#111817]">11:00</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="time" type="radio"/>
+<div class="rounded-lg border-2 border-[#111817] bg-white py-2 text-center text-sm font-bold text-[#111817] hover:bg-gray-50 peer-checked:bg-primary peer-checked:text-white peer-checked:border-[#111817] peer-checked:shadow-[2px_2px_0px_0px_#111817]">13:00</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="time" type="radio"/>
+<div class="rounded-lg border-2 border-[#111817] bg-white py-2 text-center text-sm font-bold text-[#111817] hover:bg-gray-50 peer-checked:bg-primary peer-checked:text-white peer-checked:border-[#111817] peer-checked:shadow-[2px_2px_0px_0px_#111817]">14:00</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="time" type="radio"/>
+<div class="rounded-lg border-2 border-[#111817] bg-white py-2 text-center text-sm font-bold text-[#111817] hover:bg-gray-50 peer-checked:bg-primary peer-checked:text-white peer-checked:border-[#111817] peer-checked:shadow-[2px_2px_0px_0px_#111817]">15:00</div>
+</label>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-[2rem] border-2 border-[#111817] p-6 md:p-8 shadow-card">
+<h2 class="text-2xl font-black text-[#111817] mb-6 flex items-center gap-3">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-secondary border-2 border-[#111817] text-white text-sm">3</span>
+                        Data Diri
+                    </h2>
+<form class="space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-bold text-[#111817] mb-1">Nama Lengkap</label>
+<input class="w-full rounded-xl border-2 border-[#111817] bg-background-light px-4 py-3 text-sm font-medium focus:border-primary focus:ring-0 placeholder:text-gray-400" placeholder="Cth: Budi Santoso" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-bold text-[#111817] mb-1">Nomor WhatsApp</label>
+<input class="w-full rounded-xl border-2 border-[#111817] bg-background-light px-4 py-3 text-sm font-medium focus:border-primary focus:ring-0 placeholder:text-gray-400" placeholder="0812..." type="tel"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-bold text-[#111817] mb-1">Email (Opsional)</label>
+<input class="w-full rounded-xl border-2 border-[#111817] bg-background-light px-4 py-3 text-sm font-medium focus:border-primary focus:ring-0 placeholder:text-gray-400" placeholder="nama@email.com" type="email"/>
+</div>
+<div>
+<label class="block text-sm font-bold text-[#111817] mb-1">Catatan Tambahan</label>
+<textarea class="w-full rounded-xl border-2 border-[#111817] bg-background-light px-4 py-3 text-sm font-medium focus:border-primary focus:ring-0 placeholder:text-gray-400" placeholder="Punya alergi atau request khusus?" rows="3"></textarea>
+</div>
+</form>
+</section>
+</div>
+<div class="lg:col-span-4 lg:sticky lg:top-32">
+<div class="rounded-[2rem] border-2 border-[#111817] bg-white p-6 shadow-pop">
+<h3 class="font-display text-xl font-black text-[#111817] mb-6 border-b-2 border-dashed border-gray-200 pb-4">
+                        Ringkasan Booking
+                    </h3>
+<div class="space-y-4 mb-6">
+<div>
+<span class="text-xs font-bold text-gray-500 uppercase tracking-wide">Perawatan</span>
+<div class="flex items-center justify-between">
+<p class="font-bold text-[#111817]">Pemasangan Behel</p>
+</div>
+</div>
+<div>
+<span class="text-xs font-bold text-gray-500 uppercase tracking-wide">Dokter</span>
+<div class="flex items-center gap-2 mt-1">
+<img class="h-6 w-6 rounded-full border border-gray-200 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+<p class="font-bold text-[#111817] text-sm">drg. Siti Aminah</p>
+</div>
+</div>
+<div>
+<span class="text-xs font-bold text-gray-500 uppercase tracking-wide">Jadwal</span>
+<div class="flex gap-2 mt-1">
+<span class="bg-accent-purple/20 text-xs font-bold px-2 py-1 rounded-md border border-[#111817] text-[#111817]">Sen, 12 Agt</span>
+<span class="bg-accent-yellow/20 text-xs font-bold px-2 py-1 rounded-md border border-[#111817] text-[#111817]">11:00</span>
+</div>
+</div>
+</div>
+<div class="border-t-2 border-[#111817] border-dashed pt-4 mb-6">
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm text-gray-600">Biaya Booking</span>
+<span class="font-bold">Rp 50.000</span>
+</div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm text-gray-600">Estimasi Perawatan</span>
+<span class="font-bold">Rp 5.000.000</span>
+</div>
+<div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-end">
+<div>
+<span class="text-xs font-bold text-gray-500">Total Pembayaran Awal</span>
+<p class="text-3xl font-black text-primary">Rp 50.000</p>
+</div>
+</div>
+<div class="mt-2 bg-yellow-50 p-2 rounded-lg border border-yellow-200 text-xs text-yellow-800">
+                            *Biaya booking akan memotong total biaya perawatan.
+                        </div>
+</div>
+<button class="btn-pop w-full rounded-full bg-[#111817] py-4 text-lg font-bold text-white hover:bg-gray-900 flex items-center justify-center gap-2">
+                        Konfirmasi Booking
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="text-center text-xs text-gray-400 mt-4">Data aman &amp; terenkripsi.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-[#111817] pt-16 pb-8 text-white" id="contact">
+<div class="container mx-auto px-6 max-w-6xl">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border border-white/20">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold">Dental Clinic</span>
+</div>
+<p class="text-sm text-gray-400">Klinik gigi modern dengan pendekatan yang menyenangkan dan bersahabat untuk semua usia.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="mb-4 text-lg font-bold text-accent-yellow">Hubungi Kami</h4>
+<ul class="space-y-3 text-sm text-gray-400">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">call</span>
+                        +62 812 3456 7890
+                    </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">chat</span>
+                        WhatsApp: +62 812 3456 7890
+                    </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">mail</span>
+                        hello@dentalclinic.id
+                    </li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-accent-purple">Jam Operasional</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li class="flex justify-between border-b border-gray-800 pb-2"><span>Senin - Sabtu</span> <span class="text-white">09:00 - 21:00</span></li>
+<li class="flex justify-between pt-2"><span>Minggu</span> <span class="text-secondary">Tutup</span></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-secondary">Lokasi</h4>
+<p class="text-sm text-gray-400 mb-4">
+                    Jl. Kesehatan No. 123,<br/>
+                    Jakarta Selatan, DKI Jakarta 12345
+                </p>
+<button class="w-full rounded-xl bg-gray-800 py-2 text-xs font-bold text-white hover:bg-primary transition-colors">
+                    Lihat di Google Maps
+                </button>
+</div>
+</div>
+<div class="mt-16 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+<p>© 2026 Dental Clinic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+</body></html>

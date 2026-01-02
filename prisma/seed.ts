@@ -360,7 +360,7 @@ async function main() {
       address: "Jl. Kesehatan No. 123, Jakarta Selatan",
       phone: "021-12345678",
       email: "info@senyumsejahtera.com",
-      whatsappNumber: "6281234567890",
+      whatsappNumber: "6285922430828",
       operationalHours: JSON.stringify({
         monday: { open: "09:00", close: "17:00" },
         tuesday: { open: "09:00", close: "17:00" },

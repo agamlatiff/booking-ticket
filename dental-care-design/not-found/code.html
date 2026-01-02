@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>404 Not Found - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden
+        }
+        .blob-shape {
+            border-radius: 60% 40% 30% 70%/60% 30% 70% 40%
+        }
+        .sticker-card {
+            transition: transform 0.3s ease
+        }
+        .sticker-card:hover {
+            transform: translatey(-5px) !important
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .btn-ghost {
+            transition: all 0.2s ease;
+            background-color: transparent;
+            border: 2px solid #0d9488;
+            color: #0d9488;
+        }
+        .btn-ghost:hover {
+            background-color: #0d9488;
+            color: white;
+            box-shadow: 4px 4px 0 0 #111817;
+            border-color: #111817;
+            transform: translate(-2px, -2px);
+        }
+        .nav-link {
+            position: relative
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scalex(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0d9488;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out
+        }
+        .nav-link:hover::after {
+            transform: scalex(1);
+            transform-origin: bottom left
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<nav class="fixed top-0 z-50 w-full px-4 py-4 md:px-10">
+<div class="mx-auto max-w-7xl">
+<div class="relative flex items-center justify-between rounded-full border-2 border-[#111817] bg-white px-6 py-3 shadow-pop">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border-2 border-[#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#111817]">Dental Clinic</span>
+</div>
+<div class="hidden items-center gap-6 xl:flex">
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Home</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Layanan</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Dokter</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Gallery</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">FAQ</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#contact">Contact</a>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<button class="btn-outline-pop flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold">
+                        Cek Booking
+                    </button>
+<button class="btn-pop flex h-10 items-center justify-center rounded-full bg-primary px-6 text-sm font-bold text-white">
+                        Booking Sekarang
+                    </button>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-[#111817] shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-20 md:pt-20">
+<div class="absolute left-10 top-32 hidden opacity-60 md:block">
+<svg class="text-secondary animate-[bounce_3s_infinite]" fill="none" height="80" viewBox="0 0 100 100" width="80">
+<path d="M50 0C55 25 75 45 100 50C75 55 55 75 50 100C45 75 25 55 0 50C25 45 45 25 50 0Z" fill="currentColor"></path>
+</svg>
+</div>
+<div class="absolute right-20 top-40 hidden opacity-60 md:block">
+<svg class="text-accent-yellow animate-[bounce_4s_infinite]" fill="none" height="60" viewBox="0 0 100 100" width="60">
+<circle cx="50" cy="50" fill="currentColor" r="50"></circle>
+</svg>
+</div>
+<div class="absolute bottom-20 left-20 hidden opacity-40 md:block">
+<div class="h-24 w-24 rounded-full border-2 border-[#111817] bg-accent-purple"></div>
+</div>
+<div class="container relative z-10 mx-auto max-w-4xl text-center">
+<div class="mb-12 flex items-center justify-center gap-2 md:gap-6">
+<span class="font-display text-9xl font-black leading-none text-primary drop-shadow-[4px_4px_0px_#111817] md:text-[12rem] md:drop-shadow-[6px_6px_0px_#111817]">4</span>
+<div class="relative flex h-32 w-32 items-center justify-center rounded-full border-4 border-[#111817] bg-accent-yellow shadow-pop animate-[bounce_3s_infinite] md:h-48 md:w-48">
+<span class="material-symbols-outlined text-7xl text-[#111817] md:text-9xl">sentiment_very_dissatisfied</span>
+<div class="absolute -right-6 -top-6 rotate-12 rounded-xl border-2 border-[#111817] bg-white px-3 py-1 shadow-[2px_2px_0px_0px_#111817]">
+<span class="text-xl font-bold">?</span>
+</div>
+</div>
+<span class="font-display text-9xl font-black leading-none text-secondary drop-shadow-[4px_4px_0px_#111817] md:text-[12rem] md:drop-shadow-[6px_6px_0px_#111817]">4</span>
+</div>
+<div class="mb-8 inline-flex -rotate-2 items-center rounded-full border-2 border-[#111817] bg-white px-6 py-2 shadow-pop">
+<span class="mr-2 text-xl">🦷</span>
+<span class="text-sm font-bold text-[#111817] md:text-base">Oops! Gigi ini hilang...</span>
+</div>
+<h1 class="mb-6 font-display text-4xl font-black leading-tight text-[#111817] md:text-6xl">
+                Halaman Tidak Ditemukan
+            </h1>
+<p class="mx-auto mb-10 max-w-xl text-lg font-medium text-gray-600 md:text-xl">
+                Sepertinya halaman yang Anda cari sudah dicabut atau pindah tempat. Jangan khawatir, mari kembali ke beranda untuk merawat senyum Anda!
+            </p>
+<a class="btn-pop inline-flex h-14 min-w-[220px] items-center justify-center gap-3 rounded-full bg-primary px-8 text-lg font-bold text-white transition-all hover:bg-[#0b7f73]" href="#">
+<span class="material-symbols-outlined">home</span>
+                Kembali ke Home
+            </a>
+</div>
+</main>
+<footer class="bg-[#111817] pt-16 pb-8 text-white" id="contact">
+<div class="container mx-auto px-6 max-w-6xl">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border border-white/20">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold">Dental Clinic</span>
+</div>
+<p class="text-sm text-gray-400">Klinik gigi modern dengan pendekatan yang menyenangkan dan bersahabat untuk semua usia.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="mb-4 text-lg font-bold text-accent-yellow">Hubungi Kami</h4>
+<ul class="space-y-3 text-sm text-gray-400">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">call</span>
+                            +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">chat</span>
+                            WhatsApp: +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">mail</span>
+                            hello@dentalclinic.id
+                        </li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-accent-purple">Jam Operasional</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li class="flex justify-between border-b border-gray-800 pb-2"><span>Senin - Sabtu</span> <span class="text-white">09:00 - 21:00</span></li>
+<li class="flex justify-between pt-2"><span>Minggu</span> <span class="text-secondary">Tutup</span></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-secondary">Lokasi</h4>
+<p class="text-sm text-gray-400 mb-4">
+                        Jl. Kesehatan No. 123,<br/>
+                        Jakarta Selatan, DKI Jakarta 12345
+                    </p>
+<button class="w-full rounded-xl bg-gray-800 py-2 text-xs font-bold text-white hover:bg-primary transition-colors">
+                        Lihat di Google Maps
+                    </button>
+</div>
+</div>
+<div class="mt-16 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+<p>© 2026 Dental Clinic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+</body></html>

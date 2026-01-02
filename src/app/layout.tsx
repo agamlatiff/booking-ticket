@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { WebVitals } from "@/components/performance";
 import { Providers } from "@/components/providers";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-inter",
   display: "swap",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
   title: "Klinik Gigi Senyum Sejahtera",
-  description: "Perawatan gigi berkualitas dengan dokter berpengalaman dan teknologi modern",
+  description: "Booking perawatan gigi mudah dan cepat",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -22,27 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={inter.variable} suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme');
-                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    document.documentElement.classList.add('dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body className={`${inter.className} antialiased bg-background dark:bg-background-dark transition-colors`}>
+    <html lang="id">
+      <body className={`${inter.variable} font-sans antialiased text-gray-900 bg-gray-50 dark:bg-gray-900 dark:text-gray-100`}>
         <Providers>
-          <WebVitals />
           {children}
+          <Toaster />
         </Providers>
       </body>
     </html>

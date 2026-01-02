@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Bookings - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .nav-link {
+            position: relative
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scalex(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0d9488;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out
+        }
+        .nav-link:hover::after {
+            transform: scalex(1);
+            transform-origin: bottom left
+        }.tab-btn.active {
+            background-color: #FFD54F;box-shadow: 4px 4px 0 0 #111817;
+            transform: translate(-1px, -1px);
+        }
+        .tab-btn:not(.active):hover {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<nav class="fixed top-0 z-50 w-full px-4 py-4 md:px-10">
+<div class="mx-auto max-w-7xl">
+<div class="relative flex items-center justify-between rounded-full border-2 border-[#111817] bg-white px-6 py-3 shadow-pop">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border-2 border-[#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#111817]">Dental Clinic</span>
+</div>
+<div class="hidden items-center gap-6 xl:flex">
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Home</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#services">Layanan</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#doctors">Dokter</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Gallery</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">FAQ</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#contact">Contact</a>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<button class="btn-outline-pop flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold bg-accent-yellow/20">
+                        Booking Saya
+                    </button>
+<button class="btn-pop flex h-10 items-center justify-center rounded-full bg-primary px-6 text-sm font-bold text-white">
+                        Booking Sekarang
+                    </button>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-[#111817] shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="min-h-screen pt-32 pb-20 px-6">
+<div class="container mx-auto max-w-5xl">
+<div class="mb-10 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-4">
+<div>
+<div class="inline-flex items-center rounded-full border-2 border-[#111817] bg-white px-4 py-1 text-sm font-bold shadow-pop mb-4 text-primary">
+                        🦷 Member Area
+                    </div>
+<h1 class="font-display text-4xl md:text-5xl font-black text-[#111817]">
+                        Booking Saya
+                    </h1>
+<p class="text-lg text-gray-600 mt-2">Kelola jadwal perawatan senyum indahmu di sini.</p>
+</div>
+<div class="hidden md:block">
+<svg class="text-accent-purple animate-[spin_10s_linear_infinite]" fill="none" height="60" viewBox="0 0 100 100" width="60">
+<path d="M50 0 L61 35 L98 35 L68 57 L79 91 L50 70 L21 91 L32 57 L2 35 L39 35 Z" fill="currentColor" stroke="#111817" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="mb-8 overflow-x-auto pb-4 hide-scrollbar">
+<div class="flex gap-3">
+<button class="tab-btn active border-2 border-[#111817] px-6 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-all">
+                        Akan Datang (2)
+                    </button>
+<button class="tab-btn bg-white border-2 border-[#111817] px-6 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-all">
+                        Selesai
+                    </button>
+<button class="tab-btn bg-white border-2 border-[#111817] px-6 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-all">
+                        Dibatalkan
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6 mb-16">
+<div class="group relative bg-white rounded-[2rem] border-2 border-[#111817] p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="absolute right-6 top-6">
+<span class="inline-flex items-center rounded-full border border-[#111817] bg-teal-50 px-3 py-1 text-xs font-bold text-teal-700">
+<span class="mr-1.5 h-2 w-2 rounded-full bg-teal-500"></span>
+                            Terkonfirmasi
+                        </span>
+</div>
+<div class="flex flex-col md:flex-row gap-6">
+<div class="flex shrink-0 flex-row md:flex-col items-center justify-center gap-1 rounded-2xl border-2 border-[#111817] bg-background-light p-4 text-center md:w-28 md:gap-0">
+<span class="text-xs font-bold uppercase tracking-wider text-gray-500">Agustus</span>
+<span class="text-3xl font-black text-[#111817]">12</span>
+<span class="text-sm font-bold text-gray-700">Senin</span>
+<div class="mt-0 md:mt-2 border-t-2 border-dashed border-[#111817]/20 pt-1 w-full hidden md:block"></div>
+<span class="text-sm font-black text-primary md:mt-1 ml-4 md:ml-0">11:00</span>
+</div>
+<div class="flex-1">
+<h3 class="font-display text-2xl font-black text-[#111817] mb-1">Pemasangan Behel</h3>
+<p class="text-sm text-gray-500 mb-4">Kode Booking: <span class="font-mono font-bold text-[#111817]">#DC-88291</span></p>
+<div class="flex items-center gap-3 mb-6 bg-gray-50 p-3 rounded-xl border border-gray-200 w-fit">
+<img alt="Doctor" class="h-10 w-10 rounded-full border-2 border-[#111817] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+<div>
+<p class="text-sm font-bold text-[#111817]">drg. Siti Aminah</p>
+<p class="text-xs text-gray-500">Spesialis Gigi Anak</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="rounded-xl border-2 border-[#111817] bg-white px-5 py-2 text-sm font-bold text-[#111817] shadow-[2px_2px_0px_0px_#111817] transition-all hover:bg-gray-50 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none">
+                                    Reschedule
+                                </button>
+<button class="rounded-xl border-2 border-transparent px-5 py-2 text-sm font-bold text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors">
+                                    Batalkan
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative bg-white rounded-[2rem] border-2 border-[#111817] p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-pop">
+<div class="absolute right-6 top-6">
+<span class="inline-flex items-center rounded-full border border-[#111817] bg-yellow-50 px-3 py-1 text-xs font-bold text-yellow-700">
+<span class="mr-1.5 h-2 w-2 rounded-full bg-yellow-500"></span>
+                            Menunggu Konfirmasi
+                        </span>
+</div>
+<div class="flex flex-col md:flex-row gap-6">
+<div class="flex shrink-0 flex-row md:flex-col items-center justify-center gap-1 rounded-2xl border-2 border-[#111817] bg-background-light p-4 text-center md:w-28 md:gap-0">
+<span class="text-xs font-bold uppercase tracking-wider text-gray-500">Agustus</span>
+<span class="text-3xl font-black text-[#111817]">20</span>
+<span class="text-sm font-bold text-gray-700">Selasa</span>
+<div class="mt-0 md:mt-2 border-t-2 border-dashed border-[#111817]/20 pt-1 w-full hidden md:block"></div>
+<span class="text-sm font-black text-primary md:mt-1 ml-4 md:ml-0">14:00</span>
+</div>
+<div class="flex-1">
+<h3 class="font-display text-2xl font-black text-[#111817] mb-1">Scaling Gigi</h3>
+<p class="text-sm text-gray-500 mb-4">Kode Booking: <span class="font-mono font-bold text-[#111817]">#DC-99120</span></p>
+<div class="flex items-center gap-3 mb-6 bg-gray-50 p-3 rounded-xl border border-gray-200 w-fit">
+<img alt="Doctor" class="h-10 w-10 rounded-full border-2 border-[#111817] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAp7NuaMAupUq317XBzH3Qff6qnZh6hcwaw2iu1e-zCvwN8E-i5T3tQOnrToDxwKRq5xxPS-kCSN5Qok-ef_p48W6QbBfuYGfCwsPFxF8MyCXyHvN7KIzm7QeZR1dm8fT9awBOM-iU7dx9C2vQytU_1aMk1fhbZvE3CLSnrBDKAHErCFFcSCTYjaYMJShSdeO3hqWVmQZ5yQ5eELkQSGaBDbmJ2UDMu0Y851AaY_cGKW5ktyeOLVY7D29dL4g5Fwlmu1lbgXvA2Qk5o"/>
+<div>
+<p class="text-sm font-bold text-[#111817]">drg. Budi Santoso</p>
+<p class="text-xs text-gray-500">Spesialis Ortodonti</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="rounded-xl border-2 border-[#111817] bg-white px-5 py-2 text-sm font-bold text-[#111817] shadow-[2px_2px_0px_0px_#111817] transition-all hover:bg-gray-50 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none">
+                                    Detail Booking
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-background-light px-4 text-xs font-bold text-gray-400 uppercase tracking-widest z-10">
+                    Empty State Design Preview
+                </div>
+<div class="border-t-2 border-dashed border-gray-300 w-full absolute top-0 z-0"></div>
+<div class="mt-12 flex flex-col items-center justify-center rounded-[2rem] border-2 border-dashed border-[#111817]/30 bg-white/50 p-12 text-center">
+<div class="mb-6 relative">
+<div class="absolute inset-0 bg-accent-yellow rounded-full blur-xl opacity-30"></div>
+<div class="relative flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#111817] bg-white shadow-pop rotate-3">
+<span class="material-symbols-outlined text-5xl text-primary">calendar_today</span>
+</div>
+</div>
+<h3 class="mb-2 text-2xl font-black text-[#111817]">Belum Ada Jadwal</h3>
+<p class="mb-8 max-w-md text-gray-500">Sepertinya kamu belum pernah membatalkan janji temu. Bagus sekali! Tetap jaga kesehatan gigimu ya.</p>
+<button class="btn-pop flex items-center gap-2 rounded-full bg-[#111817] px-8 py-3 text-sm font-bold text-white hover:bg-gray-900">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                        Buat Janji Baru
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-[#111817] pt-16 pb-8 text-white" id="contact">
+<div class="container mx-auto px-6 max-w-6xl">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border border-white/20">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold">Dental Clinic</span>
+</div>
+<p class="text-sm text-gray-400">Klinik gigi modern dengan pendekatan yang menyenangkan dan bersahabat untuk semua usia.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="mb-4 text-lg font-bold text-accent-yellow">Hubungi Kami</h4>
+<ul class="space-y-3 text-sm text-gray-400">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">call</span>
+                            +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">chat</span>
+                            WhatsApp: +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">mail</span>
+                            hello@dentalclinic.id
+                        </li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-accent-purple">Jam Operasional</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li class="flex justify-between border-b border-gray-800 pb-2"><span>Senin - Sabtu</span> <span class="text-white">09:00 - 21:00</span></li>
+<li class="flex justify-between pt-2"><span>Minggu</span> <span class="text-secondary">Tutup</span></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-secondary">Lokasi</h4>
+<p class="text-sm text-gray-400 mb-4">
+                        Jl. Kesehatan No. 123,<br/>
+                        Jakarta Selatan, DKI Jakarta 12345
+                    </p>
+<button class="w-full rounded-xl bg-gray-800 py-2 text-xs font-bold text-white hover:bg-primary transition-colors">
+                        Lihat di Google Maps
+                    </button>
+</div>
+</div>
+<div class="mt-16 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+<p>© 2026 Dental Clinic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+</body></html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Schedule Master - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                        "card-hover": "4px 4px 0px 0px rgba(13, 148, 136, 0.25)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden;
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .menu-item {
+            transition: all 0.2s ease;
+        }
+        .menu-item:hover {
+            background-color: #FFD54F;
+            box-shadow: 2px 2px 0 0 #111817;
+            transform: translate(-2px, -2px);
+            font-weight: 700;
+            border-color: #111817;
+            color: #111817;
+        }
+        .menu-item.active {
+            background-color: #FFD54F;
+            box-shadow: 2px 2px 0 0 #111817;
+            border-color: #111817;
+            color: #111817;
+            font-weight: 700;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<div class="flex h-screen overflow-hidden">
+<aside class="hidden w-72 flex-col justify-between border-r-2 border-[#111817] bg-white p-6 md:flex z-20 shadow-card">
+<div class="flex flex-col h-full min-h-0">
+<div class="mb-8 flex items-center gap-3 shrink-0">
+<div class="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#111817] bg-primary text-white shadow-[2px_2px_0px_0px_#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<div>
+<span class="block text-xl font-black tracking-tight text-[#111817]">Dental Clinic</span>
+<span class="text-xs font-bold text-gray-500">Dashboard Admin</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto custom-scroll pr-2 -mr-2 pb-2">
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Main</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                                Dashboard Home
+                            </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Management</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">book_online</span>
+                                Bookings Management
+                            </a>
+<a class="menu-item active flex w-full items-center gap-3 rounded-full border-2 border-[#111817] bg-accent-yellow px-4 py-3 font-bold text-[#111817] shadow-[2px_2px_0px_0px_#111817]" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                                Schedule Master
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+                                Doctor Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">dentistry</span>
+                                Services Management
+                            </a>
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+                                Patients Database
+                            </a>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Analytics</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">lab_profile</span>
+                                Reports
+                            </a>
+</div>
+</div>
+<div>
+<h3 class="mb-2 px-4 text-xs font-extrabold uppercase tracking-wider text-gray-400">Configuration</h3>
+<div class="space-y-2">
+<a class="menu-item flex w-full items-center gap-3 rounded-xl border-2 border-transparent px-4 py-3 font-medium text-gray-600 hover:border-[#111817] hover:text-[#111817]" href="#">
+<span class="material-symbols-outlined">settings</span>
+                                Settings
+                            </a>
+</div>
+</div>
+</nav>
+</div>
+<div class="rounded-2xl border-2 border-[#111817] bg-background-light p-4 mt-4 shrink-0">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 overflow-hidden rounded-full border-2 border-[#111817] bg-white">
+<img alt="Profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcpU_iqRyUm1nJlw--2gCiQAt1S3QhWHcV8oDmFJNycvbZrrtlFBDpCtUr7I0kodwzYOem9f799VQ_mRMF57N-Gv_Jyp966DQdD0Y-wF9NS-nWJMcSBOZ2kutg1Tf4gXlJv_m-e8UX0s_Hyy1LgOX0j7aJnR98iujjrO25qZt1TtvhHzy1XWxB8jGEJhl-P7_3Uj7pYpJ0lJJ8-KdDWXu-4BXMxwM9A-5CFFnkbMxzBm3P8kNSaVryRFHD5K9Knrtfv1y5SqbzxSjF"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="truncate text-sm font-bold">drg. Siti Aminah</p>
+<p class="truncate text-xs text-gray-500">Dokter Gigi Utama</p>
+</div>
+<button class="text-gray-500 hover:text-red-500">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-background-light">
+<header class="sticky top-0 z-10 flex items-center justify-between border-b-2 border-[#111817] bg-white/90 px-8 py-5 backdrop-blur-md">
+<div>
+<h1 class="font-display text-2xl font-black text-[#111817]">📅 Schedule Master</h1>
+<p class="text-sm font-medium text-gray-500">Atur ketersediaan waktu dan jadwal dokter.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<input class="h-11 w-64 rounded-full border-2 border-[#111817] bg-white px-4 py-2 text-sm font-bold shadow-[2px_2px_0px_0px_#111817] focus:border-primary focus:outline-none focus:ring-0" placeholder="Cari jadwal..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+</div>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-white shadow-[2px_2px_0px_0px_#111817] transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-[#111817]">notifications</span>
+<span class="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-red-500 border border-white"></span>
+</button>
+<button class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#111817] bg-accent-yellow shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<div class="p-6 md:p-10 flex flex-col gap-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-white rounded-full border-2 border-[#111817] shadow-pop p-1">
+<button class="h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="px-4 text-lg font-black text-[#111817]">Oktober 2023</div>
+<button class="h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<button class="hidden md:flex btn-outline-pop items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold bg-white">
+<span class="material-symbols-outlined text-base">today</span> Today
+            </button>
+</div>
+<div class="flex flex-wrap gap-3">
+<div class="relative group">
+<button class="btn-outline-pop flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-bold bg-white">
+<span class="material-symbols-outlined text-primary">person</span>
+                    drg. Siti Aminah
+                    <span class="material-symbols-outlined text-gray-400">expand_more</span>
+</button>
+</div>
+<div class="flex rounded-xl border-2 border-[#111817] bg-white p-1 shadow-pop">
+<button class="rounded-lg bg-[#111817] px-4 py-2 text-xs font-bold text-white shadow-sm">Bulan</button>
+<button class="rounded-lg px-4 py-2 text-xs font-bold text-gray-500 hover:bg-gray-100">Minggu</button>
+<button class="rounded-lg px-4 py-2 text-xs font-bold text-gray-500 hover:bg-gray-100">Hari</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 flex flex-col gap-4">
+<div class="rounded-[2.5rem] border-2 border-[#111817] bg-white p-6 shadow-card">
+<div class="grid grid-cols-7 mb-4">
+<div class="text-center text-xs font-extrabold text-gray-400 uppercase tracking-wider">Min</div>
+<div class="text-center text-xs font-extrabold text-gray-400 uppercase tracking-wider">Sen</div>
+<div class="text-center text-xs font-extrabold text-gray-400 uppercase tracking-wider">Sel</div>
+<div class="text-center text-xs font-extrabold text-gray-400 uppercase tracking-wider">Rab</div>
+<div class="text-center text-xs font-extrabold text-gray-400 uppercase tracking-wider">Kam</div>
+<div class="text-center text-xs font-extrabold text-gray-400 uppercase tracking-wider">Jum</div>
+<div class="text-center text-xs font-extrabold text-gray-400 uppercase tracking-wider">Sab</div>
+</div>
+<div class="grid grid-cols-7 gap-2">
+<div class="aspect-square rounded-2xl border-2 border-transparent p-2 text-gray-300 font-bold">29</div>
+<div class="aspect-square rounded-2xl border-2 border-transparent p-2 text-gray-300 font-bold">30</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">1</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">2</span>
+<div class="flex gap-1">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+<span class="h-2 w-2 rounded-full bg-accent-yellow"></span>
+</div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">3</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-secondary"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">4</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">5</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-accent-purple"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">6</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">7</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">8</span>
+<div class="flex gap-1">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+</div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">9</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">10</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-accent-yellow"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">11</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">12</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">13</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-secondary"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">14</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">15</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-primary"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">16</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">17</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-accent-purple"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">18</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">19</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">20</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">21</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">22</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-accent-yellow"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">23</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-primary"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-[#111817] bg-accent-yellow/20 p-2 shadow-pop cursor-pointer transform -translate-y-1">
+<span class="text-sm font-black text-[#111817]">24</span>
+<div class="flex gap-1">
+<span class="h-2 w-2 rounded-full bg-primary ring-1 ring-white"></span>
+<span class="h-2 w-2 rounded-full bg-secondary ring-1 ring-white"></span>
+<span class="h-2 w-2 rounded-full bg-accent-purple ring-1 ring-white"></span>
+</div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">25</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">26</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">27</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-primary"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">28</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">29</span>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">30</span>
+<div class="flex gap-1"><span class="h-2 w-2 rounded-full bg-accent-purple"></span></div>
+</div>
+<div class="aspect-square group relative flex flex-col items-start justify-between rounded-2xl border-2 border-gray-100 bg-white p-2 hover:border-[#111817] hover:shadow-pop-hover cursor-pointer transition-all">
+<span class="text-sm font-bold text-gray-700">31</span>
+</div>
+<div class="aspect-square rounded-2xl border-2 border-transparent p-2 text-gray-300 font-bold">1</div>
+<div class="aspect-square rounded-2xl border-2 border-transparent p-2 text-gray-300 font-bold">2</div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="flex items-center gap-2 rounded-xl border border-[#111817] bg-white p-3 shadow-sm">
+<span class="h-3 w-3 rounded-full bg-primary"></span>
+<span class="text-xs font-bold">Praktek Pagi</span>
+</div>
+<div class="flex items-center gap-2 rounded-xl border border-[#111817] bg-white p-3 shadow-sm">
+<span class="h-3 w-3 rounded-full bg-secondary"></span>
+<span class="text-xs font-bold">Praktek Siang</span>
+</div>
+<div class="flex items-center gap-2 rounded-xl border border-[#111817] bg-white p-3 shadow-sm">
+<span class="h-3 w-3 rounded-full bg-accent-purple"></span>
+<span class="text-xs font-bold">Praktek Malam</span>
+</div>
+<div class="flex items-center gap-2 rounded-xl border border-[#111817] bg-white p-3 shadow-sm">
+<span class="h-3 w-3 rounded-full bg-accent-yellow"></span>
+<span class="text-xs font-bold">Libur</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="rounded-[2.5rem] border-2 border-[#111817] bg-white p-6 shadow-card h-full flex flex-col">
+<div class="mb-6 flex items-center justify-between">
+<div>
+<h3 class="text-xl font-black text-[#111817]">Manage Slots</h3>
+<p class="text-sm font-medium text-gray-500">24 Oktober 2023</p>
+</div>
+<button class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#111817] hover:bg-red-50 hover:text-red-500">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<div class="flex-1 space-y-4 overflow-y-auto custom-scroll pr-2 max-h-[500px]">
+<div class="group flex items-center gap-3 rounded-xl border-2 border-[#111817] bg-primary/10 p-3 hover:shadow-sm">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white border-2 border-[#111817] text-[#111817]">
+<span class="material-symbols-outlined text-sm">schedule</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-black text-[#111817]">09:00 - 10:00</p>
+<div class="flex items-center gap-1 text-xs font-bold text-primary">
+<span class="h-2 w-2 rounded-full bg-primary"></span> Open Slot
+                            </div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 p-1 hover:bg-white rounded-md transition-all">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="group flex items-center gap-3 rounded-xl border-2 border-gray-200 bg-white p-3 hover:border-[#111817] hover:shadow-sm opacity-60">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-100 border-2 border-gray-200 text-gray-400">
+<span class="material-symbols-outlined text-sm">lock</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-black text-gray-500 line-through">10:30 - 11:30</p>
+<div class="flex items-center gap-1 text-xs font-bold text-red-500">
+<span class="h-2 w-2 rounded-full bg-red-500"></span> Booked (Budi)
+                            </div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded-md transition-all">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+<div class="group flex items-center gap-3 rounded-xl border-2 border-[#111817] bg-secondary/10 p-3 hover:shadow-sm">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white border-2 border-[#111817] text-[#111817]">
+<span class="material-symbols-outlined text-sm">schedule</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-black text-[#111817]">13:00 - 14:00</p>
+<div class="flex items-center gap-1 text-xs font-bold text-secondary">
+<span class="h-2 w-2 rounded-full bg-secondary"></span> Open Slot
+                            </div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 p-1 hover:bg-white rounded-md transition-all">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="group flex items-center gap-3 rounded-xl border-2 border-[#111817] bg-accent-purple/10 p-3 hover:shadow-sm">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white border-2 border-[#111817] text-[#111817]">
+<span class="material-symbols-outlined text-sm">schedule</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-black text-[#111817]">14:30 - 15:30</p>
+<div class="flex items-center gap-1 text-xs font-bold text-accent-purple">
+<span class="h-2 w-2 rounded-full bg-accent-purple"></span> Open Slot
+                            </div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 p-1 hover:bg-white rounded-md transition-all">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t-2 border-dashed border-gray-200">
+<button class="btn-pop w-full flex items-center justify-center gap-2 rounded-xl bg-[#111817] py-3 font-bold text-white hover:bg-gray-800">
+<span class="material-symbols-outlined">add_circle</span>
+                        Tambah Slot Baru
+                    </button>
+</div>
+</div>
+<div class="rounded-[2.5rem] border-2 border-[#111817] bg-accent-yellow p-6 shadow-card">
+<h4 class="font-black text-lg mb-2">Block Seharian?</h4>
+<p class="text-xs font-bold opacity-80 mb-4">Tandai tanggal ini sebagai hari libur dokter.</p>
+<button class="w-full rounded-xl border-2 border-[#111817] bg-white py-2 font-bold hover:bg-red-50 hover:text-red-600 hover:border-red-600 transition-colors">
+                    Tandai Libur
+                 </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gallery - Dental Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal requested
+                        "secondary": "#FF8A65", // Coral
+                        "accent-yellow": "#FFD54F", // Sunny Yellow
+                        "accent-purple": "#B39DDB", // Lavender
+                        "background-light": "#FFFAEB", // Warm Cream
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "pop": "4px 4px 0px 0px rgba(17, 24, 23, 1)",
+                        "pop-hover": "2px 2px 0px 0px rgba(17, 24, 23, 1)",
+                        "card": "6px 6px 0px 0px rgba(13, 148, 136, 0.15)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #FFFAEB;
+            overflow-x: hidden
+        }
+        .blob-shape {
+            border-radius: 60% 40% 30% 70%/60% 30% 70% 40%
+        }
+        .sticker-card {
+            transition: transform 0.3s ease
+        }
+        .sticker-card:hover {
+            transform: translatey(-5px) !important
+        }
+        .btn-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817
+        }
+        .btn-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817
+        }
+        .btn-outline-pop {
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 0 #111817;
+            border: 2px solid #111817;
+            background-color: white;
+            color: #111817;
+        }
+        .btn-outline-pop:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 0 #111817;
+            background-color: #f3f4f6;
+        }
+        .nav-link {
+            position: relative
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scalex(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0d9488;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out
+        }
+        .nav-link:hover::after {
+            transform: scalex(1);
+            transform-origin: bottom left
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111817]">
+<nav class="fixed top-0 z-50 w-full px-4 py-4 md:px-10">
+<div class="mx-auto max-w-7xl">
+<div class="relative flex items-center justify-between rounded-full border-2 border-[#111817] bg-white px-6 py-3 shadow-pop">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border-2 border-[#111817]">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#111817]">Dental Clinic</span>
+</div>
+<div class="hidden items-center gap-6 xl:flex">
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Home</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Layanan</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Dokter</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">Gallery</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#">FAQ</a>
+<a class="nav-link text-sm font-bold text-[#111817] transition-colors hover:text-primary" href="#contact">Contact</a>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<button class="btn-outline-pop flex h-10 items-center justify-center rounded-full px-6 text-sm font-bold">
+                        Cek Booking
+                    </button>
+<button class="btn-pop flex h-10 items-center justify-center rounded-full bg-primary px-6 text-sm font-bold text-white">
+                        Booking Sekarang
+                    </button>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#111817] bg-white text-[#111817] shadow-[2px_2px_0px_0px_#111817] md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-28 md:pt-36">
+<section class="relative px-6 pb-20">
+<div class="absolute left-10 top-20 h-32 w-32 animate-[spin_12s_linear_infinite] rounded-full border-2 border-dashed border-[#111817] text-gray-200 opacity-50"></div>
+<div class="absolute right-0 top-10 -z-10 opacity-30">
+<svg class="text-secondary" height="300" viewBox="0 0 200 200" width="300" xmlns="http://www.w3.org/2000/svg">
+<path d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.3,82.2,22.9,71.3,34.5C60.4,46.1,49.9,55.7,38.1,63.1C26.3,70.5,13.2,75.7,-0.7,76.9C-14.6,78.1,-29.2,75.3,-41.7,68.2C-54.2,61.1,-64.6,49.7,-73.1,36.5C-81.6,23.3,-88.2,8.3,-86.6,-5.9C-85,-20.1,-75.2,-33.5,-64,-44.4C-52.8,-55.3,-40.2,-63.7,-27.1,-71.4C-14,-79.1,-0.4,-86.1,14.2,-87.5C28.8,-88.9,40,-84.7,44.7,-76.4Z" fill="currentColor" transform="translate(100 100)"></path>
+</svg>
+</div>
+<div class="container mx-auto max-w-6xl text-center">
+<div class="mb-4 inline-flex items-center gap-2 text-sm font-bold text-gray-500 justify-center">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-base">chevron_right</span>
+<span class="text-[#111817]">Gallery</span>
+</div>
+<h1 class="mb-6 font-display text-4xl font-black leading-tight text-[#111817] md:text-5xl lg:text-6xl">
+                    Galeri Momen &amp; <br class="hidden md:block"/>
+                    Senyum <span class="relative inline-block px-4">
+<span class="absolute inset-0 -skew-y-2 rounded-lg bg-accent-yellow border-2 border-[#111817] shadow-pop"></span>
+<span class="relative z-10">Happy!</span>
+</span>
+</h1>
+<p class="mx-auto max-w-2xl text-lg font-medium text-gray-700 mb-10">
+                    Intip keseruan di klinik kami! Dari transformasi senyum yang memukau hingga sudut-sudut klinik yang nyaman dan instagramable.
+                </p>
+</div>
+</section>
+<section class="border-t-2 border-[#111817] bg-white py-20 relative overflow-hidden">
+<div class="absolute inset-0 z-0 opacity-10" style="background-image: radial-gradient(#111817 1px, transparent 1px); background-size: 24px 24px;"></div>
+<div class="container mx-auto max-w-6xl px-6 relative z-10">
+<div class="mb-24">
+<div class="mb-12 text-center">
+<span class="inline-block rounded-full border-2 border-[#111817] bg-secondary/20 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#111817]">
+                            Hasil Nyata
+                        </span>
+<h2 class="mt-3 text-3xl font-black text-[#111817] md:text-4xl flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-4xl text-secondary">auto_fix</span>
+                            Transformasi Senyum
+                        </h2>
+<p class="mt-2 text-gray-600">Perubahan kecil untuk dampak yang besar.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative overflow-hidden rounded-[2.5rem] border-2 border-[#111817] bg-white shadow-pop hover:shadow-card transition-all group">
+<div class="grid grid-cols-2 h-64 md:h-80 relative">
+<div class="relative border-r-2 border-[#111817] overflow-hidden">
+<img alt="Before" class="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARk9Kt1rghGmF5wrE1k44D08lX9LmIfFcTp31MUQT_TQ1N0Vt1hIQB8HW5h5QIg5Yn4LsYymJBVv1nYMuq_dMSmh9p6xZK_hMya1owyA0-BRRMXl0VtozMzZD4Mxp2RIQ5wj2y2drp39KxVum7sMn6w8wTV0BLNhE4uLFqm0m6fKXq7NVYdW_YXMJshNVUirU8jERBwHbgfJxt49RTurWS7Hu773XHdVkYJrax7ow5hZy884523an3PXuvj9KzFUA0wBTB-xHqVZ6u"/>
+<span class="absolute top-4 left-4 rounded-lg border-2 border-[#111817] bg-white px-3 py-1 text-xs font-bold shadow-sm">Sebelum</span>
+</div>
+<div class="relative overflow-hidden">
+<img alt="After" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAep0_nHh4n1YU5TNEr8PLzuYCnhu0kpghBdH4cdS3vNYUbvXy6CBE88LNfcDpLBOhG5T_nrTJ6mf5xNlIqx71UOPX8qDzIgV-9d-bGGt-BFvsuxsxkEA5ZwvCA4zDbiFsNMR0pLLeMr1_oBAvpqDZGCH1Pj6D5CqfaYs2WidK_nC1FfaE6popSVxk60Xf1N5Z4vUpG1l91sSyidNUVqJumVMuUvfy-E_FomNwfVFcn3XPfzv2EG9Nr4JVWvaETzQYAK74RptQU1J80"/>
+<span class="absolute top-4 right-4 rounded-lg border-2 border-[#111817] bg-primary text-white px-3 py-1 text-xs font-bold shadow-sm">Sesudah</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="bg-[#111817] rounded-full p-2 border-2 border-white text-white">
+<span class="material-symbols-outlined text-sm">compare_arrows</span>
+</div>
+</div>
+</div>
+<div class="p-5 text-center bg-background-light border-t-2 border-[#111817]">
+<h3 class="font-bold text-lg text-[#111817]">Bleaching &amp; Veneer</h3>
+<p class="text-xs text-gray-600">Perawatan 2 Sesi</p>
+</div>
+</div>
+<div class="relative overflow-hidden rounded-[2.5rem] border-2 border-[#111817] bg-white shadow-pop hover:shadow-card transition-all group">
+<div class="grid grid-cols-2 h-64 md:h-80 relative">
+<div class="relative border-r-2 border-[#111817] overflow-hidden">
+<img alt="Before" class="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5sxQmgNogxNUgtP-f2ZtCED7QZk_jT4pspCQsIWmBxZAQVEAzZr2DtLrSzAsnOoo5Gaunr6VwDLQeFGfufIbtnDKs4McNcE4j87h_iGqyL5dbFRbCyad59mxgcT5DROYGWSrMm5rtmbV-U1o5gVSmxQ87SIGKSbmqm8xEuw516o7_ljkSlZr7xb0EZa64SEhE7aB1eK2kbDqRpA_2fKfuKMJ0AId5SPARBJs_vqOpmNM98Qb1O1uHZgPEk4rTgVQiZ0pCKFRRQ0a-"/>
+<span class="absolute top-4 left-4 rounded-lg border-2 border-[#111817] bg-white px-3 py-1 text-xs font-bold shadow-sm">Sebelum</span>
+</div>
+<div class="relative overflow-hidden">
+<img alt="After" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGHopEQ5DAjVa29N9k7g-cuU-6qWvhS1mRLYCAWWgoOtkrjMM7i9-yE6oEZGiRXuFZP8u2Sd69xtdGcd3MOqOxbVbrEZbdEO4T9EDSGQdk27Nb3a67v2aIHolnalNZALyXGCO535RVuh8oMF19yae4QuZXAvPSgtQ683Dt85Nzl5Tu-ixfK8ZmSWbr0ui5MbBzvMioqC2-V_toOpipDPF3tsKEraSk4213Vn7SVPXoDYiFIO1DbivXLR-GEsoEyzGiUGiJxxPSHfMV"/>
+<span class="absolute top-4 right-4 rounded-lg border-2 border-[#111817] bg-primary text-white px-3 py-1 text-xs font-bold shadow-sm">Sesudah</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="bg-[#111817] rounded-full p-2 border-2 border-white text-white">
+<span class="material-symbols-outlined text-sm">compare_arrows</span>
+</div>
+</div>
+</div>
+<div class="p-5 text-center bg-background-light border-t-2 border-[#111817]">
+<h3 class="font-bold text-lg text-[#111817]">Orthodontic Treatment</h3>
+<p class="text-xs text-gray-600">Perawatan 18 Bulan</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mb-24">
+<div class="mb-12 text-center">
+<span class="inline-block rounded-full border-2 border-[#111817] bg-accent-yellow/30 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#111817]">
+                            Tour Klinik
+                        </span>
+<h2 class="mt-3 text-3xl font-black text-[#111817] md:text-4xl flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-4xl text-accent-yellow">chair</span>
+                            Suasana Klinik
+                        </h2>
+<p class="mt-2 text-gray-600">Nyaman serasa di rumah sendiri.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+<div class="md:col-span-2 row-span-2 relative group">
+<div class="absolute inset-0 rounded-t-full rounded-b-xl border-2 border-[#111817] bg-primary translate-x-2 translate-y-2"></div>
+<div class="relative h-full w-full overflow-hidden rounded-t-[10rem] rounded-b-[2rem] border-2 border-[#111817] bg-white transition-transform duration-300 group-hover:-translate-y-1">
+<img alt="Reception" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyJSi_2XL_mOZineZ_19ZYiA32zrWthp_2RDdl24I7lALM7_e6qWzcpcVA3WOh5w1yGCqstt6ilD2Qz0n4m_64_MI-li4d0FGY1qLsSGcvD3j0O7iPZunvj786N0AQtaomQ5VvI3CN6kD-F-hzFqdE2albCcZGRz42LNXIpXpgRWce4r8EWhyH8K8nqY-3677fEYjsQKh-ROVWNkrX8gvx-MqLTat3L-IWZ1UblBTYgLNyoQg5SO4GwGmIN7VIZdE0FC5tbqjWClhV"/>
+<div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#111817]/80 to-transparent p-6 pt-20">
+<span class="text-white font-bold text-lg">Ruang Tunggu Cozy</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-1 row-span-1 relative group">
+<div class="absolute inset-0 rounded-full border-2 border-[#111817] bg-accent-purple translate-x-2 translate-y-2"></div>
+<div class="relative h-full w-full overflow-hidden rounded-full border-2 border-[#111817] bg-white transition-transform duration-300 group-hover:-translate-y-1">
+<img alt="Kids Room" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWXv4W1Yp5QuZBXn3tUSiaGaINebmoB8KRoTA7MlIP5Gk0_FgcdL9roAkYAD0sW-hDiu1JHXfntHVxxOedO7lCmUfDJQe8QVJGss-r3u0UK4oOAOEtUWKMVVkK7v_6U1FncN99WgwMCgXO17gNwYcKV0OtwMVTzBTIimQwPwJImFJ46GmHD0lvyW7wywA1BwdTPEQcBbgVCdqfbda0SMfaidsxmrW8EuyNLbvWih6o8N7tk5hECXEgkP9-amVYOnd60ceAycTI6Nz4"/>
+</div>
+<span class="absolute bottom-4 right-4 bg-white border-2 border-[#111817] rounded-full px-3 py-1 text-xs font-bold shadow-pop">Kids Corner</span>
+</div>
+<div class="md:col-span-1 row-span-1 relative group flex items-center justify-center">
+<div class="relative w-full h-full">
+<div class="absolute inset-0 blob-shape bg-secondary border-2 border-[#111817] translate-x-2 translate-y-2"></div>
+<div class="relative h-full w-full overflow-hidden blob-shape border-2 border-[#111817] bg-white transition-transform duration-300 group-hover:-translate-y-1">
+<img alt="Tools" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoxv8P7hYRrY3GGntxIVfzhJmX3Fh4Hfl-pXn1983SIS35EZ4e-B8Q8F771KWXqeGshnIxlirz5JCX2zqJBt2aMknfr1uNyJS34UkmrpQW_ZPEoENNqzYk2Xmz061P5n8oXgksYs_L-jfWX1s5BmEhbPvtqKjRvK0miWioJeem_KwKF_xN0FwfDkW_7dh1KjkJ4N3N31-I9KIyMwvwkus_Qw59LReb3rygUNRp4IUjjkcB68cdQphQQ1UJwLD1LwqerzNGCATOGpeJ"/>
+</div>
+</div>
+</div>
+<div class="md:col-span-3 row-span-1 relative group mt-4 md:mt-0">
+<div class="absolute inset-0 rounded-[3rem] border-2 border-[#111817] bg-accent-yellow translate-x-2 translate-y-2"></div>
+<div class="relative h-full w-full overflow-hidden rounded-[3rem] border-2 border-[#111817] bg-white transition-transform duration-300 group-hover:-translate-y-1">
+<img alt="Treatment Room" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHQG-CVmZoXFLekNjQPV2EHDIHXOWPlDrQ_kkVS-hw9YOdeC76MJIyCt1475mOrmPXjFN5OMZR2ftrxefyk6WsJNvStu053lhKBG4p9RsbGbJJ3Md9sjgyE7aRvD4IORgYN49WXVGl_utphnOpwSj_N8nwV96v20uW88NVOmCtvYdikRnnV7kfl2D4ncH-qplPM_8lo_uhHdlkjpSAjPZ0EhQUhGzfuHoyQkMZ1j3osnmafzijm6tcsKXzzxEk0gCjMNcsMfRuYgC2"/>
+<div class="absolute bottom-4 left-8 bg-white border-2 border-[#111817] rounded-full px-4 py-2 font-bold shadow-pop">
+                                    Ruang Perawatan Modern
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div class="mb-12 text-center">
+<span class="inline-block rounded-full border-2 border-[#111817] bg-primary/20 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#111817]">
+                            Tim Hore
+                        </span>
+<h2 class="mt-3 text-3xl font-black text-[#111817] md:text-4xl flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-4xl text-primary">groups</span>
+                            Dokter &amp; Staff
+                        </h2>
+<p class="mt-2 text-gray-600">Siap menyapamu dengan ramah!</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 md:gap-12">
+<div class="group flex flex-col items-center">
+<div class="relative mb-4 h-40 w-40">
+<div class="absolute inset-0 rounded-full border-2 border-[#111817] bg-accent-yellow translate-x-1 translate-y-1"></div>
+<div class="relative h-full w-full overflow-hidden rounded-full border-2 border-[#111817] bg-white transition-transform duration-300 group-hover:-translate-y-2">
+<img alt="Doctor 1" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8VGlZRNB1PokEYvqviJFsJHrxgcre7CWzx7KQEjjEqk2hFlkgwDt-SHo5YLXbLicXImy3TLFvzAyxFu7evEAudymqiukRu-oMJ5BYtEldNRfR6Ep4Jra4N3zgdbUZ6Pa69nTANN7cVWdBkrIuhXoXWRS5SRlAmrzsSHu_tjEdifBASrz3G0Tj-Gy6X7SVGJzw--YNbTts9EBgsrxJlJ_3OHvqsn0GromswvJRAQ0tjmv8NtXGUxtBw1ELxnLfNYtW-fXV4j595uMP"/>
+</div>
+</div>
+<h3 class="text-xl font-black text-[#111817]">Drg. Sarah</h3>
+<p class="text-sm font-bold text-primary">Orthodontist</p>
+</div>
+<div class="group flex flex-col items-center mt-8 md:mt-0">
+<div class="relative mb-4 h-40 w-40">
+<div class="absolute inset-0 rounded-full border-2 border-[#111817] bg-accent-purple translate-x-1 translate-y-1"></div>
+<div class="relative h-full w-full overflow-hidden rounded-full border-2 border-[#111817] bg-white transition-transform duration-300 group-hover:-translate-y-2">
+<img alt="Doctor 2" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKuolMBSy9D-_OTQ0evCHBXF--2s_YLIyFGr1ys6UUVV0ExH8SveDLA-BmOUGkiqeAKzv3twphkuy3W4EQf2t30ElV9lAv-LFrzaNTDSlLS342FXdDCl3oqsJwGyjnyzP_RqajmRm_r5FUBqBUVfagwLseI54tUmmjBzFaPIIQKMXxWRRA_a0n_qa9aZfjGhYkD7ytLyid65_tDB3QbR1ZGiylrAK3fHAgJOd4VU0p-DjogBmY-vSHlb6I5yJu1cIp4U9YrZqUoxO1"/>
+</div>
+</div>
+<h3 class="text-xl font-black text-[#111817]">Drg. Budi</h3>
+<p class="text-sm font-bold text-accent-purple">Pediatric Dentist</p>
+</div>
+<div class="group flex flex-col items-center">
+<div class="relative mb-4 h-40 w-40">
+<div class="absolute inset-0 rounded-full border-2 border-[#111817] bg-secondary translate-x-1 translate-y-1"></div>
+<div class="relative h-full w-full overflow-hidden rounded-full border-2 border-[#111817] bg-white transition-transform duration-300 group-hover:-translate-y-2">
+<img alt="Staff" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsOk6LzSwjZlEkcD_b9IwirYybFqmUKox0srd-vEYhbalnSipuZWHriYjeloqCFe5HlXPgaOJjDIQXMpBBv__9oy5jJz5yVrCzSCsr9LACQaNaZQxDia0nVquj6ev_94Iclf9TwpjWDDK2jBCZdH4ANUiNGkFBo7MzfrdlpO-9uwjh15msWub3hrxK_cGkuLvHmfvrvN4w7H9d-21ocrolEqQkUC0cxj6LHVt37_it9fV6FJ_kQB8J4TNYGLlLPHjNfQMEBWYxLJKu"/>
+</div>
+</div>
+<h3 class="text-xl font-black text-[#111817]">Suster Ani</h3>
+<p class="text-sm font-bold text-secondary">Dental Nurse</p>
+</div>
+<div class="group flex flex-col items-center mt-8 md:mt-0">
+<div class="relative mb-4 h-40 w-40">
+<div class="absolute inset-0 rounded-full border-2 border-[#111817] bg-primary translate-x-1 translate-y-1"></div>
+<div class="relative h-full w-full overflow-hidden rounded-full border-2 border-[#111817] bg-white transition-transform duration-300 group-hover:-translate-y-2">
+<img alt="Doctor 3" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEd0utPgn9B_6givcxW50AFmwZKudipImo3I5Lnlz-wUq6udFO3gIpDaQ2deU6HTw_V8KtWULN-8fB987NpnV93w5dkOyms0PehILpFXdp5q4duYJkMW0uO5gr8EhJDxqLaxMwDeRjgBFXFnynrdKdb3ipZwR3lfaNUzGWinVHy9jmO4rfq-Xkj2MgssXJe5QxY3bt1QpmkegSoy-Q98qB7fOnMgQGvND6Uwds9qqDeSiFCRKUxcFBfshj0X-0fMMa8SaEcq3Ya5_t"/>
+</div>
+</div>
+<h3 class="text-xl font-black text-[#111817]">Drg. Rey</h3>
+<p class="text-sm font-bold text-primary">Oral Surgeon</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-[#111817] pt-16 pb-8 text-white" id="contact">
+<div class="container mx-auto px-6 max-w-6xl">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white border border-white/20">
+<span class="material-symbols-outlined text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-bold">Dental Clinic</span>
+</div>
+<p class="text-sm text-gray-400">Klinik gigi modern dengan pendekatan yang menyenangkan dan bersahabat untuk semua usia.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="mb-4 text-lg font-bold text-accent-yellow">Hubungi Kami</h4>
+<ul class="space-y-3 text-sm text-gray-400">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">call</span>
+                            +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">chat</span>
+                            WhatsApp: +62 812 3456 7890
+                        </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">mail</span>
+                            hello@dentalclinic.id
+                        </li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-accent-purple">Jam Operasional</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li class="flex justify-between border-b border-gray-800 pb-2"><span>Senin - Sabtu</span> <span class="text-white">09:00 - 21:00</span></li>
+<li class="flex justify-between pt-2"><span>Minggu</span> <span class="text-secondary">Tutup</span></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-lg font-bold text-secondary">Lokasi</h4>
+<p class="text-sm text-gray-400 mb-4">
+                        Jl. Kesehatan No. 123,<br/>
+                        Jakarta Selatan, DKI Jakarta 12345
+                    </p>
+<button class="w-full rounded-xl bg-gray-800 py-2 text-xs font-bold text-white hover:bg-primary transition-colors">
+                        Lihat di Google Maps
+                    </button>
+</div>
+</div>
+<div class="mt-16 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+<p>© 2026 Dental Clinic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+</body></html>
