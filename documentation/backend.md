@@ -4,6 +4,16 @@
 
 ---
 
+## ⚠️ Project Info
+
+- **Project Name:** Dental Care (Sistem Reservasi Klinik Gigi)
+- **Design Source:** `dental-care-design/` folder (untuk referensi UI flow & data requirements)
+- **Design Files:** Setiap folder berisi `code.html` (slicing HTML) dan `screen.png` (visual design)
+
+> **Note:** Backend endpoints harus mendukung semua flow UI yang ada di design. Lihat `frontend.md` untuk detail komponen yang membutuhkan data dari API.
+
+---
+
 ## Legend
 
 - `[ ]` — Belum dikerjakan

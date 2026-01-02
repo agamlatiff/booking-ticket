@@ -4,6 +4,84 @@
 
 ---
 
+## ⚠️ IMPORTANT: Design Slicing Notes
+
+### Project Info
+
+- **Project Name:** Dental Care (Sistem Reservasi Klinik Gigi)
+- **Design Source:** `dental-care-design/` folder
+- **Objective:** Rombak total design website sesuai dengan design yang sudah disiapkan
+
+### Design Resources
+
+Setiap halaman di folder `dental-care-design/` memiliki **2 resource** yang harus dimanfaatkan:
+
+| File         | Fungsi                                                                                   |
+| ------------ | ---------------------------------------------------------------------------------------- |
+| `code.html`  | HTML hasil slicing — gunakan sebagai referensi struktur, class names, dan styling        |
+| `screen.png` | Screenshot design — gunakan sebagai referensi visual untuk memastikan hasil akhir sesuai |
+
+### Workflow Slicing
+
+1. **Buka** folder design: `dental-care-design/[nama-halaman]/`
+2. **Lihat** `screen.png` untuk memahami visual design
+3. **Baca** `code.html` untuk referensi struktur HTML dan Tailwind classes
+4. **Convert** ke React/Next.js component dengan proper TypeScript
+5. **Sesuaikan** dengan arsitektur project (hooks, state, API integration)
+
+### Design Style Guide
+
+Berdasarkan design di `dental-care-design/`:
+
+- **Style:** Playful "pop/sticker" style dengan border solid dan shadow
+- **Primary Color:** Teal (`#0d9488`)
+- **Secondary Color:** Coral (`#FF8A65`)
+- **Accent Colors:** Yellow (`#FFD54F`), Purple (`#B39DDB`)
+- **Background:** Warm Cream (`#FFFAEB`)
+- **Border Style:** `border-2 border-[#111817]`
+- **Shadow Style:** `shadow-pop` (4px 4px 0px 0px)
+- **Border Radius:** Large rounded corners (`rounded-2xl`, `rounded-full`)
+- **Font:** Spline Sans
+
+### Available Design Pages
+
+```
+dental-care-design/
+├── home-page/           # Landing page
+├── layanan/             # Services list
+├── layanan-detail/      # Service detail
+├── doctor/              # Doctors list
+├── doctor-detail/       # Doctor profile
+├── booking/             # Booking flow (3 steps)
+├── booking-success/     # E-Ticket page
+├── my-bookings/         # Patient booking history
+├── login/               # Sign in page
+├── register/            # Sign up page
+├── edit-profile/        # Profile edit
+├── gallery/             # Photo gallery
+├── blog/                # Blog list
+├── about/               # About us
+├── contact/             # Contact page
+├── privacy/             # Privacy policy
+├── terms/               # Terms of service
+├── not-found/           # 404 page
+├── admin-dashboard/     # Admin home
+├── admin-dashboard-bookings/
+├── admin-dashboard-schedule/
+├── admin-dashboard-doctor/
+├── admin-dashboard-services/
+├── admin-dashboard-patients-database/
+├── admin-dashboard-reports/
+├── admin-dashboard-setting-integration/
+├── doctor/              # Doctor portal home
+├── doctor-schedule/     # Doctor schedule
+├── doctor-patients/     # Doctor patient list
+├── doctor-booking-new/  # Doctor create booking
+└── doctor-patient-new/  # Doctor add patient
+```
+
+---
+
 ## Legend
 
 - `[ ]` — Belum dikerjakan
@@ -14,22 +92,22 @@
 
 ## 1. Public Pages
 
-### 1.1 Landing Page (`/`)
+### 1.1 Landing Page (`/`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/home-page`
 
 #### Components
 
-| Task | Component           | Deskripsi                                                                                     |
-| ---- | ------------------- | --------------------------------------------------------------------------------------------- |
-| [ ]  | `Navbar`            | Navbar dengan logo, menu navigasi, auth button (Sign In/User Avatar dropdown)                 |
-| [ ]  | `HeroSection`       | Hero dengan headline, subheadline, CTA button "Booking Sekarang", hero image                  |
-| [ ]  | `FeaturesGrid`      | 4 feature cards (Online Booking, Dokter Berpengalaman, Notifikasi WhatsApp, Pembayaran Mudah) |
-| [ ]  | `ServicesBentoGrid` | Bento grid layout untuk showcase 6 layanan utama dengan gambar                                |
-| [ ]  | `HowItWorks`        | 3-step process (Pilih Layanan → Pilih Dokter & Jadwal → Bayar DP)                             |
-| [ ]  | `DoctorPreview`     | Grid/carousel 3-4 dokter dengan foto, nama, spesialisasi                                      |
-| [ ]  | `CTASection`        | Call-to-action banner dengan button booking                                                   |
-| [ ]  | `Footer`            | Footer dengan info klinik, jam operasional, links, social media                               |
+| Task | Component           | Deskripsi                                                          |
+| ---- | ------------------- | ------------------------------------------------------------------ |
+| [x]  | `Navbar`            | Floating pill navbar dengan logo, menu navigasi, auth button       |
+| [x]  | `HeroSection`       | Hero dengan headline, blob-shaped image, CTA button                |
+| [x]  | `FeaturesGrid`      | 4 feature cards dengan colored icons (yellow, purple, coral, teal) |
+| [x]  | `ServicesBentoGrid` | Bento grid layout untuk showcase layanan utama dengan harga        |
+| [x]  | `HowItWorks`        | 3-step process dengan numbered circles                             |
+| [x]  | `DoctorPreview`     | 2 dokter dengan foto circular, badge, dan bio                      |
+| [x]  | `CTASection`        | Yellow background dengan dotted pattern, CTA buttons               |
+| [x]  | `Footer`            | Dark footer dengan colored section headers, contact info           |
 
 #### State Management
 
@@ -57,17 +135,18 @@ useQuery(["doctors-preview"], () => api.get("/doctors?limit=4"));
 
 ---
 
-### 1.2 Layanan Page (`/layanan`)
+### 1.2 Layanan (Services List) (`/layanan`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/layanan`
 
 #### Components
 
-| Task | Component          | Deskripsi                                                              |
-| ---- | ------------------ | ---------------------------------------------------------------------- |
-| [ ]  | `PageHeader`       | Header dengan title "Layanan Kami" dan deskripsi singkat               |
-| [ ]  | `ServiceCardsGrid` | Grid semua service cards dengan filter kategori                        |
-| [ ]  | `ServiceCard`      | Card dengan icon/image, nama, deskripsi, harga, DP, durasi, CTA button |
+| Task | Component          | Deskripsi                                                            |
+| ---- | ------------------ | -------------------------------------------------------------------- |
+| [x]  | `PageHeader`       | Header dengan breadcrumb, title "Happy!" highlight, category filters |
+| [x]  | `ServiceCardsGrid` | Grid 6 service cards dengan colored icons                            |
+| [x]  | `ServiceCard`      | Card dengan icon, category badge, nama, deskripsi, CTA button        |
+| [x]  | `CTASection`       | Yellow section dengan booking buttons                                |
 
 #### State Management
 
@@ -84,19 +163,19 @@ useQuery(["doctors-preview"], () => api.get("/doctors?limit=4"));
 
 ---
 
-### 1.3 Layanan Detail (`/layanan/[slug]`)
+### 1.3 Layanan Detail (`/layanan/[slug]`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/layanan-detail`
 
 #### Components
 
-| Task | Component         | Deskripsi                                          |
-| ---- | ----------------- | -------------------------------------------------- |
-| [ ]  | `ServiceHero`     | Header dengan nama, gambar besar, badge kategori   |
-| [ ]  | `ServiceInfo`     | Deskripsi lengkap, durasi, harga penuh, DP         |
-| [ ]  | `ServiceFAQ`      | Accordion FAQ khusus layanan ini                   |
-| [ ]  | `PricingCard`     | Card sticky dengan breakdown harga dan CTA booking |
-| [ ]  | `RelatedServices` | Grid 3 layanan terkait                             |
+| Task | Component      | Deskripsi                                          |
+| ---- | -------------- | -------------------------------------------------- |
+| [x]  | `ServiceHero`  | Blob image, info badges, rating badge, CTA buttons |
+| [x]  | `ProcessSteps` | 4 numbered steps dengan colored backgrounds        |
+| [x]  | `PricingCards` | 3 packages dengan "PALING LARIS" badge             |
+| [x]  | `ServiceFAQ`   | Accordion FAQ dengan expand animation              |
+| [x]  | `CTASection`   | Yellow background dengan promo CTA                 |
 
 #### API Requirements
 
@@ -114,17 +193,18 @@ useQuery(["doctors-preview"], () => api.get("/doctors?limit=4"));
 
 ---
 
-### 1.4 Dokter Page (`/dokter`)
+### 1.4 Dokter Page (`/dokter`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/doctor`
 
 #### Components
 
-| Task | Component    | Deskripsi                                                    |
-| ---- | ------------ | ------------------------------------------------------------ |
-| [ ]  | `PageHeader` | Header "Tim Dokter Kami"                                     |
-| [ ]  | `DoctorGrid` | Grid semua dokter                                            |
-| [ ]  | `DoctorCard` | Card dengan foto, nama, spesialisasi, availability indicator |
+| Task | Component    | Deskripsi                                                     |
+| ---- | ------------ | ------------------------------------------------------------- |
+| [x]  | `PageHeader` | Header "Tim Dokter Super" dengan purple highlight             |
+| [x]  | `DoctorGrid` | Grid 4 dokter dengan 2 columns                                |
+| [x]  | `DoctorCard` | Card dengan foto, badge, quote, stats (rating, exp, patients) |
+| [x]  | `CTASection` | Yellow section "Bingung Pilih Dokter?"                        |
 
 #### API Requirements
 
@@ -134,18 +214,20 @@ useQuery(["doctors-preview"], () => api.get("/doctors?limit=4"));
 
 ---
 
-### 1.5 Dokter Detail (`/dokter/[id]`)
+### 1.5 Dokter Detail (`/dokter/[id]`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/doctor-detail`
 
 #### Components
 
-| Task | Component        | Deskripsi                                      |
-| ---- | ---------------- | ---------------------------------------------- |
-| [ ]  | `DoctorProfile`  | Foto besar, nama, spesialisasi, bio lengkap    |
-| [ ]  | `DoctorStats`    | Stats (tahun pengalaman, total pasien, rating) |
-| [ ]  | `DoctorSchedule` | Preview jadwal mingguan                        |
-| [ ]  | `CTABooking`     | Button booking dengan dokter ini               |
+| Task | Component           | Deskripsi                                           |
+| ---- | ------------------- | --------------------------------------------------- |
+| [x]  | `DoctorHero`        | Foto besar dengan tilt, STR badge, verified         |
+| [x]  | `DoctorBio`         | Bio card dengan quote dan extended bio              |
+| [x]  | `DoctorCredentials` | Education & Certifications boxes                    |
+| [x]  | `DoctorStats`       | Stats row (experience, patients, rating, guarantee) |
+| [x]  | `DoctorSchedule`    | Schedule cards dengan available/booked slots        |
+| [x]  | `Testimonials`      | 3 testimonial cards dengan star ratings             |
 
 #### API Requirements
 
@@ -164,18 +246,18 @@ ALTER TABLE "Doctor" ADD COLUMN "rating" DECIMAL(2,1) DEFAULT 5.0;
 
 ---
 
-### 1.6 Gallery Page (`/gallery`)
+### 1.6 Gallery Page (`/gallery`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/gallery`
 
 #### Components
 
-| Task | Component       | Deskripsi                              |
-| ---- | --------------- | -------------------------------------- |
-| [ ]  | `PageHeader`    | Header "Galeri"                        |
-| [ ]  | `GalleryTabs`   | Tabs: Semua, Before/After, Klinik, Tim |
-| [ ]  | `PhotoGrid`     | Masonry grid gambar dengan lightbox    |
-| [ ]  | `LightboxModal` | Modal fullscreen untuk view gambar     |
+| Task | Component             | Deskripsi                             |
+| ---- | --------------------- | ------------------------------------- |
+| [x]  | `PageHeader`          | Header "Galeri Momen & Senyum Happy!" |
+| [x]  | `TransformasiSection` | 2 before/after cards dengan compare   |
+| [x]  | `KlinikSection`       | Bento grid dengan varied shapes       |
+| [x]  | `StaffSection`        | 4 circular photos dengan colored bg   |
 
 #### State Management
 
@@ -216,19 +298,20 @@ enum GalleryCategory {
 
 ---
 
-### 1.7 Blog Page (`/blog`)
+### 1.7 Blog Page (`/blog`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/blog`
 
 #### Components
 
-| Task | Component        | Deskripsi                                           |
-| ---- | ---------------- | --------------------------------------------------- |
-| [ ]  | `PageHeader`     | Header "Blog Kesehatan Gigi"                        |
-| [ ]  | `FeaturedPost`   | Hero post terbaru dengan gambar besar               |
-| [ ]  | `ArticleGrid`    | Grid artikel dengan pagination                      |
-| [ ]  | `ArticleCard`    | Card dengan thumbnail, title, excerpt, date, author |
-| [ ]  | `CategoryFilter` | Sidebar/tabs kategori                               |
+| Task | Component      | Deskripsi                                        |
+| ---- | -------------- | ------------------------------------------------ |
+| [x]  | `PageHeader`   | Header "Tips Gigi & Gaya Hidup" dengan badge     |
+| [x]  | `Sidebar`      | 5 Kategori + Newsletter signup                   |
+| [x]  | `FeaturedPost` | Card besar 2-column dengan Featured badge        |
+| [x]  | `ArticleGrid`  | 4 cards dalam 2x2 grid dengan varied backgrounds |
+| [x]  | `Pagination`   | Numbered pagination buttons                      |
+| [x]  | `CTASection`   | Yellow section "Punya Pertanyaan Spesifik?"      |
 
 #### API Requirements
 
@@ -259,18 +342,18 @@ model BlogPost {
 
 ---
 
-### 1.8 About Page (`/about`)
+### 1.8 About Page (`/about`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/about`
 
 #### Components
 
-| Task | Component           | Deskripsi                          |
-| ---- | ------------------- | ---------------------------------- |
-| [ ]  | `StorySection`      | Tentang klinik, sejarah, visi misi |
-| [ ]  | `TeamSection`       | Grid tim dokter dan staff          |
-| [ ]  | `FacilitiesGallery` | Carousel foto fasilitas klinik     |
-| [ ]  | `ClinicInfo`        | Alamat, jam operasional, peta      |
+| Task | Component        | Deskripsi                            |
+| ---- | ---------------- | ------------------------------------ |
+| [x]  | `Header`         | Badge "Halo, Salam Kenal!" + tagline |
+| [x]  | `ValueCards`     | 3 cards (Fun, Safety, Expert)        |
+| [x]  | `TeamSection`    | 2 doctor cards dengan profil link    |
+| [x]  | `FacilitiesGrid` | Bento grid 4 items                   |
 
 #### Static Content
 
@@ -278,17 +361,18 @@ Tidak memerlukan API khusus — konten dapat di-hardcode atau dari CMS.
 
 ---
 
-### 1.9 Contact Page (`/contact`)
+### 1.9 Contact Page (`/contact`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/contact`
 
 #### Components
 
-| Task | Component     | Deskripsi                              |
-| ---- | ------------- | -------------------------------------- |
-| [ ]  | `ContactInfo` | Alamat, telepon, email, jam buka       |
-| [ ]  | `ContactForm` | Form dengan nama, email, subjek, pesan |
-| [ ]  | `MapEmbed`    | Google Maps embed lokasi klinik        |
+| Task | Component      | Deskripsi                              |
+| ---- | -------------- | -------------------------------------- |
+| [x]  | `Header`       | Badge "Kami Siap Membantu" + title     |
+| [x]  | `ContactCards` | 3 cards: Telepon, Email, WhatsApp      |
+| [x]  | `MapEmbed`     | Google Maps dengan "Lokasi Kami" badge |
+| [x]  | `ContactForm`  | Form: nama, WA, email, topik, pesan    |
 
 #### API Requirements
 
@@ -310,16 +394,17 @@ const contactSchema = z.object({
 
 ---
 
-### 1.10 Privacy Policy (`/privacy`)
+### 1.10 Privacy Policy (`/privacy`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/privacy`
 
 #### Components
 
-| Task | Component         | Deskripsi                                  |
-| ---- | ----------------- | ------------------------------------------ |
-| [ ]  | `PolicyContent`   | Render markdown/HTML konten privacy policy |
-| [ ]  | `TableOfContents` | Sidebar navigasi section                   |
+| Task | Component     | Deskripsi                         |
+| ---- | ------------- | --------------------------------- |
+| [x]  | `Header`      | Badge "Privasi Anda Aman" + title |
+| [x]  | `ContentCard` | 6 sections dengan checkmark lists |
+| [x]  | `ContactBox`  | Email privacy@dentalclinic.id     |
 
 #### Static Content
 
@@ -327,45 +412,46 @@ Konten statis, tidak perlu API.
 
 ---
 
-### 1.11 Terms of Service (`/terms`)
+### 1.11 Terms of Service (`/terms`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/terms`
 
 #### Components
 
-| Task | Component         | Deskripsi                         |
-| ---- | ----------------- | --------------------------------- |
-| [ ]  | `TermsContent`    | Render markdown/HTML konten terms |
-| [ ]  | `TableOfContents` | Sidebar navigasi section          |
+| Task | Component     | Deskripsi                         |
+| ---- | ------------- | --------------------------------- |
+| [x]  | `Header`      | Badge "Ketentuan Layanan" + title |
+| [x]  | `ContentCard` | 6 sections dengan checkmark lists |
+| [x]  | `ContactBox`  | Email help@dentalclinic.id        |
 
 ---
 
-### 1.12 404 Not Found (`/not-found`)
+### 1.12 404 Not Found (`/not-found`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/not-found`
 
 #### Components
 
-| Task | Component         | Deskripsi                                      |
-| ---- | ----------------- | ---------------------------------------------- |
-| [ ]  | `NotFoundContent` | Ilustrasi, pesan error, button kembali ke home |
+| Task | Component         | Deskripsi                                                                                  |
+| ---- | ----------------- | ------------------------------------------------------------------------------------------ |
+| [x]  | `NotFoundContent` | Ilustrasi 4-0-4 dengan sad emoji, badge "Oops! Gigi ini hilang...", button kembali ke home |
 
 ---
 
 ## 2. Auth Pages
 
-### 2.1 Sign In (`/sign-in`)
+### 2.1 Sign In (`/auth/login`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/login`
 
 #### Components
 
-| Task | Component     | Deskripsi                       |
-| ---- | ------------- | ------------------------------- |
-| [ ]  | `SignInCard`  | Card dengan Google OAuth button |
-| [ ]  | `HeroImage`   | Side image/ilustrasi dental     |
-| [ ]  | `InfoBox`     | Info tentang benefits login     |
-| [ ]  | `FooterTerms` | Link ke privacy & terms         |
+| Task | Component     | Deskripsi                                                 |
+| ---- | ------------- | --------------------------------------------------------- |
+| [x]  | `SignInCard`  | 2-column layout, Google OAuth button, email/password form |
+| [x]  | `HeroImage`   | Side image dengan member benefits card                    |
+| [x]  | `InfoBox`     | Member benefits (jadwal, riwayat, pengingat)              |
+| [x]  | `FooterTerms` | Link ke privacy & terms                                   |
 
 #### Logic
 
@@ -376,24 +462,32 @@ Konten statis, tidak perlu API.
 
 ---
 
-### 2.2 Sign Up (`/sign-up`)
+### 2.2 Sign Up (`/auth/register`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/register`
 
-_Same structure as Sign In — redirect to Google OAuth_
+#### Components
+
+| Task | Component       | Deskripsi                                    |
+| ---- | --------------- | -------------------------------------------- |
+| [x]  | `RegisterCard`  | 2-column layout, Google OAuth, manual form   |
+| [x]  | `PhotoUpload`   | Foto profil uploader                         |
+| [x]  | `FormFields`    | Nama, email, phone, password                 |
+| [x]  | `TermsCheckbox` | Agreement checkbox dengan link terms/privacy |
 
 ---
 
-### 2.3 Edit Profile (`/profile`)
+### 2.3 Edit Profile (`/profile/edit`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/edit-profile`
 
 #### Components
 
-| Task | Component      | Deskripsi                             |
-| ---- | -------------- | ------------------------------------- |
-| [ ]  | `ProfileForm`  | Form edit nama, no. WhatsApp, alamat  |
-| [ ]  | `AvatarUpload` | Upload foto profil (Supabase Storage) |
+| Task | Component        | Deskripsi                                 |
+| ---- | ---------------- | ----------------------------------------- |
+| [x]  | `ProfileSidebar` | Sidebar dengan foto, menu navigasi        |
+| [x]  | `ProfileForm`    | Form edit nama, phone, address, city, zip |
+| [x]  | `AvatarUpload`   | Foto profil dengan hover overlay          |
 
 #### API Requirements
 
@@ -416,24 +510,24 @@ const profileSchema = z.object({
 
 ## 3. Booking Flow
 
-### 3.1 Booking - Combined Flow (`/booking`)
+### 3.1 Booking - Combined Flow (`/booking`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/booking`
 
 #### Components
 
-| Task | Component                | Deskripsi                                                      |
-| ---- | ------------------------ | -------------------------------------------------------------- |
-| [ ]  | `BookingStepper`         | Step indicator (1. Layanan → 2. Dokter & Jadwal → 3. Checkout) |
-| [ ]  | `Step1_ServiceSelection` | Grid ServiceCard, select untuk lanjut                          |
-| [ ]  | `Step2_DoctorSchedule`   | DoctorCard + DatePicker + TimeSlotGrid                         |
-| [ ]  | `Step3_Checkout`         | Form pasien + BookingSummary + Submit                          |
-| [ ]  | `ServiceCard`            | Card dengan nama, harga, DP, durasi — selectable               |
-| [ ]  | `DoctorCard`             | Card dokter dengan foto, nama, spesialisasi — selectable       |
-| [ ]  | `DatePicker`             | Horizontal calendar picker (7-14 hari ke depan)                |
-| [ ]  | `TimeSlotGrid`           | Grid slot waktu tersedia — color-coded                         |
-| [ ]  | `BookingSummary`         | Ringkasan: layanan, dokter, waktu, harga                       |
-| [ ]  | `PatientInfoForm`        | Form: nama, WhatsApp, catatan keluhan                          |
+| Task | Component                | Deskripsi                                                   |
+| ---- | ------------------------ | ----------------------------------------------------------- |
+| [x]  | `BookingStepper`         | 3-step progress bar (Layanan → Jadwal → Data Diri)          |
+| [x]  | `Step1_ServiceSelection` | 4 ServiceCard (Behel, Tambal, Scaling, Bleaching)           |
+| [x]  | `Step2_DoctorSchedule`   | Doctor selection + Date picker + Time slot grid             |
+| [x]  | `Step3_Checkout`         | Form nama, WhatsApp, email, catatan                         |
+| [x]  | `ServiceCard`            | Card dengan icon, nama, harga, selectable dengan check icon |
+| [x]  | `DoctorCard`             | Card dokter dengan foto, nama, spesialisasi                 |
+| [x]  | `DatePicker`             | Horizontal date cards (5 hari)                              |
+| [x]  | `TimeSlotGrid`           | Grid 6 slot (09:00-15:00), disabled/available state         |
+| [x]  | `BookingSummary`         | Sticky sidebar dengan ringkasan + total pembayaran          |
+| [x]  | `PatientInfoForm`        | Form: nama, WhatsApp, email, catatan tambahan               |
 
 #### State Management (Zustand)
 
@@ -523,21 +617,21 @@ const patientInfoSchema = z.object({
 
 ---
 
-### 3.2 Booking Success (`/booking/success`)
+### 3.2 Booking Success (`/booking/success`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/booking-success`
 
 #### Components
 
-| Task | Component        | Deskripsi                                    |
-| ---- | ---------------- | -------------------------------------------- |
-| [ ]  | `SuccessHeader`  | Checkmark icon, "Booking Berhasil!" message  |
-| [ ]  | `ETicketCard`    | QR Code, kode booking, detail appointment    |
-| [ ]  | `BookingDetails` | Dokter, layanan, tanggal, jam                |
-| [ ]  | `PaymentInfo`    | Status pembayaran, jumlah DP                 |
-| [ ]  | `ClinicAddress`  | Alamat klinik dengan link Google Maps        |
-| [ ]  | `ReminderAlert`  | Info tentang WhatsApp notification           |
-| [ ]  | `ActionButtons`  | "Simpan Screenshot", "Lihat Riwayat Booking" |
+| Task | Component        | Deskripsi                                        |
+| ---- | ---------------- | ------------------------------------------------ |
+| [x]  | `SuccessHeader`  | Checkmark icon, "Yey! Booking Berhasil!" message |
+| [x]  | `ETicketCard`    | Ticket-style card dengan QR Code #BK-882910      |
+| [x]  | `BookingDetails` | Dokter card, lokasi dengan icon                  |
+| [x]  | `PaymentInfo`    | Total deposit Rp 50.000, sisa pembayaran         |
+| [x]  | `ClinicAddress`  | Alamat klinik Jakarta Selatan                    |
+| [x]  | `ReminderAlert`  | "Pengingat Ramah" box - datang 15 menit awal     |
+| [x]  | `ActionButtons`  | "Add to Calendar", "Ke Dashboard Saya"           |
 
 #### API Requirements
 
@@ -556,20 +650,19 @@ const patientInfoSchema = z.object({
 
 ## 4. Patient Pages
 
-### 4.1 My Bookings (`/my-bookings`)
+### 4.1 My Bookings (`/my-bookings`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/my-bookings`
 
 #### Components
 
-| Task | Component         | Deskripsi                                                        |
-| ---- | ----------------- | ---------------------------------------------------------------- |
-| [ ]  | `PageHeader`      | "Riwayat Booking Saya"                                           |
-| [ ]  | `FilterTabs`      | Filter: Semua, Aktif, Selesai, Dibatalkan                        |
-| [ ]  | `BookingCardList` | List BookingCard                                                 |
-| [ ]  | `BookingCard`     | Card dengan kode, layanan, dokter, jadwal, status badge, actions |
-| [ ]  | `EmptyState`      | Ilustrasi + pesan jika tidak ada booking                         |
-| [ ]  | `CancelModal`     | Modal konfirmasi pembatalan                                      |
+| Task | Component         | Deskripsi                                                             |
+| ---- | ----------------- | --------------------------------------------------------------------- |
+| [x]  | `PageHeader`      | "Booking Saya" header dengan animasi bintang                          |
+| [x]  | `FilterTabs`      | 3 tabs: Akan Datang (2), Selesai, Dibatalkan                          |
+| [x]  | `BookingCardList` | List BookingCard dengan date box                                      |
+| [x]  | `BookingCard`     | Card dengan tanggal, layanan, kode, dokter, status badge, action btns |
+| [x]  | `EmptyState`      | Ikon calendar + pesan "Belum Ada Jadwal" + CTA "Buat Janji Baru"      |
 
 #### State Management
 
@@ -598,18 +691,19 @@ const canCancel = hoursUntilAppointment > 24;
 
 ## 5. Doctor Portal
 
-### 5.1 Doctor Dashboard (`/doctor`)
+### 5.1 Doctor Dashboard (`/doctor`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/doctor`
 
 #### Components
 
-| Task | Component              | Deskripsi                                               |
-| ---- | ---------------------- | ------------------------------------------------------- |
-| [ ]  | `DoctorHeader`         | Welcome message, nama dokter                            |
-| [ ]  | `StatCards`            | 4 cards: Hari Ini, Pending, Pasien Bulan Ini, Completed |
-| [ ]  | `TodaySchedule`        | Timeline jadwal hari ini                                |
-| [ ]  | `UpcomingAppointments` | List 5 appointment mendatang                            |
+| Task | Component         | Deskripsi                                                                |
+| ---- | ----------------- | ------------------------------------------------------------------------ |
+| [x]  | `DoctorHeader`    | "Selamat Pagi, Dok!" dengan emoji 👋                                     |
+| [x]  | `StatCards`       | 4 cards: Pasien Hari Ini (8), Akan Datang (24), Selesai (45), Pendapatan |
+| [x]  | `TodaySchedule`   | 4 patient cards dengan waktu, nama, service badge, actions               |
+| [x]  | `TomorrowSidebar` | 3 upcoming patients untuk besok                                          |
+| [x]  | `TipsBox`         | Tips harian untuk dokter                                                 |
 
 #### API Requirements
 
@@ -620,18 +714,20 @@ const canCancel = hoursUntilAppointment > 24;
 
 ---
 
-### 5.2 Doctor Schedule (`/doctor/schedule`)
+### 5.2 Doctor Schedule (`/doctor/schedule`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/doctor-schedule`
 
 #### Components
 
-| Task | Component            | Deskripsi                               |
-| ---- | -------------------- | --------------------------------------- |
-| [ ]  | `WeeklyCalendar`     | Kalender mingguan dengan slot grid      |
-| [ ]  | `SlotCell`           | Cell per slot waktu dengan status color |
-| [ ]  | `AppointmentPopover` | Popover detail saat click slot          |
-| [ ]  | `DateNavigation`     | Navigasi minggu sebelum/sesudah         |
+| Task | Component               | Deskripsi                                                 |
+| ---- | ----------------------- | --------------------------------------------------------- |
+| [x]  | `WeeklyCalendar`        | 6-hari kalender grid (Sen-Sab) dengan time slots          |
+| [x]  | `SlotCell`              | Appointment cards berwarna + dashed empty slot            |
+| [x]  | `LunchBreak`            | Row istirahat siang                                       |
+| [x]  | `DateNavigation`        | Tombol chevron prev/next, view toggle (Hari/Minggu/Bulan) |
+| [x]  | `SlotManagementSidebar` | Add slot form + slot list dengan status (booked/tersedia) |
+| [x]  | `TipsBox`               | Tips efisiensi kuning                                     |
 
 #### State Management
 
@@ -642,17 +738,19 @@ const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date()));
 
 ---
 
-### 5.3 Doctor Patients (`/doctor/patients`)
+### 5.3 Doctor Patients (`/doctor/patients`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/doctor-patients`
 
 #### Components
 
-| Task | Component     | Deskripsi                                |
-| ---- | ------------- | ---------------------------------------- |
-| [ ]  | `SearchBar`   | Search by nama/phone                     |
-| [ ]  | `PatientList` | List pasien yang pernah ditangani        |
-| [ ]  | `PatientCard` | Nama, phone, total kunjungan, last visit |
+| Task | Component     | Deskripsi                                                         |
+| ---- | ------------- | ----------------------------------------------------------------- |
+| [x]  | `SearchBar`   | Search by nama/phone/ID dengan icon                               |
+| [x]  | `FilterTabs`  | Tabs: Semua, Pasien Baru, Berlangganan + Filter button            |
+| [x]  | `PatientList` | List pasien dengan cards                                          |
+| [x]  | `PatientCard` | Avatar, nama, ID, phone, age, last visit, service, payment status |
+| [x]  | `Pagination`  | Pagination dengan pop/sticker styling                             |
 
 #### API Requirements
 
@@ -662,7 +760,7 @@ const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date()));
 
 ---
 
-### 5.4 Buat Janji Temu (`/doctor/booking/new`)
+### 5.4 Buat Janji Temu (`/doctor/booking/new`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/doctor-booking-new`
 
@@ -670,16 +768,14 @@ const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date()));
 
 #### Components
 
-| Task | Component             | Deskripsi                                                        |
-| ---- | --------------------- | ---------------------------------------------------------------- |
-| [ ]  | `PatientSelect`       | Combobox autocomplete pasien existing atau input data baru       |
-| [ ]  | `NewPatientForm`      | Inline form untuk pasien baru (nama, phone, email) — collapsible |
-| [ ]  | `ServiceSelect`       | Dropdown layanan dengan harga                                    |
-| [ ]  | `DatePicker`          | Calendar picker tanggal                                          |
-| [ ]  | `TimeSlotGrid`        | Grid slot waktu (reuse dari booking flow)                        |
-| [ ]  | `BookingSummary`      | Ringkasan sebelum submit                                         |
-| [ ]  | `NotesTextarea`       | Catatan/keluhan pasien (optional)                                |
-| [ ]  | `BookingTypeSelector` | Toggle: Walk-in / Telepon / Referral                             |
+| Task | Component       | Deskripsi                                                                        |
+| ---- | --------------- | -------------------------------------------------------------------------------- |
+| [x]  | `PatientSearch` | Input search pasien + button "Pasien Baru"                                       |
+| [x]  | `ServiceSelect` | 5 service cards dengan radio selection (Check-up, Scaling, Tambal, Cabut, Kawat) |
+| [x]  | `DatePicker`    | Mini calendar Oktober 2023                                                       |
+| [x]  | `TimeSlotGrid`  | 8 time slots dengan available/booked state                                       |
+| [x]  | `NotesTextarea` | Catatan tambahan                                                                 |
+| [x]  | `ActionButtons` | Batal + Simpan Janji Temu                                                        |
 
 #### State Management
 
@@ -794,16 +890,17 @@ enum BookingType {
 
 ---
 
-### 5.5 Tambah Pasien (`/doctor/patients/new`)
+### 5.5 Tambah Pasien (`/doctor/patients/new`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/doctor-patient-new`
 
 #### Components
 
-| Task | Component      | Deskripsi                        |
-| ---- | -------------- | -------------------------------- |
-| [ ]  | `PatientForm`  | Form: nama, phone, email, alamat |
-| [ ]  | `SubmitButton` | Button simpan                    |
+| Task | Component       | Deskripsi                                               |
+| ---- | --------------- | ------------------------------------------------------- |
+| [x]  | `PageHeader`    | Icon + title "Tambah Pasien" + back link                |
+| [x]  | `PatientForm`   | Form: nama, phone, email, alamat dengan pop input focus |
+| [x]  | `ActionButtons` | Batal + Simpan Data Pasien buttons                      |
 
 #### API Requirements
 
@@ -815,19 +912,20 @@ enum BookingType {
 
 ## 6. Admin Dashboard
 
-### 6.1 Dashboard Home (`/dashboard`)
+### 6.1 Dashboard Home (`/dashboard`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/admin-dashboard`
 
 #### Components
 
-| Task | Component               | Deskripsi                                                            |
-| ---- | ----------------------- | -------------------------------------------------------------------- |
-| [ ]  | `AdminHeader`           | Welcome, quick stats                                                 |
-| [ ]  | `StatCards`             | 4 cards: Booking Hari Ini, Pending Payment, Revenue DP, Total Pasien |
-| [ ]  | `TodayScheduleTimeline` | Timeline grouped by dokter                                           |
-| [ ]  | `RecentBookingsTable`   | Tabel 10 booking terbaru                                             |
-| [ ]  | `QuickActions`          | Button: Check-in, Update Status                                      |
+| Task | Component               | Deskripsi                                            |
+| ---- | ----------------------- | ---------------------------------------------------- |
+| [x]  | `AdminLayout`           | Reusable layout with sidebar navigation              |
+| [x]  | `AdminHeader`           | Welcome message, search, notifications               |
+| [x]  | `StatCards`             | 4 cards: Janji Temu, Pendapatan, Pasien Baru, Rating |
+| [x]  | `TodayScheduleTimeline` | Timeline with patient cards                          |
+| [x]  | `QuickActions`          | Button: Booking Baru, Pasien Baru, Tagihan           |
+| [x]  | `RecentBookingsTable`   | List recent bookings                                 |
 
 #### API Requirements
 
@@ -838,18 +936,20 @@ enum BookingType {
 
 ---
 
-### 6.2 Schedule Master (`/dashboard/schedule`)
+### 6.2 Schedule Master (`/dashboard/schedule`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/admin-dashboard-schedule`
 
 #### Components
 
-| Task | Component             | Deskripsi                         |
-| ---- | --------------------- | --------------------------------- |
-| [ ]  | `DoctorFilterTabs`    | Filter by dokter                  |
-| [ ]  | `ScheduleCalendar`    | Kalender dengan view daily/weekly |
-| [ ]  | `SlotManagement`      | Block/unblock slot                |
-| [ ]  | `GenerateSlotsButton` | Button generate slot baru         |
+| Task | Component          | Deskripsi                            |
+| ---- | ------------------ | ------------------------------------ |
+| [x]  | `MonthYearNav`     | Month navigation with prev/next      |
+| [x]  | `ViewToggle`       | Bulan/Minggu/Hari toggle buttons     |
+| [x]  | `DoctorFilterTabs` | Doctor dropdown filter               |
+| [x]  | `CalendarGrid`     | Monthly calendar with dot indicators |
+| [x]  | `SlotManagement`   | Slot list with open/booked status    |
+| [x]  | `BlockDayCard`     | Block seharian functionality         |
 
 #### API Requirements
 
@@ -861,19 +961,19 @@ enum BookingType {
 
 ---
 
-### 6.3 Bookings Management (`/dashboard/bookings`)
+### 6.3 Bookings Management (`/dashboard/bookings`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/admin-dashboard-bookings`
 
 #### Components
 
-| Task | Component            | Deskripsi                                |
-| ---- | -------------------- | ---------------------------------------- |
-| [ ]  | `FilterBar`          | Filters: status, dokter, tanggal, search |
-| [ ]  | `BookingsDataTable`  | DataTable dengan sorting, pagination     |
-| [ ]  | `StatusDropdown`     | Inline status update                     |
-| [ ]  | `RowActions`         | View detail, cancel, send reminder       |
-| [ ]  | `BookingDetailModal` | Modal detail booking lengkap             |
+| Task | Component           | Deskripsi                                      |
+| ---- | ------------------- | ---------------------------------------------- |
+| [x]  | `FilterBar`         | Filters: search, doctor, service, status, date |
+| [x]  | `BookingsDataTable` | DataTable with sorting, pagination             |
+| [x]  | `StatusBadge`       | Status badges with colors                      |
+| [x]  | `RowActions`        | View, edit, delete action buttons              |
+| [x]  | `Pagination`        | Page navigation                                |
 
 #### API Requirements
 
@@ -885,19 +985,18 @@ enum BookingType {
 
 ---
 
-### 6.4 Doctors Management (`/dashboard/doctors`)
+### 6.4 Doctors Management (`/dashboard/doctors`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/admin-dashboard-doctor`
 
 #### Components
 
-| Task | Component              | Deskripsi                                           |
-| ---- | ---------------------- | --------------------------------------------------- |
-| [ ]  | `DoctorGridCards`      | Grid card dokter                                    |
-| [ ]  | `DoctorCard`           | Foto, nama, spesialisasi, hari kerja, booking count |
-| [ ]  | `AddDoctorModal`       | Modal form tambah dokter                            |
-| [ ]  | `EditDoctorModal`      | Modal form edit dokter                              |
-| [ ]  | `ScheduleTemplateForm` | Form jadwal mingguan dokter                         |
+| Task | Component         | Deskripsi                                    |
+| ---- | ----------------- | -------------------------------------------- |
+| [x]  | `SearchBar`       | Search doctor by name or ID                  |
+| [x]  | `FilterTabs`      | All Specialists, Dentists, Surgeons          |
+| [x]  | `DoctorGridCards` | Grid card dokter with avatar, stats, actions |
+| [x]  | `AddDoctorCard`   | Add new doctor CTA card                      |
 
 #### API Requirements
 
@@ -911,18 +1010,19 @@ enum BookingType {
 
 ---
 
-### 6.5 Services Management (`/dashboard/services`)
+### 6.5 Services Management (`/dashboard/services`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/admin-dashboard-services`
 
 #### Components
 
-| Task | Component            | Deskripsi                 |
-| ---- | -------------------- | ------------------------- |
-| [ ]  | `ServicesDataTable`  | DataTable layanan         |
-| [ ]  | `AddServiceModal`    | Modal form tambah layanan |
-| [ ]  | `EditServiceModal`   | Modal form edit layanan   |
-| [ ]  | `ToggleActiveSwitch` | Toggle aktif/nonaktif     |
+| Task | Component           | Deskripsi                          |
+| ---- | ------------------- | ---------------------------------- |
+| [x]  | `ServiceStats`      | Total services count               |
+| [x]  | `CategoryTabs`      | Category filter tabs               |
+| [x]  | `ServiceCards`      | Service cards with price, duration |
+| [x]  | `AddServiceModal`   | Modal form tambah layanan          |
+| [x]  | `EditDeleteButtons` | Edit and delete actions            |
 
 #### API Requirements
 
@@ -935,18 +1035,18 @@ enum BookingType {
 
 ---
 
-### 6.6 Patients Database (`/dashboard/patients`)
+### 6.6 Patients Database (`/dashboard/patients`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/admin-dashboard-patients-database`
 
 #### Components
 
-| Task | Component             | Deskripsi                              |
-| ---- | --------------------- | -------------------------------------- |
-| [ ]  | `SearchBar`           | Search nama/phone/email                |
-| [ ]  | `PatientsDataTable`   | DataTable dengan info pasien           |
-| [ ]  | `PatientDetailDrawer` | Drawer dengan detail + riwayat booking |
-| [ ]  | `WhatsAppLink`        | Clickable link ke WhatsApp             |
+| Task | Component             | Deskripsi                               |
+| ---- | --------------------- | --------------------------------------- |
+| [x]  | `SearchBar`           | Search nama/phone/email                 |
+| [x]  | `PatientsDataTable`   | DataTable dengan info pasien            |
+| [x]  | `PatientDetailDrawer` | Sidebar dengan detail + riwayat booking |
+| [x]  | `Pagination`          | Navigasi halaman                        |
 
 #### API Requirements
 
@@ -957,20 +1057,19 @@ enum BookingType {
 
 ---
 
-### 6.7 Reports Page (`/dashboard/reports`)
+### 6.7 Reports Page (`/dashboard/reports`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/admin-dashboard-reports`
 
 #### Components
 
-| Task | Component                 | Deskripsi                                      |
-| ---- | ------------------------- | ---------------------------------------------- |
-| [ ]  | `DateRangeFilter`         | Filter range tanggal                           |
-| [ ]  | `RevenueChart`            | Line chart pendapatan DP                       |
-| [ ]  | `BookingsPerServiceChart` | Bar chart booking per layanan                  |
-| [ ]  | `BookingsPerDoctorChart`  | Bar chart booking per dokter                   |
-| [ ]  | `StatusBreakdownPie`      | Pie chart breakdown status                     |
-| [ ]  | `KPICards`                | Cards: Total Revenue, Avg per Day, Top Service |
+| Task | Component                | Deskripsi                                      |
+| ---- | ------------------------ | ---------------------------------------------- |
+| [x]  | `DateRangeFilter`        | Filter range tanggal                           |
+| [x]  | `KPICards`               | Cards: Total Revenue, Total Pasien, Avg Rating |
+| [x]  | `RevenueChart`           | Bar chart pendapatan harian                    |
+| [x]  | `PopularServicesChart`   | Progress bars layanan populer                  |
+| [x]  | `DoctorPerformanceCards` | Cards performa per dokter                      |
 
 #### Library
 
@@ -988,18 +1087,18 @@ npm install chart.js react-chartjs-2
 
 ---
 
-### 6.8 Settings Page (`/dashboard/settings`)
+### 6.8 Settings Page (`/dashboard/settings`) ✅ COMPLETED
 
 **Design Reference:** `dental-care-design/admin-dashboard-setting-integration`
 
 #### Components
 
-| Task | Component                 | Deskripsi                |
-| ---- | ------------------------- | ------------------------ |
-| [ ]  | `ClinicInfoForm`          | Form info klinik         |
-| [ ]  | `PaymentSettingsForm`     | Payment timeout setting  |
-| [ ]  | `WhatsAppIntegrationForm` | Fonnte API config        |
-| [ ]  | `OperationalHoursForm`    | Jam operasional per hari |
+| Task | Component                 | Deskripsi                      |
+| ---- | ------------------------- | ------------------------------ |
+| [x]  | `ClinicInfoForm`          | Form info klinik dengan upload |
+| [x]  | `OpeningHoursCard`        | Jam operasional per hari       |
+| [x]  | `PaymentGatewaySettings`  | Toggle Stripe/PayPal           |
+| [x]  | `WhatsAppIntegrationCard` | WhatsApp status & toggles      |
 
 #### API Requirements
 
