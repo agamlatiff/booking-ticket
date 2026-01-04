@@ -1,6 +1,47 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript"
-  ]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    // TypeScript strict rules
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/explicit-function-return-type": "off",
+
+    // React rules
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/exhaustive-deps": "warn",
+
+    // Import rules
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ],
+
+    // Best practices
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "prefer-const": "warn",
+    "no-var": "error",
+    "eqeqeq": ["warn", "always"],
+
+    // Naming conventions
+    "camelcase": ["warn", { "properties": "never" }]
+  },
+  "ignorePatterns": ["node_modules/", ".next/", "out/", "public/"]
 }

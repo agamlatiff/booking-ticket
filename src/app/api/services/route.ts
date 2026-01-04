@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
 
-export const dynamic = "force-dynamic";
+// ISR: Revalidate every 5 minutes (static but fresh)
+export const revalidate = 300;
 
 const querySchema = z.object({
   category: z.enum(["general", "cosmetic", "orthodontic"]).optional(),
@@ -45,7 +46,14 @@ export async function GET(request: NextRequest) {
       prisma.service.count({ where }),
     ]);
 
-    return NextResponse.json({ data: services, total });
+    // Add cache headers for CDN/browser caching
+    const response = NextResponse.json({ data: services, total });
+    response.headers.set(
+      "Cache-Control",
+      "public, s-maxage=300, stale-while-revalidate=600"
+    );
+
+    return response;
   } catch (error) {
     console.error("Error fetching services:", error);
     return NextResponse.json(

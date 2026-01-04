@@ -1,77 +1,117 @@
-import { z } from 'zod'
+import { z } from "zod";
 
 // ============================================
-// PASSENGER VALIDATION
+// DENTAL BOOKING VALIDATION
 // ============================================
 
-export const passengerSchema = z.object({
-  name: z
-    .string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(100, 'Name is too long'),
-  email: z
-    .string()
-    .email('Invalid email address'),
-  passport: z
-    .string()
-    .regex(/^[A-Z0-9]{6,9}$/, 'Invalid passport number (6-9 alphanumeric characters)')
-    .optional()
-    .or(z.literal('')),
-  phone: z
-    .string()
-    .regex(/^\+?[0-9]{10,15}$/, 'Invalid phone number')
-    .optional()
-    .or(z.literal('')),
-})
+/**
+ * Indonesian phone number validation
+ * Supports formats: +62xxx, 62xxx, 08xxx
+ */
+export const phoneSchema = z
+  .string()
+  .regex(
+    /^(\+62|62|0)8[1-9][0-9]{7,10}$/,
+    "Format nomor WhatsApp tidak valid (contoh: 08123456789)"
+  );
 
-export type PassengerInput = z.infer<typeof passengerSchema>
-
-// ============================================
-// PAYMENT VALIDATION
-// ============================================
-
-export const paymentMethodSchema = z.enum(['card', 'ewallet', 'qris'])
-
-export const creditCardSchema = z.object({
-  cardNumber: z
-    .string()
-    .regex(/^[0-9]{13,19}$/, 'Invalid card number'),
-  cardName: z
-    .string()
-    .min(2, 'Cardholder name is required'),
-  expiry: z
-    .string()
-    .regex(/^(0[1-9]|1[0-2])\/[0-9]{2}$/, 'Invalid expiry date (MM/YY)'),
-  cvc: z
-    .string()
-    .regex(/^[0-9]{3,4}$/, 'Invalid CVC'),
-})
-
-export const paymentSchema = z.discriminatedUnion('method', [
-  z.object({
-    method: z.literal('card'),
-    card: creditCardSchema,
-  }),
-  z.object({
-    method: z.literal('ewallet'),
-  }),
-  z.object({
-    method: z.literal('qris'),
-  }),
-])
-
-export type PaymentMethod = z.infer<typeof paymentMethodSchema>
-export type CreditCardInput = z.infer<typeof creditCardSchema>
-export type PaymentInput = z.infer<typeof paymentSchema>
-
-// ============================================
-// BOOKING VALIDATION
-// ============================================
-
+/**
+ * Create booking request validation
+ */
 export const createBookingSchema = z.object({
-  flightId: z.string().min(1, 'Flight is required'),
-  seatId: z.string().min(1, 'Seat selection is required'),
-  passenger: passengerSchema,
-})
+  serviceId: z.string().min(1, "Layanan harus dipilih"),
+  doctorId: z.string().min(1, "Dokter harus dipilih"),
+  slotId: z.string().min(1, "Slot waktu harus dipilih"),
+  patientName: z
+    .string()
+    .min(2, "Nama minimal 2 karakter")
+    .max(100, "Nama terlalu panjang"),
+  patientPhone: phoneSchema,
+  notes: z.string().max(500, "Catatan maksimal 500 karakter").optional(),
+});
 
-export type CreateBookingInput = z.infer<typeof createBookingSchema>
+export type CreateBookingInput = z.infer<typeof createBookingSchema>;
+
+/**
+ * Cancel booking request validation
+ */
+export const cancelBookingSchema = z.object({
+  reason: z.string().max(500, "Alasan maksimal 500 karakter").optional(),
+});
+
+export type CancelBookingInput = z.infer<typeof cancelBookingSchema>;
+
+/**
+ * Booking filter query validation
+ */
+export const bookingFilterSchema = z.object({
+  status: z
+    .enum(["PENDING", "PAID", "CHECKED_IN", "COMPLETED", "CANCELLED", "EXPIRED"])
+    .optional(),
+  doctorId: z.string().optional(),
+  dateFrom: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  dateTo: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  search: z.string().max(100).optional(),
+  page: z.coerce.number().min(1).default(1),
+  limit: z.coerce.number().min(1).max(100).default(20),
+});
+
+export type BookingFilterInput = z.infer<typeof bookingFilterSchema>;
+
+// ============================================
+// DOCTOR BOOKING VALIDATION (Skip Payment)
+// ============================================
+
+/**
+ * New patient data for doctor portal
+ */
+export const newPatientSchema = z.object({
+  name: z.string().min(2, "Nama minimal 2 karakter").max(100),
+  phone: phoneSchema,
+  email: z.string().email("Email tidak valid").optional().or(z.literal("")),
+  address: z.string().max(500).optional(),
+});
+
+export type NewPatientInput = z.infer<typeof newPatientSchema>;
+
+/**
+ * Doctor create booking request (skip payment, status = CONFIRMED)
+ */
+export const doctorBookingSchema = z
+  .object({
+    patientId: z.string().optional(),
+    newPatient: newPatientSchema.optional(),
+    serviceId: z.string().min(1, "Layanan harus dipilih"),
+    slotId: z.string().min(1, "Slot waktu harus dipilih"),
+    bookingType: z.enum(["WALK_IN", "PHONE", "REFERRAL"]),
+    notes: z.string().max(500).optional(),
+  })
+  .refine((data) => data.patientId || data.newPatient, {
+    message: "Pilih pasien existing atau isi data pasien baru",
+  });
+
+export type DoctorBookingInput = z.infer<typeof doctorBookingSchema>;
+
+// ============================================
+// SLOT VALIDATION
+// ============================================
+
+/**
+ * Slot query validation
+ */
+export const slotQuerySchema = z.object({
+  doctorId: z.string().min(1, "doctorId harus diisi"),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Format tanggal: YYYY-MM-DD"),
+});
+
+export type SlotQueryInput = z.infer<typeof slotQuerySchema>;
+
+/**
+ * Availability query validation
+ */
+export const availabilityQuerySchema = z.object({
+  startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Format: YYYY-MM-DD"),
+  endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Format: YYYY-MM-DD"),
+});
+
+export type AvailabilityQueryInput = z.infer<typeof availabilityQuerySchema>;

@@ -1,7 +1,72 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { NavbarAuth } from "@/components/ui/navbar-auth";
 import { Footer } from "@/components/ui/footer";
 import { auth } from "@/lib/auth";
+
+// SEO Metadata
+export const metadata: Metadata = {
+  title: "Tim Dokter Gigi Spesialis | Klinik Gigi Senyum Sejahtera",
+  description:
+    "Temui tim dokter gigi spesialis berpengalaman kami: ortodonti, prostodonsia, bedah mulut, dan dokter gigi anak. Pendekatan ramah dengan teknologi modern.",
+  keywords: [
+    "dokter gigi spesialis",
+    "dokter gigi anak",
+    "spesialis ortodonti",
+    "spesialis bedah mulut",
+    "spesialis prostodonsia",
+    "dokter gigi berpengalaman",
+  ],
+  openGraph: {
+    title: "Tim Dokter Gigi Spesialis | Klinik Gigi Senyum Sejahtera",
+    description:
+      "Temui tim dokter gigi spesialis berpengalaman dengan pendekatan ramah dan teknologi modern.",
+    type: "website",
+  },
+};
+
+// JSON-LD Structured Data for SEO
+function DoctorJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    name: "Klinik Gigi Senyum Sejahtera",
+    description: "Klinik gigi dengan tim dokter spesialis berpengalaman",
+    url: "https://senyumsejahtera.com/dokter",
+    medicalSpecialty: ["Dentistry", "Orthodontics", "Pediatric Dentistry"],
+    employee: [
+      {
+        "@type": "Physician",
+        name: "drg. Siti Aminah Sp.KG",
+        medicalSpecialty: "Pediatric Dentistry",
+        description: "Spesialis Gigi Anak & Konservasi dengan 12+ tahun pengalaman",
+        image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80",
+      },
+      {
+        "@type": "Physician",
+        name: "drg. Ahmad Wijaya Sp.Ort",
+        medicalSpecialty: "Orthodontics",
+        description: "Spesialis Ortodonti dengan 10+ tahun pengalaman",
+        image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80",
+      },
+      {
+        "@type": "Physician",
+        name: "drg. Maya Kusuma Sp.Perio",
+        medicalSpecialty: "Periodontics",
+        description: "Spesialis Periodonsia dengan keahlian perawatan gusi",
+        image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80",
+      },
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 
 // Doctor data - will come from database later
 const doctors = [
@@ -68,6 +133,7 @@ export default async function DokterPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans">
+      <DoctorJsonLd />
       <NavbarAuth user={session?.user || null} />
 
       <main className="flex-1 pt-28 md:pt-36">
@@ -110,9 +176,9 @@ export default async function DokterPage() {
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               {doctors.map((doctor) => (
                 <Link key={doctor.id} href={`/dokter/${doctor.id}`} className="group">
-                  <div className="relative flex flex-col md:flex-row gap-6 rounded-[2rem] border-2 border-foreground bg-background p-6 shadow-pop transition-all hover:-translate-y-2 hover:shadow-card overflow-hidden">
+                  <div className="relative flex flex-col md:flex-row gap-6 rounded-[2rem] border-2 border-foreground bg-background p-6 shadow-pop transition-all hover:-translate-y-2 hover:shadow-card">
                     {/* Badge */}
-                    <div className={`absolute -top-3 -right-3 z-20 ${doctor.badgeColor} text-sm border-2 border-foreground px-3 py-1 rounded-full shadow-pop-sm -rotate-6 font-bold flex items-center gap-1`}>
+                    <div className={`absolute -top-4 -right-2 z-20 ${doctor.badgeColor} text-sm border-2 border-foreground px-3 py-1 rounded-full shadow-pop-sm -rotate-6 font-bold flex items-center gap-1`}>
                       <span className="material-symbols-outlined text-lg">{doctor.badgeIcon}</span>
                       {doctor.badge}
                     </div>

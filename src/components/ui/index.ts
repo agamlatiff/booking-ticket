@@ -46,3 +46,9 @@ export { Footer } from "./footer";
 
 // Utilities
 export { ThemeToggle } from "./theme-toggle";
+
+// Card Components (Reusable)
+export { ServiceCard, DoctorCard, FeatureCard, StatsCard, TestimonialCard } from "./cards";
+
+// Section Components (Reusable)
+export { SectionHeader, CTASection, PageHero, EmptyStateCard } from "./sections";

@@ -1,23 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { withCronAuth } from "@/lib/api/middleware";
 
-// Cron job to expire unpaid bookings after 15 minutes
-// Should be called every minute by Vercel Cron or similar
-export async function GET(request: NextRequest) {
+// ============================================
+// GET /api/cron/expire-bookings
+// Cron job to expire unpaid bookings after timeout
+// ============================================
+
+export const GET = withCronAuth(async (request: NextRequest) => {
   try {
-    // Verify cron secret (for security)
-    const authHeader = request.headers.get("authorization");
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const now = new Date();
 
-    // Find expired pending bookings
+    // Find all expired pending bookings
     const expiredBookings = await prisma.booking.findMany({
       where: {
         status: "PENDING",
-        expiresAt: { lte: new Date() },
+        expiresAt: { lte: now },
       },
-      include: { slot: true },
+      select: {
+        id: true,
+        code: true,
+        slotId: true,
+      },
     });
 
     if (expiredBookings.length === 0) {
@@ -28,21 +32,25 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Expire bookings and release slots
-    for (const booking of expiredBookings) {
-      await prisma.$transaction([
-        prisma.booking.update({
-          where: { id: booking.id },
-          data: { status: "EXPIRED" },
-        }),
-        prisma.timeSlot.update({
-          where: { id: booking.slotId },
-          data: { isAvailable: true },
-        }),
-      ]);
-    }
+    // Batch update: expire all bookings and release slots in single transaction
+    const slotIds = expiredBookings.map((b) => b.slotId);
+    const bookingIds = expiredBookings.map((b) => b.id);
 
-    console.log(`Expired ${expiredBookings.length} bookings`);
+    await prisma.$transaction([
+      // Update all bookings to EXPIRED
+      prisma.booking.updateMany({
+        where: { id: { in: bookingIds } },
+        data: { status: "EXPIRED" },
+      }),
+      // Release all slots
+      prisma.timeSlot.updateMany({
+        where: { id: { in: slotIds } },
+        data: { isAvailable: true },
+      }),
+    ]);
+
+    console.log(`[CRON] Expired ${expiredBookings.length} bookings:`,
+      expiredBookings.map((b) => b.code).join(", "));
 
     return NextResponse.json({
       success: true,
@@ -51,10 +59,13 @@ export async function GET(request: NextRequest) {
       bookingCodes: expiredBookings.map((b) => b.code),
     });
   } catch (error) {
-    console.error("Error expiring bookings:", error);
+    console.error("[CRON] Error expiring bookings:", error);
     return NextResponse.json(
-      { error: "Failed to expire bookings" },
+      { success: false, error: "Failed to expire bookings" },
       { status: 500 }
     );
   }
-}
+});
+
+// Force dynamic for cron
+export const dynamic = "force-dynamic";

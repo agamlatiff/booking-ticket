@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
 
-export const dynamic = "force-dynamic";
+// ISR: Cache for 60 seconds, stale-while-revalidate for 5 min
+export const revalidate = 60;
 
 const querySchema = z.object({
   startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
@@ -37,7 +38,7 @@ export async function GET(
 
     const { startDate, endDate } = parsed.data;
 
-    // Check if doctor exists
+    // Check if doctor exists (minimal select)
     const doctor = await prisma.doctor.findUnique({
       where: { id, isActive: true },
       select: { id: true },
@@ -50,7 +51,7 @@ export async function GET(
       );
     }
 
-    // Fetch available slots
+    // Fetch available slots (optimized with select)
     const slots = await prisma.timeSlot.findMany({
       where: {
         doctorId: id,
@@ -89,7 +90,14 @@ export async function GET(
       slots,
     }));
 
-    return NextResponse.json({ data });
+    // Add cache headers
+    const response = NextResponse.json({ data });
+    response.headers.set(
+      "Cache-Control",
+      "public, s-maxage=60, stale-while-revalidate=300"
+    );
+
+    return response;
   } catch (error) {
     console.error("Error fetching doctor availability:", error);
     return NextResponse.json(

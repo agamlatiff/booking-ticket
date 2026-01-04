@@ -1,53 +1,55 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
-import { z } from "zod";
+import { contactSchema } from "@/lib/validations";
+import {
+  successResponse,
+  validationError,
+  internalError,
+  formatZodErrors,
+} from "@/lib/api/response";
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Nama minimal 2 karakter").max(100),
-  email: z.string().email("Email tidak valid"),
-  subject: z.string().min(5, "Subjek minimal 5 karakter").max(200),
-  message: z.string().min(20, "Pesan minimal 20 karakter").max(2000),
-});
+// ============================================
+// POST /api/contact - Submit contact form
+// ============================================
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const parsed = contactSchema.safeParse(body);
 
+    // Validate input
+    const parsed = contactSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: {
-            code: "VALIDATION_ERROR",
-            message: "Data tidak valid",
-            details: parsed.error.flatten().fieldErrors,
-          },
-        },
-        { status: 400 }
-      );
+      return validationError("Data tidak valid", formatZodErrors(parsed.error));
     }
 
     const { name, email, subject, message } = parsed.data;
 
+    // Sanitize message to prevent XSS (basic sanitization)
+    const sanitizedMessage = message
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#x27;");
+
+    // Save to database
     await prisma.contactSubmission.create({
       data: {
         name,
         email,
         subject,
-        message,
+        message: sanitizedMessage,
       },
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "Pesan berhasil terkirim! Kami akan menghubungi Anda segera.",
-    });
+    // TODO: Send email notification to admin
+    // await sendAdminNotification({ name, email, subject, message });
+
+    return successResponse(
+      { submitted: true },
+      "Pesan berhasil terkirim! Kami akan menghubungi Anda segera."
+    );
   } catch (error) {
     console.error("Error submitting contact form:", error);
-    return NextResponse.json(
-      { success: false, error: { code: "INTERNAL_ERROR", message: "Gagal mengirim pesan" } },
-      { status: 500 }
-    );
+    return internalError("Gagal mengirim pesan");
   }
 }

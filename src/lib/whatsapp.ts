@@ -165,3 +165,44 @@ Untuk booking ulang, silakan kunjungi website kami.
 
 _Klinik Gigi Senyum Sejahtera_`;
 }
+
+/**
+ * Format cancellation notification with refund info
+ */
+export function formatCancellationNotification(booking: {
+  code: string;
+  patientName: string;
+  serviceName: string;
+  doctorName: string;
+  appointmentDate: Date;
+  appointmentTime: string;
+  isRefundable: boolean;
+}): string {
+  const dateStr = booking.appointmentDate.toLocaleDateString("id-ID", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const refundNote = booking.isRefundable
+    ? "\n💰 DP akan dikembalikan dalam 3-5 hari kerja."
+    : "\n⚠️ Karena pembatalan kurang dari 24 jam, DP tidak dapat dikembalikan.";
+
+  return `❌ *Booking Dibatalkan*
+
+Halo ${booking.patientName},
+
+Booking Anda telah berhasil dibatalkan:
+
+📋 Kode: ${booking.code}
+🦷 Layanan: ${booking.serviceName}
+👨‍⚕️ Dokter: ${booking.doctorName}
+📅 Jadwal: ${dateStr}, ${booking.appointmentTime}
+${refundNote}
+
+Untuk booking ulang, silakan kunjungi website kami atau hubungi kami.
+
+_Klinik Gigi Senyum Sejahtera_`;
+}
+

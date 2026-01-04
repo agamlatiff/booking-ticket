@@ -1,34 +1,40 @@
-/**
- * Validation Schemas
- * 
- * Central export for all Zod validation schemas used across the application.
- * 
- * @example
- * import { passengerSchema, flightSearchSchema } from '@/lib/validations'
- */
+// ============================================
+// VALIDATION SCHEMAS - DENTAL CARE
+// ============================================
 
-// Booking & Payment
+// Booking validations
 export {
-  passengerSchema,
-  paymentMethodSchema,
-  creditCardSchema,
-  paymentSchema,
+  phoneSchema,
   createBookingSchema,
-  type PassengerInput,
-  type PaymentMethod,
-  type CreditCardInput,
-  type PaymentInput,
+  cancelBookingSchema,
+  bookingFilterSchema,
+  doctorBookingSchema,
+  newPatientSchema,
+  slotQuerySchema,
+  availabilityQuerySchema,
   type CreateBookingInput,
-} from './booking'
+  type CancelBookingInput,
+  type BookingFilterInput,
+  type DoctorBookingInput,
+  type NewPatientInput,
+  type SlotQueryInput,
+  type AvailabilityQueryInput,
+} from "./booking";
 
-// Flight Search & Management
+// Contact validations
 export {
-  seatClassSchema,
-  flightSearchSchema,
-  flightFilterSchema,
-  createFlightSchema,
-  type SeatClass,
-  type FlightSearchInput,
-  type FlightFilterInput,
-  type CreateFlightInput,
-} from './flight'
+  contactSchema,
+  newsletterSchema,
+  type ContactInput,
+  type NewsletterInput,
+} from "./contact";
+
+// Profile validations
+export {
+  updateProfileSchema,
+  completeProfileSchema,
+  avatarUploadSchema,
+  type UpdateProfileInput,
+  type CompleteProfileInput,
+  type AvatarUploadInput,
+} from "./profile";

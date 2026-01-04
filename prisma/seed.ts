@@ -370,11 +370,13 @@ async function main() {
   const galleryImages = await Promise.all([
     prisma.galleryImage.upsert({
       where: { id: "gallery-1" },
-      update: {},
+      update: {
+        imageUrl: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800",
+      },
       create: {
         id: "gallery-1",
-        title: "Before After Scaling",
-        imageUrl: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800",
+        title: "Before: Gigi Kuning",
+        imageUrl: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800",
         category: "BEFORE_AFTER",
         order: 1,
         isActive: true,
@@ -382,12 +384,14 @@ async function main() {
     }),
     prisma.galleryImage.upsert({
       where: { id: "gallery-2" },
-      update: {},
+      update: {
+        imageUrl: "https://images.unsplash.com/photo-1581585090062-1af96a7e7c7e?w=800",
+      },
       create: {
         id: "gallery-2",
-        title: "Ruang Praktik Modern",
-        imageUrl: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800",
-        category: "CLINIC",
+        title: "After: Senyum Cerah",
+        imageUrl: "https://images.unsplash.com/photo-1581585090062-1af96a7e7c7e?w=800",
+        category: "BEFORE_AFTER",
         order: 2,
         isActive: true,
       },
@@ -397,9 +401,9 @@ async function main() {
       update: {},
       create: {
         id: "gallery-3",
-        title: "Tim Dokter Kami",
-        imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800",
-        category: "TEAM",
+        title: "Ruang Praktik Modern",
+        imageUrl: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800",
+        category: "CLINIC",
         order: 3,
         isActive: true,
       },
@@ -409,10 +413,34 @@ async function main() {
       update: {},
       create: {
         id: "gallery-4",
-        title: "Before After Veneer",
-        imageUrl: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800",
-        category: "BEFORE_AFTER",
+        title: "Tim Dokter Kami",
+        imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800",
+        category: "TEAM",
         order: 4,
+        isActive: true,
+      },
+    }),
+    prisma.galleryImage.upsert({
+      where: { id: "gallery-5" },
+      update: {},
+      create: {
+        id: "gallery-5",
+        title: "Before: Gigi Tidak Rapi",
+        imageUrl: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800",
+        category: "BEFORE_AFTER",
+        order: 5,
+        isActive: true,
+      },
+    }),
+    prisma.galleryImage.upsert({
+      where: { id: "gallery-6" },
+      update: {},
+      create: {
+        id: "gallery-6",
+        title: "After: Gigi Rapi Sempurna",
+        imageUrl: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800",
+        category: "BEFORE_AFTER",
+        order: 6,
         isActive: true,
       },
     }),

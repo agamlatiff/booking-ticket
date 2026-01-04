@@ -3,21 +3,31 @@ import { NavbarAuth } from "@/components/ui/navbar-auth";
 import { Footer } from "@/components/ui/footer";
 import { auth } from "@/lib/auth";
 
-// Gallery data
+// Gallery data - using free Unsplash images for dental before/after
 const transformations = [
   {
     id: 1,
     title: "Bleaching & Veneer",
     duration: "Perawatan 2 Sesi",
-    before: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&q=80",
-    after: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80",
+    // Dental treatment images
+    before: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=400&h=300&fit=crop&q=80",
+    after: "https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=400&h=300&fit=crop&q=80",
   },
   {
     id: 2,
     title: "Orthodontic Treatment",
     duration: "Perawatan 18 Bulan",
-    before: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&q=80",
-    after: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&q=80",
+    // Braces treatment images
+    before: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=400&h=300&fit=crop&q=80",
+    after: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&h=300&fit=crop&q=80",
+  },
+  {
+    id: 3,
+    title: "Scaling & Polishing",
+    duration: "Perawatan 1 Sesi",
+    // Smile transformation
+    before: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=300&fit=crop&q=80",
+    after: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=300&fit=crop&q=80",
   },
 ];
 

@@ -1,0 +1,23 @@
+# Robots.txt for Klinik Gigi Senyum Sejahtera
+
+User-agent: *
+Allow: /
+
+# Disallow admin and dashboard pages
+Disallow: /dashboard/*
+Disallow: /doctor/*
+Disallow: /api/*
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /complete-profile
+
+# Allow specific public API routes for sitemap
+Allow: /api/services$
+Allow: /api/doctors$
+Allow: /api/blog$
+
+# Sitemap location
+Sitemap: https://klinikgigisenyumsejahtera.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1

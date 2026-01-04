@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { usePathname } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, Calendar, User as UserIcon, LayoutDashboard } from "lucide-react";
+import { LogOut, Calendar, User as UserIcon, LayoutDashboard, CalendarCheck, CalendarPlus } from "lucide-react";
 import { signOutUser } from "@/app/(auth)/sign-in/lib/actions";
 
 interface User {
@@ -26,7 +26,23 @@ interface NavbarAuthProps {
   showAuth?: boolean;
 }
 
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/layanan", label: "Layanan" },
+  { href: "/dokter", label: "Dokter" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+
 export function NavbarAuth({ user, showAuth = true }: NavbarAuthProps) {
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
+
   return (
     <nav className="fixed top-0 z-50 w-full px-4 py-4 md:px-10">
       <div className="mx-auto max-w-7xl">
@@ -41,37 +57,33 @@ export function NavbarAuth({ user, showAuth = true }: NavbarAuthProps) {
 
           {/* Navigation Links */}
           <div className="hidden items-center gap-6 xl:flex">
-            <Link href="/" className="nav-link text-sm font-bold text-foreground transition-colors hover:text-primary">
-              Home
-            </Link>
-            <Link href="/layanan" className="nav-link text-sm font-bold text-foreground transition-colors hover:text-primary">
-              Layanan
-            </Link>
-            <Link href="/dokter" className="nav-link text-sm font-bold text-foreground transition-colors hover:text-primary">
-              Dokter
-            </Link>
-            <Link href="/gallery" className="nav-link text-sm font-bold text-foreground transition-colors hover:text-primary">
-              Gallery
-            </Link>
-            <Link href="/about" className="nav-link text-sm font-bold text-foreground transition-colors hover:text-primary">
-              About
-            </Link>
-            <Link href="/contact" className="nav-link text-sm font-bold text-foreground transition-colors hover:text-primary">
-              Contact
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`nav-link text-sm font-bold transition-colors ${isActive(link.href)
+                    ? "text-primary relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary after:rounded-full"
+                    : "text-foreground hover:text-primary"
+                  }`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
-          {/* Auth Buttons */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Auth Buttons - Icons only */}
+          <div className="hidden md:flex items-center gap-3">
             {showAuth && (
               <>
                 {user ? (
                   <div className="flex items-center gap-3">
+                    {/* Cek Booking - Icon Button */}
                     <Link
                       href="/my-bookings"
-                      className="flex h-10 items-center justify-center rounded-full bg-white border-2 border-foreground px-6 text-sm font-bold shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                      className="flex h-10 w-10 items-center justify-center rounded-full bg-white border-2 border-foreground shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                      title="Cek Booking"
                     >
-                      Cek Booking
+                      <CalendarCheck className="h-5 w-5 text-foreground" />
                     </Link>
 
                     <DropdownMenu>
@@ -142,23 +154,26 @@ export function NavbarAuth({ user, showAuth = true }: NavbarAuthProps) {
                   </div>
                 ) : (
                   <>
+                    {/* Cek Booking - Icon Button */}
                     <Link
                       href="/my-bookings"
-                      className="flex h-10 items-center justify-center rounded-full bg-white border-2 border-foreground px-6 text-sm font-bold shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                      className="flex h-10 w-10 items-center justify-center rounded-full bg-white border-2 border-foreground shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                      title="Cek Booking"
                     >
-                      Cek Booking
+                      <CalendarCheck className="h-5 w-5 text-foreground" />
                     </Link>
+                    {/* Booking Sekarang - Icon Button */}
                     <Link
                       href="/booking"
-                      className="flex h-10 items-center justify-center rounded-full bg-primary border-2 border-foreground px-6 text-sm font-bold text-white shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                      className="flex h-10 w-10 items-center justify-center rounded-full bg-primary border-2 border-foreground shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                      title="Booking Sekarang"
                     >
-                      Booking Sekarang
+                      <CalendarPlus className="h-5 w-5 text-white" />
                     </Link>
                   </>
                 )}
               </>
             )}
-            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -170,3 +185,4 @@ export function NavbarAuth({ user, showAuth = true }: NavbarAuthProps) {
     </nav>
   );
 }
+

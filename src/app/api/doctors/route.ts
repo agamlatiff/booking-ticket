@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
 
-export const dynamic = "force-dynamic";
+// ISR: Revalidate every 5 minutes
+export const revalidate = 300;
 
 const querySchema = z.object({
   limit: z.coerce.number().min(1).max(50).optional(),
@@ -44,7 +45,14 @@ export async function GET(request: NextRequest) {
       scheduleTemplates: undefined,
     }));
 
-    return NextResponse.json({ data });
+    // Add cache headers
+    const response = NextResponse.json({ data });
+    response.headers.set(
+      "Cache-Control",
+      "public, s-maxage=300, stale-while-revalidate=600"
+    );
+
+    return response;
   } catch (error) {
     console.error("Error fetching doctors:", error);
     return NextResponse.json(

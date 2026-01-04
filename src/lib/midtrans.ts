@@ -2,18 +2,40 @@ import midtransClient from "midtrans-client";
 
 import { createHash } from "crypto";
 
+// ============================================
+// Environment Validation
+// ============================================
+
+const MIDTRANS_SERVER_KEY = process.env.MIDTRANS_SERVER_KEY;
+const MIDTRANS_CLIENT_KEY = process.env.MIDTRANS_CLIENT_KEY;
+const IS_PRODUCTION = process.env.MIDTRANS_IS_PRODUCTION === "true";
+
+// Validate env vars (warn in development, throw in production)
+if (!MIDTRANS_SERVER_KEY || !MIDTRANS_CLIENT_KEY) {
+  const message = "⚠️  Midtrans credentials not configured. Payment features will not work.";
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(message);
+  } else {
+    console.warn(message);
+  }
+}
+
+// ============================================
+// Midtrans Clients
+// ============================================
+
 // Midtrans Snap client for generating tokens
 export const snap = new midtransClient.Snap({
-  isProduction: process.env.MIDTRANS_IS_PRODUCTION === "true",
-  serverKey: process.env.MIDTRANS_SERVER_KEY || "",
-  clientKey: process.env.MIDTRANS_CLIENT_KEY || "",
+  isProduction: IS_PRODUCTION,
+  serverKey: MIDTRANS_SERVER_KEY || "",
+  clientKey: MIDTRANS_CLIENT_KEY || "",
 });
 
 // For webhook verification
 export const coreApi = new midtransClient.CoreApi({
-  isProduction: process.env.MIDTRANS_IS_PRODUCTION === "true",
-  serverKey: process.env.MIDTRANS_SERVER_KEY || "",
-  clientKey: process.env.MIDTRANS_CLIENT_KEY || "",
+  isProduction: IS_PRODUCTION,
+  serverKey: MIDTRANS_SERVER_KEY || "",
+  clientKey: MIDTRANS_CLIENT_KEY || "",
 });
 
 // Types for Midtrans transactions

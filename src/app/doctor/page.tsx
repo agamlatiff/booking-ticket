@@ -28,7 +28,7 @@ export default async function DoctorDashboardPage() {
   const session = await auth();
 
   if (!session?.user || session.user.role !== "DOCTOR") {
-    redirect("/auth/login");
+    redirect("/api/auth/signin");
   }
 
   return (

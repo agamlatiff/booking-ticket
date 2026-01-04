@@ -1,7 +1,63 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { NavbarAuth } from "@/components/ui/navbar-auth";
 import { Footer } from "@/components/ui/footer";
 import { auth } from "@/lib/auth";
+
+// SEO Metadata
+export const metadata: Metadata = {
+  title: "Blog Kesehatan Gigi | Tips & Artikel | Klinik Gigi Senyum Sejahtera",
+  description: "Temukan informasi menarik seputar kesehatan gigi, tips perawatan, dan cerita inspiratif untuk senyum cerah setiap hari.",
+  keywords: ["blog kesehatan gigi", "tips perawatan gigi", "artikel dokter gigi", "kesehatan mulut"],
+  openGraph: {
+    title: "Blog Kesehatan Gigi | Klinik Gigi Senyum Sejahtera",
+    description: "Tips dan artikel seputar kesehatan gigi dari para ahli",
+    type: "website",
+  },
+};
+
+// JSON-LD Structured Data for Blog
+function BlogJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Blog Kesehatan Gigi - Klinik Gigi Senyum Sejahtera",
+    description: "Tips dan artikel seputar kesehatan gigi dari dokter spesialis",
+    url: "https://senyumsejahtera.com/blog",
+    publisher: {
+      "@type": "Organization",
+      name: "Klinik Gigi Senyum Sejahtera",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://senyumsejahtera.com/logo.png",
+      },
+    },
+    blogPost: [
+      {
+        "@type": "BlogPosting",
+        headline: "Kenapa Gigi Berlubang Meski Sering Sikat Gigi?",
+        description: "Sudah rajin sikat gigi dua kali sehari tapi masih ada lubang?",
+        datePublished: "2023-10-20",
+        author: { "@type": "Person", name: "drg. Siti Aminah" },
+      },
+      {
+        "@type": "BlogPosting",
+        headline: "Cara Mengajak Si Kecil ke Dokter Gigi Tanpa Drama",
+        description: "Tips psikologis agar anak merasa nyaman saat kunjungan pertama",
+        datePublished: "2023-10-18",
+        author: { "@type": "Person", name: "drg. Siti Aminah" },
+      },
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 
 // Blog data
 const categories = [
@@ -75,6 +131,7 @@ export default async function BlogPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans">
+      <BlogJsonLd />
       <NavbarAuth user={session?.user || null} />
 
       <main className="flex-1">
@@ -123,8 +180,8 @@ export default async function BlogPage() {
                       <button
                         key={i}
                         className={`text-left px-4 py-3 rounded-xl font-bold border-2 flex justify-between items-center transition-all ${cat.active
-                            ? "bg-primary text-white border-foreground shadow-pop-sm"
-                            : `bg-background border-transparent ${cat.hoverColor} hover:border-foreground hover:shadow-pop-sm`
+                          ? "bg-primary text-white border-foreground shadow-pop-sm"
+                          : `bg-background border-transparent ${cat.hoverColor} hover:border-foreground hover:shadow-pop-sm`
                           }`}
                       >
                         <span>{cat.name}</span>

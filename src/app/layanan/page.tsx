@@ -1,7 +1,88 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { NavbarAuth } from "@/components/ui/navbar-auth";
 import { Footer } from "@/components/ui/footer";
 import { auth } from "@/lib/auth";
+
+// SEO Metadata
+export const metadata: Metadata = {
+  title: "Layanan Perawatan Gigi | Klinik Gigi Senyum Sejahtera",
+  description:
+    "Berbagai layanan perawatan gigi profesional: orthodontics, scaling, whitening, dental implant, root canal, dan kids dentistry. Teknologi modern dengan dokter berpengalaman.",
+  keywords: [
+    "layanan dokter gigi",
+    "perawatan gigi",
+    "orthodontics",
+    "behel gigi",
+    "scaling gigi",
+    "whitening gigi",
+    "dental implant",
+    "root canal",
+    "dokter gigi anak",
+  ],
+  openGraph: {
+    title: "Layanan Perawatan Gigi | Klinik Gigi Senyum Sejahtera",
+    description:
+      "Berbagai layanan perawatan gigi profesional dengan teknologi modern dan dokter berpengalaman.",
+    type: "website",
+  },
+};
+
+// JSON-LD Structured Data for SEO
+function ServiceJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    name: "Klinik Gigi Senyum Sejahtera",
+    url: "https://senyumsejahtera.com/layanan",
+    description: "Layanan perawatan gigi profesional dengan teknologi modern",
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Layanan Perawatan Gigi",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Orthodontics (Behel)",
+            description: "Rapikan struktur gigi dan rahang dengan kawat gigi modern",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Scaling & Polishing",
+            description: "Bersihkan karang gigi untuk nafas segar dan gusi sehat",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Teeth Whitening",
+            description: "Cerahkan warna gigi dengan hasil instan dan aman",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Dental Implant",
+            description: "Ganti gigi yang hilang dengan fondasi kuat dan estetis",
+          },
+        },
+      ],
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
 
 // Service data - later this will come from API
 const services = [
@@ -75,6 +156,7 @@ export default async function LayananPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans">
+      <ServiceJsonLd />
       <NavbarAuth user={session?.user || null} />
 
       <main className="flex-1 pt-28 md:pt-36">
@@ -115,8 +197,8 @@ export default async function LayananPage() {
                 <button
                   key={category}
                   className={`rounded-full border-2 border-foreground px-6 py-2 text-sm font-bold shadow-pop hover:translate-y-0.5 hover:shadow-pop-hover transition-all ${i === 0
-                      ? "bg-foreground text-white"
-                      : "bg-white text-foreground hover:bg-accent-yellow"
+                    ? "bg-foreground text-white"
+                    : "bg-white text-foreground hover:bg-accent-yellow"
                     }`}
                 >
                   {category}

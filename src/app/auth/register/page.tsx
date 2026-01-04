@@ -131,7 +131,7 @@ export default function RegisterPage() {
 
               <p className="mt-8 text-center text-gray-600 text-sm font-medium">
                 Sudah punya akun?
-                <Link className="text-secondary font-bold hover:underline ml-1" href="/auth/login">Masuk disini</Link>
+                <Link className="text-secondary font-bold hover:underline ml-1" href="/api/auth/signin">Masuk disini</Link>
               </p>
             </div>
 

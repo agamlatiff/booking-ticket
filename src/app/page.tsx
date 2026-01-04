@@ -1,10 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
 import { NavbarAuth } from "@/components/ui/navbar-auth";
 import { Footer } from "@/components/ui/footer";
 import { auth } from "@/lib/auth";
+import { getHomepageServices, getHomepageDoctors, formatPrice } from "@/lib/homepage-data";
 
 export default async function LandingPage() {
-  const session = await auth();
+  // Fetch data in parallel
+  const [session, services, doctors] = await Promise.all([
+    auth(),
+    getHomepageServices(),
+    getHomepageDoctors(),
+  ]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans">
@@ -25,16 +32,16 @@ export default async function LandingPage() {
             </svg>
           </div>
 
-          <div className="container mx-auto max-w-6xl">
+          <div className="container mx-auto max-w-8xl">
             <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
               {/* Text Content */}
-              <div className="relative z-10 flex flex-col items-start gap-6 text-left order-2 md:order-1">
+              <div className="relative z-10 flex flex-col items-start gap-6 text-left  md:order-1">
                 <div className="inline-flex -rotate-2 items-center rounded-full border-2 border-foreground bg-accent-yellow px-4 py-1 text-sm font-bold shadow-pop-sm">
                   👋 Klinik Gigi Ramah & Menyenangkan
                 </div>
                 <h1 className="relative font-display text-5xl font-black leading-[1.1] tracking-tight text-foreground md:text-6xl lg:text-7xl">
                   Bebaskan Tawa,<br />
-                  <span className="relative inline-block text-primary">
+                  <span className="relative inline-block text-primary text-nowrap">
                     Pancarkan Pesona!
                     <div className="absolute -bottom-4 left-0 w-full flex flex-col gap-1.5">
                       <div className="h-2 w-full bg-secondary rounded-full"></div>
@@ -61,13 +68,16 @@ export default async function LandingPage() {
               </div>
 
               {/* Hero Image */}
-              <div className="relative flex justify-center order-1 md:order-2">
+              <div className="relative flex justify-center md:order-2">
                 <div className="absolute inset-0 -rotate-6 scale-105 bg-accent-purple opacity-30 blur-2xl rounded-[60%_40%_30%_70%/60%_30%_70%_40%]"></div>
                 <div className="relative z-10 h-[350px] w-full overflow-hidden border-4 border-foreground bg-primary/10 shadow-pop md:h-[500px] md:w-[450px] rounded-[60%_40%_30%_70%/60%_30%_70%_40%]">
-                  <img
-                    alt="Smiling doctor"
+                  <Image
+                    alt="Dokter gigi profesional dengan senyum ramah di Klinik Gigi Senyum Sejahtera"
                     className="h-full w-full object-cover mix-blend-multiply opacity-90"
                     src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80"
+                    width={450}
+                    height={500}
+                    priority
                   />
                 </div>
                 {/* Trust badge */}
@@ -116,53 +126,19 @@ export default async function LandingPage() {
               <p className="mx-auto max-w-2xl text-lg text-gray-600">Pilih perawatan yang tepat untuk kebutuhan senyum Anda.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Main service - large card */}
-              <div className="group relative flex flex-col justify-between rounded-[2rem] border-2 border-foreground bg-white p-8 shadow-card hover:shadow-pop lg:col-span-2 lg:row-span-2 overflow-hidden transition-all">
-                <div className="absolute right-0 top-0 h-40 w-40 rounded-bl-[4rem] bg-accent-yellow/30 z-0"></div>
-                <div className="relative z-10">
-                  <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-foreground bg-accent-purple text-foreground shadow-sm">
-                    <span className="material-symbols-outlined text-3xl">grid_on</span>
-                  </div>
-                  <h4 className="mb-3 text-3xl font-black text-foreground">Pemasangan Behel (Orthodontic)</h4>
-                  <p className="mb-6 text-gray-600 max-w-md">Rapikan susunan gigi Anda untuk fungsi pengunyahan yang lebih baik dan estetika maksimal. Tersedia berbagai jenis bracket: Metal, Ceramic, hingga Sapphire.</p>
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    <span className="px-3 py-1 bg-background border border-foreground rounded-lg text-xs font-bold">Metal Braces</span>
-                    <span className="px-3 py-1 bg-background border border-foreground rounded-lg text-xs font-bold">Clear Aligner</span>
-                    <span className="px-3 py-1 bg-background border border-foreground rounded-lg text-xs font-bold">Kontrol Rutin</span>
-                  </div>
-                </div>
-                <div className="relative z-10 mt-auto flex items-center justify-between border-t-2 border-dashed border-gray-200 pt-6">
-                  <div>
-                    <p className="text-xs text-gray-500 font-bold uppercase tracking-wide">Harga Mulai Dari</p>
-                    <p className="text-2xl font-black text-primary">Rp 5.000.000</p>
-                  </div>
-                  <Link href="/booking?service=ortho">
-                    <button className="rounded-full bg-primary border-2 border-foreground px-6 py-3 text-white font-bold shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                      Konsultasi
-                    </button>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Smaller service cards */}
-              {[
-                { icon: "dentistry", title: "Scaling Gigi", desc: "Bersihkan karang gigi secara menyeluruh.", price: "Rp 300.000", color: "bg-primary", textColor: "text-white", slug: "scaling" },
-                { icon: "healing", title: "Tambal Estetik", desc: "Perbaikan gigi berlubang warna natural.", price: "Rp 400.000", color: "bg-accent-yellow", textColor: "", slug: "tambal" },
-                { icon: "medical_services", title: "Cabut Gigi", desc: "Prosedur aman dan minim rasa sakit.", price: "Rp 500.000", color: "bg-secondary", textColor: "text-white", slug: "cabut" },
-                { icon: "auto_awesome", title: "Bleaching", desc: "Putihkan gigi instan dalam sekali kunjungan.", price: "Rp 2.500.000", color: "bg-gray-900", textColor: "text-white", slug: "bleaching" },
-              ].map((service, i) => (
-                <div key={i} className="group relative flex flex-col justify-between rounded-[2rem] border-2 border-foreground bg-white p-6 shadow-card hover:shadow-pop transition-all">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.map((service, i) => (
+                <div key={service.slug} className="group relative flex flex-col justify-between rounded-[2rem] border-2 border-foreground bg-white p-6 shadow-card hover:shadow-pop transition-all">
                   <div>
                     <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl border-2 border-foreground ${service.color} ${service.textColor}`}>
                       <span className="material-symbols-outlined text-2xl">{service.icon}</span>
                     </div>
-                    <h4 className="mb-2 text-xl font-bold text-foreground">{service.title}</h4>
-                    <p className="mb-4 text-sm text-gray-600">{service.desc}</p>
+                    <h4 className="mb-2 text-xl font-bold text-foreground">{service.name}</h4>
+                    <p className="mb-4 text-sm text-gray-600">{service.description}</p>
                   </div>
                   <div className="mt-4 pt-4 border-t border-gray-100">
                     <p className="text-xs text-gray-500 font-bold">Mulai Dari</p>
-                    <p className="font-bold text-lg text-secondary">{service.price}</p>
+                    <p className="font-bold text-lg text-secondary">{formatPrice(service.price)}</p>
                   </div>
                 </div>
               ))}
